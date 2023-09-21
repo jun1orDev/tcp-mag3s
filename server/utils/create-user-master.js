@@ -1,6 +1,5 @@
 import { UserModel } from './../models/User.model';
 import { RoleUserModel } from './../models/RoleUser.model';
-// const genPassHash = require('../helpers/user/generate-password-hash');
 const config = useRuntimeConfig();
 const roles = config.ROLES_TYPE;
 
@@ -32,8 +31,7 @@ export const createAdmin = async () => {
     const user = {
       name: config.ADMIN_NAME,
       email: config.ADMIN_EMAIL,
-      // password: await genPassHash(config.ADMIN_PASS).then((hash) => hash),
-      password: 1234,
+      password: await genPassHash(config.ADMIN_PASS).then((hash) => hash),
       role: adminMaterRole,
     }
 

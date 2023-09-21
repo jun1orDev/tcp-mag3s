@@ -12,7 +12,7 @@ RoleUserModel.init(
     },
     type: {
       type: DataTypes.STRING,
-      require: true,
+      required: true,
     },
   },
   { sequelize, tableName: "roleusers" }
