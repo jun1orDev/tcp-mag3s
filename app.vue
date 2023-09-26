@@ -4,4 +4,5 @@
 	</div>
 
 	<UNotifications />
+	<Loading />
 </template>
