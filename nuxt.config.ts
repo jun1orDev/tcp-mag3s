@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 
 	ui: {
 		global: true,
-		icons: ['material-symbols'],
+		icons: ['material-symbols', 'svg-spinners'],
 	},
 
 	imports: {
