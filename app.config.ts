@@ -1,7 +1,7 @@
 export default defineAppConfig({
 	ui: {
 		primary: 'blue',
-		gray: 'stone',
+		gray: 'cool',
 		notifications: {
 			// Show toasts at the top right of the screen
 			position: 'bottom-0 right-0',
@@ -11,4 +11,4 @@ export default defineAppConfig({
 		size: '24px', // default <Icon> size applied
 		class: 'icon', // default <Icon> class applied
 	},
-})
+});

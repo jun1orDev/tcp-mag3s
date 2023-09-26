@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+	ui: {
+		global: true,
+		icons: ['material-symbols'],
+	},
+
 	typescript: {
 		shim: false,
 	},
@@ -30,9 +35,10 @@ export default defineNuxtConfig({
 
 	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui'],
 
-	ui: {
-		global: true,
-		icons: ['material-symbols'],
+	components: [{ path: '~/components/admin', prefix: 'Adm' }],
+
+	colorMode: {
+		preference: 'light',
 	},
 
 	imports: {
@@ -42,4 +48,4 @@ export default defineNuxtConfig({
 	pinia: {
 		autoImports: ['defineStore'],
 	},
-})
+});
