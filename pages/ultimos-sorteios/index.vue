@@ -1,13 +1,13 @@
 <template>
 	<div>
-		<BannerCard/>
+		<PlanoFundo />
+
+		<UContainer>
+			<BannerCard class="mt-20" />
+		</UContainer>
 	</div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
