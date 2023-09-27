@@ -35,7 +35,7 @@ export default defineNuxtConfig({
 
 	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui'],
 
-	components: [{ path: '~/components/admin', prefix: 'Adm' }],
+	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
 
 	colorMode: {
 		preference: 'light',

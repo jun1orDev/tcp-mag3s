@@ -2,7 +2,7 @@
   <div>
     <p class="text-4xl text-amber-700">página inicial</p>
     <h1 class="text-3xl font-bold underline">
-      Hello world! 
+      Hello world!
     </h1>
     <ul>
      <li v-for="user in users">{{ user }}</li>
