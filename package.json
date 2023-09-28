@@ -9,6 +9,9 @@
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare"
 	},
+	"overrides": {
+		"vue": "latest"
+	},
 	"prettier": {
 		"trailingComma": "es5",
 		"tabWidth": 2,
