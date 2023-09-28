@@ -49,6 +49,7 @@ const statusHttpStyle = ref(0)
 const passView = ref('password')
 const passIcon = ref('i-material-symbols-visibility-rounded')
 const loading = ref(false)
+const router = useRouter()
 
 async function loggingIn() {
 	loading.value = true;
@@ -59,6 +60,7 @@ async function loggingIn() {
 			email: email.value,
 			password: password.value,
 		},
+		credentials: 'include',
 		onResponse({ request, response, options }) {
 			// Process the response data
 			const successRes = response.status === 200;
@@ -71,6 +73,10 @@ async function loggingIn() {
 				icon: `${successRes ? 'i-material-symbols-person-check-outline-rounded' : 'i-material-symbols-warning-outline-rounded'}`,
 				timeout: 3500,
 			})
+
+			if (successRes) {
+				router.push({ path: '/admin/dashboard' });
+			}
 		},
 	})
 
