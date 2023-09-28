@@ -2,7 +2,7 @@
 	<div>
 		<PlanoFundo />
 
-		<UContainer class="teste">
+		<UContainer>
 			<BannerCard class="mt-20" />
 		</UContainer>
 	</div>
