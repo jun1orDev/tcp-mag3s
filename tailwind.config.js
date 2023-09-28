@@ -20,6 +20,13 @@ export default {
 		},
 		extend: {
 		},
+		color: {
+			transparent: 'transparent',
+      current: 'currentColor',
+      'white': '#ffffff',
+      'purple': '#3f3cbb',
+			'dourado': "#847248",
+		}
 	},
 	plugins: [],
 };
