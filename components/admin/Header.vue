@@ -16,13 +16,17 @@
 </template>
 
 <script setup>
+const router = useRouter();
+const cookieAuth = useCookie('idUser');
 const items = [
 	[
 		{
 			label: 'Sair',
 			icon: 'i-material-symbols-logout-rounded',
 			click: () => {
-				console.log('Sair')
+				// Logout
+				cookieAuth.value = null;
+				router.push({ path: '/admin/login' });
 			}
 		},
 	]
