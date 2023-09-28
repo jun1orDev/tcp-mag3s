@@ -48,4 +48,7 @@ export default defineNuxtConfig({
 	pinia: {
 		autoImports: ['defineStore'],
 	},
+
+	css: ['~/assets/css/main.css'],
+
 });
