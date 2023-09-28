@@ -1,6 +1,8 @@
 import { UserModel } from './../../models/User.model';
 import bcrypt from 'bcrypt';
 
+const config = useRuntimeConfig();
+
 export default defineEventHandler(async (event) => {
 	const login = await readBody(event);
 
@@ -26,14 +28,13 @@ export default defineEventHandler(async (event) => {
 
 	// save Cookie
 	setCookie(event, 'idUser', user.id, {
-		maxAge: 60,
+		maxAge: new Date().getTime() + (1 * 24 * 60 * 60 * 1000),
 		httpOnly: false,
-sameSite: true,
+		sameSite: true,
 	});
 
 	return {
 		id: user.id,
-		expires: 60 * 60,
 		message: 'usuário logado com sucesso!',
 	};
 });
