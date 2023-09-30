@@ -1,7 +1,7 @@
 <template>
 	<div class="relative">
 		<div class="campo relative">
-			<UTextarea class="texto" color="yellow" variant="outline" :rows="3" />
+			<UTextarea class="texto" color="yellow" variant="outline" :rows="3" disabled />
 			<img
 				src="/imgs/premio_02.png"
 				class="absolute scale-2 top-0 left-0 object-cover z-30 -mt-4"
