@@ -5,6 +5,7 @@
 		<UContainer>
 			<BannerCard class="mt-20" />
 			<CampoPesquisa class="mt-6"/>
+			<InfoCard class="mt-7"/>
 		</UContainer>
 
 	</div>
