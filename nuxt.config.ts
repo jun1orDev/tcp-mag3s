@@ -24,13 +24,13 @@ export default defineNuxtConfig({
 		NAME_DB: 'tcp-mag3s',
 		USER_DB: 'root',
 		PASS_DB: '',
-		PORT_SERVER_DB: 3306,
+		PORT_SERVER_DB: process.env.PORT_DB,
 
 		// App create User
 		ROLES_TYPE: ['adminmaster', 'admin', 'editor', 'reader'],
 		ADMIN_NAME: 'Junior Araújo',
 		ADMIN_EMAIL: 'junior.araujo@mag3s.com',
-		ADMIN_PASS: 'A&9iTjy69&9MM7CD',
+		ADMIN_PASS: process.env.ADMIN_PASS,
 	},
 
 	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui'],
@@ -50,5 +50,4 @@ export default defineNuxtConfig({
 	},
 
 	css: ['~/assets/css/main.css'],
-
 });
