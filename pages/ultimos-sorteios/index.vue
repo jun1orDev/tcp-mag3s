@@ -16,13 +16,20 @@
 				class="mt-6"
 				titulo="CAMISA DE JOGO AUTOGRAFADA"
 				subtitulo="Você foi o sorteado!"
-				:cardFundo="card"
+				:customBackground="{
+					background:
+						'linear-gradient(to right, rgba(253, 253, 57, 0.5), rgba(0, 0, 0, 0.5)',
+					borderRadius: '5px',
+				}"
 				:imagemSrc="('/imgs/premio_02.png')"
 			/>
 			<InfoCard
 				class="mt-6 text-center"
 				titulo="LUVA AUTOGRAFADA DO CASSIO"
-				:cardFundo="card"
+				:customBackground="{
+					background: 'black',
+					borderRadius: '10px',
+				}"
 				:imagemSrc="('/imgs/exemplo_premio_luva.png')"
 			/>
 		</UContainer>
@@ -31,13 +38,4 @@
 
 <script setup></script>
 
-<style scoped>
-/* .cor-de-fundo{
-	background: linear-gradient(
-		to right,
-		rgba(253, 253, 57, 0.5),
-		rgba(0, 0, 0, 0.5)
-	);
-	border-radius: 5px;
-} */
-</style>
+<style scoped></style>

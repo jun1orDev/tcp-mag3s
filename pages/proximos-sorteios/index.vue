@@ -13,13 +13,19 @@
 			<InfoCard
 				class="mt-7"
 				titulo="CAMISA DE JOGO AUTOGRAFADA"
-				:cardFundo="card"
+				:customBackground="{
+          background: 'black',
+          borderRadius: '10px'
+        }"
 				:imagemSrc="('/imgs/premio_02.png')"
 			/>
 			<InfoCard
 				class="mt-7"
 				titulo="LUVA AUTOGRAFADA DO CASSIO"
-				:cardFundo="card"
+				:customBackground="{
+          background: 'black',
+          borderRadius: '10px'
+        }"
 				:imagemSrc="('/imgs/exemplo_premio_luva.png')"
 			/>
 		</UContainer>
