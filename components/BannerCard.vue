@@ -4,28 +4,41 @@
 
 		<div class="flex flex-col justify-between text-slate-100">
 			<div>
-				<p class="text-xs md:text-base">20 DE NOVEMBRO, 2023</p>
-				<p class="subtitulo text-[10px] md:text-sm ">Bola de partida oficial autografada</p>
+				<p class="text-xs md:text-base">
+					<span class="text-slate-200">{{ props.titulo }}</span>
+				</p>
+				<p class="subtitulo text-[10px] md:text-sm ">
+					<span class="text-slate-200">{{ props.subtitulo }}</span>
+				</p>
 				<div class="flex items-center mt-4 text-[10px] md:text-[14px] ">
-					<p 	class="">REVELAR PRÊMIO</p>&nbsp;
-					<UIcon class="seta" name="i-material-symbols-arrow-forward-ios" />
+					<p>
+						<span class="text-slate-200">{{ props.revelar }}</span>
+					</p>&nbsp;
+					<UIcon class="seta" name="i-material-symbols-arrow-forward-ios"  />
 				</div>
 			</div>
 
 			<div>
-				<h6 class="text-[8px] md:text-[10px]">Números válidos até 21/11/2023</h6>
+				<h6 class="text-[8px] md:text-[10px]">
+					<span class="text-slate-200">{{ props.validade }}</span>
+				</h6>
 			</div>
 
 		</div>
 
 		 <div class="absolute scale-110 -bottom-3 right-5 md:right-10 w-[160px] md:w-[250px]">
-			 <img src="imgs/exemplo_premio_03.png" />
+			 <img
+			 :src= "props.imagemSrc" />
 		 </div>
 	</div>
 </div>
 </template>
 
-<script setup></script>
+<script setup>
+
+const props= defineProps (['titulo','subtitulo', 'revelar', 'validade', 'imagemSrc'])
+
+</script>
 
 <style scoped>
 
