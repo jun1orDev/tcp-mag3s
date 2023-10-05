@@ -21,7 +21,7 @@
 const props = defineProps(['titulo', 'subtitulo', 'imagemSrc', 'customBackground']);
 </script>
 
-<style scoped>
+<style>
 .campo {
 	border-radius: 5px;
 }
