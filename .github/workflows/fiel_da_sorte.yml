@@ -22,11 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Create .env file
-        run: |
-          touch .env
-          echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} >> .env
-          cat .env
+        - name: Create .env file
+        uses: SpicyPizza/create-envfile@v2.0.2
+        with:
+          envkey_PORT_DB: ${{ secrets.PORT_DB_FIELDASORTE }}
+          envkey_ADMIN_PASS: ${{ secrets.ADMIN_PASS_FIELDASORTE }}
+          file_name: .env
 
       - name: Load environment variables from .env
         run: source .env
