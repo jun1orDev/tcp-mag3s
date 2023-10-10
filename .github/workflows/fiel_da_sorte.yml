@@ -8,7 +8,7 @@ defaults:
     working-directory: ./
 jobs:
   web-deploy:
-    name: 🎉 Deploy Start
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
@@ -22,9 +22,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-			- name: Create .env file
-				run: |
-					echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} > .env
+      - name: Create .env file
+        run: |
+          echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} > .env
 
       - name: Load environment variables from .env
         run: source .env
@@ -36,7 +36,7 @@ jobs:
       - name: ✔ List output files
         run: ls
 
-     - name: 🌎 Sync files to FTP
+      - name: 🌎 Sync files to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: 35.199.123.44
