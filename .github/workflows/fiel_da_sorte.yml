@@ -1,0 +1,66 @@
+on:
+  push:
+    branches:
+      - main
+name: 📟 Deploy Fiel da Sorte FTP Production
+defaults:
+  run:
+    working-directory: ./
+jobs:
+  web-deploy:
+    name: 🎉 Deploy Start
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 🔫 Use Node.js 18
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+			- name: Create .env file
+				run: |
+					echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} > .env
+
+      - name: Load environment variables from .env
+        run: source .env
+
+      - name: ⛏ Build Project
+        run: |
+          npm run build
+
+      - name: ✔ List output files
+        run: ls
+
+     - name: 🌎 Sync files to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: 35.199.123.44
+          username: tcp.mag3s.com_github
+          password: ${{ secrets.PASS_FTP_FIELDASORTE }}
+          local-dir: ./.output/
+          server-dir: /
+          exclude: |
+            **/.well-known/**
+            **/cgi-bin/**
+            .ftpquota
+            .htaccess
+          dry-run: false
+
+      # - name: 📤 Send Message Telegram Deploy
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_TO }}
+      #     token: ${{ secrets.TELEGRAM_TOKEN }}
+      #     message: |
+      #       Commit criado por: ${{ github.actor }}!
+      #       O que foi feito: ${{ github.event.commits[0].message }}
+
+      #       Ambiente: site de produção ➡ https://www.galera.bet
+
+      #       Veja mais detalhes em: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+      #     disable_web_page_preview: true
