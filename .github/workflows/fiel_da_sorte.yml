@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - deploy
 name: 📟 Deploy Fiel da Sorte FTP Production
 defaults:
   run:
@@ -24,7 +24,9 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} > .env
+          touch .env
+          echo PORT_DB=${{ secrets.ENV_FIELDASORTE }} >> .env
+          cat .env
 
       - name: Load environment variables from .env
         run: source .env
