@@ -14,13 +14,19 @@
 					</p>
 				</div>
 				<div v-else="true" class="flex items-center space-x-2">
-					<p class="titulo text-white text-[10px] md:text-[14px] ">
+					<p class="titulo text-white text-[10px] md:text-[14px]">
 						Número premiado:
 					</p>
 				</div>
 				<div class="flex items-center">
-					<NumeroSorteio v-for="list in buttons" class="mt-2 mx-1" :button="list.button"/>
+					<NumeroSorteio
+						v-for="list in buttons"
+						class="mt-2 mx-1"
+						:button="list.button"
+						:customBackground="list.hasBg"
+					/>
 				</div>
+
 				<div
 					class="sub text-white justify-center text-center mt-4 text-[10px] md:text-[14px]"
 				>
@@ -51,9 +57,14 @@
 
 <script setup>
 let buttons = ref([
-	{button:'01'}, {button:'02'}, {button:'03'}, {button:'04'}, {button:'05'}, {button:'06'}, {button:'07'}
-])
-
+	{ button: '01', hasBg: true },
+	{ button: '02', hasBg: true },
+	{ button: '03', hasBg: true },
+	{ button: '04', hasBg: true },
+	{ button: '05', hasBg: true },
+	{ button: '06', hasBg: true },
+	{ button: '07', hasBg: true },
+]);
 </script>
 
 <style scoped>
