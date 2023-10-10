@@ -1,0 +1,14 @@
+<template>
+	<div>
+		<DetalhesPremio/>
+
+	</div>
+</template>
+
+<script setup>
+
+</script>
+
+<style lang="scss" scoped>
+
+</style>
