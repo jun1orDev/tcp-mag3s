@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<DetalhesPremio/>
-
 	</div>
 </template>
 
