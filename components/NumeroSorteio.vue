@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="cor h-12 w-12 rounded-xl flex justify-center items-center border-black-2" :class="props.customBackground ? 'bg-yellow-400': 'bg-black'"
+		class="cor h-10 w-10 rounded-xl flex justify-center items-center border-black-2" :style="`background-color: ${props.customBackground}`"
 	>
 		<div class="button text-[20px] text-white">
 			<span>{{ props.button }}</span>
@@ -16,7 +16,4 @@ const props = defineProps(['button', 'customBackground']);
 .button {
 	font-family: 'Gotham Black';
 }
-/* .cor{
-	background: #DFA701;
-} */
 </style>

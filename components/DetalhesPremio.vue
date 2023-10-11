@@ -23,7 +23,7 @@
 						v-for="list in buttons"
 						class="mt-2 mx-1"
 						:button="list.button"
-						:customBackground="list.hasBg"
+						:customBackground="list.color"
 					/>
 				</div>
 
@@ -57,13 +57,13 @@
 
 <script setup>
 let buttons = ref([
-	{ button: '01', hasBg: true },
-	{ button: '02', hasBg: true },
-	{ button: '03', hasBg: true },
-	{ button: '04', hasBg: true },
-	{ button: '05', hasBg: true },
-	{ button: '06', hasBg: true },
-	{ button: '07', hasBg: true },
+	{ button: '01', color: '#DFA701' },
+	{ button: '02', color: '#DFA701' },
+	{ button: '03', color: '#DFA701' },
+	{ button: '04', color: '#DFA701' },
+	{ button: '05', color: '#DFA701' },
+	{ button: '06', color: '#DFA701' },
+	{ button: '07', color: '#DFA701' },
 ]);
 </script>
 
