@@ -14,24 +14,24 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      - name: 🔫 Use Node.js 18
-        uses: actions/setup-node@v2
-        with:
-          node-version: "18"
+      # - name: 🔫 Use Node.js 18
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "18"
 
-      - name: Install dependencies
-        run: npm install
+      # - name: Install dependencies
+      #   run: npm install
 
-      - name: Create .env file
-        uses: SpicyPizza/create-envfile@v2.0.2
-        with:
-          envkey_PORT_DB: ${{ secrets.PORT_DB_FIELDASORTE }}
-          envkey_ADMIN_PASS: ${{ secrets.ADMIN_PASS_FIELDASORTE }}
-          file_name: .env
+      # - name: Create .env file
+      #   uses: SpicyPizza/create-envfile@v2.0.2
+      #   with:
+      #     envkey_PORT_DB: ${{ secrets.PORT_DB_FIELDASORTE }}
+      #     envkey_ADMIN_PASS: ${{ secrets.ADMIN_PASS_FIELDASORTE }}
+      #     file_name: .env
 
-      - name: ⛏ Build Project
-        run: |
-          npm run build
+      # - name: ⛏ Build Project
+      #   run: |
+      #     npm run build
 
       - name: ✔ List output files
         run: ls
@@ -42,14 +42,15 @@ jobs:
           server: 35.199.123.44
           username: tcp.mag3s.com_github
           password: ${{ secrets.PASS_FTP_FIELDASORTE }}
-          local-dir: ./.output/
+          local-dir: ./
           server-dir: /
           exclude: |
-            **/.well-known/**
-            **/cgi-bin/**
+            **/.github/**
+            **/.vscode/**
             **/server/node_modules/**
-            .ftpquota
-            .htaccess
+            .gitignore
+            .editorconfig
+            README.md
           dry-run: false
 
       # - name: 📤 Send Message Telegram Deploy
