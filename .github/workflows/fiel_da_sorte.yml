@@ -14,28 +14,6 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      # - name: 🔫 Use Node.js 18
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: "18"
-
-      # - name: Install dependencies
-      #   run: npm install
-
-      # - name: Create .env file
-      #   uses: SpicyPizza/create-envfile@v2.0.2
-      #   with:
-      #     envkey_PORT_DB: ${{ secrets.PORT_DB_FIELDASORTE }}
-      #     envkey_ADMIN_PASS: ${{ secrets.ADMIN_PASS_FIELDASORTE }}
-      #     file_name: .env
-
-      # - name: ⛏ Build Project
-      #   run: |
-      #     npm run build
-
-      - name: ✔ List output files
-        run: ls
-
       - name: 🌎 Sync files to FTP
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
@@ -48,22 +26,7 @@ jobs:
             **/.github/**
             **/.git/**
             **/.vscode/**
-            **/server/node_modules/**
             .gitignore
             .editorconfig
             README.md
           dry-run: false
-
-      # - name: 📤 Send Message Telegram Deploy
-      #   uses: appleboy/telegram-action@master
-      #   with:
-      #     to: ${{ secrets.TELEGRAM_TO }}
-      #     token: ${{ secrets.TELEGRAM_TOKEN }}
-      #     message: |
-      #       Commit criado por: ${{ github.actor }}!
-      #       O que foi feito: ${{ github.event.commits[0].message }}
-
-      #       Ambiente: site de produção ➡ https://www.galera.bet
-
-      #       Veja mais detalhes em: https://github.com/${{ github.repository }}/commit/${{github.sha}}
-      #     disable_web_page_preview: true
