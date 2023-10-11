@@ -29,9 +29,6 @@ jobs:
           envkey_ADMIN_PASS: ${{ secrets.ADMIN_PASS_FIELDASORTE }}
           file_name: .env
 
-      - name: Load environment variables from .env
-        run: source .env
-
       - name: ⛏ Build Project
         run: |
           npm run build
