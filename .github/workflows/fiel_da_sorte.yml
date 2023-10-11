@@ -46,6 +46,7 @@ jobs:
           server-dir: /
           exclude: |
             **/.github/**
+            **/.git/**
             **/.vscode/**
             **/server/node_modules/**
             .gitignore
