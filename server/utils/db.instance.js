@@ -3,10 +3,10 @@ import { Sequelize } from "sequelize";
 const config = useRuntimeConfig();
 
 const configDB = {
-  port: config.PORT_SERVER_DB ? config.PORT_SERVER_DB : "",
-  name: config.NAME_DB,
-  user: config.USER_DB,
-  pass: config.PASS_DB,
+  port: config.portDb ? config.PortDb : "",
+  name: config.nameDb,
+  user: config.userDb,
+  pass: config.passDb,
 };
 
 export const sequelize = new Sequelize(configDB.name, configDB.user, configDB.pass, {

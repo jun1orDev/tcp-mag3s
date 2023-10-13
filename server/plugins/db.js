@@ -4,8 +4,8 @@ export default defineNitroPlugin(async (nitro) => {
   try {
     await sequelize.authenticate();
     await sequelize.sync({
-      alter: config.FORCE_ALTER_DB,
-      force: config.FORCE_DROP_DB,
+      alter: config.forceAlterDb,
+      force: config.forceDropDb,
     });
     await createAdmin();
     console.log("conectado ao banco!");
