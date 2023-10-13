@@ -1,7 +1,7 @@
 import { UserModel } from './../models/User.model';
 import { RoleUserModel } from './../models/RoleUser.model';
 const config = useRuntimeConfig();
-const roles = config.ROLES_TYPE;
+const roles = config.rolesType;
 
 // Create Roles to users if it doesn't exist
 async function createRoles() {
@@ -22,16 +22,16 @@ async function createRoles() {
 
 // creating a master user if it doesn't exist
 export const createAdmin = async () => {
-  const checkUserExists = await UserModel.findOne({where: {email: config.ADMIN_EMAIL}});
+  const checkUserExists = await UserModel.findOne({where: {email: config.adminEmail}});
 
   if(!checkUserExists) {
     const rolesData = await createRoles();
     const adminMaterRole = rolesData.find((role) => roles[0] === role.type).type;
-  
+
     const user = {
-      name: config.ADMIN_NAME,
-      email: config.ADMIN_EMAIL,
-      password: await genPassHash(config.ADMIN_PASS).then((hash) => hash),
+      name: config.adminName,
+      email: config.adminEmail,
+      password: await genPassHash(config.adminPass).then((hash) => hash),
       role: adminMaterRole,
     }
 
