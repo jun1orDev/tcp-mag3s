@@ -28,6 +28,8 @@ export default defineNuxtConfig({
 
 		// App create User
 		rolesType: ['adminmaster', 'admin', 'editor', 'reader'],
+		typesMedia: ['text', 'link', 'color', 'image', 'icon', 'datetime', 'boolean'],
+		tagsMedia: ['header', 'banner', 'footer'],
 		adminName: '',
 		adminEmail: '',
 		adminPass: '',
