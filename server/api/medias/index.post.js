@@ -1,3 +1,4 @@
+import multer from 'multer';
 import { MediasModel } from './../../models/Medias.model';
 
 export default defineEventHandler(async (event) => {
@@ -35,6 +36,45 @@ export default defineEventHandler(async (event) => {
 		return {
 			message: 'este nome já existe, escolha outro!',
 		};
+	}
+
+	try {
+		let filePaths = [];
+		let fileNames = [];
+		const storage = multer.diskStorage({
+			destination: (req, file, cb) => {
+				cb(null, 'public/uploads');
+			},
+			filename: (req, file, cbd) => {
+				const filePath = `${Date.now()}-${file.originalname
+					.toLocaleLowerCase()
+					.replace(/\s+/g, '-')
+					.replace(/\./g, '-')}`;
+				filePaths.push(filePath);
+				fileNames.push(file.originalname);
+				cbd(null, filePath);
+			},
+		});
+
+		const upload = multer({
+			storage: storage,
+			fileFilter: (req, file, cb) => {
+				cb(null, true);
+			},
+		});
+
+		await callNodeListener(
+			// @ts-expect-error: Nuxt 3
+			upload.array('value', 10),
+			event.node.req,
+			event.node.res
+		);
+	} catch (error) {
+		console.log(error);
+		return createError({
+			statusCode: 500,
+			statusMessage: 'Algo deu errado',
+		});
 	}
 
 	// Create new media

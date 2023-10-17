@@ -1,6 +1,6 @@
 <template>
-	<div
-		class="flex flex-col justify-center items-center min-h-screen bg-slate-950 bg-no-repeat bg-center bg-[url('/imgs/img_fundo_loading.png')]"
+	<div v-if="store.loading"
+		class="flex flex-col justify-center items-center min-h-screen bg-slate-950 bg-no-repeat bg-center bg-cover bg-[url('/imgs/img_fundo_loading.png')]"
 	>
 		<img src="/imgs/img_loading.png" class="mb-24 w-60 md:w-auto" />
 		<div class="text-white">
@@ -30,6 +30,11 @@
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useStoreAdmin } from '~/stores/admin';
+const store = useStoreAdmin();
+
+
+</script>
 
 <style scoped></style>
