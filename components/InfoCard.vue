@@ -7,18 +7,23 @@
 			</div>
 
 			<!-- Data -->
-			<div class="text-center me-5">
+			<div v-if="props.date" class="text-center me-5">
 				<p class="number-data text-[26px] text-md-[30px] leading-5 md:leading-6">{{props.date.day}}</p>
 				<p class="uppercase text-base">{{props.date.month}}</p>
+			</div>
+
+			<!-- Image -->
+			<div v-else class="items-center justify-center ">
+				<img :src="props.imgCard" class="mr-4">
 			</div>
 
 			<!-- Titulo e subtítulo -->
 			<div>
 				<div>
-					<p class="text-xs md:text-sm texto-principal leading-3 md:leading-normal uppercase">
+					<p class="text-xs md:text-sm texto-principal leading-3 md:leading-normal uppercase ">
 						<span>{{ props.titulo }}</span>
 					</p>
-					<p class="text-[10px] md:text-sm sub leading-3 md:leading-normal">
+					<p class="text-[10px] md:text-sm sub leading-3 md:leading-normal ">
 						<span>{{ props.subtitulo }}</span>
 					</p>
 				</div>
@@ -33,7 +38,7 @@
 </template>
 
 <script setup>
-const props = defineProps(['titulo', 'subtitulo', 'imagemSrc', 'source', 'customBackground', 'date']);
+const props = defineProps(['titulo', 'subtitulo', 'imagemSrc', 'source', 'customBackground', 'date', 'imgCard']);
 </script>
 
 <style scoped>
