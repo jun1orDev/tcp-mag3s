@@ -7,6 +7,23 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				password: '',
 			},
 			logout: false,
+			content: [],
 		};
+	},
+
+	actions: {
+		async getContent() {
+			try {
+				const { data, status } = await useFetch('/api/medias', {
+					method: 'get',
+					credentials: 'include',
+				});
+
+				if (status.value === 'success') this.content = data.value.data;
+
+			} catch (error) {
+				console.log(error);
+			}
+		},
 	},
 });
