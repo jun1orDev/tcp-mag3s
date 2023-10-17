@@ -1,34 +1,36 @@
 import { MediasModel } from './../../models/Medias.model';
 
 export default defineEventHandler(async (event) => {
-	const body = await readBody(event);
-	console.log(event.node.req);
+	const formData = await readFormData(event);
+	const name = formData.get('name');
+	const value = formData.get('value');
+	const tag = formData.get('tag');
+	const type = formData.get('type');
 
 	// Verify empty inputs
-	if (!body.name) {
+	if (!name) {
 		return {
 			message: 'Nome da mídia é obrigatório',
 		};
 	}
-	if (!body.value) {
+	if (!value) {
 		return {
 			message: 'Conteúdo da mídia é obrigatório',
 		};
 	}
-	if (!body.tag) {
+	if (!tag) {
 		return {
 			message: 'Tag da mídia é obrigatório',
 		};
 	}
-	if (!body.type) {
+	if (!type) {
 		return {
 			message: 'Tipo da media é obrigatório',
 		};
 	}
 
-
 	// check media existis
-	const hasMedia = await MediasModel.findOne({ where: { name: body.name } });
+	const hasMedia = await MediasModel.findOne({ where: { name } });
 	if (hasMedia) {
 		return {
 			message: 'este nome já existe, escolha outro!',
@@ -37,10 +39,10 @@ export default defineEventHandler(async (event) => {
 
 	// Create new media
 	const media = await MediasModel.create({
-		name: body.name,
-		value: body.value,
-		tag: body.tag,
-		type: body.type,
+		name,
+		value,
+		tag,
+		type,
 	});
 
 	return {
