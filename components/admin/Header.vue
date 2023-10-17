@@ -1,5 +1,5 @@
 <template>
-	<div class="position-sticky">
+	<div class="sticky mb-8">
 		<div class="bg-zinc-700 py-2">
 			<UContainer class="flex justify-between items-center">
 				<div>
