@@ -4,5 +4,5 @@
 	</div>
 
 	<UNotifications />
-	<Loading v-if="false" />
+	<Loading />
 </template>

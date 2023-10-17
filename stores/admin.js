@@ -8,6 +8,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			},
 			logout: false,
 			content: [],
+			loading: false,
 		};
 	},
 
@@ -20,10 +21,17 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				});
 
 				if (status.value === 'success') this.content = data.value.data;
-
 			} catch (error) {
 				console.log(error);
 			}
+		},
+
+		async getLoading() {
+
+
+
+
+			this.loading = false;
 		},
 	},
 });

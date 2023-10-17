@@ -28,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
 	// save Cookie
 	setCookie(event, 'idUser', user.id, {
-		maxAge: new Date(Date.now() + 86400e3),
+		maxAge: 86400,
 		httpOnly: false,
 		sameSite: true,
 	});
