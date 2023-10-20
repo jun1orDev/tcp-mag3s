@@ -10,11 +10,6 @@ export default defineEventHandler(async (event) => {
 	// verify user loggin
 	userIsLoggedIn(event);
 
-	// create media directory if it doesn't exist
-	if (!fs.existsSync('public/uploads')) {
-		fs.mkdirSync(path.join('public', 'uploads'));
-	}
-
 	let validArchive = false;
 	const { fields, form, files } = await readFiles(event, {
 		includeFields: true,
@@ -40,11 +35,22 @@ export default defineEventHandler(async (event) => {
 	const fieldsSingle = firstValues(form, fields, exceptions);
 
 	const name = fieldsSingle.name;
+	const id = fieldsSingle.id;
 	let value = files.value || fieldsSingle.value;
+	let value_list_delete = fieldsSingle.value_list_delete;
+	let valueDBNotRemoveArchive;
 	const tag = fieldsSingle.tag;
 	const type = fieldsSingle.type;
 
 	// Verify empty inputs
+	const getMedia = await MediasModel.findOne({ raw: true, where: { id } });
+	if (!Boolean(getMedia)) {
+		throw createError({
+			statusCode: 422,
+			message: 'Essa mídia não existe',
+		});
+	}
+
 	if (!name) {
 		throw createError({
 			statusCode: 422,
@@ -62,13 +68,17 @@ export default defineEventHandler(async (event) => {
 
 		// check media existis
 		const hasMedia = await MediasModel.findOne({
+			raw: true,
 			where: { name: name.replace(/[ ]+/g, '_') },
 		});
-		if (hasMedia)
-			throw createError({
-				statusCode: 422,
-				message: 'Este nome de mídia já existe, escolha outro!',
-			});
+
+		if (Boolean(hasMedia))
+			if (hasMedia.id !== id) {
+				throw createError({
+					statusCode: 422,
+					message: 'Este nome de mídia já existe, escolha outro!',
+				});
+			}
 	}
 
 	if (!tag) {
@@ -84,6 +94,17 @@ export default defineEventHandler(async (event) => {
 			message: 'Tipo da media é obrigatório',
 		});
 	} else {
+		// change type media to archive
+		if (type !== getMedia.type && type === config.typesMedia[3]) {
+			await MediasModel.update(
+				{
+					value: '',
+				},
+				{ where: { id } }
+			);
+		}
+
+		// change type media to boolean
 		if (value && type === config.typesMedia[6]) {
 			value = switchInputTextBoolean(value);
 		}
@@ -97,16 +118,49 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	if (!value) {
+	if (!value && !getMedia.value) {
 		throw createError({
 			statusCode: 422,
 			message: 'Conteúdo da mídia é obrigatório',
 		});
 	}
 
+	// remove medias selected
+	if (value_list_delete) {
+		if (!value) {
+			throw createError({
+				statusCode: 422,
+				message:
+					'Conteúdo da mídia é obrigatório quando excluir mídias existentes!',
+			});
+		}
+		valueDBNotRemoveArchive = getMedia.value
+			.split(';')
+			.filter(
+				(archiveDelete) => !value_list_delete.split(';').includes(archiveDelete)
+			);
+		value_list_delete.split(';').forEach((mediaFile) => {
+			const hasMediaExists = fs.existsSync(`public/uploads/${mediaFile}`);
+
+			if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
+		});
+
+		await MediasModel.update(
+			{
+				value: valueDBNotRemoveArchive,
+			},
+			{ where: { id } }
+		);
+	}
+
 	// Save media archive
-	let listFiles = [];
 	if (files.value) {
+		let valueDB = await MediasModel.findOne({
+			raw: true,
+			where: { id },
+		});
+		let listFiles = valueDB.value.split(';').filter(Boolean);
+
 		for (const file of files.value) {
 			const fileName = `${Date.now()}-${file.newFilename}-${
 				file.mimetype.split('/')[1]
@@ -118,21 +172,30 @@ export default defineEventHandler(async (event) => {
 		value = listFiles;
 	}
 
-	// Create new media
-	const media = await MediasModel.create({
-		name,
-		value,
-		tag,
-		type,
+	// update media
+	await MediasModel.update(
+		{
+			name,
+			value: value || getMedia.value,
+			tag,
+			type,
+		},
+		{ where: { id } }
+	);
+
+	const media = await MediasModel.findOne({
+		raw: true,
+		where: { id },
+		attributes: { exclude: ['createdAt', 'updatedAt'] },
 	});
 
 	return {
 		statusCode: 200,
-		message: 'Mídia cadastrada com sucesso!',
+		message: 'Mídia atualizada com sucesso!',
 		data: {
 			id: media.id,
 			name: media.name,
-			value: media.value,
+			value: switchTextToBoolean(media.value.split(';')),
 			tag: media.tag,
 			type: media.type,
 		},
