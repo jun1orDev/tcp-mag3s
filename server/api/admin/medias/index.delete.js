@@ -2,6 +2,8 @@ import { MediasModel } from '../../../models/Medias.model';
 import fs from 'fs';
 import path from 'path';
 
+const config = useRuntimeConfig();
+
 export default defineEventHandler(async (event) => {
 	// verify user loggin
 	userIsLoggedIn(event);
@@ -10,23 +12,35 @@ export default defineEventHandler(async (event) => {
 	let medias;
 
 	try {
-		const media = await MediasModel.findOne({ where: { id: idMedia } });
+		const media = await MediasModel.findOne({
+			where: { id: idMedia },
+		});
 
 		if (Boolean(media)) {
-			media.value.forEach((mediaFile) => {
-				if (media.type === 'archive') {
-					fs.unlinkSync(`public/uploads/${mediaFile}`);
-				}
-			});
+			if (media.type === config.typesMedia[3]) {
+				media.value.forEach((mediaFile) => {
+					const hasMediaExists = fs.existsSync(`public/uploads/${mediaFile}`);
+
+					if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
+				});
+			}
 
 			await media.destroy();
 
-			medias = await MediasModel.findAll();
+			medias = await MediasModel.findAll({
+				raw: true,
+				attributes: { exclude: ['createdAt', 'updatedAt'] },
+			});
 
 			return {
 				statusCode: 200,
 				message: 'Mídia excluída com sucesso',
-				data: medias,
+				data: medias.filter(
+					(media) => {
+						media.value = switchTextToBoolean(media.value);
+						return media;
+					}
+				),
 			};
 		}
 
@@ -37,7 +51,7 @@ export default defineEventHandler(async (event) => {
 	} catch (error) {
 		throw createError({
 			statusCode: 500,
-			statusMessage: `Ocorreu um erro ao excluir midia`,
+			message: `Ocorreu um erro ao excluir midia`,
 		});
 	}
 });

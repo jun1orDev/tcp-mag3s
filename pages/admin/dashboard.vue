@@ -52,7 +52,7 @@ definePageMeta({
 	middleware: ["auth"]
 })
 
-await store.getContent();
+await store.getContent(useToast);
 </script>
 
 <style scoped></style>

@@ -13,24 +13,40 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 	},
 
 	actions: {
-		async getContent() {
+		async getContent(useToast) {
+			const toast = useToast();
+
 			try {
-				const { data, status } = await useFetch('/api/medias', {
+				const { data, error, status } = await useFetch('/api/admin/medias', {
 					method: 'get',
 					credentials: 'include',
 				});
 
 				if (status.value === 'success') this.content = data.value.data;
+
+				if (status.value === 'error') {
+					toast.add({
+						id: 'error_getContent',
+						title: `Erro: ${error.value.data.statusCode}`,
+						description: `${error.value.data.message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
 			} catch (error) {
-				console.log(error);
+				toast.add({
+					id: 'error_getContent',
+					title: `Opss... Algo de errado aconteceu!`,
+					description: `${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
 			}
 		},
 
 		async getLoading() {
-
-
-
-
 			this.loading = false;
 		},
 	},

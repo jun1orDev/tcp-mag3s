@@ -21,7 +21,8 @@ MediasModel.init(
 			type: DataTypes.TEXT,
 			required: true,
 			get() {
-				return this.getDataValue('value').split(';');
+				const rawValue = this.getDataValue('value');
+				return switchTextToBoolean(rawValue.split(';'));
 			},
 			set(payload) {
 				if (typeof payload !== 'string') {
