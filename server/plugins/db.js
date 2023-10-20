@@ -1,5 +1,5 @@
 const config = useRuntimeConfig();
-import { MediasModel } from "../models/Medias.model";
+import { MediasModel } from '../models/Medias.model';
 
 export default defineNitroPlugin(async (nitro) => {
 	try {
@@ -8,6 +8,7 @@ export default defineNitroPlugin(async (nitro) => {
 			alter: config.forceAlterDb,
 			force: config.forceDropDb,
 		});
+		await MediasModel.sync();
 		await createAdmin();
 		await createTypesMedia();
 		await createTagsMedia();
