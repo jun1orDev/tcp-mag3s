@@ -1,4 +1,5 @@
 const config = useRuntimeConfig();
+import { MediasModel } from "../models/Medias.model";
 
 export default defineNitroPlugin(async (nitro) => {
 	try {
