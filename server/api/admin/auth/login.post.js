@@ -1,4 +1,4 @@
-import { UserModel } from './../../models/User.model';
+import { UserModel } from '../../../models/User.model';
 import bcrypt from 'bcrypt';
 
 const config = useRuntimeConfig();

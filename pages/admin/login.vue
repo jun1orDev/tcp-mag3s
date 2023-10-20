@@ -62,7 +62,7 @@ const store = useStoreAdmin()
 async function loggingIn() {
 	store.loading = true;
 
-	await useFetch('/api/auth/login', {
+	await useFetch('/api/admin/auth/login', {
 		method: 'post',
 		body: {
 			email: store.login.email,
