@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 				message: 'Mídia excluída com sucesso',
 				data: medias.filter(
 					(media) => {
-						media.value = switchTextToBoolean(media.value);
+						media.value = switchTextToBoolean(media.value.split(';'));
 						return media;
 					}
 				),
