@@ -2,34 +2,24 @@
 	<div>
 		<PlanoFundo />
 		<div class="h-screen">
-			<img
-				src="/imgs/exemplo_premio_01.png"
-				class="justify-center m-auto w-[320px] md:w-[400px] mt-3"
-			/>
+			<img src="/imgs/exemplo_premio_01.png" class="justify-center m-auto w-[320px] md:w-[400px] mt-3" />
 			<div class="flex flex-col items-center justify-center mt-2">
-				<div v-if="false" class="flex items-center space-x-2">
-					<img src="/imgs/rabiscadinha.svg" class="w-[32px] md:w-[45px]" />
+				<div v-if="hasScratchcard" class="flex items-center space-x-2">
+					<img src="/imgs/rabiscadinha.png" class="w-[32px] md:w-[45px]" />
 					<p class="titulo text-white text-[16px] md:text-[24px] ml-2">
 						RABISCADINHA
 					</p>
 				</div>
-				<div v-else="true" class="flex items-center space-x-2">
+				<div v-else class="flex items-center space-x-2">
 					<p class="titulo text-white text-[10px] md:text-[14px]">
 						Número premiado:
 					</p>
 				</div>
 				<div class="flex items-center">
-					<NumeroSorteio
-						v-for="list in buttons"
-						class="mt-2 mx-1"
-						:button="list.button"
-						:customBackground="list.color"
-					/>
+					<NumeroSorteio v-for="list in buttons" class="mt-2 mx-1" :button="list.button" :customBackground="list.color" />
 				</div>
 
-				<div
-					class="sub text-white justify-center text-center mt-4 text-[10px] md:text-[14px]"
-				>
+				<div class="sub text-white justify-center text-center mt-4 text-[10px] md:text-[14px]">
 					<p>
 						<span class="font-bold">Lembre-se:</span> mantenha seu cadastro
 						sempre atualizado
@@ -56,6 +46,7 @@
 </template>
 
 <script setup>
+let hasScratchcard = false;
 let buttons = ref([
 	{ button: '01', color: '#DFA701' },
 	{ button: '02', color: '#DFA701' },
@@ -83,6 +74,7 @@ let buttons = ref([
 .contato {
 	font-family: 'Gotham Black';
 }
+
 .reembolso {
 	font-family: 'Gotham Medium';
 }

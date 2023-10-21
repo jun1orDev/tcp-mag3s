@@ -1,4 +1,3 @@
-import { TagsMediaModel } from './TagsMedia.model';
 import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
 export class MediasModel extends Model {}
@@ -14,10 +13,23 @@ MediasModel.init(
 		name: {
 			type: DataTypes.STRING,
 			required: true,
+			set(payload) {
+				this.setDataValue('name', payload.replace(/[ ]+/g, '_'));
+			},
 		},
 		value: {
-			type: DataTypes.STRING,
+			type: DataTypes.TEXT,
 			required: true,
+			get() {
+				return this.getDataValue('value').split(';');
+			},
+			set(payload) {
+				if (typeof payload !== 'string') {
+					this.setDataValue('value', payload.join(';'));
+				} else {
+					this.setDataValue('value', payload);
+				}
+			},
 		},
 		tag: {
 			type: DataTypes.STRING,
