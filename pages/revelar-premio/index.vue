@@ -17,6 +17,15 @@
 					:customBackground="list.color"
 				/>
 			</div>
+
+			<div class="button-container mt-10">
+				<NumeroSorteio
+					v-for="list in buttons"
+					class="button"
+					:button="list.button"
+					:customBackground="list.color"
+				/>
+			</div>
 		</UContainer>
 		<ResultDraw
 			titulo="BOA SORTE!"
@@ -41,6 +50,9 @@
 				<p class="premio text-white mt-6 text-[10px] md:text-[14px]">
 					Número premiado de hoje:
 				</p>
+
+				<!-- divisória -->
+				<hr class="horizontal-line" />
 			</div>
 			<div class="button-container mt-2">
 				<NumeroSorteio
@@ -215,6 +227,28 @@ let positiveButtons = ref([
 		); /* Largura dos botões com espaço horizontal de 20px */
 		height: 50px; /* Altura dos botões para tablets */
 		margin: 10px 10px;
+	}
+}
+
+.horizontal-line {
+	width: 92%; /* Largura da linha vertical */
+	height: 1px; /* Altura da linha vertical */
+	background-color: #dfa701; /* Cor da linha vertical (preto, neste exemplo) */
+	border: none;
+
+	margin-top: 68px;
+	position: absolute;
+}
+
+@media (min-width: 768px) {
+	.horizontal-line {
+		width: 95%; /* Largura da linha vertical */
+		height: 1px; /* Altura da linha vertical */
+		background-color: #dfa701; /* Cor da linha vertical (preto, neste exemplo) */
+		border: none;
+
+		margin-top: 78px;
+		position: absolute;
 	}
 }
 </style>
