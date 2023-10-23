@@ -2,6 +2,8 @@ import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
 export class MediasModel extends Model {}
 
+const config = useRuntimeConfig();
+
 MediasModel.init(
 	{
 		id: {
@@ -22,7 +24,21 @@ MediasModel.init(
 			required: true,
 			get() {
 				const rawValue = this.getDataValue('value');
-				return switchTextToBoolean(rawValue.split(';'));
+				const type = this.getDataValue('type');
+
+				switch (type) {
+					// Archive
+					case config.typesMedia[3]:
+						return rawValue.split(';');
+
+					// Boolean
+					case config.typesMedia[6]:
+						return switchTextToBoolean(rawValue);
+
+					// Text / Link / Color
+					default:
+						return rawValue;
+				}
 			},
 			set(payload) {
 				if (typeof payload !== 'string') {
