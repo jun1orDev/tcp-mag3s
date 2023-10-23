@@ -7,8 +7,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				password: '',
 			},
 			logout: false,
-			content: [],
+			medias: [],
+			filterMedias: [],
+			tags: [],
 			loading: false,
+			isOpenModalMedia: false,
 		};
 	},
 
@@ -22,7 +25,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					credentials: 'include',
 				});
 
-				if (status.value === 'success') this.content = data.value.data;
+				if (status.value === 'success') {
+					this.medias = data.value.data.medias;
+					this.filterMedias = data.value.data.medias;
+					this.tags = data.value.data.tags;
+				}
 
 				if (status.value === 'error') {
 					toast.add({
@@ -48,6 +55,27 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		async getLoading() {
 			this.loading = false;
+		},
+
+		filterPerTag(id, tagChoice) {
+			this.filterMedias = null;
+
+			this.tags.forEach((tag) => (tag.filter = false));
+
+			this.tags.find((tag) => {
+				if (tag.id === id) {
+					tag.filter = !tag.filter;
+				}
+			});
+
+			if (tagChoice !== 'todos') {
+				this.filterMedias = this.medias.filter(
+					(media) => media.tag == tagChoice
+				);
+				return;
+			}
+
+			this.filterMedias = this.medias;
 		},
 	},
 });
