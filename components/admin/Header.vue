@@ -1,5 +1,5 @@
 <template>
-	<div class="sticky mb-8">
+	<div class="fixed w-full z-50">
 		<div class="bg-zinc-700 py-2">
 			<UContainer class="flex justify-between items-center">
 				<div>
@@ -7,7 +7,7 @@
 				</div>
 				<div>
 					<UDropdown :items="items" :popper="{ placement: 'bottom-start' }">
-						<UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" alt="Avatar" class="cursor-pointer" />
+						<UAvatar src="" icon="i-material-symbols-account-circle-full" alt="Avatar" class="cursor-pointer" />
 					</UDropdown>
 				</div>
 			</UContainer>
