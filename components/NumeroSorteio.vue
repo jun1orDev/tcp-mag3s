@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="cor h-10 w-10 rounded-xl flex justify-center items-center border-black-2" :style="`background-color: ${props.customBackground}`"
+		class="cor h-10 w-10 rounded-xl flex justify-center items-center" :style="`background-color: ${props.customBackground}`"
 	>
 		<div class="button text-[20px] text-white">
 			<span>{{ props.button }}</span>
