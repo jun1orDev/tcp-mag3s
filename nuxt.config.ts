@@ -1,4 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const typeMediaDefault = [
+	'text',
+	'link',
+	'color',
+	'archive',
+	'icon',
+	'datetime',
+	'boolean',
+];
+
 export default defineNuxtConfig({
 	ui: {
 		global: true,
@@ -28,11 +38,15 @@ export default defineNuxtConfig({
 
 		// App create User
 		rolesType: ['adminmaster', 'admin', 'editor', 'reader'],
-		typesMedia: ['text', 'link', 'color', 'archive', 'icon', 'datetime', 'boolean'],
+		typesMedia: typeMediaDefault,
 		tagsMedia: ['header', 'banner', 'footer'],
 		adminName: '',
 		adminEmail: '',
 		adminPass: '',
+
+		public: {
+			typesMedia: typeMediaDefault,
+		},
 	},
 
 	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui'],
