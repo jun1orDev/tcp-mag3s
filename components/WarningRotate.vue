@@ -27,7 +27,7 @@
 
 		<!-- imagem de sinalização de rotação -->
 		<div class="flex items-center">
-			<img src="/imgs/rotate_screen 1.png" class="absolute inset-0 m-auto z-10 mb-20"
+			<img src="/imgs/rotate_screen.png" class="absolute inset-0 m-auto z-10 mb-20"
 				style="width: 100px; height: 100px" />
 		</div>
 	</div>
