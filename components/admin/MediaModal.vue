@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<UModal v-model="store.isOpenModalMedia" :fullscreen="true">
+		<UModal v-model="store.isOpenModalMedia" :fullscreen="false" :ui="{ width: 'sm:max-w-5xl', padding: 'sm:mx-8' }">
 			<UCard :ui="options">
 				<template #header>
 					<div class="flex items-center justify-between">
@@ -13,9 +13,11 @@
 				</template>
 
 				<!-- Content -->
-				<UContainer>
-					<p>oi</p>
-				</UContainer>
+				<div class="columns-3">
+					<div>
+						<UInput id="name" placeholder="Digite o nome do conteúdo" />
+					</div>
+				</div>
 
 				<template #footer>
 					<!-- Content -->
