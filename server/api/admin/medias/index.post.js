@@ -1,6 +1,7 @@
 import { MediasModel } from '../../../models/Medias.model';
 import { readFiles } from 'h3-formidable';
 import { firstValues } from 'h3-formidable/helpers';
+import { TagsMediaModel } from '~/server/models/TagsMedia.model';
 import fs from 'fs';
 import path from 'path';
 
@@ -41,10 +42,13 @@ export default defineEventHandler(async (event) => {
 
 	const name = fieldsSingle.name;
 	let value = files.value || fieldsSingle.value;
-	const tag = fieldsSingle.tag;
+	let tag = fieldsSingle.tag;
+	const createNewTag = Boolean(+fieldsSingle.newtag);
 	const type = fieldsSingle.type;
 
-	// Verify empty inputs
+	// ⬇️ Verify empty inputs ⬇️
+
+	// Name
 	if (!name) {
 		throw createError({
 			statusCode: 422,
@@ -52,7 +56,6 @@ export default defineEventHandler(async (event) => {
 		});
 	} else {
 		// check name only text
-		const hasOnlyText = /^[A-Za-z]+( [A-Za-z]+)*$/;
 		if (!hasOnlyText.test(name))
 			throw createError({
 				statusCode: 422,
@@ -71,6 +74,10 @@ export default defineEventHandler(async (event) => {
 			});
 	}
 
+	// Tag
+	tag = toLetterFisrtUperCase(tag).replace(/[ ]+/g, '').trim();
+	const tagData = await TagsMediaModel.findAll({ where: { name: tag } });
+
 	if (!tag) {
 		throw createError({
 			statusCode: 422,
@@ -78,6 +85,23 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
+	if (createNewTag) {
+		if (!hasOnlyText.test(tag))
+			throw createError({
+				statusCode: 422,
+				message:
+					'Nome de tag não pode conter números, caracteres especiais e espaços no final do nome!',
+			});
+
+		if (tagData.length) {
+			throw createError({
+				statusCode: 422,
+				message: 'Esse nome de Tag já existe, tente outro',
+			});
+		}
+	}
+
+	// Type
 	if (!type) {
 		throw createError({
 			statusCode: 422,
@@ -89,6 +113,14 @@ export default defineEventHandler(async (event) => {
 		}
 	}
 
+	// Value
+	if (!value) {
+		throw createError({
+			statusCode: 422,
+			message: 'Conteúdo da mídia é obrigatório',
+		});
+	}
+
 	// Verify type Midia correct
 	if (validArchive) {
 		throw createError({
@@ -97,12 +129,6 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-	if (!value) {
-		throw createError({
-			statusCode: 422,
-			message: 'Conteúdo da mídia é obrigatório',
-		});
-	}
 
 	// Save media archive
 	let listFiles = [];
@@ -125,6 +151,9 @@ export default defineEventHandler(async (event) => {
 		tag,
 		type,
 	});
+
+	// Create new tag
+	if (createNewTag) await TagsMediaModel.create({ name: tag });
 
 	return {
 		statusCode: 200,
