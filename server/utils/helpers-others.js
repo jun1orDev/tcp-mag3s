@@ -15,3 +15,15 @@ export const switchInputTextBoolean = (value) => {
 
 	return '0';
 };
+
+// check only text
+export const hasOnlyText = /^[A-Za-z]+( [A-Za-z]+)*$/;
+
+// First Letter Upercase in String
+export function toLetterFisrtUperCase(str) {
+	return str
+		.toLowerCase()
+		.split(' ')
+		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join(' ');
+}

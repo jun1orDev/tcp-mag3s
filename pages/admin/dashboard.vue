@@ -9,12 +9,13 @@
 		<!-- Header -->
 		<AdmHeader />
 
-		<UContainer class="pt-20">
+		<!-- Conteúdo -->
+		<UContainer>
 			<!-- Menu Lateral -->
 			<AdmAsideBar />
 
-			<!-- Filtros -->
-			<div>
+			<div v-if="doYouHaveMedia" class="py-24">
+				<!-- Filtros -->
 				<div class="mb-8">
 					<h2 class="mb-2 text-lg font-bold">Filtros de Tags:</h2>
 					<div class="flex flex-wrap">
@@ -28,19 +29,17 @@
 
 					<AdmMedias />
 				</div>
+
+				<!-- Botão para Adicionar  -->
+				<AdmButtonNewMedia position="fixed" />
 			</div>
+
+			<AdmNoMedias v-else />
+
+			<!-- Modal para preencher ou editar dados de uma mídia -->
+			<AdmMediaModal />
 		</UContainer>
 
-		<!-- Botão para Adicionar  -->
-		<div class="fixed w-full bottom-0 z-50">
-			<UTooltip class="absolute right-[10px] bottom-[80px]" text="Adicionar Mídia">
-				<UButton size="xl" color="green" variant="soft" :ui="{ rounded: 'rounded-full' }" square
-					icon="i-material-symbols-note-stack-add-outline" @click="store.isOpenModalMedia = true" />
-			</UTooltip>
-		</div>
-
-		<!-- Modal para preencher ou editar dados de uma mídia -->
-		<AdmMediaModal />
 
 		<!-- Footer -->
 		<AdmFooter />
@@ -50,6 +49,10 @@
 <script setup>
 import { useStoreAdmin } from '~/stores/admin';
 const store = useStoreAdmin();
+
+const doYouHaveMedia = computed(() => {
+	return store.medias.length;
+})
 
 definePageMeta({
 	middleware: ["auth"]
