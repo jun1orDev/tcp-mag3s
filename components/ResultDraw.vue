@@ -5,10 +5,7 @@
 		>
 			<div class="flex flex-col justify-center items-center">
 				<div>
-					<h1
-						class="titulo text-white text-[16px] md:text-[24px]"
-						:style="`background-color: ${props.customBackground}`"
-					>
+					<h1 :style="`background-color: ${props.customBackground}`">
 						<span>{{ props.titulo }}</span>
 					</h1>
 				</div>
@@ -43,9 +40,6 @@ function revelarResultado() {
 </script>
 
 <style scoped>
-.titulo {
-	font-family: 'Gotham black';
-}
 .subtitulo {
 	font-family: 'Gotham Medium';
 }
