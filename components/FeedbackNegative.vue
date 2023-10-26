@@ -47,9 +47,18 @@
 			<div class="">
 				<button
 					@click="fecharConteudo"
-					class="button w-44 lg:w-[240px] h-6 md:h-[40px] bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl"
+					class="button px-5 py-3 bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl"
 				>
 					RABISCAR NOVAMENTE
+					<UBadge
+						:ui="{
+							rounded: 'rounded-full',
+							variant: { outline: 'ring-white' },
+						}"
+						:label="restScratchCard"
+						variant="outline"
+						color="white"
+					/>
 				</button>
 			</div>
 		</div>
@@ -65,6 +74,7 @@
 </template>
 
 <script setup>
+const restScratchCard = ref(3);
 const isClosed = ref(false);
 
 const fecharConteudo = () => {
