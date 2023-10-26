@@ -3,11 +3,11 @@
 		class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 transition-shadow ease-in-out duration-500">
 		<div>
 			<small class="text-xs text-green-500">Nome do conteúdo:</small>
-			<p>{{ media.name }}</p>
+			<p class="line-clamp-1">{{ media.name }}</p>
 		</div>
 		<div>
 			<small class="text-xs text-green-500">Tag:</small>
-			<p>{{ media.tag }}</p>
+			<p class="line-clamp-1">{{ media.tag }}</p>
 		</div>
 		<div>
 			<small class="text-xs text-green-500">Tipo:</small>
@@ -18,7 +18,7 @@
 			<div v-if="isMedia(media.type)">
 				<UButton variant="link" class="p-0 m-0" label="Abrir mídia" />
 			</div>
-			<p v-else>{{ media.value }}</p>
+			<p v-else class="line-clamp-1" v-html="media.value"></p>
 		</div>
 		<div>
 			<small class="block text-md text-red-500">Ações:</small>
