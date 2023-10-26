@@ -4,6 +4,7 @@
 	</div>
 	<WarningRotate v-if="false" />
 	<FeedbackNegative />
+	<FeedbackPositive v-if="false" />
 </template>
 
 <script></script>

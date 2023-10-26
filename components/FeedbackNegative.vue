@@ -40,36 +40,10 @@
 		</div>
 
 		<!-- MOSQUETEIRO E BOTÃO -->
-		<div class="fixed bottom-8 right-8 flex items-center">
-			<div class="w-[54px] lg:w-[89px] mr-3">
-				<img src="/imgs/Mosqueteiro_Feliz.png" />
-			</div>
-			<div class="">
-				<button
-					@click="fecharConteudo"
-					class="button px-5 py-3 bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl"
-				>
-					RABISCAR NOVAMENTE
-					<UBadge
-						:ui="{
-							rounded: 'rounded-full',
-							variant: { outline: 'ring-white' },
-						}"
-						:label="restScratchCard"
-						variant="outline"
-						color="white"
-					/>
-				</button>
-			</div>
-		</div>
+		<Button />
 
 		<!-- BOTÃO FECHAR -->
-		<div class="absolute top-8 right-8 items-center text-[#847248] text-[40px]">
-			<UIcon
-				name="i-material-symbols-cancel-outline"
-				@click="fecharConteudoRasp"
-			/>
-		</div>
+		<Close />
 	</div>
 </template>
 
