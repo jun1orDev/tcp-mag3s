@@ -5,27 +5,27 @@
 				<!-- MOSQUETEIRO  -->
 				<div class="block">
 					<img
-						src="/imgs/Mosqueteiro.png"
+						src="/imgs/Mosqueteiro_tablet.png"
 						class="block w-auto h-screen max-h-[700px] py-8"
 					/>
 				</div>
 				<div class="flex items-center pt-8">
 					<div class="flex items-center">
 						<Line
-							largura="w-26 md:w-44 rotate-90 ml-7"
+							largura="w-32 lg:w-44 rotate-90 ml-7"
 							diagonal="w-10 transform -rotate-45 mb-6 "
 						/>
 					</div>
 					<!-- TEXTO AO LADO DA LINHA -->
 					<div class="flex">
-						<div class="justify-start ml-4">
+						<div class="justify-start ml-4 mb-4">
 							<p
 								class="title text-[#847248] text-[20px] md:text-[36px] whitespace-nowrap"
 							>
 								FOI POR POUCO!
 							</p>
 							<p class="subtitle text-[10px] lg:text-[16px] text-white">
-								Continue tentando, os prêmios não param!<br><br>
+								Continue tentando, os prêmios não param!<br /><br />
 							</p>
 
 							<p class="subtitle2 text-[10px] lg:text-[16px] text-white">
@@ -47,7 +47,7 @@
 			<div class="">
 				<button
 					@click="fecharConteudo"
-					class=" button w-44 lg:w-[250px] h-6 md:h-[50px] bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl"
+					class="button w-44 lg:w-[240px] h-6 md:h-[40px] bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl"
 				>
 					RABISCAR NOVAMENTE
 				</button>
@@ -77,10 +77,12 @@ const fecharConteudoRasp = () => {
 </script>
 
 <style scoped>
-.title, .button {
+.title,
+.button {
 	font-family: 'Gotham Black';
 }
-.subtitle, .subtitle2 {
+.subtitle,
+.subtitle2 {
 	font-family: 'Gotham Medium';
 }
 </style>
