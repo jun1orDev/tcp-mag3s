@@ -12,6 +12,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			tags: [],
 			loading: false,
 			isOpenModalMedia: false,
+			isOpenModalMediaDelete: false,
+			chosenMediaDelete: null,
 			formMedia: {
 				name: '',
 				value: '',
@@ -206,6 +208,13 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		async getLoading() {
 			this.loading = false;
 		},
+
+		openModalMediaDelete(media) {
+			this.isOpenModalMediaDelete = true;
+			this.chosenMediaDelete = media;
+		},
+
+		async deleteChosenMedia() {},
 
 		filterPerTag(id, tagChoice) {
 			this.filterMedias = null;
