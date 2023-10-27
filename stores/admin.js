@@ -20,12 +20,12 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					{
 						name: 'sim',
 						value: 'on',
-						label: 'SIM',
+						label: 'VERDADEIRO',
 					},
 					{
 						name: 'não',
 						value: 'null',
-						label: 'NÃO',
+						label: 'FALSO',
 					},
 				],
 				tagSelected: null,
@@ -62,6 +62,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		typesMediaForm: (state) => state.formMedia.typesMedia,
 		typeMediaSelectedForm: (state) => state.formMedia.typeMS,
 		newTag: (state) => state.formMedia.newTag,
+		tagsMediaFormSelected: (state) => {
+			return state.tags.slice(1);
+		},
 		completedForm: (state) => {
 			return (
 				state.formMedia.name &&
@@ -83,13 +86,13 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				});
 
 				if (status.value === 'success') {
-					this.medias = data.value.data.medias;
-					this.filterMedias = data.value.data.medias;
+					this.medias = data.value.data.medias.reverse();
+					this.filterMedias = data.value.data.medias.reverse();
 					this.tags = data.value.data.tags;
 				}
 
 				if (status.value === 'error') {
-					this.tags = error.value.data.data.tags;
+					this.tags = error.value.data.data ? error.value.data.data.tags : null;
 					toast.add({
 						id: 'error_getContent',
 						title: `Erro: ${error.value.data.statusCode}`,
@@ -156,7 +159,6 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 						timeout: 3500,
 					});
 
-					this.isOpenModalMedia = false;
 					this.$resetFormMedia();
 				}
 
@@ -167,7 +169,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 						description: `${error.value.data.message}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
-						timeout: 3500,
+						timeout: 5000,
 					});
 				}
 			} catch (error) {
@@ -177,7 +179,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					description: `${error}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
-					timeout: 3500,
+					timeout: 5000,
 				});
 			}
 
@@ -185,12 +187,16 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		$resetFormMedia() {
-			this.formMedia.name = '';
-			this.formMedia.value = '';
-			this.formMedia.valueFilesMedia = null;
-			this.formMedia.tagSelected = null;
-			this.formMedia.typeMS = null;
-			this.formMedia.newTag.choise = 0;
+			this.isOpenModalMedia = false;
+
+			setTimeout(() => {
+				this.formMedia.name = '';
+				this.formMedia.value = '';
+				this.formMedia.valueFilesMedia = null;
+				this.formMedia.tagSelected = null;
+				this.formMedia.typeMS = null;
+				this.formMedia.newTag.choise = 0;
+			}, 1000);
 		},
 
 		$resetFormMediaValue() {
