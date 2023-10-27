@@ -17,15 +17,15 @@
 			<div v-if="doYouHaveMedia" class="py-24">
 				<!-- Filtros -->
 				<div class="mb-8">
-					<h2 class="mb-2 text-lg font-bold">Filtros de Tags:</h2>
-					<div class="flex flex-wrap">
-						<AdmTag v-for="tag in store.tags" class="me-4" :tag="tag" />
+					<h2 class="mb-2 text-base font-semibold">Filtros de Tags:</h2>
+					<div class="flex pb-2 overflow-x-auto">
+						<AdmTag v-for="tag in store.tags" class="w-fit me-3 last:me-0" :tag="tag" />
 					</div>
 				</div>
 
 				<!-- Lista das mídias cadastradas -->
 				<div class="mb-8">
-					<h2 class="mb-2 text-lg font-bold">Editar o conteúdo da aplicação:</h2>
+					<h2 class="mb-2 text-lg font-bold">Lista de conteúdo da API da aplicação:</h2>
 
 					<AdmMedias />
 				</div>
