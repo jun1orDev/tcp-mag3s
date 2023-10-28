@@ -13,7 +13,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			loading: false,
 			isOpenModalMedia: false,
 			isOpenModalMediaDelete: false,
-			chosenMediaDelete: null,
+			chosenMediaDelete: {
+				id: null,
+				name: '',
+			},
 			formMedia: {
 				name: '',
 				value: '',
@@ -205,16 +208,82 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.formMedia.value = null;
 		},
 
-		async getLoading() {
-			this.loading = false;
+		$resetChosenMediaDelete() {
+			this.isOpenModalMediaDelete = false;
+
+			setTimeout(() => {
+				this.chosenMediaDelete.id = null;
+				this.chosenMediaDelete.name = '';
+			}, 1000);
 		},
 
 		openModalMediaDelete(media) {
 			this.isOpenModalMediaDelete = true;
-			this.chosenMediaDelete = media;
+
+			this.chosenMediaDelete.id = media.id;
+			this.chosenMediaDelete.name = media.name;
 		},
 
-		async deleteChosenMedia() {},
+		async deleteChosenMedia() {
+			const toast = useToast();
+			this.loading = true;
+
+			try {
+				const { data, error, status } = await useFetch('/api/admin/medias', {
+					method: 'delete',
+					body: {
+						idMedia: this.chosenMediaDelete.id,
+					},
+					credentials: 'include',
+				});
+
+				if (status.value === 'success') {
+					this.medias = data.value.data.medias.reverse();
+					this.filterMedias = data.value.data.medias.reverse();
+
+					toast.add({
+						id: 'success_deleteMedia',
+						title: `Tudo certo!`,
+						description: `${data.value.message}`,
+						color: 'green',
+						icon: 'i-material-symbols-check-circle-rounded',
+						timeout: 3500,
+					});
+
+					this.$resetChosenMediaDelete();
+				}
+
+				if (status.value === 'error') {
+					toast.add({
+						id: 'error_delteMedia',
+						title: `Erro: ${error.value.data.statusCode}`,
+						description: `${error.value.data.message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 5000,
+					});
+
+					if (error.value.data.data.isDelete) {
+						this.medias = error.value.data.data.medias.reverse();
+						this.filterMedias = error.value.data.data.medias.reverse();
+
+						this.$resetChosenMediaDelete();
+						this.getContent();
+					}
+				}
+			} catch (error) {
+				toast.add({
+					id: 'error_getContent',
+					title: `Opss... Algo de errado aconteceu!`,
+					description: `${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 5000,
+				});
+			}
+
+			this.loading = false;
+		},
 
 		filterPerTag(id, tagChoice) {
 			this.filterMedias = null;
