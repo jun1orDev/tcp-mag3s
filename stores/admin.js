@@ -12,6 +12,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			tags: [],
 			loading: false,
 			isOpenModalMedia: false,
+			isEditMediaModal: false,
+			titleModalMedia: '',
 			isOpenModalMediaDelete: false,
 			chosenMediaDelete: {
 				id: null,
@@ -193,15 +195,16 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		$resetFormMedia() {
 			this.isOpenModalMedia = false;
+			this.titleModalMedia = '';
 
-			setTimeout(() => {
-				this.formMedia.name = '';
-				this.formMedia.value = '';
-				this.formMedia.valueFilesMedia = null;
-				this.formMedia.tagSelected = null;
-				this.formMedia.typeMS = null;
-				this.formMedia.newTag.choise = 0;
-			}, 1000);
+			this.formMedia.name = '';
+			this.formMedia.value = '';
+			this.formMedia.valueFilesMedia = null;
+			this.formMedia.tagSelected = null;
+			this.formMedia.typeMS = null;
+			this.formMedia.newTag.choise = 0;
+
+			this.isEditMediaModal = false;
 		},
 
 		$resetFormMediaValue() {
@@ -215,6 +218,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				this.chosenMediaDelete.id = null;
 				this.chosenMediaDelete.name = '';
 			}, 1000);
+		},
+
+		openModalMediaNew() {
+			this.isOpenModalMedia = true;
+			this.titleModalMedia = 'Cadastre uma nova Mídia';
 		},
 
 		openModalMediaDelete(media) {
@@ -283,6 +291,17 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			this.loading = false;
+		},
+
+		openModalMediaEdit(media) {
+			this.isOpenModalMedia = true;
+			this.titleModalMedia = `Edite a mídia ${media.name}`;
+			this.isEditMediaModal = true;
+
+			this.formMedia.name = media.name;
+			this.formMedia.typeMS = media.type;
+			this.formMedia.tagSelected = media.tag;
+			this.formMedia.value = media.value;
 		},
 
 		filterPerTag(id, tagChoice) {

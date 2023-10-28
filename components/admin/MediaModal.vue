@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<UModal v-model="store.isOpenModalMedia" :fullscreen="false" prevent-close
-			:ui="{ width: 'sm:max-w-6xl', heigth: 'sm-min-w-full', padding: 'sm:mx-8' }">
+			:ui="{ width: 'sm:max-w-6xl', heigth: 'sm-min-w-full', padding: 'sm:mx-8' }" :transition="false">
 			<UCard :ui="options">
 				<template #header>
 					<div class="flex items-center justify-between">
 						<h3 class="text-xl leading-6 text-green-700 dark:text-white uppercase font-semibold">
-							Cadastre uma nova Mídia
+							{{ store.titleModalMedia }}
 						</h3>
 						<UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
 							@click="store.$resetFormMedia" />
@@ -57,9 +57,9 @@
 
 							<div v-else>
 								<UFormGroup class="block mb-2" label="Escolha a Tag:" name="tag" size="xl" required>
-									<USelectMenu v-model="store.formMedia.tagSelected" option-attribute="name" :options="store.tagsMediaFormSelected"
-										value-attribute="name" placeholder="selecione aqui..." :trailing="false"
-										icon="i-material-symbols-label-sharp" size="xl" />
+									<USelectMenu v-model="store.formMedia.tagSelected" option-attribute="name"
+										:options="store.tagsMediaFormSelected" value-attribute="name" placeholder="selecione aqui..."
+										:trailing="false" icon="i-material-symbols-label-sharp" size="xl" />
 								</UFormGroup>
 							</div>
 						</div>
@@ -129,36 +129,45 @@
 					<!-- Content -->
 					<div class="w-full grid grid-cols-5 text-center text-[60px]">
 						<div>
-							<UIcon v-if="store.formMedia.name" class="text-green-300"
+							<UIcon v-if="store.formMedia.name" :class="store.isEditMediaModal ? 'text-sky-300' : 'text-green-300'"
 								name="i-material-symbols-media-link-outline-sharp" />
 							<UTooltip v-else text="Faltou preencher o Nome de conteúdo">
 								<UIcon class="text-gray-300" name="i-material-symbols-media-link-outline-sharp" />
 							</UTooltip>
 						</div>
 						<div>
-							<UIcon v-if="store.typeMediaSelectedForm" class="text-green-300"
+							<UIcon v-if="store.typeMediaSelectedForm"
+								:class="store.isEditMediaModal ? 'text-sky-300' : 'text-green-300'"
 								name="i-material-symbols-tamper-detection-on-sharp" />
 							<UTooltip v-else text="Faltou preencher o Tipo de mídia">
 								<UIcon class="text-gray-300" name="i-material-symbols-tamper-detection-off-outline-sharp" />
 							</UTooltip>
 						</div>
 						<div>
-							<UIcon v-if="store.formMedia.value || store.formMedia.valueFilesMedia" class="text-green-300"
+							<UIcon v-if="store.formMedia.value || store.formMedia.valueFilesMedia"
+								:class="store.isEditMediaModal ? 'text-sky-300' : 'text-green-300'"
 								name="i-material-symbols-deployed-code-outline-sharp" />
 							<UTooltip v-else text="Faltou preencher a Mídia">
 								<UIcon class="text-gray-300" name="i-material-symbols-deployed-code-outline-sharp" />
 							</UTooltip>
 						</div>
 						<div>
-							<UIcon v-if="store.formMedia.tagSelected" class="text-green-300" name="i-material-symbols-label-sharp" />
+							<UIcon v-if="store.formMedia.tagSelected"
+								:class="store.isEditMediaModal ? 'text-sky-300' : 'text-green-300'"
+								name="i-material-symbols-label-sharp" />
 							<UTooltip v-else text="Faltou preencher a Tag">
 								<UIcon class="text-gray-300" name="i-material-symbols-label-sharp" />
 							</UTooltip>
 						</div>
 
 						<div class="flex items-center justify-center">
-							<UButton :loading="store.loading" label="Salvar" size="xl" :color="store.completedForm ? 'green' : 'gray'"
-								variant="outline" :disabled="!store.completedForm" @click="store.postNewMedia(useToast)" />
+							<UButton v-if="store.isEditMediaModal" :loading="store.loading" label="Atualizar" size="xl"
+								:color="store.completedForm ? 'sky' : 'gray'" variant="outline" :disabled="!store.completedForm"
+								@click="console.log('atualizou')" />
+
+							<UButton v-else :loading="store.loading" label="Salvar" size="xl"
+								:color="store.completedForm ? 'green' : 'gray'" variant="outline" :disabled="!store.completedForm"
+								@click="store.postNewMedia(useToast)" />
 						</div>
 					</div>
 				</template>

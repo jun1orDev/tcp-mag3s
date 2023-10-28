@@ -195,7 +195,7 @@ export default defineEventHandler(async (event) => {
 		data: {
 			id: media.id,
 			name: media.name,
-			value: switchTextToBoolean(media.value.split(';')),
+			value: media.value,
 			tag: media.tag,
 			type: media.type,
 		},
