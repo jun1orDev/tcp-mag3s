@@ -134,8 +134,8 @@ export default defineEventHandler(async (event) => {
 	if (files.value) {
 		for (const file of files.value) {
 			const fileName = `${Date.now()}-${file.newFilename}-${
-				file.mimetype.split('/')[1]
-			}`;
+				file.mimetype.split('/')[0]
+			}-${file.mimetype.split('/')[1]}`;
 			const newPath = `${path.join('public', 'uploads', fileName)}`;
 			fs.copyFileSync(file.filepath, newPath);
 			listFiles.push(fileName);

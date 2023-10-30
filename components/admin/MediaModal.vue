@@ -5,7 +5,8 @@
 			<UCard :ui="options">
 				<template #header>
 					<div class="flex items-center justify-between">
-						<h3 class="text-xl leading-6 text-green-700 dark:text-white uppercase font-semibold">
+						<h3 class="text-xl leading-6 dark:text-white uppercase font-semibold"
+							:class="store.isEditMediaModal ? 'text-sky-700' : 'text-green-700'">
 							{{ store.titleModalMedia }}
 						</h3>
 						<UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
@@ -93,10 +94,50 @@
 							</div>
 
 							<!-- Imagem/Arquivo -->
-							<div v-if="store.typeMediaSelectedForm === 'archive'">
-								<UFormGroup class="block mb-2" label="Insira a mídia:" name="fileMedia" size="xl" required>
-									<UInput id="fileMedia" type="file" multiple size="xl" name="fileMedia" v-on:change="handleFileUpload" />
-								</UFormGroup>
+							<div :class="store.editMediaValueArchive ? 'grid grid-cols-3 gap-4' : ''">
+								<div v-if="store.typeMediaSelectedForm === 'archive'">
+									<UFormGroup class="block mb-2" label="Insira a mídia:" name="fileMedia" size="xl" required>
+										<UInput id="fileMedia" type="file" multiple size="xl" name="fileMedia"
+											v-on:change="handleFileUpload" />
+									</UFormGroup>
+								</div>
+
+								<div v-if="store.editMediaValueArchive" class="col-span-2">
+									<Carousel :items-to-show="store.carouselListMaxMedia" :autoplay="2000" :pause-autoplay-on-hover="true"
+										:wrap-around="store.carouselEnableLoop">
+										<Slide v-for="mediaSlide in store.listArchiveMedia" :key="mediaSlide">
+											<div class="carousel__item mx-1 relative h-[200px] max-w-[200px]">
+
+												<!-- img -->
+												<div v-if="mediaSlide.includes('image')">
+													<img :src="`/uploads/${mediaSlide}`" class="h-max" alt="mediaSlide"
+														:srcset="`/uploads/${mediaSlide}`">
+												</div>
+
+												<!-- pdf -->
+												<div class="border-2 border-dashed border-sky-400 text-6xl px-8 py-8" v-else>
+													<a :href="`/uploads/${mediaSlide}`" target="_blank" rel="noopener noreferrer">
+														<UTooltip text="Abra o Documento">
+															<UIcon name="i-material-symbols-picture-as-pdf" class="cursor-pointer text-red-600" />
+														</UTooltip>
+													</a>
+												</div>
+
+												<!-- Remover mídia -->
+												<div class="text-red-600 bg-sky-100 text-2xl absolute bottom-0 left-0 w-full">
+													<UTooltip text="Remover Arquivo">
+														<UIcon name="i-material-symbols-delete" class="cursor-pointer"
+															@click="store.selectArchiveMediaDelete(mediaSlide)" />
+													</UTooltip>
+												</div>
+											</div>
+										</Slide>
+
+										<template #addons>
+											<Navigation />
+										</template>
+									</Carousel>
+								</div>
 							</div>
 
 							<!-- Data e Hora -->
@@ -163,7 +204,7 @@
 						<div class="flex items-center justify-center">
 							<UButton v-if="store.isEditMediaModal" :loading="store.loading" label="Atualizar" size="xl"
 								:color="store.completedForm ? 'sky' : 'gray'" variant="outline" :disabled="!store.completedForm"
-								@click="console.log('atualizou')" />
+								@click="store.putEditMedia(useToast)" />
 
 							<UButton v-else :loading="store.loading" label="Salvar" size="xl"
 								:color="store.completedForm ? 'green' : 'gray'" variant="outline" :disabled="!store.completedForm"

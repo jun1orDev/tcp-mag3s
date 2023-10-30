@@ -23,7 +23,7 @@
 		<div>
 			<small class="block text-md text-red-500">Ações:</small>
 			<UButton color="red" icon="i-material-symbols-delete-forever-outline" variant="soft" size="sm" class="me-2" @click="store.openModalMediaDelete(media)" />
-			<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" @click="store.openModalMediaEdit(media)" />
+			<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" @click="store.openModalMediaEdit(media.id)" />
 		</div>
 		<div class="absolute right-0 top-0 rounded-e-xl w-[10px] h-full" :class="setTypesMediaStyle(media.type)"></div>
 	</div>

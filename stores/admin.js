@@ -19,7 +19,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				id: null,
 				name: '',
 			},
+			listArchiveMedia: [],
+			listArchiveMediaDelete: [],
 			formMedia: {
+				id: null,
 				name: '',
 				value: '',
 				valueFilesMedia: null,
@@ -74,11 +77,27 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 		completedForm: (state) => {
 			return (
-				state.formMedia.name &&
-				state.formMedia.typeMS &&
-				(state.formMedia.value || state.formMedia.valueFilesMedia) &&
-				state.formMedia.tagSelected
+				(state.formMedia.name &&
+					state.formMedia.typeMS &&
+					(state.formMedia.value || state.formMedia.valueFilesMedia) &&
+					state.formMedia.tagSelected) ||
+				state.listArchiveMedia.length
 			);
+		},
+		editMediaValueArchive: (state) => {
+			return (
+				state.isEditMediaModal &&
+				state.formMedia.typeMS &&
+				state.listArchiveMedia.length
+			);
+		},
+		carouselListMaxMedia: (state) => {
+			return state.listArchiveMedia.length > 5
+				? 5
+				: state.listArchiveMedia.length;
+		},
+		carouselEnableLoop: (state) => {
+			return state.listArchiveMedia.length > 1 ? true : false;
 		},
 	},
 
@@ -171,7 +190,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 				if (status.value === 'error') {
 					toast.add({
-						id: 'error_getContent',
+						id: 'error_postNewMedia',
 						title: `Erro: ${error.value.data.statusCode}`,
 						description: `${error.value.data.message}`,
 						color: 'red',
@@ -181,7 +200,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				}
 			} catch (error) {
 				toast.add({
-					id: 'error_getContent',
+					id: 'error_postNewMediaAPI',
 					title: `Opss... Algo de errado aconteceu!`,
 					description: `${error}`,
 					color: 'red',
@@ -197,8 +216,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.isOpenModalMedia = false;
 			this.titleModalMedia = '';
 
+			this.formMedia.id = null;
 			this.formMedia.name = '';
 			this.formMedia.value = '';
+			this.listArchiveMedia = [];
+			this.listArchiveMediaDelete = [];
 			this.formMedia.valueFilesMedia = null;
 			this.formMedia.tagSelected = null;
 			this.formMedia.typeMS = null;
@@ -208,7 +230,14 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		$resetFormMediaValue() {
+			if (this.listArchiveMedia) {
+				this.selectAllArchiveMediaDelete();
+			} else {
+				this.listArchiveMediaDelete = [];
+			}
+
 			this.formMedia.value = null;
+			this.listArchiveMedia = [];
 		},
 
 		$resetChosenMediaDelete() {
@@ -293,15 +322,123 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.loading = false;
 		},
 
-		openModalMediaEdit(media) {
+		openModalMediaEdit(id) {
+			const media = this.filterMedias.find((media) => media.id === id);
+
 			this.isOpenModalMedia = true;
 			this.titleModalMedia = `Edite a mídia ${media.name}`;
 			this.isEditMediaModal = true;
 
-			this.formMedia.name = media.name;
+			this.formMedia.id = media.id;
+			this.formMedia.name = media.name.replace(/_/g, ' ');
 			this.formMedia.typeMS = media.type;
 			this.formMedia.tagSelected = media.tag;
-			this.formMedia.value = media.value;
+
+			if (this.formMedia.typeMS === 'archive') {
+				this.formMedia.value = null;
+				this.listArchiveMedia = media.value;
+			} else {
+				this.formMedia.value = media.value;
+			}
+		},
+
+		async putEditMedia(useToast) {
+			const toast = useToast();
+			this.loading = true;
+			let formData = new FormData();
+
+			if (this.formMedia.valueFilesMedia) {
+				for (const file of this.formMedia.valueFilesMedia) {
+					formData.append('value', file);
+				}
+			}
+
+			const data = {
+				id: this.formMedia.id,
+				name: this.formMedia.name,
+				tag: this.formMedia.tagSelected,
+				type: this.formMedia.typeMS,
+				newtag: this.formMedia.newTag.choise,
+			};
+
+			if (this.listArchiveMediaDelete.length) {
+				data.value_list_delete = this.listArchiveMediaDelete.join(';');
+			}
+
+			if (this.formMedia.value) {
+				data.value = this.formMedia.value;
+			}
+
+			for (const item in data) {
+				formData.append(item, data[item]);
+			}
+
+			try {
+				const { data, error, status } = await useFetch('/api/admin/medias', {
+					method: 'put',
+					body: formData,
+					credentials: 'include',
+				});
+
+				if (status.value === 'success') {
+					this.medias = this.medias.filter(
+						(item) => item.id !== data.value.data.media.id
+					);
+
+					this.medias.unshift(data.value.data.media);
+					this.filterMedias = this.medias;
+
+					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
+
+					toast.add({
+						id: 'success_putEditMedia',
+						title: `Tudo certo!`,
+						description: `${data.value.message}`,
+						color: 'sky',
+						icon: 'i-material-symbols-check-circle-rounded',
+						timeout: 3500,
+					});
+
+					this.$resetFormMedia();
+				}
+
+				if (status.value === 'error') {
+					toast.add({
+						id: 'error_putEditMedia',
+						title: `Erro: ${error.value.data.statusCode}`,
+						description: `${error.value.data.message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 5000,
+					});
+				}
+			} catch (error) {
+				toast.add({
+					id: 'error_putEditMediaAPI',
+					title: `Opss... Algo de errado aconteceu!`,
+					description: `${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 5000,
+				});
+			}
+
+			this.loading = false;
+		},
+
+		selectArchiveMediaDelete(archive) {
+			this.listArchiveMediaDelete.push(
+				this.listArchiveMedia.find((item) => item === archive)
+			);
+			this.listArchiveMedia = this.listArchiveMedia.filter(
+				(item) => item !== archive
+			);
+		},
+
+		selectAllArchiveMediaDelete() {
+			this.listArchiveMedia.forEach((item) => {
+				this.listArchiveMediaDelete.push(item);
+			});
 		},
 
 		filterPerTag(id, tagChoice) {
