@@ -40,9 +40,9 @@ export default defineEventHandler(async (event) => {
 	const exceptions = ['thisshouldbeanarray'];
 	const fieldsSingle = firstValues(form, fields, exceptions);
 
-	const name = fieldsSingle.name;
+	const name = fieldsSingle.name.toLowerCase();
 	let value = files.value || fieldsSingle.value;
-	let tag = fieldsSingle.tag;
+	let tag = fieldsSingle.tag.toLowerCase();
 	const createNewTag = Boolean(+fieldsSingle.newtag);
 	const type = fieldsSingle.type;
 
@@ -75,7 +75,7 @@ export default defineEventHandler(async (event) => {
 	}
 
 	// Tag
-	tag = toLetterFisrtUperCase(tag).replace(/[ ]+/g, '').trim();
+	tag = tag.replace(/[ ]+/g, '').trim();
 	const tagData = await TagsMediaModel.findAll({ where: { name: tag } });
 
 	if (!tag) {
@@ -129,7 +129,6 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
-
 	// Save media archive
 	let listFiles = [];
 	if (files.value) {
@@ -153,17 +152,23 @@ export default defineEventHandler(async (event) => {
 	});
 
 	// Create new tag
-	if (createNewTag) await TagsMediaModel.create({ name: tag });
+	let newTag;
+	if (createNewTag) newTag = await TagsMediaModel.create({ name: tag });
 
 	return {
 		statusCode: 200,
 		message: 'Mídia cadastrada com sucesso!',
 		data: {
-			id: media.id,
-			name: media.name,
-			value: media.value,
-			tag: media.tag,
-			type: media.type,
+			media: {
+				id: media.id,
+				name: media.name,
+				value: media.value,
+				tag: media.tag,
+				type: media.type,
+			},
+			newTag: newTag
+				? { id: newTag.id, name: newTag.name, filter: false }
+				: false,
 		},
 	};
 });

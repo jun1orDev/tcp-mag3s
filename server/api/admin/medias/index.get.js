@@ -31,6 +31,7 @@ export default defineEventHandler(async (event) => {
 	} else {
 		throw createError({
 			statusCode: 406,
+			data: { tags },
 			message: 'Não existem mídias cadastradas!',
 		});
 	}

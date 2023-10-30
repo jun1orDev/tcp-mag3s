@@ -1,92 +1,125 @@
 <template>
 	<div>
-		<UModal v-model="store.isOpenModalMedia" :fullscreen="false"
-			:ui="{ width: 'sm:max-w-5xl', heigth: 'sm-min-w-full', padding: 'sm:mx-8' }">
+		<UModal v-model="store.isOpenModalMedia" :fullscreen="false" prevent-close
+			:ui="{ width: 'sm:max-w-6xl', heigth: 'sm-min-w-full', padding: 'sm:mx-8' }">
 			<UCard :ui="options">
 				<template #header>
 					<div class="flex items-center justify-between">
 						<h3 class="text-xl leading-6 text-green-700 dark:text-white uppercase font-semibold">
-							Adicione uma nova Mídia
+							Cadastre uma nova Mídia
 						</h3>
 						<UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
-							@click="store.isOpenModalMedia = false" />
+							@click="store.$resetFormMedia" />
 					</div>
 				</template>
 
 				<!-- Content -->
 				<div>
-
 					<!-- Linha 1 do formulário -->
-					<div class="grid grid-cols-3 gap-4 mb-8">
+					<UForm class="grid grid-cols-9 gap-4 mb-8">
 
 						<!-- Nome  -->
-						<div>
-							<label class="block mb-2" for="name">Nome do conteúdo:</label>
-							<UInput id="name" type="text" placeholder="Digite aqui..." :trailing="false"
-								icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name" />
+						<div class="col-span-3">
+							<UFormGroup class="block mb-2" label="Nome do conteúdo:" name="name"
+								help="Usado na api que alimenta da aplicação." size="xl" required>
+								<UInput id="name" type="text" placeholder="Digite aqui..." :trailing="false"
+									icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name" />
+							</UFormGroup>
 						</div>
 
 						<!-- Tipo -->
-						<div>
-							<label class="block mb-2" for="name">Qual o Tipo de Mídia?</label>
-							<USelectMenu v-model="store.formMedia.typeMS" option-attribute="name" :options="store.typesMediaForm"
-								value-attribute="value" placeholder="selecione aqui..." :trailing="false"
-								icon="i-material-symbols-tamper-detection-on-sharp" size="xl" />
+						<div class="col-span-3">
+							<UFormGroup class="block mb-2" label="Escolha o tipo de mídia:" name="type"
+								help="Lista dos tipos de mídias." size="xl" required>
+								<USelectMenu id="type" name="type" v-model="store.formMedia.typeMS" option-attribute="name"
+									:options="store.typesMediaForm" value-attribute="value" placeholder="selecione aqui..."
+									:trailing="false" icon="i-material-symbols-tamper-detection-on-sharp" size="xl"
+									@change="store.$resetFormMediaValue" />
+							</UFormGroup>
 						</div>
 
+						<!-- è uma tag nova? -->
+						<div>
+							<UFormGroup class="block mb-2" label="Nova Tag?" name="question" size="xl" required>
+								<URadio id="question" name="question" v-for="question of store.newTag.questions" :key="question.name"
+									v-model="store.newTag.choise" v-bind="question" :label="question.label" />
+							</UFormGroup>
+						</div>
+
+						<!-- Tag / escolha da tag -->
+						<div class="col-span-2">
+							<div v-if="store.newTag.choise">
+								<UFormGroup class="block mb-2" label="Nome da Tag:" name="tag" size="xl" required>
+									<UInput id="tag" type="text" placeholder="Digite aqui..." :trailing="false"
+										icon="i-material-symbols-new-label-sharp" v-model="store.formMedia.tagSelected" size="xl" />
+								</UFormGroup>
+							</div>
+
+							<div v-else>
+								<UFormGroup class="block mb-2" label="Escolha a Tag:" name="tag" size="xl" required>
+									<USelectMenu v-model="store.formMedia.tagSelected" option-attribute="name" :options="store.tagsMediaFormSelected"
+										value-attribute="name" placeholder="selecione aqui..." :trailing="false"
+										icon="i-material-symbols-label-sharp" size="xl" />
+								</UFormGroup>
+							</div>
+						</div>
+					</UForm>
+
+					<!-- Linha 2 do formulário -->
+					<div class="grid grid-cols-none">
 						<!-- Seleção do Tipo de mídia -->
 						<div>
 							<!-- Texto -->
 							<div v-if="store.typeMediaSelectedForm === 'text'">
-								<label class="block mb-2" for="value">Insira o texto:</label>
-								<UTextarea id="value" type="text" placeholder="Digite aqui..." size="xl"
-									v-model="store.formMedia.value" />
+								<UFormGroup class="block mb-2" label="Insira o texto:" name="value" size="xl" required>
+									<UTextarea id="value" type="text" placeholder="Digite aqui..." size="xl" :rows="5"
+										v-model="store.formMedia.value" />
+								</UFormGroup>
 							</div>
 
 							<!-- Link -->
 							<div v-if="store.typeMediaSelectedForm === 'link'">
-								<label class="block mb-2" for="value">Insira o link:</label>
-								<UInput id="value" type="link" placeholder="Digite aqui..." size="xl" v-model="store.formMedia.value" />
+								<UFormGroup class="block mb-2" label="Insira o link:" name="value" size="xl" required>
+									<UInput id="value" type="link" placeholder="Digite aqui..." size="xl" v-model="store.formMedia.value" />
+								</UFormGroup>
+							</div>
+
+							<!-- Cor -->
+							<div v-if="store.typeMediaSelectedForm === 'color'">
+								<UFormGroup class="block mb-2" label="Insira a cor:" name="value" size="xl" required>
+									<UInput id="value" type="color" placeholder="Escolha a cor..." size="xl" v-model="store.formMedia.value"
+										:ui="{ base: 'h-[44px] max-w-[100px]' }" />
+								</UFormGroup>
 							</div>
 
 							<!-- Imagem/Arquivo -->
 							<div v-if="store.typeMediaSelectedForm === 'archive'">
-								<label class="block mb-2" for="value">Insira a mídia:</label>
-								<UInput id="value" type="file" multiple size="xl" v-model="store.formMedia.value" v-on:change="handleFileUpload()" ref="file" />
+								<UFormGroup class="block mb-2" label="Insira a mídia:" name="fileMedia" size="xl" required>
+									<UInput id="fileMedia" type="file" multiple size="xl" name="fileMedia" v-on:change="handleFileUpload" />
+								</UFormGroup>
+							</div>
+
+							<!-- Data e Hora -->
+							<div v-if="store.typeMediaSelectedForm === 'datetime'">
+								<UFormGroup class="block mb-2" label="Insira a data e hora:" name="value" size="xl" required>
+									<UInput id="value" type="datetime-local" placeholder="Escolha a data" size="xl"
+										v-model="store.formMedia.value" />
+								</UFormGroup>
+							</div>
+
+							<!-- Verdadeiro/Falso -->
+							<div v-if="store.typeMediaSelectedForm === 'boolean'">
+								<UFormGroup class="block mb-2" label="Escolha apenas 1 opção:" name="value" size="xl" required>
+									<URadio v-for="boolean of store.formMedia.valueBoolean" id="value" name="value" :key="boolean.name"
+										v-model="store.formMedia.value" v-bind="boolean" :label="boolean.label" />
+								</UFormGroup>
 							</div>
 
 							<!-- Sem escolha -->
 							<div v-if="store.typeMediaSelectedForm === null"
 								class="flex flex-col items-center h-full w-full justify-end text-center text-red-500 font-medium">
 								<UIcon class="text-5xl" name="i-material-symbols-deployed-code-outline-sharp" />
-									<h3>O tipo de mídia selecionada<br /> aparecerá aqui!</h3>
-							</div>
-						</div>
-					</div>
-
-					<!-- Linha 2 do formulário -->
-					<div class="grid grid-cols-4 gap-4">
-
-						<!-- è uma tag nova? -->
-						<div>
-							<label class="block mb-2" for="name">É uma tag nova?</label>
-							<URadio v-for="question of store.newTag.questions" :key="question.name" v-model="store.newTag.choise"
-								v-bind="question" />
-						</div>
-
-						<!-- Tag / escolha da tag -->
-						<div class="col-span-3">
-							<div v-if="store.newTag.choise">
-								<label class="block mb-2" for="tag">Nome da Tag:</label>
-								<UInput id="tag" type="text" placeholder="Digite aqui..." :trailing="false"
-									icon="i-material-symbols-new-label-sharp" v-model="store.formMedia.tagSelected" size="xl" />
-							</div>
-
-							<div v-else>
-								<label class="block mb-2" for="name">Qual a Tag para essa Mídia?</label>
-								<USelectMenu v-model="store.formMedia.tagSelected" option-attribute="name" :options="store.tags"
-									value-attribute="name" placeholder="selecione aqui..." :trailing="false"
-									icon="i-material-symbols-label-sharp" size="xl" />
+								<h3>O tipo de mídia selecionada<br /> aparecerá aqui!</h3>
 							</div>
 						</div>
 					</div>
@@ -110,7 +143,7 @@
 							</UTooltip>
 						</div>
 						<div>
-							<UIcon v-if="store.formMedia.value" class="text-green-300"
+							<UIcon v-if="store.formMedia.value || store.formMedia.valueFilesMedia" class="text-green-300"
 								name="i-material-symbols-deployed-code-outline-sharp" />
 							<UTooltip v-else text="Faltou preencher a Mídia">
 								<UIcon class="text-gray-300" name="i-material-symbols-deployed-code-outline-sharp" />
@@ -147,15 +180,9 @@ const options = ref({
 	}
 });
 
-const file = ref(null)
-
-const handleFileUpload = async () => {
-	// debugger;
-	console.log("selected file", file.value.files)
-	//Upload to server
+const handleFileUpload = (event) => {
+	store.formMedia.valueFilesMedia = event.target.files || event.dataTransfer.files;
 }
-
-
 
 </script>
 
