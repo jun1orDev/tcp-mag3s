@@ -86,19 +86,27 @@
 				</p>
 			</div>
 		</UContainer>
-		<ResultDraw
-			titulo="Ao fornecer meus dados estou ciente e concordo que sejam tratados para o fornecimento de serviços, atividades ou conteúdos online disponibilizados pelo Fiel da Sorte e
-			pelo Sport Club Corinthians Paulista, bem como para novas ações de marketing do Fiel Digital, do Fiel da Sorte e do Sport Club Corinthians Paulista." class=" titulo text-center text-white text-[9px] md:text-[10px]"
+		<div class="relative">
+			<div class="justify-center mb-4">
+				<ResultDraw
+					subtitulo="Ao fornecer meus dados estou ciente e concordo que sejam tratados para o fornecimento de serviços, atividades ou conteúdos online disponibilizados pelo Fiel da Sorte e
+						pelo Sport Club Corinthians Paulista, bem como para novas ações de marketing do Fiel Digital, do Fiel da Sorte e do Sport Club Corinthians Paulista."
+					class="subtitulo text-center text-white text-[9px] md:text-[10px]"
+					:mostrarBotao="false"
+				/>
 
-
-		/>
+				<div class="mb-2 text-center bottom-0 left-0 right-0 fixed">
+					<img src="/imgs/fieldasorte.png" class="mx-auto" />
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script setup></script>
 
 <style scoped>
-.titulo{
+.subtitulo {
 	font-family: 'Gotham Book';
 }
 </style>

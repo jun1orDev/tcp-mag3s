@@ -31,6 +31,7 @@
 			titulo="BOA SORTE!"
 			subtitulo="Se a combonação dos números sorteados bater com algum dos seus números, você ganhou!"
 			button="REVELAR RESULTADO"
+			:mostrarBotao="true"
 		/>
 	</div>
 
@@ -67,6 +68,7 @@
 			titulo="NÃO FOI DESSA VEZ..."
 			subtitulo="Continua atento aos sorteios, aqui no Fiel da Sorte todo dia tem ganhador!"
 			button="VOLTAR"
+			:mostrarBotao="true"
 		/>
 	</div>
 
@@ -101,6 +103,7 @@
 			titulo="PARABÉNS!"
 			subtitulo="Seu número da sorte foi contemplado! Lembre-se: Mantenha seu cadastro atualizado que nossa equipe vai entrar em contato em breve!"
 			button="VER DETALHES"
+			:mostrarBotao="true"
 		/>
 	</div>
 </template>
