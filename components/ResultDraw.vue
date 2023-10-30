@@ -1,7 +1,7 @@
 <template>
 	<div class="flex">
 		<div
-			class="p-6 justify-end fixed bottom-0 left-0 right-0 flex bg-cover bg-[url('/imgs/card_sorteio_atual_mobile.png')] bg-stone-950/95"
+			class="p-7 justify-end fixed bottom-0 left-0 right-0 flex bg-cover bg-[url('/imgs/card_sorteio_atual_mobile.png')] bg-stone-950/90"
 		>
 			<div class="flex flex-col justify-center items-center ">
 				<h1
