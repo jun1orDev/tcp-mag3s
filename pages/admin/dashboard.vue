@@ -38,6 +38,9 @@
 
 			<!-- Modal para preencher ou editar dados de uma mídia -->
 			<AdmMediaModal />
+
+			<!-- Modal para deletar uma mídia expecífica -->
+			<AdmDeleteMediaModal />
 		</UContainer>
 
 
