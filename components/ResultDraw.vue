@@ -1,27 +1,26 @@
 <template>
-	<div style="display: flex; flex-direction: column; justify-content: flex-end">
+	<div class="flex">
 		<div
-			class="card p-4 md:p-8 fixed bottom-0 left-0 right-0 flex justify-center bg-no-repeat bg-right md:bg-center bg-cover bg-[url('/imgs/card_sorteio_atual_mobile.png')]"
+			class="p-7 justify-end fixed bottom-0 left-0 right-0 flex bg-cover bg-[url('/imgs/retangulo.png')] bg-stone-950/90"
 		>
-			<div class="flex flex-col justify-center items-center">
-				<div>
-					<h1
-						class="titulo text-white text-[16px] md:text-[24px]"
-						:style="`background-color: ${props.customBackground}`"
-					>
-						<span>{{ props.titulo }}</span>
-					</h1>
-				</div>
-				<div
-					class="subtitulo text-center text-white text-[10px] md:text-[14px]"
+			<div class="flex flex-col justify-center items-center ">
+				<h1
+					class="titulo text-white"
+					:style="`background-color: ${props.customBackground}`"
 				>
-					<span>{{ props.subtitulo }}</span>
+					{{ props.titulo }}
+				</h1>
+				<div
+					class="subtitulo text-justify text-white text-[10px] md:text-[14px] mb-5"
+				>
+					{{ props.subtitulo }}
 				</div>
 				<button
-					class="button mt-3 cursor-pointer w-44 h-8 bg-[#847248] text-white text-xs font-semibold rounded-xl"
+					v-if="props.mostrarBotao"
 					@click="revelarResultado"
+					class="button px-5 py-2 bg-[#847248] text-white text-[10px] md:text-[12px] rounded-xl mt-3"
 				>
-					<span>{{ props.button }}</span>
+					{{ props.button }}
 				</button>
 			</div>
 		</div>
@@ -35,6 +34,7 @@ const props = defineProps([
 	'subtitulo',
 	'button',
 	'customBackground',
+	'mostrarBotao',
 ]);
 
 function revelarResultado() {
@@ -42,14 +42,4 @@ function revelarResultado() {
 }
 </script>
 
-<style scoped>
-.titulo {
-	font-family: 'Gotham black';
-}
-.subtitulo {
-	font-family: 'Gotham Medium';
-}
-.button {
-	font-family: 'Gotham black';
-}
-</style>
+<style scoped></style>
