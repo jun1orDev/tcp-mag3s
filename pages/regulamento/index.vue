@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<PlanoFundo />
-		<UContainer>
+		<UContainer class="pb-36">
 			<div class="py-6">
 				<h1 class="title uppercase text-[#847248] text-[12px] md:text-[22px]">
 					regulamento do fiel da sorte
