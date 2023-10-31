@@ -1,10 +1,11 @@
 <template>
 	<div>
-		<UInput :rows="1" color="yellow" variant="outline" placeholder="Buscar por prêmio, data, etc."
+		<UInput :rows="1" color="yellow" variant="outline" :placeholder="inputPlaceholder"
 			icon="i-heroicons-magnifying-glass-20-solid" size="sm" :trailing="false" class="text-white" />
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+const props= defineProps (['inputPlaceholder'])</script>
 
 <style scoped></style>

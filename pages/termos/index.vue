@@ -86,18 +86,21 @@
 				</p>
 			</div>
 		</UContainer>
-		<div class="relative">
-			<div class="justify-center mb-4">
-				<ResultDraw
-					subtitulo="Ao fornecer meus dados estou ciente e concordo que sejam tratados para o fornecimento de serviços, atividades ou conteúdos online disponibilizados pelo Fiel da Sorte e
-						pelo Sport Club Corinthians Paulista, bem como para novas ações de marketing do Fiel Digital, do Fiel da Sorte e do Sport Club Corinthians Paulista."
-					class="subtitulo text-center text-white text-[9px] md:text-[10px]"
-					:mostrarBotao="false"
-				/>
 
-				<div class="mb-2 text-center bottom-0 left-0 right-0 fixed">
-					<img src="/imgs/fieldasorte.png" class="mx-auto" />
-				</div>
+		<div
+			class="flex flex-col p-5 justify-end fixed bottom-0 left-0 right-0 bg-cover bg-[url('/imgs/retangulo.png')]"
+		>
+			<div>
+				<p class="text-white text-[9px] md:text-[12px]">
+					Ao fornecer meus dados estou ciente e concordo que sejam tratados para
+					o fornecimento de serviços, atividades ou conteúdos online
+					disponibilizados pelo Fiel da Sorte e pelo Sport Club Corinthians
+					Paulista, bem como para novas ações de marketing do Fiel Digital, do
+					Fiel da Sorte e do Sport Club Corinthians Paulista.
+				</p>
+			</div>
+			<div class="p-4 bottom-0 left-0 right-0">
+				<img src="/imgs/fieldasorte.png" class="mx-auto" />
 			</div>
 		</div>
 	</div>
@@ -106,8 +109,7 @@
 <script setup></script>
 
 <style scoped>
-
-.title{
+.title {
 	font-family: 'Gotham Black';
 }
 .subtitulo {
