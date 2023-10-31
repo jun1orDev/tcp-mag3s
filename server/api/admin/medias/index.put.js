@@ -1,6 +1,7 @@
 import { MediasModel } from '../../../models/Medias.model';
 import { readFiles } from 'h3-formidable';
 import { firstValues } from 'h3-formidable/helpers';
+import { TagsMediaModel } from '~/server/models/TagsMedia.model';
 import fs from 'fs';
 import path from 'path';
 
@@ -9,6 +10,11 @@ const config = useRuntimeConfig();
 export default defineEventHandler(async (event) => {
 	// verify user loggin
 	userIsLoggedIn(event);
+
+	// create media directory if it doesn't exist
+	if (!fs.existsSync('public/uploads')) {
+		fs.mkdirSync(path.join('public', 'uploads'));
+	}
 
 	let validArchive = false;
 	const { fields, form, files } = await readFiles(event, {
@@ -39,7 +45,8 @@ export default defineEventHandler(async (event) => {
 	let value = files.value || fieldsSingle.value;
 	let value_list_delete = fieldsSingle.value_list_delete;
 	let valueDBNotRemoveArchive;
-	const tag = fieldsSingle.tag;
+	let tag = fieldsSingle.tag;
+	const createNewTag = Boolean(+fieldsSingle.newtag);
 	const type = fieldsSingle.type;
 
 	// Verify empty inputs
@@ -58,7 +65,6 @@ export default defineEventHandler(async (event) => {
 		});
 	} else {
 		// check name only text
-		const hasOnlyText = /^[A-Za-z]+( [A-Za-z]+)*$/;
 		if (!hasOnlyText.test(name))
 			throw createError({
 				statusCode: 422,
@@ -81,11 +87,31 @@ export default defineEventHandler(async (event) => {
 			}
 	}
 
+	// Tag
+	tag = tag.replace(/[ ]+/g, '').trim();
+	const tagData = await TagsMediaModel.findAll({ where: { name: tag } });
+
 	if (!tag) {
 		throw createError({
 			statusCode: 422,
 			message: 'Tag da mídia é obrigatório',
 		});
+	}
+
+	if (createNewTag) {
+		if (!hasOnlyText.test(tag))
+			throw createError({
+				statusCode: 422,
+				message:
+					'Nome de tag não pode conter números, caracteres especiais e espaços no final do nome!',
+			});
+
+		if (tagData.length) {
+			throw createError({
+				statusCode: 422,
+				message: 'Esse nome de Tag já existe, tente outro',
+			});
+		}
 	}
 
 	if (!type) {
@@ -163,8 +189,8 @@ export default defineEventHandler(async (event) => {
 
 		for (const file of files.value) {
 			const fileName = `${Date.now()}-${file.newFilename}-${
-				file.mimetype.split('/')[1]
-			}`;
+				file.mimetype.split('/')[0]
+			}-${file.mimetype.split('/')[1]}`;
 			const newPath = `${path.join('public', 'uploads', fileName)}`;
 			fs.copyFileSync(file.filepath, newPath);
 			listFiles.push(fileName);
@@ -183,8 +209,12 @@ export default defineEventHandler(async (event) => {
 		{ where: { id } }
 	);
 
+	// Create new tag
+	let newTag;
+	if (createNewTag) newTag = await TagsMediaModel.create({ name: tag });
+
 	const media = await MediasModel.findOne({
-		raw: true,
+		raw: false,
 		where: { id },
 		attributes: { exclude: ['createdAt', 'updatedAt'] },
 	});
@@ -193,11 +223,16 @@ export default defineEventHandler(async (event) => {
 		statusCode: 200,
 		message: 'Mídia atualizada com sucesso!',
 		data: {
-			id: media.id,
-			name: media.name,
-			value: switchTextToBoolean(media.value.split(';')),
-			tag: media.tag,
-			type: media.type,
+			media: {
+				id: media.id,
+				name: media.name,
+				value: media.value,
+				tag: media.tag,
+				type: media.type,
+			},
+			newTag: newTag
+				? { id: newTag.id, name: newTag.name, filter: false }
+				: false,
 		},
 	};
 });

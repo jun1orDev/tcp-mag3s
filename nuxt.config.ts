@@ -49,7 +49,7 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui'],
+	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui', 'vue3-carousel-nuxt'],
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
 
