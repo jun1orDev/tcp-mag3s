@@ -171,7 +171,9 @@ export default defineEventHandler(async (event) => {
 			// if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
 
 			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
-			const fileUp = bucket.file(config.gcsSubfolder + mediaFile);
+			const fileUp = bucket.file(
+				`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${mediaFile}`
+			);
 
 			try {
 				await fileUp.delete();
@@ -198,7 +200,7 @@ export default defineEventHandler(async (event) => {
 		let listFiles = valueDB.value.split(';').filter(Boolean);
 
 		for (const file of files.value) {
-			const extFile = file.originalFilename.split('.')[1];
+			const extFile = file.mimetype.split('/')[1];
 
 			const fileName = `${Date.now()}-${file.newFilename}-${
 				file.mimetype.split('/')[0]
@@ -208,7 +210,9 @@ export default defineEventHandler(async (event) => {
 			// fs.copyFileSync(file.filepath, newPath);
 
 			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
-			const fileUp = bucket.file(config.gcsSubfolder + fileName);
+			const fileUp = bucket.file(
+				`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${fileName}`
+			);
 
 			const stream = fileUp.createWriteStream({
 				metadata: {

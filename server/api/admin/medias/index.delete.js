@@ -31,7 +31,9 @@ export default defineEventHandler(async (event) => {
 					// if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
 
 					const bucket = googleCloudStorage.bucket(config.gcsBucketname);
-					const fileUp = bucket.file(config.gcsSubfolder + mediaFile);
+					const fileUp = bucket.file(
+						`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${mediaFile}`
+					);
 
 					try {
 						await fileUp.delete();
