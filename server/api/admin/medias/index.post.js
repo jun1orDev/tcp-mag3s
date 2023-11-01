@@ -132,8 +132,6 @@ export default defineEventHandler(async (event) => {
 	// Save media archive
 	let listFiles = [];
 	if (files.value) {
-		const bucketName = 'assets.mag3s.com';
-
 		for (const file of files.value) {
 			const extFile = file.originalFilename.split('.')[1];
 
@@ -144,9 +142,8 @@ export default defineEventHandler(async (event) => {
 			// const newPath = `${path.join('public', 'uploads', fileName)}`;
 			// fs.copyFileSync(file.filepath, newPath);
 
-			const bucket = googleCloudStorage.bucket(bucketName);
-			const fullPath = 'static/tcp_fieldasorte/';
-			const fileUp = bucket.file(fullPath + fileName);
+			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
+			const fileUp = bucket.file(config.gcsSubfolder + fileName);
 
 			const stream = fileUp.createWriteStream({
 				metadata: {
@@ -158,6 +155,11 @@ export default defineEventHandler(async (event) => {
 
 			stream.on('error', (error) => {
 				console.error(`Erro ao enviar arquivo para o GCS: ${error}`);
+
+				throw createError({
+					statusCode: 500,
+					message: `Erro ao enviar arquivo para o GCS: ${error}`,
+				});
 			});
 
 			stream.on('finish', () => {
