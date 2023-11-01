@@ -1,29 +1,15 @@
 <template>
 	<div v-if="store.loading"
-		class="flex flex-col justify-center items-center min-h-screen bg-slate-950 bg-no-repeat bg-center bg-cover bg-[url('/imgs/img_fundo_loading.png')]"
-	>
+		class="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center min-h-screen bg-slate-950 bg-no-repeat bg-center bg-cover bg-[url('/imgs/img_fundo_loading.png')]">
 		<img src="/imgs/img_loading.png" class="mb-24 w-60 md:w-auto" />
 		<div class="text-white">
-			<div class="flex justify-center items-center relative mb-28">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="40"
-					height="36"
-					viewBox="0 0 24 24"
-				>
-					<path
-						fill="currentColor"
-						d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"
-					>
-						<animateTransform
-							attributeName="transform"
-							dur="0.75s"
-							repeatCount="indefinite"
-							type="rotate"
-							values="0 12 12;360 12 12"
-						/>
-					</path>
-				</svg>
+			<div class="flex flex-col justify-center items-center mb-28">
+				<div class="simple-spinner">
+					<span></span>
+				</div>
+				<div class="mt-5 uppercase font-semibold">
+					<h2>Carregando...</h2>
+				</div>
 			</div>
 		</div>
 		<img src="/imgs/img_fiel_da_sorte.png" />
@@ -31,10 +17,36 @@
 </template>
 
 <script setup>
-import { useStoreAdmin } from '~/stores/admin';
-const store = useStoreAdmin();
-
+import { useStoreApp } from '~/stores/app';
+const store = useStoreApp();
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.simple-spinner {
+	position: relative;
+	display: block;
+	width: 30px;
+	height: 30px;
+}
+
+.simple-spinner span {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border: 3px solid transparent;
+	border-radius: 50%;
+	border-right-color: rgba(255, 255, 255, 0.7);
+	animation: spinner-anim 0.8s linear infinite;
+}
+
+@keyframes spinner-anim {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+</style>

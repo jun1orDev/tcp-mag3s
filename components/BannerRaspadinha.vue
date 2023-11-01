@@ -1,5 +1,4 @@
 <template>
-	bg-stone
 	<div
 		class="relative box-content md:box-border min-h-auto md:h-[210px] p-2 md:p-4 flex justify-between bg-no-repeat bg-right md:bg-center bg-cover rounded-3xl bg-[url('/imgs/gol.png')]"
 	>
