@@ -110,13 +110,13 @@
 
 												<!-- img -->
 												<div v-if="mediaSlide.includes('image')">
-													<img :src="`/uploads/${mediaSlide}`" class="h-max" alt="mediaSlide"
-														:srcset="`/uploads/${mediaSlide}`">
+													<img :src="`${pathAssets}${mediaSlide}`" class="h-max" alt="mediaSlide"
+														:srcset="`${pathAssets}${mediaSlide}`">
 												</div>
 
 												<!-- pdf -->
 												<div class="border-2 border-dashed border-sky-400 text-6xl px-8 py-8" v-else>
-													<a :href="`/uploads/${mediaSlide}`" target="_blank" rel="noopener noreferrer">
+													<a :href="`${pathAssets}${mediaSlide}`" target="_blank" rel="noopener noreferrer">
 														<UTooltip text="Abra o Documento">
 															<UIcon name="i-material-symbols-picture-as-pdf" class="cursor-pointer text-red-600" />
 														</UTooltip>
@@ -220,6 +220,7 @@
 <script setup>
 import { useStoreAdmin } from '~/stores/admin';
 const store = useStoreAdmin();
+const { pathAssets } = useRuntimeConfig().public;
 
 const options = ref({
 	base: 'h-full flex flex-col',

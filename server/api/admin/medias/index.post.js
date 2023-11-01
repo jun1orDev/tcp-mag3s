@@ -12,9 +12,9 @@ export default defineEventHandler(async (event) => {
 	userIsLoggedIn(event);
 
 	// create media directory if it doesn't exist
-	if (!fs.existsSync('public/uploads')) {
-		fs.mkdirSync(path.join('public', 'uploads'));
-	}
+	// if (!fs.existsSync('public/uploads')) {
+	// 	fs.mkdirSync(path.join('public', 'uploads'));
+	// }
 
 	let validArchive = false;
 	const { fields, form, files } = await readFiles(event, {
@@ -133,11 +133,39 @@ export default defineEventHandler(async (event) => {
 	let listFiles = [];
 	if (files.value) {
 		for (const file of files.value) {
+			const extFile = file.originalFilename.split('.')[1];
+
 			const fileName = `${Date.now()}-${file.newFilename}-${
 				file.mimetype.split('/')[0]
-			}-${file.mimetype.split('/')[1]}`;
-			const newPath = `${path.join('public', 'uploads', fileName)}`;
-			fs.copyFileSync(file.filepath, newPath);
+			}.${extFile}`;
+
+			// const newPath = `${path.join('public', 'uploads', fileName)}`;
+			// fs.copyFileSync(file.filepath, newPath);
+
+			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
+			const fileUp = bucket.file(config.gcsSubfolder + fileName);
+
+			const stream = fileUp.createWriteStream({
+				metadata: {
+					contentType: file.mimetype, // Tipo MIME do arquivo
+				},
+			});
+
+			stream.end(fs.readFileSync(file.filepath));
+
+			stream.on('error', (error) => {
+				console.error(`Erro ao enviar arquivo para o GCS: ${error}`);
+
+				throw createError({
+					statusCode: 500,
+					message: `Erro ao enviar arquivo para o GCS: ${error}`,
+				});
+			});
+
+			stream.on('finish', () => {
+				console.log('Arquivo enviado com sucesso para o GCS');
+			});
+
 			listFiles.push(fileName);
 		}
 		value = listFiles;

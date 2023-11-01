@@ -44,8 +44,14 @@ export default defineNuxtConfig({
 		adminEmail: '',
 		adminPass: '',
 
+		// Config Google Cloud Storage
+		gcsSubfolder: '',
+		gcsBucketname: '',
+
 		public: {
 			typesMedia: typeMediaDefault,
+			pathAssets:
+				'https://storage.googleapis.com/assets.mag3s.com/static/tcp_fieldasorte/',
 		},
 	},
 
