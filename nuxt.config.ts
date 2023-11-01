@@ -46,12 +46,12 @@ export default defineNuxtConfig({
 
 		// Config Google Cloud Storage
 		gcsSubfolder: '',
+		gcsSubfolderEnvironment: '',
 		gcsBucketname: '',
 
 		public: {
 			typesMedia: typeMediaDefault,
-			pathAssets:
-				'https://storage.googleapis.com/assets.mag3s.com/static/tcp_fieldasorte/',
+			pathAssets: '',
 		},
 	},
 

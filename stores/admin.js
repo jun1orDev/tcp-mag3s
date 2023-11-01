@@ -242,11 +242,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		$resetChosenMediaDelete() {
 			this.isOpenModalMediaDelete = false;
-
-			setTimeout(() => {
-				this.chosenMediaDelete.id = null;
-				this.chosenMediaDelete.name = '';
-			}, 1000);
+			this.chosenMediaDelete.id = null;
+			this.chosenMediaDelete.name = '';
 		},
 
 		openModalMediaNew() {
