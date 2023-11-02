@@ -13,7 +13,6 @@ export default defineEventHandler(async (event) => {
 
 	async function getMedias() {
 		medias = await MediasModel.findAll({
-			raw: true,
 			attributes: { exclude: ['createdAt', 'updatedAt'] },
 		});
 	}

@@ -112,8 +112,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				});
 
 				if (status.value === 'success') {
-					this.medias = data.value.data.medias.reverse();
-					this.filterMedias = data.value.data.medias.reverse();
+					this.medias = data.value.data.medias;
+					this.filterMedias = data.value.data.medias;
 					this.tags = data.value.data.tags;
 				}
 
@@ -171,7 +171,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				});
 
 				if (status.value === 'success') {
-					this.medias.unshift(data.value.data.media);
+					this.medias.push(data.value.data.media);
 					this.filterMedias = this.medias;
 
 					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
@@ -272,8 +272,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				});
 
 				if (status.value === 'success') {
-					this.medias = data.value.data.medias.reverse();
-					this.filterMedias = data.value.data.medias.reverse();
+					this.medias = data.value.data.medias;
+					this.filterMedias = data.value.data.medias;
 
 					toast.add({
 						id: 'success_deleteMedia',
@@ -298,8 +298,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					if (error.value.data.data.isDelete) {
-						this.medias = error.value.data.data.medias.reverse();
-						this.filterMedias = error.value.data.data.medias.reverse();
+						this.medias = error.value.data.data.medias;
+						this.filterMedias = error.value.data.data.medias;
 
 						this.$resetChosenMediaDelete();
 						this.getContent();
@@ -335,7 +335,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				this.formMedia.value = null;
 				this.listArchiveMedia = media.value;
 			} else {
-				this.formMedia.value = media.value;
+				this.formMedia.value = booleanToString(media.value);
 			}
 		},
 
@@ -382,7 +382,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 						(item) => item.id !== data.value.data.media.id
 					);
 
-					this.medias.unshift(data.value.data.media);
+					this.medias.push(data.value.data.media);
 					this.filterMedias = this.medias;
 
 					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
