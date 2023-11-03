@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<PlanoFundo />
+		<BackgroundDefault />
 
 		<UContainer>
 			<BannerCard class="mt-20" titulo="20 DE NOVEMBRO, 2023" subtitulo="Bola de partida oficial autografada"

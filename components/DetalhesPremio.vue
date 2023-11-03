@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<PlanoFundo />
+		<BackgroundDefault />
 		<div class="h-screen">
 			<img src="/imgs/exemplo_premio_01.png" class="justify-center m-auto w-[320px] md:w-[400px] mt-3" />
 			<div class="flex flex-col items-center justify-center mt-2">

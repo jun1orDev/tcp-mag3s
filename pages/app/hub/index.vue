@@ -1,10 +1,12 @@
 <template>
-	<div>
-		<PlanoFundo />
+	<div class="py-12">
+		<BackgroundDefault />
+
 		<UContainer>
-			<BannerHome class="mt-16" />
-			<BannerRaspadinha class="mt-10" />
-			<CardPremios class="mt-10" />
+			<BannerCard imageAward="https:\\www.google.com" title="Fique atento!" subtitle="Acompanhe a contagem regressiva
+pro sorteio de hoje e boa sorte!" :hasImageDetach="true" />
+			<!-- <BannerRaspadinha />
+			<CardPremios /> -->
 		</UContainer>
 	</div>
 </template>
@@ -12,8 +14,6 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
-
-store.getContentApp(useToast);
 </script>
 
 <style scoped></style>

@@ -3,11 +3,20 @@ export const useStoreApp = defineStore('storeApp', {
 	state: () => {
 		return {
 			contentApp: {
+				// Config
 				config_will_have_hotsite: null,
+				// Layout
 				layout_background_app: null,
+				// Brand
 				brand_image_one: null,
 				brand_image_two: null,
 				brand_image_three: null,
+				// Banner
+				banner_background_card_one: null,
+				banner_image_card_one: null,
+				// Colors
+				colors_text_one: null,
+				colors_background_one: null,
 			},
 			contentHasBeenLoaded: false,
 			loading: false,
