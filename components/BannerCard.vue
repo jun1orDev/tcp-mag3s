@@ -1,18 +1,21 @@
 <template>
 	<div v-if="store.contentHasBeenLoaded">
-		<div :style="background"
+		<div
 			class="w-full relative box-content md:box-border min-h-[100px] md:h-[210px] max-h-[210px] py-4 md:py-6 flex justify-between items-center bg-no-repeat bg-right md:bg-center bg-cover rounded-3xl">
+			<!-- Background -->
+			<div :style="background"
+				class="absolute w-full 50 top-0 right-0 left-0 min-h-[100px] md:h-[210px] max-h-[210px] bg-no-repeat bg-right md:bg-center bg-cover rounded-3xl -z-10">
+			</div>
 
 			<!-- Lado Esquerdo -->
-			<div class="flex">
+			<div class="flex items-center">
 				<!-- Imagem de destaque -->
 				<div v-if="hasImageDetach">
-					<img :src="image" onerror="this.src='/imgs/Mosqueteiro_tablet.png'"
-						class="w-[62px] md:w-[98px] h-auto -bottom-1 scale-110" />
+					<img :src="image" onerror="this.src='/imgs/Mosqueteiro_tablet.png'" class="" />
 				</div>
 
 				<!-- Conteúdo de texto -->
-				<div class="flex flex-col justify-between">
+				<div class="flex flex-col justify-between ms-5">
 					<div :style="`color: ${store.contentApp.colors_text_one}`">
 
 						<!-- Título -->
@@ -44,8 +47,7 @@
 
 			<!-- Lado Direito -->
 			<div>
-				<img :src="props.imageAward" onerror="this.src='/imgs/exemplo_premio_03.png'"
-					class="absolute scale-110 -bottom-3 w-[160px] md:w-[250px] h-auto" />
+				<img :src="props.imageAward" onerror="this.src='/imgs/exemplo_premio_03.png'" class="" />
 			</div>
 		</div>
 	</div>
