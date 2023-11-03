@@ -24,7 +24,7 @@
 							<UFormGroup class="block mb-2" label="Nome do conteúdo:" name="name"
 								help="Usado na api que alimenta da aplicação." size="xl" required>
 								<UInput id="name" type="text" placeholder="Digite aqui..." :trailing="false"
-									icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name" />
+									icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name" :disabled="store.isEditMediaModal" />
 							</UFormGroup>
 						</div>
 

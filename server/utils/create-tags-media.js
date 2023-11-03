@@ -1,18 +1,13 @@
 import { TagsMediaModel } from './../models/TagsMedia.model';
-const config = useRuntimeConfig();
-const tags = config.tagsMedia;
 
 // Create Tags of the media if it doesn't exist
-export const createTagsMedia = async () => {
-  const TagsMediaData = await TagsMediaModel.findAll({ raw: true });
+export const createTagsMedia = async (tag) => {
+	const TagMediaData = await TagsMediaModel.findOne({
+		raw: true,
+		where: { name: tag },
+	});
 
-  if (!TagsMediaData.length) {
-		for (const tag of tags) {
-			try {
-				await TagsMediaModel.create({ name: tag });
-			} catch (err) {
-				console.log(err);
-			}
-		}
+	if (!Boolean(TagMediaData)) {
+		await TagsMediaModel.create({ name: tag });
 	}
-}
+};

@@ -197,7 +197,7 @@ export default defineEventHandler(async (event) => {
 			raw: true,
 			where: { id },
 		});
-		let listFiles = valueDB.value.split(';').filter(Boolean);
+		let listFiles = valueDB.value ? valueDB.value.split(';').filter(Boolean) : [];
 
 		for (const file of files.value) {
 			const extFile = file.mimetype.split('/')[1];

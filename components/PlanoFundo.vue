@@ -11,7 +11,7 @@ const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
 const backgroundApp = computed(() => {
-	return `background-image:url('${pathAssets}${store.contentApp.layout_background_app}')`;
+	return `background-image:url('${pathAssets}${store.contentApp.layout_background_app}'), url('/imgs/img_fundo_loading.png')`;
 });
 </script>
 
