@@ -1,13 +1,9 @@
-<template>
-	<div>
-	</div>
-</template>
+<template></template>
 
 <script setup>
-import { useStoreApp } from '~/stores/app';
-const store = useStoreApp();
-
-await store.getContentApp(useToast);
+definePageMeta({
+	middleware: process.client ? 'has-hotsite' : undefined
+})
 </script>
 
 <style></style>

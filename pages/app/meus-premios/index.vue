@@ -52,7 +52,7 @@ let cards = ref([
 	{
 		titulo: 'Camisa de jogo autografada',
 		subtitulo: 'Você foi o sorteado!',
-		source: '/detalhes-premios',
+		source: '/app/detalhes-premios',
 		hasBg: true,
 		img: '/imgs/premio_02.png',
 		date: false,
@@ -61,7 +61,7 @@ let cards = ref([
 	{
 		titulo: 'Luva do Cássio autografada',
 		subtitulo: 'Rabiscadinha',
-		source: '/detalhes-premios',
+		source: '/app/detalhes-premios',
 		hasBg: false,
 		img: '/imgs/exemplo_premio_luva.png',
 		date: false,
