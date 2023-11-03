@@ -1,5 +1,3 @@
-import { navigateTo } from '#imports';
-
 export const useStoreApp = defineStore('storeApp', {
 	// arrow function recommended for full type inference
 	state: () => {
@@ -7,7 +5,11 @@ export const useStoreApp = defineStore('storeApp', {
 			contentApp: {
 				config_will_have_hotsite: null,
 				layout_background_app: null,
+				brand_image_one: null,
+				brand_image_two: null,
+				brand_image_three: null,
 			},
+			contentHasBeenLoaded: false,
 			loading: false,
 		};
 	},
@@ -16,9 +18,8 @@ export const useStoreApp = defineStore('storeApp', {
 
 	actions: {
 		async getContentApp(useToast) {
+			this.contentHasBeenLoaded = true;
 			const toast = useToast();
-			const router = useRouter();
-			this.loading = true;
 
 			try {
 				const { data, error, status } = await useFetch('/api/app/medias', {
@@ -27,15 +28,11 @@ export const useStoreApp = defineStore('storeApp', {
 
 				if (status.value === 'success') {
 					this.contentApp = data.value.data;
-
-					if (this.contentApp.config_will_have_hotsite) {
-						router.push({ path: '/hotsite' });
-					} else {
-						router.push({ path: '/app/hub' });
-					}
+					console.info('conteúdo CMS carregado');
 				}
 
 				if (status.value === 'error') {
+					console.error('conteúdo CMS não carregado');
 					toast.add({
 						id: 'error_getContentApp',
 						title: `Erro: ${error.value.data.statusCode}`,
@@ -55,8 +52,6 @@ export const useStoreApp = defineStore('storeApp', {
 					timeout: 3500,
 				});
 			}
-
-			this.loading = false;
 		},
 	},
 });

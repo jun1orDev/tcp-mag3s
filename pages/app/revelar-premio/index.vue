@@ -35,7 +35,7 @@
 		/>
 	</div>
 
-	<!-- simulação da página em que o usuáro NÃO GANHOU o sorteio -->
+	<!-- Número sorteado -->
 
 	<div v-if="true">
 		<PlanoFundo />
@@ -72,8 +72,7 @@
 		/>
 	</div>
 
-	<!-- simulação da página que GANHOU o sorteio  -->
-
+	<!-- Números do ganhador -->
 	<div v-if="false">
 		<PlanoFundo />
 		<UContainer>
@@ -234,24 +233,6 @@ let positiveButtons = ref([
 }
 
 .horizontal-line {
-	width: 92%; /* Largura da linha vertical */
-	height: 1px; /* Altura da linha vertical */
 	background-color: #dfa701; /* Cor da linha vertical (preto, neste exemplo) */
-	border: none;
-
-	margin-top: 68px;
-	position: absolute;
-}
-
-@media (min-width: 768px) {
-	.horizontal-line {
-		width: 95%; /* Largura da linha vertical */
-		height: 1px; /* Altura da linha vertical */
-		background-color: #dfa701; /* Cor da linha vertical (preto, neste exemplo) */
-		border: none;
-
-		margin-top: 78px;
-		position: absolute;
-	}
 }
 </style>
