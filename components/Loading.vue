@@ -13,14 +13,14 @@
 			<div class="simple-spinner relative block w-[30px] h-[30px]">
 				<span class="block w-[30px] h-[30px] border-2 border-solid border-transparent rounded-full border-r-white animate-spin"></span>
 			</div>
-			<div class="mt-5 uppercase font-semibold">
+			<div class="mt-5 uppercase font-semibold text-xl md:text-2xl lg:text-2xl">
 				<h2>Carregando...</h2>
 			</div>
 		</div>
 
 		<!-- Band Principal -->
 		<div>
-			<img :src="brandOne" />
+			<img :src="brandOne" class="w-[150px] md:w-[180px] lg:w-[200px]" onerror="this.src='/imgs/img_fiel_da_sorte.png'" />
 		</div>
 	</div>
 </template>

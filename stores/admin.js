@@ -333,7 +333,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 			if (this.formMedia.typeMS === 'archive') {
 				this.formMedia.value = null;
-				this.listArchiveMedia = media.value;
+				this.listArchiveMedia = media.value ? media.value : [];
 			} else {
 				this.formMedia.value = booleanToString(media.value);
 			}

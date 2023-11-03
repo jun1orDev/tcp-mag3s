@@ -27,3 +27,19 @@ export function toLetterFisrtUperCase(str) {
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join(' ');
 }
+
+// [0]: text, [1]: link, [2]: color, [3]: archive, [4]: icon, [5]: datatime, [6]: boolean
+const { typesMedia } = useRuntimeConfig();
+
+export const listSchemaDataMedia = [
+	// Config
+	{ name: 'config_will_have_hotsite', tag: 'config', type: typesMedia[6] },
+
+	// Layout
+	{ name: 'layout_background_app', tag: 'layout', type: typesMedia[3] },
+
+	// Brand
+	{ name: 'brand_image_one', tag: 'brand', type: typesMedia[3] },
+	{ name: 'brand_image_two', tag: 'brand', type: typesMedia[3] },
+	{ name: 'brand_image_three', tag: 'brand', type: typesMedia[3] },
+];

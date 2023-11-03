@@ -26,18 +26,20 @@ MediasModel.init(
 				const rawValue = this.getDataValue('value');
 				const type = this.getDataValue('type');
 
-				switch (type) {
-					// Archive
-					case config.typesMedia[3]:
-						return rawValue.split(';');
+				if (rawValue) {
+					switch (type) {
+						// Archive
+						case config.typesMedia[3]:
+							return rawValue.split(';');
 
-					// Boolean
-					case config.typesMedia[6]:
-						return switchTextToBoolean(rawValue);
+						// Boolean
+						case config.typesMedia[6]:
+							return switchTextToBoolean(rawValue);
 
-					// Text / Link / Color
-					default:
-						return rawValue;
+						// Text / Link / Color
+						default:
+							return rawValue;
+					}
 				}
 			},
 			set(payload) {
