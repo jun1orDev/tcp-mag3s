@@ -1,6 +1,6 @@
 <template>
 	<div class="mt-10">
-		<PlanoFundo />
+		<BackgroundDefault />
 		<UContainer>
 			<BannerCard
 				class="mt-20"

@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<PlanoFundo />
+		<BackgroundDefault />
 		<UContainer>
 			<BannerCard class="mt-20" titulo="20 DE NOVEMBRO, 2023" subtitulo="Bola de partida oficial autografada"
 				validade="Números válidos até 21/11/2023" :imagemSrc="('/imgs/exemplo_premio_03.png')" />

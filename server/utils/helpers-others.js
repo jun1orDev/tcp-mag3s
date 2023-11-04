@@ -42,4 +42,12 @@ export const listSchemaDataMedia = [
 	{ name: 'brand_image_one', tag: 'brand', type: typesMedia[3] },
 	{ name: 'brand_image_two', tag: 'brand', type: typesMedia[3] },
 	{ name: 'brand_image_three', tag: 'brand', type: typesMedia[3] },
+
+	// Banner
+	{ name: 'banner_background_card_one', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_image_card_one', tag: 'colors', type: typesMedia[3] },
+
+	// Colors
+	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_background_one', tag: 'colors', type: typesMedia[2] },
 ];

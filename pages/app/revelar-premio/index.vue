@@ -1,6 +1,6 @@
 <template>
 	<div v-if="false">
-		<PlanoFundo />
+		<BackgroundDefault />
 		<UContainer>
 			<BannerCard
 				class="mt-16"
@@ -38,7 +38,7 @@
 	<!-- Número sorteado -->
 
 	<div v-if="true">
-		<PlanoFundo />
+		<BackgroundDefault />
 		<UContainer>
 			<BannerCard
 				class="mt-16"
@@ -74,7 +74,7 @@
 
 	<!-- Números do ganhador -->
 	<div v-if="false">
-		<PlanoFundo />
+		<BackgroundDefault />
 		<UContainer>
 			<BannerCard
 				class="mt-16"

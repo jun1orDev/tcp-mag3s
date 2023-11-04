@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<UContainer>
-			<PlanoFundo />
+			<BackgroundDefault />
 			<CampoPesquisa inputPlaceholder="Qual é a sua dúvida?" class="mt-14" />
 			<UAccordion
 				:items="items"
