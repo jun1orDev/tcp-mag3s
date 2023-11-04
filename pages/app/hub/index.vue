@@ -3,10 +3,10 @@
 		<BackgroundDefault />
 
 		<UContainer>
-			<BannerCard imageAward="https:\\www.google.com" title="Fique atento!" subtitle="Acompanhe a contagem regressiva
-pro sorteio de hoje e boa sorte!" :hasImageDetach="true" />
-			<!-- <BannerRaspadinha />
-			<CardPremios /> -->
+			<BannerCard imageAward="https:\\imagedaapi.com" title="Fique atento!" subtitle="Acompanhe a contagem regressiva
+pro sorteio de hoje e boa sorte!" countdown="2023-11-06T00:00:00+0000" :callToAction="false" :hasImageDetach="true" />
+			<BannerRaspadinha />
+			<!-- <CardPremios /> -->
 		</UContainer>
 	</div>
 </template>
