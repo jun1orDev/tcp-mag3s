@@ -1,109 +1,24 @@
 <template>
-	<div v-if="false">
+	<div class="py-12">
 		<BackgroundDefault />
+
 		<UContainer>
-			<BannerCard
-				class="mt-16"
-				titulo="21 DE NOVEMBRO, 2023"
-				subtitulo="Luva autografada do Cassio"
-				validade="Números válidos até 21/11/2023"
-				:imagemSrc="'/imgs/exemplo_premio_01.png'"
-			/>
+			<!-- Banner Principal -->
+			<BannerCard :linkSource="false" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+				subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
+				description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
+
 			<div class="button-container mt-10">
-				<NumeroSorteio
-					v-for="list in buttons"
-					class="button"
-					:button="list.button"
-					:customBackground="list.color"
-				/>
+				<NumeroSorteio v-for="list in buttons" class="button" :button="list.button" :customBackground="list.color" />
 			</div>
 
 			<div class="button-container mt-10">
-				<NumeroSorteio
-					v-for="list in buttons"
-					class="button"
-					:button="list.button"
-					:customBackground="list.color"
-				/>
+				<NumeroSorteio v-for="list in buttons" class="button" :button="list.button" :customBackground="list.color" />
 			</div>
 		</UContainer>
-		<ResultDraw
-			titulo="BOA SORTE!"
+		<ModalPrizeResult titulo="BOA SORTE!"
 			subtitulo="Se a combonação dos números sorteados bater com algum dos seus números, você ganhou!"
-			button="REVELAR RESULTADO"
-			:mostrarBotao="true"
-		/>
-	</div>
-
-	<!-- Número sorteado -->
-
-	<div v-if="true">
-		<BackgroundDefault />
-		<UContainer>
-			<BannerCard
-				class="mt-16"
-				titulo="21 DE NOVEMBRO, 2023"
-				subtitulo="Luva autografada do Cassio"
-				validade="Números válidos até 21/11/2023"
-				:imagemSrc="'/imgs/exemplo_premio_01.png'"
-			/>
-			<div>
-				<p class="premio text-white mt-6 text-[10px] md:text-[14px]">
-					Número premiado de hoje:
-				</p>
-
-				<!-- divisória -->
-				<hr class="horizontal-line" />
-			</div>
-			<div class="button-container mt-2">
-				<NumeroSorteio
-					v-for="list in negativeButtons"
-					class="button"
-					:button="list.button"
-					:customBackground="list.color"
-				/>
-			</div>
-		</UContainer>
-		<ResultDraw
-			titulo="NÃO FOI DESSA VEZ..."
-			subtitulo="Continua atento aos sorteios, aqui no Fiel da Sorte todo dia tem ganhador!"
-			button="VOLTAR"
-			:mostrarBotao="true"
-		/>
-	</div>
-
-	<!-- Números do ganhador -->
-	<div v-if="false">
-		<BackgroundDefault />
-		<UContainer>
-			<BannerCard
-				class="mt-16"
-				titulo="21 DE NOVEMBRO, 2023"
-				color="#DFA701"
-				subtitulo="Luva autografada do Cassio"
-				validade="Números válidos até 21/11/2023"
-				:imagemSrc="'/imgs/exemplo_premio_01.png'"
-			/>
-			<div>
-				<p class="premio text-white mt-6 text-[10px] md:text-[14px]">
-					Número premiado de hoje:
-				</p>
-			</div>
-			<div class="button-container mt-2">
-				<NumeroSorteio
-					v-for="list in positiveButtons"
-					class="button"
-					:button="list.button"
-					:customBackground="list.color"
-				/>
-			</div>
-		</UContainer>
-		<ResultDraw
-			titulo="PARABÉNS!"
-			subtitulo="Seu número da sorte foi contemplado! Lembre-se: Mantenha seu cadastro atualizado que nossa equipe vai entrar em contato em breve!"
-			button="VER DETALHES"
-			:mostrarBotao="true"
-		/>
+			button="REVELAR RESULTADO" :mostrarBotao="true" />
 	</div>
 </template>
 
@@ -206,6 +121,7 @@ let positiveButtons = ref([
 .premio {
 	font-family: 'Gotham Medium';
 }
+
 .button-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -213,26 +129,28 @@ let positiveButtons = ref([
 }
 
 .button {
-	width: calc(
-		14.28% - 10px
-	); /* Largura dos botões com espaço horizontal de 10px */
-	height: 40px; /* Altura dos botões */
-	margin: 10px 5px; /* Espaçamento vertical de 10px e espaçamento horizontal de 5px */
+	width: calc(14.28% - 10px);
+	/* Largura dos botões com espaço horizontal de 10px */
+	height: 40px;
+	/* Altura dos botões */
+	margin: 10px 5px;
+	/* Espaçamento vertical de 10px e espaçamento horizontal de 5px */
 	border: 1px solid #847248;
 }
 
 /* Estilos responsivos para tablets*/
 @media (min-width: 768px) {
 	.button {
-		flex-basis: calc(
-			14.28% - 20px
-		); /* Largura dos botões com espaço horizontal de 20px */
-		height: 50px; /* Altura dos botões para tablets */
+		flex-basis: calc(14.28% - 20px);
+		/* Largura dos botões com espaço horizontal de 20px */
+		height: 50px;
+		/* Altura dos botões para tablets */
 		margin: 10px 10px;
 	}
 }
 
 .horizontal-line {
-	background-color: #dfa701; /* Cor da linha vertical (preto, neste exemplo) */
+	background-color: #dfa701;
+	/* Cor da linha vertical (preto, neste exemplo) */
 }
 </style>

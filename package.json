@@ -24,14 +24,16 @@
 		"@pinia/nuxt": "^0.4.11",
 		"@types/bcrypt": "^5.0.0",
 		"autoprefixer": "^10.4.15",
-		"nuxt": "^3.7.3",
+		"nuxt": "^3.8.0",
 		"nuxt-icon": "^0.5.0",
 		"postcss": "^8.4.31"
 	},
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.0",
 		"@google-cloud/storage": "^7.5.0",
 		"@iconify-json/material-symbols": "^1.1.58",
-		"@nuxt/ui": "^2.8.1",
+		"@nuxt/ui": "^2.10.0",
+		"animate.css": "^4.1.1",
 		"bcrypt": "^5.1.1",
 		"h3-formidable": "^1.0.0",
 		"moment": "^2.29.4",

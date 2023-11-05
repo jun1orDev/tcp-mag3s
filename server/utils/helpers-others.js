@@ -45,9 +45,21 @@ export const listSchemaDataMedia = [
 
 	// Banner
 	{ name: 'banner_background_card_one', tag: 'banner', type: typesMedia[3] },
-	{ name: 'banner_image_card_one', tag: 'colors', type: typesMedia[3] },
+	{ name: 'banner_image_card_one', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_text_card_title_one', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_subtitle_one', tag: 'banner', type: typesMedia[0] },
 
 	// Colors
 	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_one', tag: 'colors', type: typesMedia[2] },
+	{
+		name: 'colors_carousel_pagination_background',
+		tag: 'colors',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_carousel_pagination_active',
+		tag: 'colors',
+		type: typesMedia[2],
+	},
 ];

@@ -54,7 +54,13 @@ export default defineNuxtConfig({
 		},
 	},
 
-	modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxt/ui', 'vue3-carousel-nuxt'],
+	modules: [
+		'@pinia/nuxt',
+		'nuxt-icon',
+		'@nuxt/ui',
+		'vue3-carousel-nuxt',
+		'@formkit/auto-animate/nuxt',
+	],
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
 
@@ -70,5 +76,5 @@ export default defineNuxtConfig({
 		autoImports: ['defineStore'],
 	},
 
-	css: ['~/assets/css/main.css'],
+	css: ['~/assets/css/main.css', 'animate.css/animate.min.css'],
 });
