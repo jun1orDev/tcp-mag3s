@@ -1,10 +1,24 @@
 <template>
-	<div>
+	<div class="py-12">
 		<BackgroundDefault />
+
 		<UContainer>
-			<BannerCard class="mt-20" titulo="20 DE NOVEMBRO, 2023" subtitulo="Bola de partida oficial autografada"
-				validade="Números válidos até 21/11/2023" :imagemSrc="('/imgs/exemplo_premio_03.png')" />
+			<!-- Banner Principal com Carousel -->
+			<Carousel id="carousel-next-prizes" :autoplay="5000" :wrap-around="true" :pause-autoplay-on-hover="true">
+				<Slide v-for="slide in 4" :key="slide">
+					<BannerCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+						subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
+						description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
+				</Slide>
+
+				<template #addons>
+					<Pagination />
+				</template>
+			</Carousel>
+
+			<!-- Pesquisar -->
 			<CampoPesquisa class="mt-6" />
+
 			<InfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
 				:customBackground="card.hasBg" :imagemSrc="card.img" :source="card.source" :date="card.date" />
 		</UContainer>
@@ -12,14 +26,37 @@
 </template>
 
 <script setup>
+import { useStoreApp } from '~/stores/app';
+
+const store = useStoreApp().contentApp;
+
+const bgCarousel = computed(() => {
+	return store.colors_carousel_pagination_background;
+})
+
+const bgCarouselActive = computed(() => {
+	return store.colors_carousel_pagination_active;
+})
+
 let cards = ref([
 	{ titulo: 'Camisa de jogo autografada', subtitulo: 'Você foi o sorteado!', source: '/detalhes-premios', hasBg: true, img: '/imgs/premio_02.png', date: { day: '24', month: 'Jun' } },
 	{ titulo: 'Luva do cassio autografada', subtitulo: '', source: '/detalhes-premios', hasBg: false, img: '/imgs/exemplo_premio_luva.png', date: { day: '12', month: 'Fev' } },
 ]);
 </script>
 
-<style scoped>
-.card {
-	background-color: black;
+<style>
+#carousel-next-prizes .carousel__pagination-button::after {
+	/* Your custom styles here */
+	width: 25px;
+	border-radius: 15px;
+	height: 6px;
+	background-color: v-bind(bgCarousel);
+	opacity: .3;
+}
+
+#carousel-next-prizes .carousel__pagination-button--active::after {
+	/* Your custom styles here */
+	background-color: v-bind(bgCarouselActive);
+	opacity: 1;
 }
 </style>
