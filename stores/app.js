@@ -1,4 +1,4 @@
-const textPlaceholder = 'O Texto aparecerá aqui...'
+const textPlaceholder = 'O Texto aparecerá aqui...';
 export const useStoreApp = defineStore('storeApp', {
 	// arrow function recommended for full type inference
 	state: () => {
@@ -18,18 +18,28 @@ export const useStoreApp = defineStore('storeApp', {
 
 				// Banner
 				banner_background_card_one: null,
-				banner_image_card_one: null,
-				banner_text_card_title_one: textPlaceholder,
-				banner_text_card_subtitle_one: textPlaceholder,
 				banner_background_card_two: null,
+				banner_background_card_three: null,
+				banner_background_card_four: null,
+				banner_image_card_one: null,
 				banner_image_card_two: null,
+				banner_image_card_three: null,
+				banner_image_card_scrathcard_two: null,
+				banner_text_card_title_one: textPlaceholder,
 				banner_text_card_title_two: textPlaceholder,
+				banner_text_card_title_three: textPlaceholder,
+				banner_text_card_title_four: textPlaceholder,
+				banner_text_card_subtitle_one: textPlaceholder,
 				banner_text_card_subtitle_two: textPlaceholder,
+				banner_text_card_scrathcard_two: null,
+				banner_text_card_label_button_one: textPlaceholder,
 				banner_text_card_label_button_two: textPlaceholder,
+				banner_text_card_description_three: textPlaceholder,
 
 				// Colors
 				colors_text_one: null,
 				colors_background_one: null,
+				colors_background_two: null,
 				colors_carousel_pagination_background: null,
 				colors_carousel_pagination_active: null,
 				colors_background_button: null,

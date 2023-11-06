@@ -30,11 +30,11 @@ import { useStoreApp } from '~/stores/app';
 
 const store = useStoreApp().contentApp;
 
-const bgCarousel = computed(() => {
+const bgCarouselPagination = computed(() => {
 	return store.colors_carousel_pagination_background;
 })
 
-const bgCarouselActive = computed(() => {
+const bgCarouselPaginationActive = computed(() => {
 	return store.colors_carousel_pagination_active;
 })
 
@@ -50,13 +50,13 @@ let cards = ref([
 	width: 25px;
 	border-radius: 15px;
 	height: 6px;
-	background-color: v-bind(bgCarousel);
+	background-color: v-bind(bgCarouselPagination);
 	opacity: .3;
 }
 
 #carousel-next-prizes .carousel__pagination-button--active::after {
 	/* Your custom styles here */
-	background-color: v-bind(bgCarouselActive);
+	background-color: v-bind(bgCarouselPaginationActive);
 	opacity: 1;
 }
 </style>

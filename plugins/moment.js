@@ -6,6 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	return {
 		provide: {
 			relative: (d) => moment().from(d),
+			formatDayMonthYear: (date) => moment(date).format('DD/MM/YY'),
 			countdown: (date) => {
 				const dateEvent = moment(date);
 
