@@ -88,7 +88,7 @@
 		</UContainer>
 
 		<div
-			class="py-5 fixed bottom-0 left-0 right-0 bg-cover bg-[url('/imgs/retangulo.png')]"
+			class="py-5 fixed bottom-0 left-0 right-0 bg-cover bg-[url('/imgs/img_fundo_loading.png')]"
 		>
 			<UContainer>
 				<div>

@@ -1,6 +1,6 @@
 <template>
 	<NuxtLink :to="props.linkSource" v-if="store.contentHasBeenLoaded"
-		class="w-full relative p-3 sm:p-6 md:p-8 min-h-[210px] sm:h-[200px] md:h-[215px] ">
+		class="w-full relative p-3 sm:p-6 md:p-6 min-h-[210px] sm:h-[250px] md:h-[280px] ">
 		<!-- Background -->
 		<div :style="background"
 			class="absolute top-0 bottom-0 right-0 left-0 bg-no-repeat bg-center bg-cover rounded-lg md:rounded-3xl -z-10 animate__animated animate__fadeIn">
@@ -10,7 +10,7 @@
 		<div :style="`color: ${store.contentApp.colors_text_one}`" class="flex flex-col h-full justify-between items-center">
 
 			<!-- Título -->
-			<h1 class="fm3 text-[12px] sm:text-[18px] md:text-[22px] uppercase animate__animated animate__fadeInDown">
+			<h1 class="fm3 text-[12px] sm:text-[18px] md:text-[20px] lg:text-[14px] uppercase animate__animated animate__fadeInDown">
 				{{ props.title }}
 			</h1>
 
@@ -52,8 +52,6 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
-
-const { $countdown } = useNuxtApp();
 
 const props = defineProps(['linkSource', 'background', 'title', 'callToAction', 'awards', 'carouselAutoPlay']);
 

@@ -106,7 +106,7 @@
 									<Carousel :items-to-show="store.carouselListMaxMedia" :autoplay="2000" :pause-autoplay-on-hover="true"
 										:wrap-around="store.carouselEnableLoop">
 										<Slide v-for="mediaSlide in store.listArchiveMedia" :key="mediaSlide">
-											<div class="carousel__item mx-1 relative h-[200px] max-w-[200px]">
+											<div class="carousel__item mx-1 relative h-[200px] max-w-[200px] bg-black">
 
 												<!-- img -->
 												<div v-if="mediaSlide.includes('image')">

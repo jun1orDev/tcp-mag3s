@@ -52,6 +52,7 @@ export const listSchemaDataMedia = [
 	{ name: 'banner_image_card_one', tag: 'banner', type: typesMedia[3] },
 	{ name: 'banner_image_card_two', tag: 'banner', type: typesMedia[3] },
 	{ name: 'banner_image_card_three', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_image_card_four', tag: 'banner', type: typesMedia[3] },
 	{
 		name: 'banner_image_card_scrathcard_two',
 		tag: 'banner',
@@ -83,11 +84,24 @@ export const listSchemaDataMedia = [
 		tag: 'banner',
 		type: typesMedia[0],
 	},
+	{
+		name: 'banner_text_card_description_four',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
+	{
+		name: 'banner_link_external_card_one',
+		tag: 'banner',
+		type: typesMedia[1],
+	},
 
 	// Colors
 	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_text_button', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_border_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_two', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_background_button', tag: 'colors', type: typesMedia[2] },
 	{
 		name: 'colors_carousel_pagination_background',
 		tag: 'colors',
@@ -98,8 +112,6 @@ export const listSchemaDataMedia = [
 		tag: 'colors',
 		type: typesMedia[2],
 	},
-	{ name: 'colors_background_button', tag: 'colors', type: typesMedia[2] },
-	{ name: 'colors_text_button', tag: 'colors', type: typesMedia[2] },
 
 	// Modal
 	{ name: 'modal_text_prize_title_one', tag: 'modal', type: typesMedia[0] },
