@@ -24,6 +24,7 @@ export const useStoreApp = defineStore('storeApp', {
 				banner_image_card_one: null,
 				banner_image_card_two: null,
 				banner_image_card_three: null,
+				banner_image_card_four: null,
 				banner_image_card_scrathcard_two: null,
 				banner_text_card_title_one: textPlaceholder,
 				banner_text_card_title_two: textPlaceholder,
@@ -31,24 +32,34 @@ export const useStoreApp = defineStore('storeApp', {
 				banner_text_card_title_four: textPlaceholder,
 				banner_text_card_subtitle_one: textPlaceholder,
 				banner_text_card_subtitle_two: textPlaceholder,
-				banner_text_card_scrathcard_two: null,
+				banner_text_card_scrathcard_two: textPlaceholder,
 				banner_text_card_label_button_one: textPlaceholder,
 				banner_text_card_label_button_two: textPlaceholder,
 				banner_text_card_description_three: textPlaceholder,
+				banner_text_card_description_four: textPlaceholder,
+				banner_link_external_card_one: textPlaceholder,
 
 				// Colors
 				colors_text_one: null,
+				colors_text_button: null,
+				colors_border_one: null,
 				colors_background_one: null,
 				colors_background_two: null,
+				colors_background_button: null,
 				colors_carousel_pagination_background: null,
 				colors_carousel_pagination_active: null,
-				colors_background_button: null,
-				colors_text_button: null,
 
 				// Modal
 				modal_text_prize_title_one: textPlaceholder,
 				modal_text_prize_subtitle_one: textPlaceholder,
 				modal_text_prize_label_one: textPlaceholder,
+			},
+			footerApp: {
+				menu: [
+					{ label: 'perguntas', link: '/faq' },
+					{ label: 'termos de uso', link: '/termos' },
+					{ label: 'regulamento', link: '/regulamento' },
+				],
 			},
 			contentHasBeenLoaded: false,
 			modalPrize: {

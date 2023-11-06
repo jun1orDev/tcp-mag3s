@@ -10,12 +10,12 @@
 		<div class="justify-start items-center col-span-2 me-4">
 
 			<!-- Conteúdo de texto -->
-			<div :style="`color: ${store.contentApp.colors_text_one}`" class="py-6 sm:py-12 md:py-14">
+			<div :style="`color: ${store.contentApp.colors_text_one}`" class="py-6 sm:py-12 md:py-14 lg:py-9">
 
 				<div class="text-start max-w-[250px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-max">
 					<!-- Description -->
 					<div class="animate__animated animate__fadeIn">
-						<p class="fm1 text-[11px] leading-3 sm:text-[14px] sm:leading-4 text-start" v-html="props.description">
+						<p class="fm1 text-[11px] leading-3 sm:text-[14px] lg:text-base sm:leading-4 lg:leading-normal text-start" v-html="props.description">
 						</p>
 					</div>
 				</div>
