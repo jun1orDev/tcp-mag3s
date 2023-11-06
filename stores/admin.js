@@ -10,9 +10,14 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			medias: [],
 			filterMedias: [],
 			tags: [],
+			filterPerTagChoise: {
+				id: 'not',
+				name: 'todos',
+			},
 			loading: false,
 			isOpenModalMedia: false,
 			isEditMediaModal: false,
+			editMediaPosition: null,
 			titleModalMedia: '',
 			isOpenModalMediaDelete: false,
 			chosenMediaDelete: {
@@ -186,6 +191,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetFormMedia();
+					this.filterPerTag(
+						this.filterPerTagChoise.id,
+						this.filterPerTagChoise.name
+					);
 				}
 
 				if (status.value === 'error') {
@@ -227,6 +236,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.formMedia.newTag.choise = 0;
 
 			this.isEditMediaModal = false;
+			this.editMediaPosition = null;
 		},
 
 		$resetFormMediaValue() {
@@ -285,6 +295,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetChosenMediaDelete();
+					this.filterPerTag(
+						this.filterPerTagChoise.id,
+						this.filterPerTagChoise.name
+					);
 				}
 
 				if (status.value === 'error') {
@@ -321,6 +335,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		openModalMediaEdit(id) {
 			const media = this.filterMedias.find((media) => media.id === id);
+			this.editMediaPosition = this.filterMedias.findIndex(
+				(media) => media.id == id
+			);
 
 			this.isOpenModalMedia = true;
 			this.titleModalMedia = `Edite a mídia ${media.name}`;
@@ -382,7 +399,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 						(item) => item.id !== data.value.data.media.id
 					);
 
-					this.medias.push(data.value.data.media);
+					this.medias.splice(this.editMediaPosition, 0, data.value.data.media);
 					this.filterMedias = this.medias;
 
 					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
@@ -397,6 +414,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetFormMedia();
+					this.filterPerTag(
+						this.filterPerTagChoise.id,
+						this.filterPerTagChoise.name
+					);
 				}
 
 				if (status.value === 'error') {
@@ -439,6 +460,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		filterPerTag(id, tagChoice) {
+			this.filterPerTagChoise.id = id;
+			this.filterPerTagChoise.name = tagChoice;
 			this.filterMedias = null;
 
 			this.tags.forEach((tag) => (tag.filter = false));
