@@ -5,14 +5,13 @@
 
 		<!-- Brand Secundária -->
 		<div>
-			<img :src="brandThree" onerror="this.src='/imgs/img_loading.png'" class="w-60 sm:w-[200px] md:w-[350px] lg:w-[300px]" />
+			<img :src="brandThree" onerror="this.src='/imgs/img_loading.png'"
+				class="w-60 sm:w-[200px] md:w-[350px] lg:w-[300px]" />
 		</div>
 
 		<!-- Loading infinito -->
 		<div class="flex flex-col justify-center items-center text-white lg:py-24">
-			<div class="simple-spinner relative block w-[30px] h-[30px]">
-				<span class="block w-[30px] h-[30px] border-2 border-solid border-transparent rounded-full border-r-white animate-spin"></span>
-			</div>
+			<Spin />
 			<div class="mt-5 uppercase font-semibold text-xl md:text-2xl lg:text-2xl">
 				<h2>Carregando...</h2>
 			</div>
@@ -41,5 +40,4 @@ const brandThree = computed(() => {
 
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
