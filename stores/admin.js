@@ -75,6 +75,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 	getters: {
 		typesMediaForm: (state) => state.formMedia.typesMedia,
+		totalMidias: (state) => state.filterMedias.length,
 		typeMediaSelectedForm: (state) => state.formMedia.typeMS,
 		newTag: (state) => state.formMedia.newTag,
 		tagsMediaFormSelected: (state) => {

@@ -1,31 +1,44 @@
 <template>
-	<div v-for="media in store.filterMedias" :key="media.id"
-		class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 transition-shadow ease-in-out duration-500">
-		<div>
-			<small class="text-xs text-green-500">Nome do conteúdo:</small>
-			<p class="line-clamp-1">{{ media.name }}</p>
+	<div>
+		<div class="flex items-center justify-between">
+			<h2 class="mb-2 text-lg font-bold">API da aplicação:</h2>
+			<h3>
+				<UBadge :ui="{ rounded: 'rounded-full' }" size="xs" color="green" :label="store.totalMidias + ' Mídias'"
+					class="font-bold" />
+			</h3>
 		</div>
-		<div>
-			<small class="text-xs text-green-500">Tag:</small>
-			<p class="line-clamp-1">{{ media.tag }}</p>
-		</div>
-		<div>
-			<small class="text-xs text-green-500">Tipo:</small>
-			<p>{{ media.type }}</p>
-		</div>
-		<div class="flex flex-col justify-center">
-			<small class="text-xs text-green-500">Valor:</small>
-			<div v-if="isMedia(media.type)">
-				<UButton variant="link" class="p-0 m-0" label="Abrir mídia" />
+		<div v-for="media in store.filterMedias" :key="media.id"
+			class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 transition-shadow ease-in-out duration-500">
+			<div>
+				<small class="text-xs text-green-500">Nome do conteúdo:</small>
+				<p class="line-clamp-1">{{ media.name }}</p>
 			</div>
-			<p v-else class="line-clamp-1" v-html="media.value"></p>
+			<div>
+				<small class="text-xs text-green-500">Tag:</small>
+				<p class="line-clamp-1">{{ media.tag }}</p>
+			</div>
+			<div>
+				<small class="text-xs text-green-500">Tipo:</small>
+				<p>{{ media.type }}</p>
+			</div>
+			<div class="flex flex-col justify-center">
+				<small class="text-xs text-green-500">Valor:</small>
+				<div v-if="isMedia(media.type)">
+					<UButton variant="link" class="p-0 m-0" label="Abrir mídia" />
+				</div>
+				<p v-else class="line-clamp-1" v-html="media.value"></p>
+			</div>
+			<div>
+				<small class="block text-md text-red-500">Ações:</small>
+				<UButton color="red" icon="i-material-symbols-delete-forever-outline" variant="soft" size="sm" class="me-2"
+					label="excluir" @click="store.openModalMediaDelete(media)" />
+				<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" label="editar"
+					@click="store.openModalMediaEdit(media.id)" />
+			</div>
+			<div class="absolute right-0 top-0 rounded-e-xl w-[10px] h-full" :class="setTypesMediaStyle(media.type)"></div>
+			<div v-if="media.value === null || media.value === undefined"
+				class="absolute -top-1 -left-1 h-3 w-3 rounded-full bg-red-600 animate-ping"></div>
 		</div>
-		<div>
-			<small class="block text-md text-red-500">Ações:</small>
-			<UButton color="red" icon="i-material-symbols-delete-forever-outline" variant="soft" size="sm" class="me-2" label="excluir" @click="store.openModalMediaDelete(media)" />
-			<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" label="editar" @click="store.openModalMediaEdit(media.id)" />
-		</div>
-		<div class="absolute right-0 top-0 rounded-e-xl w-[10px] h-full" :class="setTypesMediaStyle(media.type)"></div>
 	</div>
 </template>
 
