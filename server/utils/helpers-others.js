@@ -46,18 +46,48 @@ export const listSchemaDataMedia = [
 
 	// Banner
 	{ name: 'banner_background_card_one', tag: 'banner', type: typesMedia[3] },
-	{ name: 'banner_image_card_one', tag: 'banner', type: typesMedia[3] },
-	{ name: 'banner_text_card_title_one', tag: 'banner', type: typesMedia[0] },
-	{ name: 'banner_text_card_subtitle_one', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_background_card_two', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_background_card_three', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_background_card_four', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_image_card_one', tag: 'banner', type: typesMedia[3] },
 	{ name: 'banner_image_card_two', tag: 'banner', type: typesMedia[3] },
+	{ name: 'banner_image_card_three', tag: 'banner', type: typesMedia[3] },
+	{
+		name: 'banner_image_card_scrathcard_two',
+		tag: 'banner',
+		type: typesMedia[3],
+	},
+	{ name: 'banner_text_card_title_one', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_two', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_title_three', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_title_four', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_subtitle_one', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_subtitle_two', tag: 'banner', type: typesMedia[0] },
-	{ name: 'banner_text_card_label_button_two', tag: 'banner', type: typesMedia[0] },
+	{
+		name: 'banner_text_card_scrathcard_two',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
+	{
+		name: 'banner_text_card_label_button_one',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
+	{
+		name: 'banner_text_card_label_button_two',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
+	{
+		name: 'banner_text_card_description_three',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
 
 	// Colors
 	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_one', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_background_two', tag: 'colors', type: typesMedia[2] },
 	{
 		name: 'colors_carousel_pagination_background',
 		tag: 'colors',
