@@ -59,7 +59,6 @@ export default defineNuxtConfig({
 		'nuxt-icon',
 		'@nuxt/ui',
 		'vue3-carousel-nuxt',
-		'@formkit/auto-animate/nuxt',
 	],
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
@@ -76,5 +75,5 @@ export default defineNuxtConfig({
 		autoImports: ['defineStore'],
 	},
 
-	css: ['~/assets/css/main.css', 'animate.css/animate.min.css'],
+	css: ['animate.css/animate.min.css', '~/assets/css/main.css'],
 });

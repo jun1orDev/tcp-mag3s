@@ -237,4 +237,4 @@ const handleFileUpload = (event) => {
 
 </script>
 
-<style lang="css" scoped></style>
+<style scoped></style>

@@ -4,7 +4,7 @@
 
 		<UContainer>
 			<!-- Banner Principal -->
-			<BannerCard :linkSource="false" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+			<BannerCard linkSource="" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
 				subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
 				description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
 
@@ -16,13 +16,16 @@
 				<NumeroSorteio v-for="list in buttons" class="button" :button="list.button" :customBackground="list.color" />
 			</div>
 		</UContainer>
-		<ModalPrizeResult titulo="BOA SORTE!"
-			subtitulo="Se a combonação dos números sorteados bater com algum dos seus números, você ganhou!"
-			button="REVELAR RESULTADO" :mostrarBotao="true" />
+
+		<!-- Modal de interação do prêmio -->
+		<ModalPrize />
 	</div>
 </template>
 
 <script setup>
+import { useStoreApp } from '~/stores/app';
+const store = useStoreApp();
+
 let buttons = ref([
 	{ button: '01', color: 'black' },
 	{ button: '02', color: 'black' },
@@ -115,6 +118,15 @@ let positiveButtons = ref([
 	{ button: '07', color: 'black' },
 	{ button: '07', color: 'black' },
 ]);
+
+onMounted(() => {
+	store.openModalPrizeResult(
+		store.contentApp.modal_text_prize_title_one,
+		store.contentApp.modal_text_prize_subtitle_one,
+		store.contentApp.modal_text_prize_label_one,
+		'');
+})
+
 </script>
 
 <style scoped>
