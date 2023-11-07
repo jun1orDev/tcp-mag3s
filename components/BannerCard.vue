@@ -46,7 +46,7 @@
 
 				<!-- Description -->
 				<div v-if="props.description">
-					<p class="text-[10px] sm:text-[12px] text-start">
+					<p class="fm1 text-[8px] sm:text-[10px] lg:text-[12px] text-start">
 						{{ props.description }}
 					</p>
 				</div>

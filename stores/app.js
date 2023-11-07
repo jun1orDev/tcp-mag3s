@@ -1,59 +1,8 @@
-const textPlaceholder = 'O Texto aparecerá aqui...';
 export const useStoreApp = defineStore('storeApp', {
 	// arrow function recommended for full type inference
 	state: () => {
 		return {
-			contentApp: {
-				// Config
-				config_will_have_hotsite: null,
-
-				// Layout
-				layout_background_app: null,
-				layout_background_modal: null,
-
-				// Brand
-				brand_image_one: null,
-				brand_image_two: null,
-				brand_image_three: null,
-
-				// Banner
-				banner_background_card_one: null,
-				banner_background_card_two: null,
-				banner_background_card_three: null,
-				banner_background_card_four: null,
-				banner_image_card_one: null,
-				banner_image_card_two: null,
-				banner_image_card_three: null,
-				banner_image_card_four: null,
-				banner_image_card_scrathcard_two: null,
-				banner_text_card_title_one: textPlaceholder,
-				banner_text_card_title_two: textPlaceholder,
-				banner_text_card_title_three: textPlaceholder,
-				banner_text_card_title_four: textPlaceholder,
-				banner_text_card_subtitle_one: textPlaceholder,
-				banner_text_card_subtitle_two: textPlaceholder,
-				banner_text_card_scrathcard_two: textPlaceholder,
-				banner_text_card_label_button_one: textPlaceholder,
-				banner_text_card_label_button_two: textPlaceholder,
-				banner_text_card_description_three: textPlaceholder,
-				banner_text_card_description_four: textPlaceholder,
-				banner_link_external_card_one: textPlaceholder,
-
-				// Colors
-				colors_text_one: null,
-				colors_text_button: null,
-				colors_border_one: null,
-				colors_background_one: null,
-				colors_background_two: null,
-				colors_background_button: null,
-				colors_carousel_pagination_background: null,
-				colors_carousel_pagination_active: null,
-
-				// Modal
-				modal_text_prize_title_one: textPlaceholder,
-				modal_text_prize_subtitle_one: textPlaceholder,
-				modal_text_prize_label_one: textPlaceholder,
-			},
+			contentApp: {},
 			footerApp: {
 				menu: [
 					{ label: 'perguntas', link: '/faq' },
@@ -64,11 +13,60 @@ export const useStoreApp = defineStore('storeApp', {
 			contentHasBeenLoaded: false,
 			modalPrize: {
 				isOpenModalPrizeResult: false,
-				title: textPlaceholder,
-				subtitle: textPlaceholder,
-				labelButton: textPlaceholder,
+				title: '',
+				subtitle: '',
+				labelButton: '',
 				typeAction: '',
 			},
+			showDrawnNumbersToday: false,
+			drawnNumbersToday: ['01', '03', '08', '12', '44', '30', '64'],
+			luckyNumersUser: [
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '02', status: '' },
+						{ number: '03', status: '' },
+						{ number: '04', status: '' },
+						{ number: '05', status: '' },
+						{ number: '06', status: '' },
+						{ number: '07', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '03', status: '' },
+						{ number: '08', status: '' },
+						{ number: '12', status: '' },
+						{ number: '44', status: '' },
+						{ number: '30', status: '' },
+						{ number: '05', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '02', status: '' },
+						{ number: '44', status: '' },
+						{ number: '04', status: '' },
+						{ number: '05', status: '' },
+						{ number: '06', status: '' },
+						{ number: '07', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '02', status: '' },
+						{ number: '30', status: '' },
+						{ number: '04', status: '' },
+						{ number: '05', status: '' },
+						{ number: '06', status: '' },
+						{ number: '07', status: '' },
+					],
+				},
+			],
+			LuckyNumbersWereDrawn: false,
 			loading: false,
 		};
 	},
@@ -129,6 +127,8 @@ export const useStoreApp = defineStore('storeApp', {
 
 			switch (this.modalPrize.typeAction) {
 				case 'reveal':
+					this.showDrawnNumbersToday = true;
+					this.revealDrawnNumber(1000);
 					console.log('chamar função que revela o prêmio');
 					break;
 				case 'back':
@@ -141,6 +141,59 @@ export const useStoreApp = defineStore('storeApp', {
 				default:
 					console.log('o modal foi fechado apenas!');
 					break;
+			}
+		},
+
+		async revealDrawnNumber(timer) {
+			// Obtendo o resultado do sorteio
+			for (const number of this.drawnNumbersToday) {
+				await new Promise((resolve) =>
+					setTimeout(() => {
+						this.luckyNumersUser.forEach((element) => {
+							element.numbers.forEach((dozens) => {
+								if (dozens.number === number) {
+									dozens.status = 'nailed';
+								}
+							});
+						});
+						resolve();
+					}, timer)
+				);
+			}
+
+			// Obtendo a dezena sorteada caso tenha
+			this.luckyNumersUser.forEach((element) => {
+				const wasTenDrawn = element.numbers.every(
+					(dozens, index) => dozens.number === this.drawnNumbersToday[index]
+				);
+
+				if (wasTenDrawn) {
+					this.LuckyNumbersWereDrawn = true;
+					element.numbers.forEach((dozens) => {
+						dozens.status = 'awarded';
+					});
+					return;
+				}
+			});
+
+			if (this.LuckyNumbersWereDrawn) {
+				setTimeout(() => {
+					this.openModalPrizeResult(
+						this.contentApp.modal_text_prize_title_three,
+						this.contentApp.modal_text_prize_subtitle_three,
+						this.contentApp.modal_text_prize_label_three,
+						'details'
+					);
+				}, 1000);
+			} else {
+				setTimeout(() => {
+					this.openModalPrizeResult(
+						this.contentApp.modal_text_prize_title_two,
+						this.contentApp.modal_text_prize_subtitle_two,
+						this.contentApp.modal_text_prize_label_two,
+						'back'
+					);
+				}, 1000);
 			}
 		},
 	},
