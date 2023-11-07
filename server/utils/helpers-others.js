@@ -44,6 +44,9 @@ export const listSchemaDataMedia = [
 	{ name: 'brand_image_two', tag: 'brand', type: typesMedia[3] },
 	{ name: 'brand_image_three', tag: 'brand', type: typesMedia[3] },
 
+	// Sessions
+	{ name: 'sessions_title_one', tag: 'sessions', type: typesMedia[0] },
+
 	// Banner
 	{ name: 'banner_background_card_one', tag: 'banner', type: typesMedia[3] },
 	{ name: 'banner_background_card_two', tag: 'banner', type: typesMedia[3] },
@@ -99,8 +102,10 @@ export const listSchemaDataMedia = [
 	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_text_button', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_border_one', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_border_two', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_two', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_background_three', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_button', tag: 'colors', type: typesMedia[2] },
 	{
 		name: 'colors_carousel_pagination_background',
@@ -115,6 +120,12 @@ export const listSchemaDataMedia = [
 
 	// Modal
 	{ name: 'modal_text_prize_title_one', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_title_two', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_title_three', tag: 'modal', type: typesMedia[0] },
 	{ name: 'modal_text_prize_subtitle_one', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_subtitle_two', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_subtitle_three', tag: 'modal', type: typesMedia[0] },
 	{ name: 'modal_text_prize_label_one', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_label_two', tag: 'modal', type: typesMedia[0] },
+	{ name: 'modal_text_prize_label_three', tag: 'modal', type: typesMedia[0] },
 ];

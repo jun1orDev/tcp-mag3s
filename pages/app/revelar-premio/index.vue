@@ -1,5 +1,5 @@
 <template>
-	<div class="py-12">
+	<div class="py-12" :style="`color: ${store.contentApp.colors_text_one}`">
 		<BackgroundDefault />
 
 		<UContainer>
@@ -8,13 +8,31 @@
 				subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
 				description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
 
-			<div class="button-container mt-10">
-				<NumeroSorteio v-for="list in buttons" class="button" :button="list.button" :customBackground="list.color" />
+			<!-- Separador -->
+			<div class="h-6"></div>
+
+			<!-- Números do Sorteio Atual -->
+			<div v-if="store.showDrawnNumbersToday">
+				<h1 class="mb-2 lg:mb-5 fm3 text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] lg:text-center">{{
+					store.contentApp.sessions_title_one }}</h1>
+				<div
+					class="grid grid-cols-[repeat(7,40px)] md:grid-cols-[repeat(7,50px)] lg:grid-cols-[repeat(7,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
+					<NumeroSorteio v-for="number in store.drawnNumbersToday" :numberDraw="number" status="awarded" />
+				</div>
+				<!-- Separador de Números -->
+				<hr class="my-8 w-full sm:w-2/4 md:w-2/3 lg:w-2/5 m-auto borderSep">
 			</div>
 
-			<div class="button-container mt-10">
-				<NumeroSorteio v-for="list in buttons" class="button" :button="list.button" :customBackground="list.color" />
+			<!-- Números da sorte do usuário -->
+			<div class="grid grid-cols-1 gap-6">
+				<div v-for="dezenas in store.luckyNumersUser">
+					<div
+						class="grid grid-cols-[repeat(7,40px)] md:grid-cols-[repeat(7,50px)] lg:grid-cols-[repeat(7,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
+						<NumeroSorteio v-for="dezena in dezenas.numbers" :numberDraw="dezena.number" :status="dezena.status" />
+					</div>
+				</div>
 			</div>
+
 		</UContainer>
 
 		<!-- Modal de interação do prêmio -->
@@ -26,143 +44,26 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 
-let buttons = ref([
-	{ button: '01', color: 'black' },
-	{ button: '02', color: 'black' },
-	{ button: '03', color: 'black' },
-	{ button: '04', color: 'black' },
-	{ button: '05', color: 'black' },
-	{ button: '06', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '08', color: 'black' },
-	{ button: '09', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-]);
-
-let negativeButtons = ref([
-	{ button: '01', color: '#DFA701' },
-	{ button: '07', color: '#DFA701' },
-	{ button: '03', color: '#DFA701' },
-	{ button: '04', color: '#DFA701' },
-	{ button: '09', color: '#DFA701' },
-	{ button: '06', color: '#DFA701' },
-	{ button: '08', color: '#DFA701' },
-	{ button: '09', color: '#847248' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: '#847248' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-]);
-
-let positiveButtons = ref([
-	{ button: '01', color: '#DFA701' },
-	{ button: '02', color: '#DFA701' },
-	{ button: '03', color: '#DFA701' },
-	{ button: '04', color: '#DFA701' },
-	{ button: '05', color: '#DFA701' },
-	{ button: '06', color: '#DFA701' },
-	{ button: '07', color: '#DFA701' },
-	{ button: '08', color: 'black' },
-	{ button: '09', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-	{ button: '07', color: 'black' },
-]);
-
 onMounted(() => {
-	store.openModalPrizeResult(
-		store.contentApp.modal_text_prize_title_one,
-		store.contentApp.modal_text_prize_subtitle_one,
-		store.contentApp.modal_text_prize_label_one,
-		'');
+	if (store.LuckyNumbersWereDrawn) {
+		store.openModalPrizeResult(
+			store.contentApp.modal_text_prize_title_three,
+			store.contentApp.modal_text_prize_subtitle_three,
+			store.contentApp.modal_text_prize_label_three,
+			'details');
+	} else {
+		store.openModalPrizeResult(
+			store.contentApp.modal_text_prize_title_one,
+			store.contentApp.modal_text_prize_subtitle_one,
+			store.contentApp.modal_text_prize_label_one,
+			'reveal');
+	}
 })
 
 </script>
 
 <style scoped>
-.premio {
-	font-family: 'Gotham Medium';
-}
-
-.button-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-
-.button {
-	width: calc(14.28% - 10px);
-	/* Largura dos botões com espaço horizontal de 10px */
-	height: 40px;
-	/* Altura dos botões */
-	margin: 10px 5px;
-	/* Espaçamento vertical de 10px e espaçamento horizontal de 5px */
-	border: 1px solid #847248;
-}
-
-/* Estilos responsivos para tablets*/
-@media (min-width: 768px) {
-	.button {
-		flex-basis: calc(14.28% - 20px);
-		/* Largura dos botões com espaço horizontal de 20px */
-		height: 50px;
-		/* Altura dos botões para tablets */
-		margin: 10px 10px;
-	}
-}
-
-.horizontal-line {
-	background-color: #dfa701;
-	/* Cor da linha vertical (preto, neste exemplo) */
+.borderSep {
+	border-color: #FFBE00;
 }
 </style>
