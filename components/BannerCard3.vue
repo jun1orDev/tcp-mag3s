@@ -26,7 +26,7 @@
 		<div class="flex items-center col-span-1">
 			<!-- Imagem de destaque -->
 			<div class="w-[80px] sm:w-[120px] md:w-[140px] animate__animated animate__tada">
-				<img :src="imageDT" onerror="this.src='/img/thumb_premios1.png'" />
+				<img :src="imageDT" onerror="this.src='/imgs/thumb_premios1.png'" />
 			</div>
 		</div>
 	</NuxtLink>

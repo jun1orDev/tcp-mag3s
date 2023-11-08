@@ -10,7 +10,7 @@
 		<div class="flex items-center">
 			<!-- Imagem de destaque -->
 			<div class="w-[55px] sm:w-[65px] md:w-[80px] animate__animated animate__tada">
-				<img :src="imageDT" onerror="this.src='/img/selo_fiel.png'" />
+				<img :src="imageDT" onerror="this.src='/imgs/selo_fiel.png'" />
 			</div>
 		</div>
 
