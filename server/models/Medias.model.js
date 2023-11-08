@@ -1,6 +1,6 @@
 import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
-export class MediasModel extends Model {}
+export class MediasModel extends Model { }
 
 const config = useRuntimeConfig();
 
@@ -18,6 +18,11 @@ MediasModel.init(
 			set(payload) {
 				this.setDataValue('name', payload.replace(/[ ]+/g, '_'));
 			},
+		},
+		description: {
+			type: DataTypes.TEXT,
+			required: true,
+			allowNull: true,
 		},
 		value: {
 			type: DataTypes.TEXT,

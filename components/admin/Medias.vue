@@ -34,11 +34,37 @@
 					label="excluir" @click="store.openModalMediaDelete(media)" />
 				<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" label="editar"
 					@click="store.openModalMediaEdit(media.id)" />
+				<UTooltip v-if="media.description" class="cursor-pointer" :text="media.description"
+					:popper="{ placement: 'bottom' }">
+					<UIcon class="text-2xl" name="i-material-symbols-contact-support-outline"
+						@click="openModalDescription({ title: media.name, description: media.description })" />
+				</UTooltip>
 			</div>
 			<div class="absolute right-0 top-0 rounded-e-xl w-[10px] h-full" :class="setTypesMediaStyle(media.type)"></div>
 			<div v-if="media.value === null || media.value === undefined"
 				class="absolute -top-1 -left-1 h-3 w-3 rounded-full bg-red-600 animate-ping"></div>
 		</div>
+
+		<!-- Modal para descrição da mídia -->
+		<UModal v-model="isOpenModalDescription">
+			<UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+				<template #header>
+					<div class="flex items-center justify-between">
+						<h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+							{{ detailsModal.title }}
+						</h3>
+						<UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+							@click="closeModalDescption" />
+					</div>
+				</template>
+
+				<div>
+					{{ detailsModal.description }}
+				</div>
+
+				<Placeholder class="h-32" />
+			</UCard>
+		</UModal>
 	</div>
 </template>
 
@@ -47,6 +73,26 @@ import { useStoreAdmin } from '~/stores/admin';
 
 const store = useStoreAdmin();
 const { typesMedia } = useRuntimeConfig().public;
+
+let isOpenModalDescription = ref(false);
+
+let detailsModal = ref({
+	title: '',
+	description: '',
+});
+
+function openModalDescription(description) {
+	isOpenModalDescription.value = true;
+	detailsModal.value = description;
+}
+
+function closeModalDescption() {
+	isOpenModalDescription.value = false;
+	detailsModal.value = {
+		title: '',
+		description: '',
+	};
+}
 
 const setTypesMediaStyle = (type) => {
 	switch (type) {

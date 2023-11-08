@@ -33,7 +33,7 @@ const { typesMedia } = useRuntimeConfig();
 
 export const listSchemaDataMedia = [
 	// Config
-	{ name: 'config_will_have_hotsite', tag: 'config', type: typesMedia[6] },
+	{ name: 'config_will_have_hotsite', description: 'utilizado para exibir a primeira página da aplicação, que será a landing page ou o hub autenticado.', tag: 'config', type: typesMedia[6] },
 
 	// Layout
 	{ name: 'layout_background_app', tag: 'layout', type: typesMedia[3] },
@@ -61,7 +61,7 @@ export const listSchemaDataMedia = [
 		tag: 'banner',
 		type: typesMedia[3],
 	},
-	{ name: 'banner_text_card_title_one', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_title_one', description: 'título do card principal do hub.', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_two', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_three', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_four', tag: 'banner', type: typesMedia[0] },
@@ -99,7 +99,7 @@ export const listSchemaDataMedia = [
 	},
 
 	// Colors
-	{ name: 'colors_text_one', tag: 'colors', type: typesMedia[2] },
+	{ name: 'colors_text_one', description: 'cor do texto padrão utilizado na aplicação.', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_text_button', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_border_one', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_border_two', tag: 'colors', type: typesMedia[2] },
