@@ -19,18 +19,26 @@ export const useStoreApp = defineStore('storeApp', {
 				typeAction: '',
 			},
 			showDrawnNumbersToday: false,
-			drawnNumbersToday: ['01', '03', '08', '12', '44', '30', '64'],
+			drawnNumbersToday: [
+				{ number: '01', status: '' },
+				{ number: '02', status: '' },
+				{ number: '44', status: '' },
+				{ number: '04', status: '' },
+				{ number: '05', status: '' },
+				{ number: '06', status: '' },
+				{ number: '07', status: '' },
+			],
 			luckyNumersUser: [
 				{
 					numbers: [
-						{ number: '01', status: '' },
+						{ number: '78', status: '' },
 						{ number: '02', status: '' },
-						{ number: '03', status: '' },
+						{ number: '44', status: '' },
 						{ number: '04', status: '' },
 						{ number: '05', status: '' },
 						{ number: '06', status: '' },
 						{ number: '07', status: '' },
-					],
+					], sort: 0,
 				},
 				{
 					numbers: [
@@ -40,8 +48,19 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '12', status: '' },
 						{ number: '44', status: '' },
 						{ number: '30', status: '' },
+						{ number: '01', status: '' },
+					], sort: 0,
+				},
+				{
+					numbers: [
+						{ number: '66', status: '' },
+						{ number: '02', status: '' },
+						{ number: '44', status: '' },
+						{ number: '04', status: '' },
 						{ number: '05', status: '' },
-					],
+						{ number: '06', status: '' },
+						{ number: '88', status: '' },
+					], sort: 0,
 				},
 				{
 					numbers: [
@@ -51,22 +70,11 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '04', status: '' },
 						{ number: '05', status: '' },
 						{ number: '06', status: '' },
-						{ number: '07', status: '' },
-					],
-				},
-				{
-					numbers: [
 						{ number: '01', status: '' },
-						{ number: '02', status: '' },
-						{ number: '30', status: '' },
-						{ number: '04', status: '' },
-						{ number: '05', status: '' },
-						{ number: '06', status: '' },
-						{ number: '07', status: '' },
-					],
+					], sort: 0,
 				},
 			],
-			LuckyNumbersWereDrawn: false,
+			LuckyNumbersWereDrawn: null,
 			loading: false,
 		};
 	},
@@ -143,17 +151,37 @@ export const useStoreApp = defineStore('storeApp', {
 					break;
 			}
 		},
-
 		async revealDrawnNumber(timer) {
+			let foundNumberDrawn = false;
+
 			// Obtendo o resultado do sorteio
-			for (const number of this.drawnNumbersToday) {
+			for (const [index, drawToday] of this.drawnNumbersToday.entries()) {
 				await new Promise((resolve) =>
 					setTimeout(() => {
 						this.luckyNumersUser.forEach((element) => {
-							element.numbers.forEach((dozens) => {
-								if (dozens.number === number) {
-									dozens.status = 'nailed';
+							foundNumberDrawn = false;
+							element.sort = element.sort + 1;
+							element.numbers.find((dozens, i, arr) => {
+								if (foundNumberDrawn) return;
+
+								this.drawnNumbersToday[index].status = 'awarded';
+
+								if (arr[index].number === drawToday.number) {
+									arr[index].status = 'nailed';
+									foundNumberDrawn = true;
+
+									this.luckyNumersUser.sort((a, b) => {
+										// Função que conta quantos elementos têm status 'neiland' em uma subarray
+										const contarNeiland = (arr) => arr.filter(item => item.status === 'nailed').length;
+
+										const contagemA = contarNeiland(a.numbers);
+										const contagemB = contarNeiland(b.numbers);
+
+										// Ordene de forma decrescente com base no número de elementos com status 'neiland'
+										return contagemB - contagemA;
+									});
 								}
+
 							});
 						});
 						resolve();
@@ -161,22 +189,32 @@ export const useStoreApp = defineStore('storeApp', {
 				);
 			}
 
-			// Obtendo a dezena sorteada caso tenha
+			// Obtendo a lista de 7 dezenas sorteadas caso tenha
+			let wasTenDrawn = false;
+			let breakLoop = false;
+
+			function setLuckyNumberWD(arr) {
+				arr.forEach((dozens) => {
+					dozens.status = 'awarded';
+				});
+			}
+
 			this.luckyNumersUser.forEach((element) => {
-				const wasTenDrawn = element.numbers.every(
-					(dozens, index) => dozens.number === this.drawnNumbersToday[index]
+				if (breakLoop) return;
+
+				wasTenDrawn = element.numbers.every(
+					(dozens, index) => dozens.number === this.drawnNumbersToday[index].number
 				);
 
 				if (wasTenDrawn) {
-					this.LuckyNumbersWereDrawn = true;
-					element.numbers.forEach((dozens) => {
-						dozens.status = 'awarded';
-					});
-					return;
+					setLuckyNumberWD(element.numbers);
+					breakLoop = true;
 				}
 			});
 
-			if (this.LuckyNumbersWereDrawn) {
+
+			if (wasTenDrawn) {
+				this.LuckyNumbersWereDrawn = true;
 				setTimeout(() => {
 					this.openModalPrizeResult(
 						this.contentApp.modal_text_prize_title_three,
@@ -186,6 +224,7 @@ export const useStoreApp = defineStore('storeApp', {
 					);
 				}, 1000);
 			} else {
+				this.LuckyNumbersWereDrawn = false;
 				setTimeout(() => {
 					this.openModalPrizeResult(
 						this.contentApp.modal_text_prize_title_two,

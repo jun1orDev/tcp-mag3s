@@ -31,6 +31,7 @@
 		"postcss": "^8.4.31"
 	},
 	"dependencies": {
+		"@formkit/auto-animate": "^0.8.1",
 		"@google-cloud/storage": "^7.5.0",
 		"@iconify-json/material-symbols": "^1.1.58",
 		"@nuxt/ui": "^2.10.0",
