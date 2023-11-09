@@ -20,21 +20,25 @@
 			<div class="flex justify-end w-full me-3 sm:me-5 animate__animated animate__fadeIn">
 				<div class="flex flex-col items-end">
 					<div class="flex">
-						<p class="fm1 text-[14px] sm:text-[18px] md:text-[24px] lg:text-[18px] me-1">03</p>
-						<img :src="imageSC" onerror="this.src='/imgs/image_rasp.png'" class="w-[35px] sm:w-[45px] md:w-[64px] lg:w-[50px]" />
+						<p class="fm1 text-[14px] sm:text-[18px] md:text-[24px] lg:text-[18px] me-1" :class="!store.hasScratchCardQtd ? 'detach' : ''">{{ props.qtdDescriptionFigure }}
+						</p>
+						<img :src="imageSC" onerror="this.src='/imgs/image_rasp.png'"
+							class="w-[35px] sm:w-[45px] md:w-[64px] lg:w-[50px]" />
 					</div>
 					<div>
-						<p class="fm1 rabiscadinha uppercase text-[7px] sm:text-[10px] md:text-[12px] lg:text-[9px]">{{ store.contentApp.banner_text_card_scrathcard_two }}</p>
+						<p class="fm1 rabiscadinha uppercase text-[7px] sm:text-[10px] md:text-[12px] lg:text-[9px]">{{
+							store.contentApp.banner_text_card_scrathcard_two }}</p>
 					</div>
 				</div>
 			</div>
 
 			<!-- Conteúdo de texto -->
-			<div class="flex justify-center w-full mt-2 lg:mt-0" :class="'justify-center'">
+			<div class="flex justify-center w-full ps-3 md:ps-6 mt-2 lg:mt-0" :class="'justify-center'">
 
 				<div class="text-start me-4 sm:me-0 lg:me-3">
 					<!-- Título -->
-					<h1 class="fm3 text-[10px] sm:text-[18px] md:text-xl lg:text-[16px] uppercase animate__animated animate__fadeInDown">
+					<h1
+						class="fm3 text-[10px] sm:text-[18px] md:text-xl lg:text-[16px] uppercase animate__animated animate__fadeInDown">
 						{{ props.title }}
 					</h1>
 
@@ -47,10 +51,9 @@
 			</div>
 
 			<!-- Call to action -->
-			<div v-if="props.callToAction"
-				class="fm3 flex justify-end items-center text-[10px] sm:text-[12px] md:text-[14px] pt-2 md:pt-4 lg:pt-0 me-2 sm:me-4 uppercase tracking-wider w-full">
-				<p> {{ props.callToAction }} </p>
-				<UIcon class="arrow ms-1 text-lg md:text-2xl" name="i-material-symbols-arrow-forward-ios" />
+			<div class="fm3 flex justify-end items-center text-[10px] sm:text-[12px] md:text-[14px] pt-2 md:pt-4 lg:pt-0 me-2 sm:me-4 uppercase tracking-wider w-full">
+				<p> {{ props.callToAction || '' }} </p>
+				<UIcon v-if="props.callToAction" class="arrow ms-1 text-lg md:text-2xl" name="i-material-symbols-arrow-forward-ios" />
 			</div>
 		</div>
 	</NuxtLink>
@@ -61,7 +64,7 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['linkSource', 'title', 'subtitle', 'qtdScratchCard', 'callToAction', 'imageDetach']);
+const props = defineProps(['linkSource', 'title', 'subtitle', 'qtdDescriptionFigure', 'callToAction', 'imageDetach']);
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_two}'), url('/imgs/fundo_card_2.png')`;
@@ -79,10 +82,17 @@ const colorBgButton = computed(() => {
 	return store.contentApp.colors_background_button;
 });
 
+const colorDetach = computed(() => {
+	return store.contentApp.colors_detach_one;
+});
+
 </script>
 
 <style scoped>
 .arrow {
 	background-color: v-bind(colorBgButton);
+}
+.detach {
+	color: v-bind(colorDetach);
 }
 </style>

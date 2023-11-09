@@ -3,6 +3,9 @@ export const useStoreApp = defineStore('storeApp', {
 	state: () => {
 		return {
 			contentApp: {},
+			apiData: {
+				qtdScratchCard: '08',
+			},
 			footerApp: {
 				menu: [
 					{ label: 'perguntas', link: '/faq' },
@@ -79,7 +82,30 @@ export const useStoreApp = defineStore('storeApp', {
 		};
 	},
 
-	getters: {},
+	getters: {
+		hasScratchCardQtd: (state) => {
+			return +state.apiData.qtdScratchCard > 0;
+		},
+		titleCardScratchQtd: (state) => {
+			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_title_two;
+			return state.contentApp.banner_text_card_title_five;
+		},
+
+		subtitleCardScratchQtd: (state) => {
+			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_subtitle_two;
+			return state.contentApp.banner_text_card_subtitle_three;
+		},		
+
+		linkCardScratchQtd: (state) => {
+			if(state.hasScratchCardQtd) return '/app/gamification';
+			return '';
+		},		
+
+		callToActionCardScratchQtd: (state) => {
+			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_label_button_two;
+			return false;
+		},		
+	},
 
 	actions: {
 		async getContentApp(useToast) {
