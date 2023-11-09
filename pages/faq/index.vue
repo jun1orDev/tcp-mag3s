@@ -13,7 +13,7 @@
 		</UContainer>
 
 		<div
-			class="p-9 justify-end fixed bottom-0 left-0 right-0 bg-cover bg-[url('/imgs/retangulo.png')]"
+			class="p-9 justify-end fixed bottom-0 left-0 right-0 bg-cover"
 		>
 			<div class="flex flex-col">
 				<p class="text text-white text-[10px] md:text-[14px] text-center mb-3">

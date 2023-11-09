@@ -162,7 +162,7 @@ export const useStoreApp = defineStore('storeApp', {
 			switch (this.modalPrize.typeAction) {
 				case 'reveal':
 					this.showDrawnNumbersToday = true;
-					this.revealDrawnNumber(1000);
+					this.revealDrawnNumber(1500);
 					console.log('chamar função que revela o prêmio');
 					break;
 				case 'back':
@@ -196,7 +196,7 @@ export const useStoreApp = defineStore('storeApp', {
 									foundNumberDrawn = true;
 
 									// Ordernar a lista assim que os números
-									this.luckyNumersUser = this.luckyNumersUser.slice().sort((a, b) => {
+									this.luckyNumersUser = this.luckyNumersUser.sort((a, b) => {
 										// Função que conta quantos elementos têm status 'neiland' em uma subarray
 										const contarNeiland = (arr) => arr.filter(item => item.status === 'nailed').length;
 
