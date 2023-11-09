@@ -2,11 +2,13 @@
 	<div>
 		<img class="w-full h-screen" src="/imgs/Scratchcard_Gamification.png" />
 	</div>
-	<WarningRotate v-if="false" />
-	<FeedbackNegative />
-	<FeedbackPositive v-if="false" />
+	<WarningRotate />
+	<!-- <FeedbackNegative /> -->
+	<!-- <FeedbackPositive /> -->
 </template>
 
-<script></script>
+<script setup>
+
+</script>
 
 <style scoped></style>
