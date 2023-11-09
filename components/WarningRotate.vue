@@ -1,14 +1,8 @@
 <template>
-	<div class="lg:hidden">
-		<!-- plano de fundo -->
-		<div class="image relative">
-			<div class="flex flex-col justify-center items-center min-h-screen bg-no-repeat bg-center bg-cover"
-				style="background-image: url('/imgs/game.png')"></div>
-		</div>
-
+	<div class="lg:hidden fixed top-0 left-0 right-0 bottom-0" :style="bgColor">
 		<!-- texto central  -->
 		<div
-			class="texto text-center justify-start absolute flex top-0 left-0 right-0 bottom-0 text-[14px] md:text-[20px] mt-16 flex-col">
+			class="fm3 text-center justify-start absolute flex top-0 left-0 right-0 bottom-0 text-[14px] md:text-[20px] mt-16 flex-col">
 			<p class="text-white mb-2">
 				GIRE A TELA DO SEU CELULAR ATÉ <br />
 				ELE FICAR DEITADO, OK?
@@ -22,25 +16,24 @@
 
 		<!-- imagem mosqueteiro -->
 		<div>
-			<img src="/imgs/mosqueteiro_triste.png" class="absolute inset-0 m-auto z-10" style="width: 220px; height: 250px" />
+			<img src="/imgs/mosqueteiro_triste.png" class="absolute inset-0 m-auto z-10 w-[150px] md:w-[220px]"/>
 		</div>
 
 		<!-- imagem de sinalização de rotação -->
 		<div class="flex items-center">
-			<img src="/imgs/rotate_screen.png" class="absolute inset-0 m-auto z-10 mb-20"
-				style="width: 100px; height: 100px" />
+			<img src="/imgs/rotate_screen.png" class="absolute inset-0 m-auto z-10 mb-20 w-[70px] h-[70px] md:w-[100px] md:h-[100px] animate__animated animate__rotateIn animate__delay-2s animate__infinite infinite" />
 		</div>
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useStoreApp } from '~/stores/app';
 
-<style scoped>
-.image {
-	filter: brightness(10%);
-}
+const store = useStoreApp();
 
-.texto {
-	font-family: 'Gotham Black';
-}
-</style>
+const bgColor = computed(() => {
+	return `background: ${store.contentApp.colors_background_one}DF`
+});
+</script>
+
+<style scoped></style>

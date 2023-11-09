@@ -66,8 +66,10 @@ export const listSchemaDataMedia = [
 	{ name: 'banner_text_card_title_two', description: 'Texto em primeira posição dentro do Banner secundário que contém raspadinhas.', value: 'Está com sorte?', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_three', description: 'Título localizado dentro do Card fixado ao lado esquerdo.', value: 'Último sorteio', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_title_four', description: 'Título localizado dentro do Card fixado ao lado direito.', value: 'Próximos sorteios', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_title_five', description: 'Título do banner que não contém raspadinhas disponíveis.', value: 'Sem Rabiscadinhas?', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_subtitle_one', description: 'Subtitulo localizado dentro do Banner principal.', value: 'Acompanhe a contagem regressiva pro sorteio de hoje e boa sorte!', tag: 'banner', type: typesMedia[0] },
 	{ name: 'banner_text_card_subtitle_two', description: 'Subtitulo localizado dentro do Banner secundário.', value: 'Você tem rabiscadinhas!', tag: 'banner', type: typesMedia[0] },
+	{ name: 'banner_text_card_subtitle_three', description: 'Subtitulo do banner quando o usuário não possui raspadinhas.', value: 'Não se preocupe, logo mais você terá mais chances!', tag: 'banner', type: typesMedia[0] },
 	{
 		name: 'banner_text_card_scrathcard_two',
 		description: 'Texto abaixo da imagem referente a quantidade de raspadinhas.',
@@ -119,6 +121,13 @@ export const listSchemaDataMedia = [
 	{ name: 'colors_background_one', description: 'Cor de fundo do Banner Blog.', value: '#000006', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_two', description: 'Cor de fundo do Banner Destacado', value: '#847248', tag: 'colors', type: typesMedia[2] },
 	{ name: 'colors_background_three', description: 'Cor dos campos de números sorteados', value: '#DFA701', tag: 'colors', type: typesMedia[2] },
+	{
+		name: 'colors_detach_one',
+		description: 'Cor para destacar elementos gerais na aplicação.',
+		value: '#FF0019',
+		tag: 'colors',
+		type: typesMedia[2],
+	},
 	{ name: 'colors_background_button', description: 'Selecione a cor padrão dos botões.', value: '#847248', tag: 'colors', type: typesMedia[2] },
 	{
 		name: 'colors_carousel_pagination_background',

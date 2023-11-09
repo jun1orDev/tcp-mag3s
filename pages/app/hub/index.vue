@@ -15,9 +15,9 @@
 				<div class="h-1 md:h-2 lg:hidden"></div>
 
 				<!-- Banner Secundário -->
-				<BannerCard2 linkSource="/app/gamification" :title="app.banner_text_card_title_two"
-					:subtitle="app.banner_text_card_subtitle_two" :imageDetach="app.banner_image_card_two"
-					:callToAction="app.banner_text_card_label_button_two" />
+				<BannerCard2 :linkSource="store.linkCardScratchQtd" :qtdDescriptionFigure="api.qtdScratchCard" :title="store.titleCardScratchQtd"
+					:subtitle="store.subtitleCardScratchQtd" :imageDetach="app.banner_image_card_two"
+					:callToAction="store.callToActionCardScratchQtd" />
 			</div>
 
 			<!-- Separador -->
@@ -55,6 +55,7 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
+const api = useStoreApp().apiData;
 </script>
 
 <style scoped></style>
