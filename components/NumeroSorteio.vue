@@ -1,9 +1,9 @@
 <template>
-	<div class="rounded-xl box-content flex justify-center items-center border text-white transition-all styleBox">
-		<p class="fm3 text-[18px] md:text-[24px]">
+	<li class="rounded-xl box-content flex justify-center items-center border text-white transition-all styleBox">
+		<span class="fm3 text-[18px] md:text-[24px]">
 			{{ props.numberDraw }}
-		</p>
-	</div>
+		</span>
+	</li>
 </template>
 
 <script setup>

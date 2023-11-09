@@ -25,7 +25,7 @@
 
 			<!-- Números da sorte do usuário -->
 			<ul class="grid grid-cols-1 gap-6" ref="parent">
-				<li v-for="(dezenas, index) in store.luckyNumersUser" :key="index">
+				<li v-for="(dezenas, i) in store.luckyNumersUser" :key="i">
 					<ul
 						class="grid grid-cols-[repeat(7,40px)] md:grid-cols-[repeat(7,50px)] lg:grid-cols-[repeat(7,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 						<NumeroSorteio v-for="(dezena, index) in dezenas.numbers" :numberDraw="dezena.number" :status="dezena.status" :key="index" />
@@ -45,6 +45,8 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 
 const [parent] = useAutoAnimate({duration: 500});
+
+const borderSept = store.contentApp.colors_border_two;
 
 onMounted(() => {
 	switch (store.LuckyNumbersWereDrawn) {
@@ -78,6 +80,6 @@ onMounted(() => {
 
 <style scoped>
 .borderSep {
-	border-color: #FFBE00;
+	border-color: v-bind(borderSept);
 }
 </style>

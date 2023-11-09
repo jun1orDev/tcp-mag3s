@@ -38,7 +38,7 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '05', status: '' },
 						{ number: '06', status: '' },
 						{ number: '07', status: '' },
-					], sort: 0,
+					],
 				},
 				{
 					numbers: [
@@ -49,7 +49,7 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '44', status: '' },
 						{ number: '30', status: '' },
 						{ number: '01', status: '' },
-					], sort: 0,
+					],
 				},
 				{
 					numbers: [
@@ -60,7 +60,7 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '05', status: '' },
 						{ number: '06', status: '' },
 						{ number: '88', status: '' },
-					], sort: 0,
+					],
 				},
 				{
 					numbers: [
@@ -70,8 +70,8 @@ export const useStoreApp = defineStore('storeApp', {
 						{ number: '04', status: '' },
 						{ number: '05', status: '' },
 						{ number: '06', status: '' },
-						{ number: '01', status: '' },
-					], sort: 0,
+						{ number: '07', status: '' },
+					],
 				},
 			],
 			LuckyNumbersWereDrawn: null,
@@ -160,7 +160,6 @@ export const useStoreApp = defineStore('storeApp', {
 					setTimeout(() => {
 						this.luckyNumersUser.forEach((element) => {
 							foundNumberDrawn = false;
-							element.sort = element.sort + 1;
 							element.numbers.find((dozens, i, arr) => {
 								if (foundNumberDrawn) return;
 
@@ -170,7 +169,8 @@ export const useStoreApp = defineStore('storeApp', {
 									arr[index].status = 'nailed';
 									foundNumberDrawn = true;
 
-									this.luckyNumersUser.sort((a, b) => {
+									// Ordernar a lista assim que os números
+									this.luckyNumersUser = this.luckyNumersUser.slice().sort((a, b) => {
 										// Função que conta quantos elementos têm status 'neiland' em uma subarray
 										const contarNeiland = (arr) => arr.filter(item => item.status === 'nailed').length;
 

@@ -11,7 +11,7 @@
 				{{ store.modalPrize.subtitle }}</p>
 
 			<!-- CallToAction -->
-			<UButton :label="store.modalPrize.labelButton" class="fm3 mt-5 px-10 py-3 uppercase" :style="[colorBgButton]"
+			<UButton :label="store.modalPrize.labelButton" class="fm3 mt-5 px-10 py-3 uppercase" :style="[colorBgButton, colorTextButton]"
 				@click="store.callToActionPrize" :ui="optionsButton" />
 		</div>
 	</UModal>
@@ -35,6 +35,10 @@ const colorText = computed(() => {
 
 const colorBgButton = computed(() => {
 	return `background-color: ${store.contentApp.colors_background_button}`;
+});
+
+const colorTextButton = computed(() => {
+	return `color: ${store.contentApp.colors_text_button}`;
 });
 
 const optionsModal = ref({
