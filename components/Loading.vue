@@ -1,7 +1,7 @@
 <template>
 	<div v-if="store.loading"
 		class="absolute py-16 top-0 left-0 right-0 bottom-0 flex flex-col justify-around items-center w-full min-h-screen z-50">
-		<BackgroundDefault />
+		<AppLayoutBgDefault />
 
 		<!-- Brand Secundária -->
 		<div>
