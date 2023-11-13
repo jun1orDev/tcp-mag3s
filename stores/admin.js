@@ -108,6 +108,48 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 	},
 
 	actions: {
+		async loggingIn(useToast) {
+			const router = useRouter();
+			const toast = useToast();
+			this.loading = true;
+
+			try {
+				const data = await $fetch('/api/admin/auth/login', {
+					method: 'post',
+					credentials: 'include',
+					body: {
+						email: this.login.email,
+						password: this.login.password,
+					},
+				});
+
+				router.push({ path: '/admin/dashboard' });
+
+				this.login.email = '';
+				this.login.password = '';
+
+				toast.add({
+					id: 'show_status_login',
+					color: `green`,
+					title: `Parabéns`,
+					description: `${data.message}`,
+					icon: `i-material-symbols-person-check-outline-rounded`,
+					timeout: 3500,
+				});
+
+			} catch (error) {
+				toast.add({
+					id: 'show_status_login_error',
+					color: `red`,
+					title: `Atenção! Erro ${error.data.statusCode}`,
+					description: `${error.data.message}`,
+					icon: `i-material-symbols-warning-outline-rounded`,
+					timeout: 3500,
+				});
+			}
+
+			this.loading = false;
+		},
 		async getContent(useToast) {
 			const toast = useToast();
 

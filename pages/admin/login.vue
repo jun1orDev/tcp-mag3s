@@ -34,7 +34,7 @@
 					<div class="flex justify-end">
 						<UButton label="fazer login" color="black" variant="solid" size="lg" :loading="store.loading"
 							:trailing="false" :disabled="!store.login.email || !store.login.password" class="mt-8 md:mt-4"
-							:block="false" @click="loggingIn" icon="i-material-symbols-login-rounded" />
+							:block="false" @click="store.loggingIn(useToast)" icon="i-material-symbols-login-rounded" />
 					</div>
 				</form>
 			</div>
@@ -49,49 +49,10 @@ definePageMeta({
 	middleware: ["login"]
 })
 
+const store = useStoreAdmin()
 const toast = useToast()
-const email = ref('')
-const password = ref('')
-const statusHttpStyle = ref(0)
 const passView = ref('password')
 const passIcon = ref('i-material-symbols-visibility-rounded')
-const loading = ref(false)
-const router = useRouter()
-const store = useStoreAdmin()
-
-async function loggingIn() {
-	store.loading = true;
-
-	await useFetch('/api/admin/auth/login', {
-		method: 'post',
-		body: {
-			email: store.login.email,
-			password: store.login.password,
-		},
-		credentials: 'include',
-		onResponse({ request, response, options }) {
-			// Process the response data
-			const successRes = response.status === 200;
-
-			toast.add({
-				id: 'show_status_login',
-				color: `${successRes ? 'green' : 'red'}`,
-				title: `${successRes ? 'Parabéns!' : 'Atenção!'}`,
-				description: `${response._data.message}`,
-				icon: `${successRes ? 'i-material-symbols-person-check-outline-rounded' : 'i-material-symbols-warning-outline-rounded'}`,
-				timeout: 3500,
-			})
-
-			if (successRes) {
-				store.login.email = '';
-				store.login.password = '';
-				router.push({ path: '/admin/dashboard' });
-			}
-		},
-	})
-
-	store.loading = false;
-}
 
 function togglePassView() {
 	switch (passView.value) {
