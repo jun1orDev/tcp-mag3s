@@ -1,10 +1,10 @@
 <template>
 	<div class="py-12" :style="`color: ${store.contentApp.colors_text_one}`">
-		<BackgroundDefault />
+		<AppLayoutBgDefault />
 
 		<UContainer>
 			<!-- Banner Principal -->
-			<BannerCard linkSource="" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+			<AppBannersCard linkSource="" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
 				subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
 				description="Números válidos até 21/11/2023" imageAward="" />
 

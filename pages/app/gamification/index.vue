@@ -2,9 +2,9 @@
 	<div>
 		<img class="w-full h-screen" src="/imgs/Scratchcard_Gamification.png" />
 	</div>
-	<WarningRotate />
-	<!-- <FeedbackNegative /> -->
-	<!-- <FeedbackPositive /> -->
+	<!-- <AppGameRotateScreen /> -->
+	<!-- <AppGameFeedbackNegative /> -->
+	<AppGameFeedbackPositive />
 </template>
 
 <script setup>

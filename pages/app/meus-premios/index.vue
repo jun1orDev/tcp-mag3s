@@ -1,8 +1,8 @@
 <template>
 	<div class="mt-10">
-		<BackgroundDefault />
+		<AppLayoutBgDefault />
 		<UContainer>
-			<BannerCard
+			<AppBannersCard
 				class="mt-20"
 				titulo="20 DE NOVEMBRO, 2023"
 				subtitulo="Bola de partida oficial autografada"

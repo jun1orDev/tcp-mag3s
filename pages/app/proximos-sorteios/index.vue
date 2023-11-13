@@ -1,12 +1,12 @@
 <template>
 	<div class="py-12">
-		<BackgroundDefault />
+		<AppLayoutBgDefault />
 
 		<UContainer>
 			<!-- Banner Principal com Carousel -->
 			<Carousel id="carousel-next-prizes" :autoplay="5000" :wrap-around="true" :pause-autoplay-on-hover="true">
 				<Slide v-for="slide in 4" :key="slide">
-					<BannerCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+					<AppBannersCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
 						subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
 						description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
 				</Slide>

@@ -1,9 +1,9 @@
 <template>
 	<div class="py-12">
-		<BackgroundDefault />
+		<AppLayoutBgDefault />
 
 		<UContainer>
-			<BannerCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
+			<AppBannersCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
 				subtitle="Luva autografada do Cassio" :countdown="false" callToAction="Revelar prêmio"
 				:description="false" imageAward="https://imagedaapi.com" />
 
