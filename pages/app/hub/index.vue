@@ -1,5 +1,5 @@
 <template>
-	<div class="pt-12 min-h-screen flex flex-col justify-between">
+	<div v-if="!storeIncentive.loading" class="pt-12 min-h-screen flex flex-col justify-between">
 		<AppLayoutBgDefault />
 
 		<UContainer>
@@ -49,13 +49,22 @@
 
 		<FooterApp class="lg:mt-10" :imageLogo="app.brand_image_two" :menu="store.footerApp.menu" />
 	</div>
+	
+	<Loading />
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
 const api = useStoreApp().apiData;
+const storeIncentive = useStoreIncentive();
+
+definePageMeta({
+	middleware: process.client ? ['auth-user'] : undefined
+})
 </script>
 
 <style scoped></style>
