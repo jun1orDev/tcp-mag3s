@@ -150,6 +150,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 			this.loading = false;
 		},
+		
 		async getContent(useToast) {
 			const toast = useToast();
 

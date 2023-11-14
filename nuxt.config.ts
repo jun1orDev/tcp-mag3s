@@ -47,10 +47,25 @@ export default defineNuxtConfig({
 		gcsSubfolder: '',
 		gcsSubfolderEnvironment: '',
 		gcsBucketname: '',
-
+		
+		// Incentive Campaign API
+		
+		
 		public: {
 			typesMedia: typeMediaDefault,
 			pathAssets: '',
+			
+			// Incentive Campaign API Public
+			ApiIncentiveClientId: 'oi',
+			ApiIncentiveClientSecret: '',
+			ApiIncentiveKeyValue: '',
+			ApiIncentiveReferral: '',
+			ApiIncentiveSystemIdentity: '',
+			ApiIncentiveSystemContents: '',
+
+			// User Auth Login Test Hub
+			ApiIncentiveUserTest: '',
+			ApiIncentivePassTest: '',
 		},
 	},
 

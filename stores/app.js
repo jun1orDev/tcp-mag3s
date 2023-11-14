@@ -177,6 +177,7 @@ export const useStoreApp = defineStore('storeApp', {
 					break;
 			}
 		},
+		
 		async revealDrawnNumber(timer) {
 			let foundNumberDrawn = false;
 

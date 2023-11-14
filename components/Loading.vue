@@ -1,5 +1,5 @@
 <template>
-	<div v-if="store.loading"
+	<div v-if="storeIncentive.loading"
 		class="absolute py-16 top-0 left-0 right-0 bottom-0 flex flex-col justify-around items-center w-full min-h-screen z-50">
 		<AppLayoutBgDefault />
 
@@ -26,7 +26,10 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
+const storeIncentive = useStoreIncentive();
 
 const { pathAssets } = useRuntimeConfig().public;
 

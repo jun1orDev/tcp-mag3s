@@ -4,7 +4,6 @@
 	</div>
 
 	<UNotifications />
-	<Loading />
 </template>
 
 <script></script>

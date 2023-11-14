@@ -2,7 +2,7 @@
 
 <script setup>
 definePageMeta({
-	middleware: process.client ? 'has-hotsite' : undefined
+	middleware: process.client ? ['has-hotsite'] : undefined
 })
 </script>
 
