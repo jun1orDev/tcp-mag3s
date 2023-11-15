@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-show="!storeIncentive.loading">
 		<AppLayoutBgDefault />
 		<div class="h-screen w-screen">
 			<img src="/imgs/exemplo_premio_01.png" class="justify-center m-auto w-[320px] md:w-[400px] mt-3" />
@@ -16,7 +16,7 @@
 					</p>
 				</div>
 				<div class="flex items-center">
-					<NumeroSorteio v-for="list in buttons" class="mt-2 mx-1" :button="list.button" :customBackground="list.color" />
+					<AppGameNumberDraw v-for="list in buttons" class="mt-2 mx-1" :button="list.button" :customBackground="list.color" />
 				</div>
 
 				<div class="sub text-white justify-center text-center mt-4 text-[10px] md:text-[14px]">
@@ -43,9 +43,14 @@
 			</div>
 		</div>
 	</div>
+
+	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
+import { useStoreIncentive } from '~/stores/incentive';
+const storeIncentive = useStoreIncentive();
+
 let hasScratchcard = false;
 let buttons = ref([
 	{ button: '01', color: '#DFA701' },
@@ -56,6 +61,10 @@ let buttons = ref([
 	{ button: '06', color: '#DFA701' },
 	{ button: '07', color: '#DFA701' },
 ]);
+
+definePageMeta({
+	middleware: process.client ? ['auth-user'] : undefined
+});
 </script>
 
 <style scoped>

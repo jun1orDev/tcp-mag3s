@@ -1,5 +1,5 @@
 <template>
-	<div v-if="!storeIncentive.loading" class="pt-12 min-h-screen flex flex-col justify-between">
+	<div v-show="!storeIncentive.loading" class="pt-12 min-h-screen flex flex-col justify-between">
 		<AppLayoutBgDefault />
 
 		<UContainer>
@@ -8,7 +8,7 @@
 				<!-- Banner Principal -->
 				<AppBannersCard linkSource="" :hasImageDetach="true" :imageDetach="app.banner_image_card_one"
 					:title="app.banner_text_card_title_one" :subtitle="app.banner_text_card_subtitle_one"
-					countdown="2023-11-15T00:00:00+0000" :callToAction="false" :description="false"
+					countdown="2023-11-30T00:00:00+0000" :callToAction="false" :description="false"
 					imageAward="https://imagedaapi.com" />
 
 				<!-- Separador -->
@@ -33,7 +33,7 @@
 					<!-- Lado Esquerdo -->
 					<AppBannersCard4 linkSource="/app/revelar-premio" :background="app.banner_background_card_three"
 						:title="app.banner_text_card_title_three" countdown="2023-11-15T00:00:00+0000"
-						:callToAction="app.banner_text_card_label_button_one" :awards="[0]" :carouselAutoPlay="false" />
+						:callToAction="app.banner_text_card_label_button_one" :awards="[0]" :carouselAutoPlay="0" />
 
 					<!-- Lado Direito -->
 					<AppBannersCard4 linkSource="" :background="app.banner_background_card_four"
@@ -47,24 +47,24 @@
 			</div>
 		</UContainer>
 
-		<FooterApp class="lg:mt-10" :imageLogo="app.brand_image_two" :menu="store.footerApp.menu" />
+		<AppLayoutFooter class="lg:mt-10" :imageLogo="app.brand_image_two" :menu="store.footerApp.menu" />
 	</div>
-	
-	<Loading />
+
+	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
-import { useStoreIncentive } from '~/stores/incentive';
-
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
 const api = useStoreApp().apiData;
+
+import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
 	middleware: process.client ? ['auth-user'] : undefined
-})
+});
 </script>
 
 <style scoped></style>

@@ -2,7 +2,7 @@
 	<div>
 		<UContainer>
 			<AppLayoutBgDefault />
-			<CampoPesquisa inputPlaceholder="Qual é a sua dúvida?" class="mt-14" />
+			<AppOthersCampoPesquisa inputPlaceholder="Qual é a sua dúvida?" class="mt-14" />
 			<UAccordion
 				:items="items"
 				color="yellow"

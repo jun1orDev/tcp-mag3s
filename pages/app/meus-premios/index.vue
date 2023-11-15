@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-10">
+	<div v-show="!storeIncentive.loading" class="mt-10">
 		<AppLayoutBgDefault />
 		<UContainer>
 			<AppBannersCard
@@ -32,7 +32,7 @@
 					<p>apenas sorteios</p>
 				</div>
 			</div>
-			<InfoCard
+			<AppGameInfoCard
 				v-for="card in cards"
 				class="mt-8"
 				:titulo="card.titulo"
@@ -45,9 +45,14 @@
 			/>
 		</UContainer>
 	</div>
+
+	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
+import { useStoreIncentive } from '~/stores/incentive';
+const storeIncentive = useStoreIncentive();
+
 let cards = ref([
 	{
 		titulo: 'Camisa de jogo autografada',
@@ -71,11 +76,13 @@ let cards = ref([
 
 let botaoClicado = ref(0);
 
-console.log(botaoClicado);
-
 const handleClick = (index) => {
 	botaoClicado.value = index;
 };
+
+definePageMeta({
+	middleware: process.client ? ['auth-user'] : undefined
+});
 </script>
 
 <style scoped>

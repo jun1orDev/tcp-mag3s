@@ -47,14 +47,13 @@ export default defineNuxtConfig({
 		gcsSubfolder: '',
 		gcsSubfolderEnvironment: '',
 		gcsBucketname: '',
-		
+
 		// Incentive Campaign API
-		
-		
+
 		public: {
 			typesMedia: typeMediaDefault,
 			pathAssets: '',
-			
+
 			// Incentive Campaign API Public
 			ApiIncentiveClientId: 'oi',
 			ApiIncentiveClientSecret: '',
@@ -74,7 +73,7 @@ export default defineNuxtConfig({
 		'nuxt-icon',
 		'@nuxt/ui',
 		'vue3-carousel-nuxt',
-		'@formkit/auto-animate/nuxt'
+		'@formkit/auto-animate/nuxt',
 	],
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],

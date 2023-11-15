@@ -1,5 +1,5 @@
 <template>
-	<div class="py-12" :style="`color: ${store.contentApp.colors_text_one}`">
+	<div v-show="!storeIncentive.loading" class="py-12" :style="`color: ${store.contentApp.colors_text_one}`">
 		<AppLayoutBgDefault />
 
 		<UContainer>
@@ -17,7 +17,7 @@
 					store.contentApp.sessions_title_one }}</h1>
 				<div
 					class="grid grid-cols-[repeat(7,40px)] md:grid-cols-[repeat(7,50px)] lg:grid-cols-[repeat(7,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
-					<NumeroSorteio v-for="drawToday in store.drawnNumbersToday" :numberDraw="drawToday.number" :status="drawToday.status" />
+					<AppGameNumberDraw v-for="drawToday in store.drawnNumbersToday" :numberDraw="drawToday.number" :status="drawToday.status" />
 				</div>
 				<!-- Separador de Números -->
 				<hr class="my-8 w-full sm:w-2/4 md:w-2/3 lg:w-2/5 m-auto borderSep">
@@ -28,7 +28,7 @@
 				<li v-for="(dezenas, i) in store.luckyNumersUser" :key="i">
 					<ul
 						class="grid grid-cols-[repeat(7,40px)] md:grid-cols-[repeat(7,50px)] lg:grid-cols-[repeat(7,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
-						<NumeroSorteio v-for="(dezena, index) in dezenas.numbers" :numberDraw="dezena.number" :status="dezena.status" :key="index" />
+						<AppGameNumberDraw v-for="(dezena, index) in dezenas.numbers" :numberDraw="dezena.number" :status="dezena.status" :key="index" />
 					</ul>
 				</li>
 			</ul>
@@ -36,13 +36,18 @@
 		</UContainer>
 
 		<!-- Modal de interação do prêmio -->
-		<ModalPrize />
+		<AppGameModalPrize />
 	</div>
+
+	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
+
+import { useStoreIncentive } from '~/stores/incentive';
+const storeIncentive = useStoreIncentive();
 
 const [parent] = useAutoAnimate({duration: 500});
 
@@ -74,8 +79,11 @@ onMounted(() => {
 				'reveal');
 			break;
 	}
-})
+});
 
+definePageMeta({
+	middleware: process.client ? ['auth-user'] : undefined
+});
 </script>
 
 <style scoped>
