@@ -33,7 +33,7 @@
 					<!-- Contagem Regressiva -->
 					<div v-if="props.countdown" class="mt-1 text-[16px] sm:text-[28px] md:text-[34px] lg:text-[26px] font-bold">
 						<h1 v-if="countDW" class="animate__animated animate__fadeIn">{{ countDW }}</h1>
-						<Spin v-else class="mt-3 animate__animated animate__zoomIn"/>
+						<AppOthersSpin v-else class="mt-3 animate__animated animate__zoomIn"/>
 					</div>
 				</div>
 

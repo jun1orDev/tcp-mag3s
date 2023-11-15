@@ -28,7 +28,7 @@
 					<!-- Data -->
 					<div v-if="props.awards.length > 1" class="fm3 mt-1 text-[12px] sm:text-[16px]">
 						<h1 v-if="!slide.date" class="animate__animated animate__fadeIn">{{ $formatDayMonthYear('2023-11-15T00:00:00+0000') }}</h1>
-						<Spin v-else class="mt-3 animate__animated animate__zoomIn" />
+						<AppOthersSpin v-else class="mt-3 animate__animated animate__zoomIn" />
 					</div>
 				</Slide>
 				<template #addons>

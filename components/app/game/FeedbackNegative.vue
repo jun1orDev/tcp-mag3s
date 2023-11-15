@@ -11,7 +11,7 @@
 				</div>
 				<div class="flex items-center pt-8">
 					<div class="flex items-center">
-						<Line
+						<AppOthersLine
 							largura="w-32 lg:w-44 rotate-90 ml-7"
 							diagonal="w-10 transform -rotate-45 mb-6 "
 						/>
@@ -40,10 +40,10 @@
 		</div>
 
 		<!-- MOSQUETEIRO E BOTÃO -->
-		<Button />
+		<AppOthersButton/>
 
 		<!-- BOTÃO FECHAR -->
-		<Close />
+		<AppOthersClose />
 	</div>
 </template>
 
