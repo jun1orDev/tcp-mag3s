@@ -8,7 +8,7 @@
 				<!-- Banner Principal -->
 				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true" :imageDetach="app.banner_image_card_one"
 					:loading="storeIncentive.nextDrawLoading" :title="store.titleCardNextDraw"
-					:subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate" :callToAction="store.labelButtonCardNextDraw"
+					:subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate" :callToAction="store.labelButtonCardNextDraw" :hasDescription="false"
 					:description="false" :imageAward="storeIncentive.nextDrawFull.image" />
 
 				<!-- Separador -->

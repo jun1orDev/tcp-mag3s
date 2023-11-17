@@ -15,9 +15,8 @@
 			</div>
 
 			<!-- Conteúdo de texto -->
-			<div v-if="props.loading" :style="`color: ${store.contentApp.colors_text_one}`"
-				class="flex flex-col h-full py-6 sm:py-12 md:py-14"
-				:class="props.description ? 'justify-between' : 'justify-center'">
+			<div v-show="props.loading" :style="`color: ${store.contentApp.colors_text_one}`" class="flex flex-col h-full"
+				:class="hasDescription ? 'justify-between py-6': 'justify-center py-6 sm:py-12 md:py-14'">
 
 				<div class="text-start">
 					<!-- Título -->
@@ -25,7 +24,6 @@
 						class="fm3 text-[12px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown">
 						{{ props.title }}
 					</h1>
-
 					<!-- Subtítulo -->
 					<p
 						class="fm1 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp">
@@ -53,7 +51,7 @@
 				</div>
 			</div>
 
-			<div v-else class="space-y-2 opacity-30">
+			<div v-if="!props.loading" class="space-y-2 opacity-30">
 				<USkeleton class="h-2 sm:h-3 md:h-4 w-[80px] sm:w-[180px] md:w-[150px] xl:w-[200px]" />
 				<USkeleton class="h-2 sm:h-3 md:h-4 w-[70%]" />
 			</div>
@@ -64,7 +62,7 @@
 			class="w-[115px] sm:w-[220px] md:w-[240px] lg:w-[180px] col-span-1 flex items-center justify-end animate__animated animate__tada">
 			<img :src="props.imageAward" onerror="this.src='/imgs/exemplo_premio_01.png'" />
 		</div>
-		<div v-else class="w-[100px] sm:w-[120px] md:w-[140px] h-full flex justify-center items-center">
+		<div v-if="!props.loading" class="w-[100px] sm:w-[120px] md:w-[140px] h-full flex justify-center items-center">
 			<AppOthersSpin />
 		</div>
 	</NuxtLink>
@@ -77,7 +75,12 @@ const { pathAssets } = useRuntimeConfig().public;
 
 const { $countdown } = useNuxtApp();
 
-const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
+const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
+
+// const hasDescription = computed(() => {
+// 	if (Boolean(props.description) && props.loading) return 'justify-between py-6'
+// 	return 'justify-center py-6 sm:py-12 md:py-14'
+// });
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_one}'), url('/imgs/card_sorteio_atual_mobile.png')`;
