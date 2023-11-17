@@ -33,11 +33,11 @@
 					<!-- Lado Esquerdo -->
 					<AppBannersCard4 :linkSource="storeIncentive.lastDrawHeldLink" :background="app.banner_background_card_three"
 						:title="app.banner_text_card_title_three" :callToAction="app.banner_text_card_label_button_one"
-						:awards="[storeIncentive.lastDrawHeldFull]" :carouselAutoPlay="0" />
+						:loading="storeIncentive.lastDrawLoading" :awards="[storeIncentive.lastDrawHeldFull]" :carouselAutoPlay="0" />
 
 					<!-- Lado Direito -->
 					<AppBannersCard4 linkSource="" :background="app.banner_background_card_four"
-						:title="app.banner_text_card_title_four" :callToAction="false" :awards="[0, 1]" :carouselAutoPlay="5000" />
+						:title="app.banner_text_card_title_four" :callToAction="false" :loading="storeIncentive.nextDrawLoading" :awards="storeIncentive.listDrawsUpcomingLimited(5)" :carouselAutoPlay="5000" />
 				</div>
 
 				<!-- Banner Blog -->

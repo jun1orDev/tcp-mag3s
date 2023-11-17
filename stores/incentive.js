@@ -23,6 +23,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 	},
 
 	getters: {
+		// Sorteios realizados
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)
 				return `/app/revelar-premio/${state.gamification.lotteryDraws.lastDrawHeld.id}`;
@@ -32,6 +33,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		lastDrawHeldFull: (state) => {
 			return state.gamification.lotteryDraws.lastDrawHeld;
 		},
+		lastDrawLoading: (state) => {
+			return state.gamification.lotteryDraws.lastDrawHeld.loading;
+		},
+
+		// Próximos sorteios
 		NextDrawLink: (state) => {
 			if (state.gamification.lotteryDraws.nextDraw.loading) {
 				if (state.nextDrawDateIsBefore)
@@ -57,9 +63,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 			if (state.gamification.lotteryDraws.nextDraw.loading)
 				return $checkDatePassed(state.gamification.lotteryDraws.nextDraw.date);
+
+			return false;
 		},
 		nextDrawLoading: (state) => {
 			return state.gamification.lotteryDraws.nextDraw.loading;
+		},
+		listDrawsUpcomingLimited: (state) => {
+			return (payload) =>
+				state.gamification.lotteryDraws.listDrawsUpcoming.slice(0, payload);
 		},
 	},
 

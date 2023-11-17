@@ -15,29 +15,29 @@
 			</h1>
 
 			<!-- items -->
-			<Carousel id="carousel-card" class="w-full flex flex-col justify-between" :autoplay="carouselAutoPlay"
-				:wrap-around="true" :pause-autoplay-on-hover="true">
+			<Carousel v-if="props.loading" id="carousel-card" class="w-full flex flex-col justify-between"
+				:autoplay="carouselAutoPlay" :wrap-around="true" :pause-autoplay-on-hover="true">
 				<Slide v-for="slide in props.awards" :key="slide" class="flex flex-col">
 
 					<!-- Image -->
-					<div class="w-[100px] sm:w-[120px] md:w-[140px] animate__animated animate__tada">
-						<img v-if="slide.image" :src="slide.image" onerror="this.src='/imgs/premio_02.png'" />
-						<div v-else class="h-[100px] sm:h-[120px] md:h-[140px] flex justify-center items-center">
-							<AppOthersSpin />
-						</div>
+					<div v-if="props.loading" class="w-[100px] sm:w-[120px] md:w-[140px] animate__animated animate__tada">
+						<img :src="slide.image" onerror="this.src='/imgs/premio_02.png'" />
 					</div>
 
 					<!-- Data -->
 					<div v-if="props.awards.length > 1" class="fm3 mt-1 text-[12px] sm:text-[16px]">
-						<h1 v-if="!slide.date" class="animate__animated animate__fadeIn">{{
-							$formatDayMonthYear('2023-11-15T00:00:00+0000') }}</h1>
-						<AppOthersSpin v-else class="mt-3 animate__animated animate__zoomIn" />
+						<h1 class="animate__animated animate__fadeIn">{{
+							$formatDayMonthYear(slide.date) }}</h1>
 					</div>
 				</Slide>
 				<template #addons>
 					<Pagination v-if="props.awards.length > 1" />
 				</template>
 			</Carousel>
+
+			<div v-else class="h-full flex items-center">
+				<AppOthersSpin />
+			</div>
 
 
 			<!-- Call to action -->
@@ -56,7 +56,7 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['linkSource', 'background', 'title', 'callToAction', 'awards', 'carouselAutoPlay']);
+const props = defineProps(['linkSource', 'background', 'title', 'callToAction', 'loading', 'awards', 'carouselAutoPlay']);
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${props.background}'), url('/imgs/card_sorteio_futuro_mobile.png')`;
