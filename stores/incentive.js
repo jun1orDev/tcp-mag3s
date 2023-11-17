@@ -24,7 +24,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					},
 					LuckyNumbersWereDrawn: null,
 				},
-				qtdScratchCard: '00',
+				qtdScratchCard: 0,
 			},
 			loading: true,
 		};
@@ -194,10 +194,16 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					}
 				);
 
+				// Inventário do usuário
 				this.inventory = {
 					userId: data.userId,
 					luckyNumbers: this.luckyNumbers(data.luckyNumbers),
 				};
+
+				// Saldo de raspadinhas
+				this.gamification.qtdScratchCard = data.scratchCards.filter(
+					(scratchCard) => scratchCard.status === 202
+				).length;
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppInventory',
@@ -414,7 +420,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					breakLoop = true;
 				}
 			});
-
 
 			const storeApp = useStoreApp();
 			if (wasTenDrawn) {
