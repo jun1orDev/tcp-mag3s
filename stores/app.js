@@ -5,9 +5,6 @@ export const useStoreApp = defineStore('storeApp', {
 	state: () => {
 		return {
 			contentApp: {},
-			apiData: {
-				qtdScratchCard: '08',
-			},
 			showDrawnNumbersToday: false,
 			drawnNumbersToday: [
 				{ number: '01', status: '' },
@@ -70,30 +67,34 @@ export const useStoreApp = defineStore('storeApp', {
 	},
 
 	getters: {
-		// Rapadinha
-		hasScratchCardQtd: (state) => {
-			return +state.apiData.qtdScratchCard > 0;
-		},
-
+		// Raspadinhas
 		titleCardScratchQtd: (state) => {
-			if (state.hasScratchCardQtd)
+			const storeIncentive = useStoreIncentive();
+
+			if (storeIncentive.hasScratchCardQtd)
 				return state.contentApp.banner_text_card_title_two;
 			return state.contentApp.banner_text_card_title_five;
 		},
 
 		subtitleCardScratchQtd: (state) => {
-			if (state.hasScratchCardQtd)
+			const storeIncentive = useStoreIncentive();
+
+			if (storeIncentive.hasScratchCardQtd)
 				return state.contentApp.banner_text_card_subtitle_two;
 			return state.contentApp.banner_text_card_subtitle_three;
 		},
 
 		linkCardScratchQtd: (state) => {
-			if (state.hasScratchCardQtd) return '/app/gamification';
+			const storeIncentive = useStoreIncentive();
+
+			if (storeIncentive.hasScratchCardQtd) return '/app/gamification';
 			return '';
 		},
 
 		callToActionCardScratchQtd: (state) => {
-			if (state.hasScratchCardQtd)
+			const storeIncentive = useStoreIncentive();
+
+			if (storeIncentive.hasScratchCardQtd)
 				return state.contentApp.banner_text_card_label_button_two;
 			return false;
 		},

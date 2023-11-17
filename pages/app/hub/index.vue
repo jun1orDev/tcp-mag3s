@@ -15,7 +15,7 @@
 				<div class="h-1 md:h-2 lg:hidden"></div>
 
 				<!-- Banner Secundário -->
-				<AppBannersCard2 :linkSource="store.linkCardScratchQtd" :qtdDescriptionFigure="api.qtdScratchCard"
+				<AppBannersCard2 :linkSource="store.linkCardScratchQtd" :hasQtdDescriptionFigure="storeIncentive.hasScratchCardQtd" :qtdDescriptionFigure="storeIncentive.gamification.qtdScratchCard"
 					:title="store.titleCardScratchQtd" :subtitle="store.subtitleCardScratchQtd"
 					:imageDetach="app.banner_image_card_two" :callToAction="store.callToActionCardScratchQtd" />
 			</div>
@@ -56,7 +56,6 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-const api = useStoreApp().apiData;
 
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();

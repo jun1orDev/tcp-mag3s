@@ -17,12 +17,18 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					listDrawsUpcoming: [],
 					listDrawsLatest: [],
 				},
+				qtdScratchCard: '00',
 			},
 			loading: true,
 		};
 	},
 
 	getters: {
+		// Rapadinha
+		hasScratchCardQtd: (state) => {
+			return +state.gamification.qtdScratchCard > 0;
+		},
+
 		// Sorteios realizados
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)

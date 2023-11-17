@@ -20,7 +20,7 @@
 			<div class="flex justify-end w-full me-3 sm:me-5 animate__animated animate__fadeIn">
 				<div class="flex flex-col items-end">
 					<div class="flex">
-						<p class="fm1 text-[14px] sm:text-[18px] md:text-[24px] lg:text-[18px] me-1" :class="!store.hasScratchCardQtd ? 'detach' : ''">{{ props.qtdDescriptionFigure }}
+						<p class="fm1 text-[14px] sm:text-[18px] md:text-[24px] lg:text-[18px] me-1" :class="!props.hasQtdDescriptionFigure ? 'detach' : ''">{{ props.qtdDescriptionFigure }}
 						</p>
 						<img :src="imageSC" onerror="this.src='/imgs/image_rasp.png'"
 							class="w-[35px] sm:w-[45px] md:w-[64px] lg:w-[50px]" />
@@ -64,7 +64,7 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['linkSource', 'title', 'subtitle', 'qtdDescriptionFigure', 'callToAction', 'imageDetach']);
+const props = defineProps(['linkSource', 'title', 'subtitle', 'hasQtdDescriptionFigure', 'qtdDescriptionFigure', 'callToAction', 'imageDetach']);
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_two}'), url('/imgs/fundo_card_2.png')`;
