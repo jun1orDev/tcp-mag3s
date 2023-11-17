@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="props.linkSource" v-if="store.contentHasBeenLoaded"
+	<NuxtLink :to="props.linkSource"
 		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8">
 		<!-- Background -->
 		<div :style="backgroundColor"

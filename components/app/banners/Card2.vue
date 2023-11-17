@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="props.linkSource" v-if="store.contentHasBeenLoaded"
+	<NuxtLink :to="props.linkSource"
 		class="w-full relative grid grid-cols-[165px_1fr] sm:grid-cols-[285px_1fr] lg:grid-cols-[260px_1fr] lg:max-h-[200px] justify-start items-end">
 		<!-- Background -->
 		<div :style="background"

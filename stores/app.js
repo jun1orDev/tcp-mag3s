@@ -1,3 +1,5 @@
+import { useStoreIncentive } from './incentive';
+
 export const useStoreApp = defineStore('storeApp', {
 	// arrow function recommended for full type inference
 	state: () => {
@@ -6,6 +8,48 @@ export const useStoreApp = defineStore('storeApp', {
 			apiData: {
 				qtdScratchCard: '08',
 			},
+			showDrawnNumbersToday: false,
+			drawnNumbersToday: [
+				{ number: '01', status: '' },
+				{ number: '02', status: '' },
+				{ number: '44', status: '' },
+				{ number: '04', status: '' },
+			],
+			luckyNumersUser: [
+				{
+					numbers: [
+						{ number: '78', status: '' },
+						{ number: '02', status: '' },
+						{ number: '44', status: '' },
+						{ number: '04', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '03', status: '' },
+						{ number: '08', status: '' },
+						{ number: '12', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '66', status: '' },
+						{ number: '02', status: '' },
+						{ number: '44', status: '' },
+						{ number: '04', status: '' },
+					],
+				},
+				{
+					numbers: [
+						{ number: '01', status: '' },
+						{ number: '02', status: '' },
+						{ number: '44', status: '' },
+						{ number: '04', status: '' },
+					],
+				},
+			],
+			LuckyNumbersWereDrawn: null,
 			footerApp: {
 				menu: [
 					{ label: 'perguntas', link: '/faq' },
@@ -21,90 +65,67 @@ export const useStoreApp = defineStore('storeApp', {
 				labelButton: '',
 				typeAction: '',
 			},
-			showDrawnNumbersToday: false,
-			drawnNumbersToday: [
-				{ number: '01', status: '' },
-				{ number: '02', status: '' },
-				{ number: '44', status: '' },
-				{ number: '04', status: '' },
-				{ number: '05', status: '' },
-				{ number: '06', status: '' },
-				{ number: '07', status: '' },
-			],
-			luckyNumersUser: [
-				{
-					numbers: [
-						{ number: '78', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-						{ number: '05', status: '' },
-						{ number: '06', status: '' },
-						{ number: '07', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '01', status: '' },
-						{ number: '03', status: '' },
-						{ number: '08', status: '' },
-						{ number: '12', status: '' },
-						{ number: '44', status: '' },
-						{ number: '30', status: '' },
-						{ number: '01', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '66', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-						{ number: '05', status: '' },
-						{ number: '06', status: '' },
-						{ number: '88', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '01', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-						{ number: '05', status: '' },
-						{ number: '06', status: '' },
-						{ number: '07', status: '' },
-					],
-				},
-			],
-			LuckyNumbersWereDrawn: null,
 			loading: false,
 		};
 	},
 
 	getters: {
+		// Rapadinha
 		hasScratchCardQtd: (state) => {
 			return +state.apiData.qtdScratchCard > 0;
 		},
+
 		titleCardScratchQtd: (state) => {
-			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_title_two;
+			if (state.hasScratchCardQtd)
+				return state.contentApp.banner_text_card_title_two;
 			return state.contentApp.banner_text_card_title_five;
 		},
 
 		subtitleCardScratchQtd: (state) => {
-			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_subtitle_two;
+			if (state.hasScratchCardQtd)
+				return state.contentApp.banner_text_card_subtitle_two;
 			return state.contentApp.banner_text_card_subtitle_three;
-		},		
+		},
 
 		linkCardScratchQtd: (state) => {
-			if(state.hasScratchCardQtd) return '/app/gamification';
+			if (state.hasScratchCardQtd) return '/app/gamification';
 			return '';
-		},		
+		},
 
 		callToActionCardScratchQtd: (state) => {
-			if(state.hasScratchCardQtd) return state.contentApp.banner_text_card_label_button_two;
+			if (state.hasScratchCardQtd)
+				return state.contentApp.banner_text_card_label_button_two;
 			return false;
-		},		
+		},
+
+		// Próximo Sorteio
+		titleCardNextDraw: (state) => {
+			const storeIncentive = useStoreIncentive();
+			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+
+			if (nextDrawDateIsBefore)
+				return state.contentApp.banner_text_card_title_six;
+
+			return state.contentApp.banner_text_card_title_one;
+		},
+		subtitleCardNextDraw: (state) => {
+			const storeIncentive = useStoreIncentive();
+			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+
+			if (nextDrawDateIsBefore)
+				return state.contentApp.banner_text_card_subtitle_four;
+
+			return state.contentApp.banner_text_card_subtitle_one;
+		},
+		labelButtonCardNextDraw: (state) => {
+			const storeIncentive = useStoreIncentive();
+			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+
+			if (nextDrawDateIsBefore)
+				return state.contentApp.banner_text_card_label_button_three;
+
+			return false;
+		},
 	},
 
 	actions: {
@@ -162,7 +183,7 @@ export const useStoreApp = defineStore('storeApp', {
 			switch (this.modalPrize.typeAction) {
 				case 'reveal':
 					this.showDrawnNumbersToday = true;
-					this.revealDrawnNumber(1500);
+					this.revealDrawnNumber(1000);
 					console.log('chamar função que revela o prêmio');
 					break;
 				case 'back':
@@ -177,7 +198,7 @@ export const useStoreApp = defineStore('storeApp', {
 					break;
 			}
 		},
-		
+
 		async revealDrawnNumber(timer) {
 			let foundNumberDrawn = false;
 
@@ -199,7 +220,8 @@ export const useStoreApp = defineStore('storeApp', {
 									// Ordernar a lista assim que os números
 									this.luckyNumersUser = this.luckyNumersUser.sort((a, b) => {
 										// Função que conta quantos elementos têm status 'neiland' em uma subarray
-										const contarNeiland = (arr) => arr.filter(item => item.status === 'nailed').length;
+										const contarNeiland = (arr) =>
+											arr.filter((item) => item.status === 'nailed').length;
 
 										const contagemA = contarNeiland(a.numbers);
 										const contagemB = contarNeiland(b.numbers);
@@ -208,7 +230,6 @@ export const useStoreApp = defineStore('storeApp', {
 										return contagemB - contagemA;
 									});
 								}
-
 							});
 						});
 						resolve();
@@ -230,7 +251,8 @@ export const useStoreApp = defineStore('storeApp', {
 				if (breakLoop) return;
 
 				wasTenDrawn = element.numbers.every(
-					(dozens, index) => dozens.number === this.drawnNumbersToday[index].number
+					(dozens, index) =>
+						dozens.number === this.drawnNumbersToday[index].number
 				);
 
 				if (wasTenDrawn) {
@@ -238,7 +260,6 @@ export const useStoreApp = defineStore('storeApp', {
 					breakLoop = true;
 				}
 			});
-
 
 			if (wasTenDrawn) {
 				this.LuckyNumbersWereDrawn = true;
