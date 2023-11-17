@@ -32,8 +32,8 @@
 					</div>
 				</div>
 			</div>
-			<Button />
-			<Close />
+			<AppOthersButton/>
+			<AppOthersClose />
 		</div>
 	</div>
 </template>

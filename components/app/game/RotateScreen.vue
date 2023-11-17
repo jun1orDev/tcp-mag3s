@@ -11,7 +11,7 @@
 				ASSIM VOCÊ APROVEITA MELHOR SUA <br />
 				RABISCADINHA.
 			</p>
-			<Line />
+			<AppOthersLine />
 		</div>
 
 		<!-- imagem mosqueteiro -->

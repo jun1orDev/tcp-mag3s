@@ -1,5 +1,5 @@
 <template>
-	<div class="py-12">
+	<div v-show="!storeIncentive.loading" class="py-12">
 		<AppLayoutBgDefault />
 
 		<UContainer>
@@ -17,18 +17,22 @@
 			</Carousel>
 
 			<!-- Pesquisar -->
-			<CampoPesquisa class="mt-6" />
+			<AppOthersCampoPesquisa class="mt-6" />
 
-			<InfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
+			<AppGameInfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
 				:customBackground="card.hasBg" :imagemSrc="card.img" :source="card.source" :date="card.date" />
 		</UContainer>
 	</div>
+
+	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
-
 const store = useStoreApp().contentApp;
+
+import { useStoreIncentive } from '~/stores/incentive';
+const storeIncentive = useStoreIncentive();
 
 const bgCarouselPagination = computed(() => {
 	return store.colors_carousel_pagination_background;
@@ -42,6 +46,10 @@ let cards = ref([
 	{ titulo: 'Camisa de jogo autografada', subtitulo: 'Você foi o sorteado!', source: '/detalhes-premios', hasBg: true, img: '/imgs/premio_02.png', date: { day: '24', month: 'Jun' } },
 	{ titulo: 'Luva do cassio autografada', subtitulo: '', source: '/detalhes-premios', hasBg: false, img: '/imgs/exemplo_premio_luva.png', date: { day: '12', month: 'Fev' } },
 ]);
+
+definePageMeta({
+	middleware: process.client ? ['auth-user'] : undefined
+});
 </script>
 
 <style>
