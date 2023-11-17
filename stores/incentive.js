@@ -1,3 +1,5 @@
+import { useStoreApp } from './app';
+
 export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
 	state: () => {
@@ -13,9 +15,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						id: null,
 						loading: false,
 					},
-					listDraws: [],
+					listDraws: null,
 					listDrawsUpcoming: [],
 					listDrawsLatest: [],
+					revealChosenDraw: {
+						loading: false,
+						showDrawnNumbersToday: false,
+					},
+					LuckyNumbersWereDrawn: null,
 				},
 				qtdScratchCard: '00',
 			},
@@ -78,6 +85,29 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		listDrawsUpcomingLimited: (state) => {
 			return (payload) =>
 				state.gamification.lotteryDraws.listDrawsUpcoming.slice(0, payload);
+		},
+
+		// Sorteio Escolhido
+		revealChosenDrawFull: (state) => {
+			return state.gamification.lotteryDraws.revealChosenDraw;
+		},
+		revealChosenDrawDateYearFull: (state) => {
+			return state.gamification.lotteryDraws.revealChosenDraw
+				.fullDateYearComplete;
+		},
+		showDrawnNumbersToday: (state) => {
+			return state.gamification.lotteryDraws.revealChosenDraw
+				.showDrawnNumbersToday;
+		},
+		drawnNumbersToday: (state) => {
+			return state.gamification.lotteryDraws.revealChosenDraw.drawnNumber[0]
+				.dozens;
+		},
+
+		// Inventário do usuário
+		luckyNumbersUser: (state) => {
+			if (state.inventory) return state.inventory.luckyNumbers;
+			return '';
 		},
 	},
 
@@ -189,7 +219,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			if (this.gamification.lotteryDraws.lastDrawHeld.loading) return;
 			console.log('buscando dados dos sorteios');
 
-			const { $mostRecentDate, $formatDayMonthYearFull } = useNuxtApp();
+			const {
+				$mostRecentDate,
+				$formatDayMonthYearFull,
+				$formatDayMonthYearComplete,
+			} = useNuxtApp();
 			const toast = useToast();
 			const cookieAuth = useCookie('tokenUser');
 
@@ -211,7 +245,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				data.lotteryDraws.forEach((draw) => {
 					this.gamification.lotteryDraws.listDrawsLatest.push({
 						id: draw.id,
+						name: draw.content.name,
+						description: draw.content.description,
 						fullDate: $formatDayMonthYearFull(draw.divulgationDate),
+						fullDateYearComplete: $formatDayMonthYearComplete(
+							draw.divulgationDate
+						),
 						date: draw.divulgationDate,
 						drawnNumber: this.luckyNumbers(
 							Array({ luckyNumber: String(draw.extractedDrawnNumber) })
@@ -259,7 +298,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				data.lotteryDraws.forEach((draw) => {
 					this.gamification.lotteryDraws.listDrawsUpcoming.push({
 						id: draw.id,
+						name: draw.content.name,
+						description: draw.content.description,
 						fullDate: $formatDayMonthYearFull(draw.divulgationDate),
+						fullDateYearComplete: $formatDayMonthYearComplete(
+							draw.divulgationDate
+						),
 						date: draw.divulgationDate,
 						drawnNumber: this.luckyNumbers(
 							Array({ luckyNumber: String(draw.extractedDrawnNumber) })
@@ -290,10 +334,111 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					timeout: 3500,
 				});
 			}
+
+			// Lista com todos os sorteios
+			this.gamification.lotteryDraws.listDraws =
+				this.gamification.lotteryDraws.listDrawsLatest.concat(
+					this.gamification.lotteryDraws.listDrawsUpcoming
+				);
 		},
 		// $resetLotteryDraws() {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
 		// },
+		revealChosenDraw(idDraw) {
+			this.gamification.lotteryDraws.revealChosenDraw =
+				this.gamification.lotteryDraws.listDraws.find(
+					(draw) => draw.id === idDraw
+				);
+		},
+		$resetRevealChosenDraw() {
+			this.gamification.lotteryDraws.revealChosenDraw.fullDate = null;
+		},
+		async revealDrawnNumber(timer) {
+			let foundNumberDrawn = false;
+
+			// Obtendo o resultado do sorteio
+			for (const [index, drawToday] of this.drawnNumbersToday.entries()) {
+				await new Promise((resolve) =>
+					setTimeout(() => {
+						this.luckyNumbersUser.forEach((element) => {
+							foundNumberDrawn = false;
+							element.dozens.find((dozens, i, arr) => {
+								if (foundNumberDrawn) return;
+
+								this.drawnNumbersToday[index].status = 'awarded';
+
+								if (arr[index].number === drawToday.number) {
+									arr[index].status = 'nailed';
+									foundNumberDrawn = true;
+
+									// Ordernar a lista assim que os números
+									this.luckyNumbersUser.sort((a, b) => {
+										// Função que conta quantos elementos têm status 'neiland' em uma subarray
+										const contarNeiland = (arr) =>
+											arr.filter((item) => item.status === 'nailed').length;
+
+										const contagemA = contarNeiland(a.dozens);
+										const contagemB = contarNeiland(b.dozens);
+
+										// Ordene de forma decrescente com base no número de elementos com status 'neiland'
+										return contagemB - contagemA;
+									});
+								}
+							});
+						});
+						resolve();
+					}, timer)
+				);
+			}
+
+			// Obtendo a lista de 7 dezenas sorteadas caso tenha
+			let wasTenDrawn = false;
+			let breakLoop = false;
+
+			function setLuckyNumberWD(arr) {
+				arr.forEach((dozens) => {
+					dozens.status = 'awarded';
+				});
+			}
+
+			this.luckyNumbersUser.forEach((element) => {
+				if (breakLoop) return;
+
+				wasTenDrawn = element.dozens.every(
+					(dozens, index) =>
+						dozens.number === this.drawnNumbersToday[index].number
+				);
+
+				if (wasTenDrawn) {
+					setLuckyNumberWD(element.numbers);
+					breakLoop = true;
+				}
+			});
+
+
+			const storeApp = useStoreApp();
+			if (wasTenDrawn) {
+				this.gamification.lotteryDraws.LuckyNumbersWereDrawn = true;
+				setTimeout(() => {
+					storeApp.openModalPrizeResult(
+						storeApp.contentApp.modal_text_prize_title_three,
+						storeApp.contentApp.modal_text_prize_subtitle_three,
+						storeApp.contentApp.modal_text_prize_label_three,
+						'details'
+					);
+				}, 1000);
+			} else {
+				this.gamification.lotteryDraws.LuckyNumbersWereDrawn = false;
+				setTimeout(() => {
+					storeApp.openModalPrizeResult(
+						storeApp.contentApp.modal_text_prize_title_two,
+						storeApp.contentApp.modal_text_prize_subtitle_two,
+						storeApp.contentApp.modal_text_prize_label_two,
+						'back'
+					);
+				}, 1000);
+			}
+		},
 
 		// Funções auxiliares
 		luckyNumbers(numbersData) {

@@ -101,6 +101,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'banner_text_card_description_two',
+		description: 'Texto descritivo da data de expiração dentro do Banner Principal que revela o prêmio',
+		value: 'Números válidos até',
+		tag: 'banner',
+		type: typesMedia[0],
+	},
+	{
 		name: 'banner_text_card_description_three',
 		description: 'Texto dentro do Banner Destacado',
 		value: 'Toque aqui pra visualizar os prêmios que você já ganhou no seu Fiel da Sorte.',

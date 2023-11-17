@@ -22,6 +22,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 			formatDayMonthYearFull: (date) => {
 				return moment(date).format('DD[ de ]MMMM[, ]YYYY');
 			},
+			formatDayMonthYearComplete: (date) => moment(date).format('DD/MM/YYYY'),
 			formatDayMonthYear: (date) => moment(date).format('DD/MM/YY'),
 			countdown: (date) => {
 				const dateEvent = moment(date);
