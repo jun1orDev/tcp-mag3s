@@ -2,47 +2,33 @@
 	<div v-show="!storeIncentive.loading" class="mt-10">
 		<AppLayoutBgDefault />
 		<UContainer>
-			<AppBannersCard
-				class="mt-20"
-				titulo="20 DE NOVEMBRO, 2023"
-				subtitulo="Bola de partida oficial autografada"
-				revelar="Revelar Prêmio"
-				validade="Números válidos até 21/11/2023"
-				:imagemSrc="'/imgs/exemplo_premio_03.png'"
-			/>
-			<div class="button flex items-center">
-				<div
-					v-bind:class="{
-						'bg-[#847248]': botaoClicado === 0,
-						'bg-black': botaoClicado !== 0,
-					}"
-					class="flex justify-center items-center border text-[#FFF] border-[#847248] mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer hover.bg-[#847248] focus:ring"
-					@click="handleClick(0)"
-				>
-					<p>apenas rabiscadinhas</p>
+			<div class="max-w-[700px] m-auto flex flex-col justify-center">
+				<!-- Banner Principal -->
+				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true"
+					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
+					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
+					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
+					:imageAward="storeIncentive.nextDrawFull.image" />
+
+
+				<div class="fm1 flex items-center" :style="`color: ${store.contentApp.colors_text_button}`">
+					<div :style="[borderColor, botaoClicado === 0 ? backgroundColorActive : backgroundColor]"
+						class="flex justify-center items-center border mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer hover.bg-[#847248] focus:ring"
+						@click="handleClick(0)">
+						<p>{{ app.sessions_button_label_one }}</p>
+					</div>
+
+					<div :style="[borderColor, botaoClicado === 1 ? backgroundColorActive : backgroundColor]"
+						class="buttons flex justify-center items-center border mt-6 w-full h-8 rounded-e-lg text-[10px] md:text-sm cursor-pointer focus:outline-none hover.bg-[#847248] focus:ring"
+						@click="handleClick(1)">
+						<p>{{ app.sessions_button_label_two }}</p>
+					</div>
 				</div>
-				<div
-					v-bind:class="{
-						'bg-[#847248]': botaoClicado === 1,
-						'bg-black': botaoClicado !== 1,
-					}"
-					class="buttons flex justify-center items-center border text-[#FFF] border-[#847248] mt-6 w-full h-8 rounded-e-lg text-[10px] md:text-sm cursor-pointer focus:outline-none hover.bg-[#847248] focus:ring"
-					@click="handleClick(1)"
-				>
-					<p>apenas sorteios</p>
-				</div>
+
+				<AppGameInfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
+					:customBackground="card.hasBg" :imagemSrc="card.img" :source="card.source" :date="card.date"
+					:imgCard="card.imgCard" />
 			</div>
-			<AppGameInfoCard
-				v-for="card in cards"
-				class="mt-8"
-				:titulo="card.titulo"
-				:subtitulo="card.subtitulo"
-				:customBackground="card.hasBg"
-				:imagemSrc="card.img"
-				:source="card.source"
-				:date="card.date"
-				:imgCard="card.imgCard"
-			/>
 		</UContainer>
 	</div>
 
@@ -50,8 +36,24 @@
 </template>
 
 <script setup>
+import { useStoreApp } from '~/stores/app';
+const store = useStoreApp();
+const app = useStoreApp().contentApp;
+
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
+
+const backgroundColor = computed(() => {
+	return `background-color: ${store.contentApp.colors_background_one}`;
+});
+
+const backgroundColorActive = computed(() => {
+	return `background-color: ${store.contentApp.colors_background_button}`;
+});
+
+const borderColor = computed(() => {
+	return `border-color: ${store.contentApp.colors_border_one}`;
+});
 
 let cards = ref([
 	{
@@ -83,10 +85,12 @@ const handleClick = (index) => {
 definePageMeta({
 	middleware: process.client ? ['auth-user'] : undefined
 });
+
+onMounted(async () => {
+	await storeIncentive.userInventory(useToast);
+	await storeIncentive.lotteryDraws(useToast);
+});
 </script>
 
 <style scoped>
-.button {
-	font-family: 'Gotham Medium';
-}
 </style>

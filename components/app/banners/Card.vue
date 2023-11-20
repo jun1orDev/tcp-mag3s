@@ -16,7 +16,7 @@
 
 			<!-- Conteúdo de texto -->
 			<div v-show="props.loading" :style="`color: ${store.contentApp.colors_text_one}`" class="flex flex-col h-full"
-				:class="hasDescription ? 'justify-between py-6': 'justify-center py-6 sm:py-12 md:py-14'">
+				:class="hasDescription ? 'justify-between py-6' : 'justify-center py-6 sm:py-12 md:py-14'">
 
 				<div class="text-start">
 					<!-- Título -->
@@ -73,14 +73,9 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
-const { $countdown } = useNuxtApp();
+const { $countdown, $checkDatePassed } = useNuxtApp();
 
 const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
-
-// const hasDescription = computed(() => {
-// 	if (Boolean(props.description) && props.loading) return 'justify-between py-6'
-// 	return 'justify-center py-6 sm:py-12 md:py-14'
-// });
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_one}'), url('/imgs/card_sorteio_atual_mobile.png')`;
@@ -96,8 +91,13 @@ const colorBgButton = computed(() => {
 	return store.contentApp.colors_background_button;
 });
 
-setInterval(() => {
+const intervalCountDown = setInterval(() => {
 	countDW.value = $countdown(props.countdown);
+
+	// Se a data atual estiver no passado, interromper a contagem regressiva
+	if ($checkDatePassed(props.countdown)) {
+		clearInterval(intervalCountDown);
+	}
 }, 1000);
 
 </script>

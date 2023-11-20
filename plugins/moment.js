@@ -30,12 +30,22 @@ export default defineNuxtPlugin((nuxtApp) => {
 				if (dateEvent.isValid()) {
 					let now = moment().format();
 					let diffDuration = moment.duration(dateEvent.diff(now));
+					let days = diffDuration.days();
 					let hours = diffDuration.hours();
 					let minutes = diffDuration.minutes();
 					let seconds = diffDuration.seconds();
+
+					let minutesView = minutes >= 1 ? `${minutes}m` : '';
+					let daysView = '';
 					let hoursView = hours >= 1 ? `${hours}h` : '';
 
-					return `${hoursView}${minutes}m${seconds}s`;
+					if (days == 1) {
+						daysView = `${days} dia `;
+					} else if (days > 1) {
+						daysView = `${days} dias `;
+					}
+
+					return `${daysView}${hoursView}${minutesView}${seconds}s`;
 				}
 
 				return null;
