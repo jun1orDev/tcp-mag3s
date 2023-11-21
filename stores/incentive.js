@@ -4,7 +4,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
 	state: () => {
 		return {
-			inventory: null,
+			inventory: {
+				loading: false,
+			},
 			gamification: {
 				lotteryDraws: {
 					lastDrawHeld: {
@@ -105,9 +107,23 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Inventário do usuário
+		loadingInventory: (state) => {
+			if (state.inventory) return state.inventory.loading;
+			return '';
+		},
 		luckyNumbersUser: (state) => {
 			if (state.inventory) return state.inventory.luckyNumbers;
 			return '';
+		},
+		lotteryPrizesWon: (state) => {
+			if (state.inventory.loading) {
+				return state.inventory.lotteryPrizesWon;
+			}
+		},
+		hasLotteryPrizesWon: (state) => {
+			if (state.inventory.loading) {
+				return state.inventory.lotteryPrizesWon.length > 0;
+			}
 		},
 	},
 
@@ -175,7 +191,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		// Inventário do usuário
 		async userInventory(useToast) {
 			// Caso exista inventário no state não buscar informações
-			if (this.inventory) return;
+			if (this.inventory.loading) return;
 			console.log('buscando dados do Inventário');
 
 			const toast = useToast();
@@ -195,9 +211,24 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				// Inventário do usuário
+				let interator = 0;
 				this.inventory = {
 					userId: data.userId,
 					luckyNumbers: this.luckyNumbers(data.luckyNumbers),
+					lotteryPrizes: data.lotteryPrizes,
+					lotteryPrizesWon: data.lotteryPrizes
+						.filter((prizeItem) => prizeItem.status === 991 || prizeItem.status === 311)
+						.map((prize) => {
+							interator++;
+
+							return {
+								id: prize.id,
+								name: prize.baseContent.name,
+								image: prize.baseContent.images.find((img) => img.subType === 'Splash').uri,
+								typePrize: interator % 2 === 0 ? prize.baseContent.coreSubType : 'luckyNumber', // Simulando premios instantâneos e sorteios de número da sorte (Trocar depois)
+								typePrizeToggle: interator % 2 === 0 ? false : true //Gabiarra temporária
+							}
+						})
 				};
 
 				// Saldo de raspadinhas
@@ -213,11 +244,13 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
-			}
+			}			
+
+			this.inventory.loading = true;
 		},
-		$resetUserInventory() {
-			this.inventory = null;
-		},
+		// $resetUserInventory() {
+		// 	this.inventory = null;
+		// },
 
 		// Sorteios
 		async lotteryDraws(useToast) {
