@@ -48,6 +48,12 @@ export const listSchemaDataMedia = [
 		description: 'Imagem de fundo da aplicação.',
 		tag: 'layout',
 		type: typesMedia[3],
+	},		
+	{
+		name: 'layout_background_app_two',
+		description: 'Imagem de fundo da aplicação.',
+		tag: 'layout',
+		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_modal',
@@ -74,6 +80,25 @@ export const listSchemaDataMedia = [
 		description: 'Imagem principal da página de carregamento.',
 		tag: 'brand',
 		type: typesMedia[3],
+	},
+	{
+		name: 'brand_image_four',
+		description: 'Imagem de logo principal utilizado na landing page.',
+		tag: 'brand',
+		type: typesMedia[3],
+	},
+	{
+		name: 'brand_image_five',
+		description: 'Imagem de destaque do banner utilizado na landing page.',
+		tag: 'brand',
+		type: typesMedia[3],
+	},
+	{
+		name: 'brand_text_one',
+		description: 'Slogan de destaque do banner utilizado na landing page.',
+		value: 'É você de nave na garagem e dinheiro no bolso!',
+		tag: 'brand',
+		type: typesMedia[0],
 	},
 
 	// Sessions
@@ -474,6 +499,16 @@ export const listSchemaDataMedia = [
 			'Texto dentro do botão da página revelar-premio com retorno positivo.',
 		value: 'ver detalhes',
 		tag: 'modal',
+		type: typesMedia[0],
+	},
+
+	// Header		
+	{
+		name: 'header_button_label_one',
+		description:
+			'Texto localizado dentro do botão de login do header',
+		value: 'Login',
+		tag: 'header',
 		type: typesMedia[0],
 	},
 ];
