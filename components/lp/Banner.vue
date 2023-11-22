@@ -9,15 +9,18 @@
           class="w-[200px] sm:w-[230px] md:w-[280px] lg:w-[310px] xl:w-[360px]">
         <p class="fm1">{{ app.brand_text_one }}</p>
       </div>
+      
+      <!--  Efeito de quebra de seção -->
+      <div class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full" :style="bgColor"></div>
 
       <!-- Imagem de destaque -->
       <div>
-        <Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="true" :pause-autoplay-on-hover="true">
+        <Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true">
           <Slide v-for="slide in 1" :key="slide">
             <img class="max-w-[90%]" :src="brandMain" onerror="this.src='/imgs/lp/landing_cover_image.png'" alt="">
           </Slide>
         </Carousel>
-      </div>
+      </div>      
     </UContainer>
   </div>
 </template>
@@ -39,6 +42,10 @@ const brandMain = computed(() => {
 
 const colorText = computed(() => {
   return `color: ${app.colors_text_one};`;
+});
+
+const bgColor = computed(() => {
+  return `background: linear-gradient(6deg, ${app.colors_background_two} 50%, transparent 50%); backface-visibility: hidden;`;
 });
 </script>
 
