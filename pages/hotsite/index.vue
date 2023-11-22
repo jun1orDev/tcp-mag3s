@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<h3>hotsite</h3>
+		<!-- Header -->
+		<LpHeader/>
+
+		<!-- Banner -->
+		<LpBanner/>
 	</div>
 </template>
 
