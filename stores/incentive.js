@@ -28,8 +28,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					LuckyNumbersWereDrawn: null,
 				},
 				qtdScratchCard: 0,
+				allPrizes: [],
+				choosePrizeDetails: null,
 			},
-			allPrizes: [],
 			loading: true,
 		};
 	},
@@ -237,8 +238,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
 
 				// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
+
+
 				this.inventory.lotteryPrizesWon.forEach(item => {
-					this.allPrizes.push(item);
+					this.gamification.allPrizes.push(item);
 				});
 
 				// Saldo de raspadinhas
@@ -392,7 +395,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 			// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
 			this.gamification.lotteryDraws.listDraws.forEach(item => {
-				this.allPrizes.push(item);
+				this.gamification.allPrizes.push(item);
 			});
 		},
 		// $resetLotteryDraws() {
@@ -513,6 +516,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 		filterLotteryPrizesWon(filter) {
 			this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon.filter(item => item.typePrize === filter);
-		}
+		},
+		prizeDetails(id) {
+			this.gamification.choosePrizeDetails = this.gamification.allPrizes.find(prize => prize.id === id);
+		},
 	},
 });

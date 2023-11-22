@@ -63,7 +63,7 @@ let buttons = ref([
 ]);
 
 definePageMeta({
-	middleware: process.client ? ['auth-user'] : undefined
+	middleware: process.client ? ['auth-user', 'choose-prize-details'] : undefined
 });
 </script>
 
