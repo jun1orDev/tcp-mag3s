@@ -78,9 +78,35 @@ export const listSchemaDataMedia = [
 
 	// Sessions
 	{
+		name: 'sessions_image_one',
+		description: 'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
+		tag: 'sessions',
+		type: typesMedia[3],
+	},
+	{
+		name: 'sessions_image_two',
+		description: 'Imagem que representa o tipo de prêmio na seção de meus prêmios (Rabiscadinha)',
+		tag: 'sessions',
+		type: typesMedia[3],
+	},
+	{
 		name: 'sessions_title_one',
-		description: 'Título da seção de números premiados. ',
+		description: 'Título da seção de números premiados.',
 		value: 'Número premiado de hoje:',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_one',
+		description: 'Subtítulo da seção localizado na lista dos prêmios (sorteio) do ganhador.',
+		value: 'Número da sorte',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_two',
+		description: 'Subtítulo da seção localizado na lista dos prêmios (rabiscadinha) do ganhador.',
+		value: 'Rabiscadinha',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},

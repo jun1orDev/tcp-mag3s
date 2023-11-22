@@ -6,46 +6,6 @@ export const useStoreApp = defineStore('storeApp', {
 		return {
 			contentApp: {},
 			showDrawnNumbersToday: false,
-			drawnNumbersToday: [
-				{ number: '01', status: '' },
-				{ number: '02', status: '' },
-				{ number: '44', status: '' },
-				{ number: '04', status: '' },
-			],
-			luckyNumersUser: [
-				{
-					numbers: [
-						{ number: '78', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '01', status: '' },
-						{ number: '03', status: '' },
-						{ number: '08', status: '' },
-						{ number: '12', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '66', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-					],
-				},
-				{
-					numbers: [
-						{ number: '01', status: '' },
-						{ number: '02', status: '' },
-						{ number: '44', status: '' },
-						{ number: '04', status: '' },
-					],
-				},
-			],
 			footerApp: {
 				menu: [
 					{ label: 'perguntas', link: '/faq' },
@@ -142,6 +102,22 @@ export const useStoreApp = defineStore('storeApp', {
 
 			return '';
 		},
+
+		// Meus Prêmios
+		descriptionPrizes: (state) => {
+			return (payload) => {
+				if (payload === 'luckyNumber') return state.contentApp.sessions_subtitle_one
+				if (payload === 'ScratchCard') return state.contentApp.sessions_subtitle_two
+			}
+		},
+		imgTypePrizes: (state) => {
+			const { pathAssets } = useRuntimeConfig().public;
+
+			return (payload) => {
+				if (payload === 'luckyNumber') return `${pathAssets}${state.contentApp.sessions_image_one}`
+				if (payload === 'ScratchCard') return `${pathAssets}${state.contentApp.sessions_image_two}`
+			}
+		}
 	},
 
 	actions: {
