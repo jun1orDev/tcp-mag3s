@@ -9,6 +9,7 @@
 					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
 					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
 					:imageAward="storeIncentive.nextDrawFull.image" />
+
 				<!-- Conteúdo -->
 				<div v-if="storeIncentive.hasLotteryPrizesWon">
 					<!-- Filtro dos prêmios -->
@@ -16,20 +17,20 @@
 						:style="`color: ${store.contentApp.colors_text_button}`">
 						<div :style="[borderColor, filterPrizes === 0 ? backgroundColorActive : backgroundColor]"
 							class="flex justify-center items-center border mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer focus:ring"
-							@click="handleClick(0)">
+							@click="handleClick(0, 'ScratchCard')">
 							<p>{{ app.sessions_button_label_one }}</p>
 						</div>
 
 						<div :style="[borderColor, filterPrizes === 1 ? backgroundColorActive : backgroundColor]"
 							class="buttons flex justify-center items-center border mt-6 w-full h-8 rounded-e-lg text-[10px] md:text-sm cursor-pointer focus:outline-none focus:ring"
-							@click="handleClick(1)">
+							@click="handleClick(1, 'luckyNumber')">
 							<p>{{ app.sessions_button_label_two }}</p>
 						</div>
 					</div>
 
 					<!-- Lista dos prêmios -->
 					<div class="animate__animated animate__fadeInUp">
-						<AppGameInfoCard v-for="prize in storeIncentive.lotteryPrizesWon" class="mt-8" :titulo="prize.name"
+						<AppGameInfoCard v-for="prize in storeIncentive.lotteryPrizesWonFilter" class="mt-8" :titulo="prize.name"
 							:subtitulo="store.descriptionPrizes(prize.typePrize)" :hasBgGradient="prize.typePrizeToggle"
 							:imagemSrc="prize.image" :link="`/app/detalhe-premio/${prize.id}`" date=""
 							:imgCard="store.imgTypePrizes(prize.typePrize)" />
@@ -68,10 +69,12 @@ const borderColor = computed(() => {
 	return `border-color: ${app.colors_border_one}`;
 });
 
-let filterPrizes = ref(0);
+let filterPrizes = ref(null);
 
-const handleClick = (index) => {
-	filterPrizes.value = index;
+const handleClick = (position, filter) => {
+	filterPrizes.value = position;
+
+	storeIncentive.filterLotteryPrizesWon(filter);
 };
 
 definePageMeta({

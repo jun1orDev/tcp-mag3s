@@ -6,6 +6,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		return {
 			inventory: {
 				loading: false,
+				lotteryPrizesWonFilter: null,
 			},
 			gamification: {
 				lotteryDraws: {
@@ -115,9 +116,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			if (state.inventory) return state.inventory.luckyNumbers;
 			return '';
 		},
-		lotteryPrizesWon: (state) => {
+		lotteryPrizesWonFilter: (state) => {
 			if (state.inventory.loading) {
-				return state.inventory.lotteryPrizesWon;
+				return state.inventory.lotteryPrizesWonFilter;
 			}
 		},
 		hasLotteryPrizesWon: (state) => {
@@ -231,6 +232,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						})
 				};
 
+				// Filtro para Prêmio ganhados pelo usuário
+				this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
+
 				// Saldo de raspadinhas
 				this.gamification.qtdScratchCard = data.scratchCards.filter(
 					(scratchCard) => scratchCard.status === 202
@@ -244,7 +248,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
-			}			
+			}
 
 			this.inventory.loading = true;
 		},
@@ -496,5 +500,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				return { dozens };
 			});
 		},
+		filterLotteryPrizesWon(filter) {
+			this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon.filter(item => item.typePrize === filter);
+		}
 	},
 });
