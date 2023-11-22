@@ -1,6 +1,6 @@
 <template>
   <div class="fixed w-full z-50 animate__animated animate__fadeInDown">
-    <div class="bg-transparent py-2">
+    <div class="bg-transparent py-2 lg:py-6">
       <UContainer class="flex justify-between items-center">
         <div>
         </div>
