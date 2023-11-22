@@ -29,6 +29,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				},
 				qtdScratchCard: 0,
 			},
+			allPrizes: [],
 			loading: true,
 		};
 	},
@@ -235,6 +236,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				// Filtro para Prêmio ganhados pelo usuário
 				this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
 
+				// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
+				this.inventory.lotteryPrizesWon.forEach(item => {
+					this.allPrizes.push(item);
+				});
+
 				// Saldo de raspadinhas
 				this.gamification.qtdScratchCard = data.scratchCards.filter(
 					(scratchCard) => scratchCard.status === 202
@@ -383,6 +389,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.gamification.lotteryDraws.listDrawsLatest.concat(
 					this.gamification.lotteryDraws.listDrawsUpcoming
 				);
+
+			// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
+			this.gamification.lotteryDraws.listDraws.forEach(item => {
+				this.allPrizes.push(item);
+			});
 		},
 		// $resetLotteryDraws() {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
