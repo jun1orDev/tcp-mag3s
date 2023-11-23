@@ -42,7 +42,7 @@
 
 				<!-- Banner Blog -->
 				<AppBannersCard5 class="" :linkSource="app.banner_link_external_card_one"
-					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
+					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />0-
 			</div>
 		</UContainer>
 
