@@ -151,6 +151,14 @@ export const listSchemaDataMedia = [
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
+	{
+		name: 'sessions_button_label_three',
+		description:
+			'Texto de dentro dos botões de filtro para a tela de meus prêmios. ',
+		value: 'todos os sorteios',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
 
 	// Banner
 	{

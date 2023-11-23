@@ -6,7 +6,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		return {
 			inventory: {
 				loading: false,
+				luckyNumbers: [],
 				lotteryPrizesWonFilter: null,
+				allPrizes: [],
+				choosePrizeDetails: null,
 			},
 			gamification: {
 				lotteryDraws: {
@@ -18,7 +21,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						id: null,
 						loading: false,
 					},
-					listDraws: null,
+					listDraws: {
+						id: null,
+						loading: false,
+					},
 					listDrawsUpcoming: [],
 					listDrawsLatest: [],
 					revealChosenDraw: {
@@ -28,9 +34,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					LuckyNumbersWereDrawn: null,
 				},
 				qtdScratchCard: 0,
-				allPrizes: [],
-				choosePrizeDetails: null,
 			},
+			filterPrizes: 2,
 			loading: true,
 		};
 	},
@@ -93,6 +98,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Sorteio Escolhido
+		loadingChosenDrawFull: (state) => {
+			return state.gamification.lotteryDraws.listDraws.loading;
+		},
 		revealChosenDrawFull: (state) => {
 			return state.gamification.lotteryDraws.revealChosenDraw;
 		},
@@ -111,12 +119,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Inventário do usuário
 		loadingInventory: (state) => {
-			if (state.inventory) return state.inventory.loading;
-			return '';
+			return state.inventory.loading;
 		},
 		luckyNumbersUser: (state) => {
 			if (state.inventory) return state.inventory.luckyNumbers;
-			return '';
+			return [];
 		},
 		lotteryPrizesWonFilter: (state) => {
 			if (state.inventory.loading) {
@@ -127,6 +134,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			if (state.inventory.loading) {
 				return state.inventory.lotteryPrizesWon.length > 0;
 			}
+		},
+
+		// Detalhes do Prêmio Escolhido
+		choosePrizeDetails: (state) => {
+			if (state.inventory.loading) return state.inventory.choosePrizeDetails;
+			return ''
 		},
 	},
 
@@ -231,23 +244,25 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 								typePrize: interator % 2 === 0 ? prize.baseContent.coreSubType : 'luckyNumber', // Simulando premios instantâneos e sorteios de número da sorte (Trocar depois)
 								typePrizeToggle: interator % 2 === 0 ? false : true //Gabiarra temporária
 							}
-						})
+						}),
+					choosePrizeDetails: null,
+					allPrizes: [],
 				};
 
 				// Filtro para Prêmio ganhados pelo usuário
 				this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
 
 				// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
-
-
 				this.inventory.lotteryPrizesWon.forEach(item => {
-					this.gamification.allPrizes.push(item);
+					this.inventory.allPrizes.push(item);
 				});
 
 				// Saldo de raspadinhas
 				this.gamification.qtdScratchCard = data.scratchCards.filter(
 					(scratchCard) => scratchCard.status === 202
 				).length;
+
+				this.inventory.loading = true;
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppInventory',
@@ -258,8 +273,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					timeout: 3500,
 				});
 			}
-
-			this.inventory.loading = true;
 		},
 		// $resetUserInventory() {
 		// 	this.inventory = null;
@@ -393,10 +406,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.gamification.lotteryDraws.listDrawsUpcoming
 				);
 
-			// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
-			this.gamification.lotteryDraws.listDraws.forEach(item => {
-				this.gamification.allPrizes.push(item);
-			});
+			this.gamification.lotteryDraws.listDraws.loading = true;
 		},
 		// $resetLotteryDraws() {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
@@ -500,25 +510,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		luckyNumbers(numbersData) {
 			let numbers = [];
 
-			// Obtendo os número da propriedade luckyNumber para cada sequência de 7 e juntando em um string
+			// Obtendo os número da propriedade luckyNumber para cada sequência de 4 e juntando em um string
 			numbersData.forEach((element) => {
-				numbers.push(`0${element.luckyNumber}`);
+				numbers.push({ number: `0${element.luckyNumber}`, id: element.id });
 			});
 
 			// Separando os números em dezenas de forma sequencial e inserindo em uma array
 			return numbers.map((str) => {
 				const dozens = [];
-				for (let i = 0; i < str.length; i += 2) {
-					dozens.push({ number: str.substr(i, 2), status: '' });
+				for (let i = 0; i < str.number.length; i += 2) {
+					dozens.push({ number: str.number.substr(i, 2), status: '' });
 				}
-				return { dozens };
+				return { dozens, id: str.id };
 			});
 		},
 		filterLotteryPrizesWon(filter) {
+			if (!filter) return this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
 			this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon.filter(item => item.typePrize === filter);
 		},
 		prizeDetails(id) {
-			this.gamification.choosePrizeDetails = this.gamification.allPrizes.find(prize => prize.id === id);
+			this.inventory.choosePrizeDetails = this.inventory.allPrizes.find(prize => prize.id === id);
 		},
 	},
 });

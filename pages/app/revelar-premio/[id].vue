@@ -6,7 +6,7 @@
 			<!-- Banner Principal -->
 			<div class="max-w-[700px] m-auto flex justify-center">
 				<AppBannersCard linkSource="" :hasImageDetach="false" imageDetach=""
-					:loading="storeIncentive.revealChosenDrawFull.loading" :title="storeIncentive.revealChosenDrawFull.fullDate"
+					:loading="storeIncentive.loadingChosenDrawFull" :title="storeIncentive.revealChosenDrawFull.fullDate"
 					:subtitle="storeIncentive.revealChosenDrawFull.description" :countdown="false" :callToAction="false"
 					:hasDescription="true" :description="store.descriptionRevealDrawPrize"
 					:imageAward="storeIncentive.revealChosenDrawFull.image" />
@@ -29,8 +29,8 @@
 			</div>
 
 			<!-- Números da sorte do usuário -->
-			<ul class="grid grid-cols-1 gap-6" ref="parent">
-				<li v-for="(dozensOfNumbers, i) in storeIncentive.luckyNumbersUser" :key="i">
+			<ul class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__slideInDown" v-auto-animate>
+				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser" :key="dozensOfNumbers.id">
 					<ul
 						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 						<AppGameNumberDraw v-for="(dozensNumbers, index) in dozensOfNumbers.dozens" :numberDraw="dozensNumbers.number"
@@ -54,8 +54,6 @@ const store = useStoreApp();
 
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
-
-const [parent] = useAutoAnimate({ duration: 500 });
 
 const borderSept = store.contentApp.colors_border_two;
 
