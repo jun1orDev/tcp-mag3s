@@ -87,7 +87,7 @@ onMounted(() => {
 					store.contentApp.modal_text_prize_subtitle_one,
 					store.contentApp.modal_text_prize_label_one,
 					'reveal');
-			}, 1500);
+			}, 1000);
 			break;
 	}
 });
