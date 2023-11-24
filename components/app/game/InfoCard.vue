@@ -1,18 +1,19 @@
 <template>
-	<NuxtLink :to="props.link" :style="[borderColor, props.hasBgGradient ? backgroundColorGradient : backgroundColor]" class="relative w-full flex justify-between border rounded-xl">
+	<NuxtLink :to="props.link" :style="[borderColor, props.hasBgGradient ? backgroundColorGradient : backgroundColor]"
+		class="relative w-full flex justify-between border rounded-xl">
 		<div :style="textColor" class="flex items-center">
-			<!-- imagem -->
+			<!-- imagem do prêmio -->
 			<div class="mx-5">
-				<img :src="props.imagemSrc" class="scale-150 top-0 left-0 object-cover w-[98px]" />
+				<img :src="props.imagemSrc" class="scale-150 top-0 left-0 object-cover w-[50px] sm:w-[70px] md:w-[90px] lg:w-[100px] animate__animated animate__zoomIn" />
 			</div>
 
 			<!-- Data -->
 			<div v-if="props.date" class="text-center me-5">
-				<p class="fm3 text-[26px] text-md-[30px] leading-5 md:leading-6">{{props.date.day}}</p>
-				<p class="uppercase text-base">{{props.date.month}}</p>
+				<p class="fm3 text-[26px] text-md-[30px] leading-5 md:leading-6">{{ props.date.day }}</p>
+				<p class="uppercase text-base">{{ props.date.month }}</p>
 			</div>
 
-			<!-- Image -->
+			<!-- Imagem do tipo de prêmio -->
 			<div v-else class="items-center justify-center">
 				<img :src="props.imgCard" onerror="this.src='/imgs/trevo.png'" class="mr-4">
 			</div>

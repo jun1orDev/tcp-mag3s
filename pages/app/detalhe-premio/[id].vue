@@ -1,13 +1,13 @@
 <template>
-	<div v-show="!storeIncentive.loading" :style="textColor">
+	<div class="min-h-screen flex items-center" v-show="!storeIncentive.loading" :style="textColor">
 		<AppLayoutBgDefault />
 		<UContainer>
 			<!-- Imagem do Prêmio -->
-			<div v-if="storeIncentive.loadingInventory" class="animate__animated animate__zoomIn">
+			<div v-show="storeIncentive.loadingInventory" class="animate__animated animate__zoomIn">
 				<img :src="storeIncentive.choosePrizeDetails.image" onerror="this.src='/imgs/exemplo_premio_01.png'"
-					class="justify-center m-auto w-[320px] md:w-[400px] mt-3" />
+					class="justify-center m-auto w-[320px] md:w-[400px] lg:w-[300px] mt-3" />
 			</div>
-			<div v-else
+			<div v-if="!storeIncentive.loadingInventory"
 				class="w-[300px] sm:w-[320px] md:w-[380px] h-[300px] sm:h-[320px] md:h-[380px] flex justify-center items-center m-auto">
 				<AppOthersSpin />
 			</div>
@@ -31,8 +31,9 @@
 						</p>
 					</div>
 					<div class="flex items-center">
-						<AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
-							:status="drawToday.status" />
+						<!-- Por enquanto não temos prêmios de sorteios nessa lista (Falar com o Cláudio) -->
+						<!-- <AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
+							:status="drawToday.status" /> -->
 					</div>
 				</div>
 
@@ -54,7 +55,7 @@
 						</p>
 					</div>
 				</div>
-				<div class="mt-16 animate__animated animate__fadeIn">
+				<div class="mt-16 lg:mt-10 animate__animated animate__fadeIn">
 					<p class="fm1 text-[8px] md:text-[10px]">
 						*Este item não é reembolsável.
 					</p>

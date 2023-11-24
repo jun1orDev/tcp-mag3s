@@ -11,38 +11,47 @@
 					:imageAward="storeIncentive.nextDrawFull.image" />
 
 				<!-- Conteúdo -->
-				<div v-if="storeIncentive.hasLotteryPrizesWon">
+				<div v-if="storeIncentive.loadingInventory">
+
 					<!-- Filtro dos prêmios -->
-					<div class="fm1 flex items-center animate__animated animate__zoomInDown"
-						:style="`color: ${store.contentApp.colors_text_button}`">
-						<div :style="[borderColor, storeIncentive.filterPrizes === 0 ? backgroundColorActive : backgroundColor]"
-							class="flex justify-center items-center border mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer focus:ring"
+					<div v-if="storeIncentive.hasLotteryPrizesWon" class="fm1 flex items-center animate__animated animate__zoomInDown">
+						<div
+							:style="[textColorButton, borderColor, storeIncentive.filterPrizes === 0 ? backgroundColorActive : backgroundColor]"
+							class="flex justify-center items-center border mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer"
 							@click="handleClick(0, 'ScratchCard')">
 							<p>{{ app.sessions_button_label_one }}</p>
 						</div>
 
-						<div :style="[borderColor, storeIncentive.filterPrizes === 1 ? backgroundColorActive : backgroundColor]"
-							class="buttons flex justify-center items-center border mt-6 w-full h-8 text-[10px] md:text-sm cursor-pointer focus:outline-none focus:ring"
+						<div
+							:style="[textColorButton, borderColor, storeIncentive.filterPrizes === 1 ? backgroundColorActive : backgroundColor]"
+							class="buttons flex justify-center items-center border mt-6 w-full h-8 text-[10px] md:text-sm cursor-pointer"
 							@click="handleClick(1, 'luckyNumber')">
 							<p>{{ app.sessions_button_label_two }}</p>
 						</div>
 
-						<div :style="[borderColor, storeIncentive.filterPrizes === 2 ? backgroundColorActive : backgroundColor]"
-							class="buttons flex justify-center items-center border mt-6 w-full h-8 rounded-e-lg text-[10px] md:text-sm cursor-pointer focus:outline-none focus:ring"
+						<div
+							:style="[textColorButton, borderColor, storeIncentive.filterPrizes === 2 ? backgroundColorActive : backgroundColor]"
+							class="buttons flex justify-center items-center border mt-6 w-full h-8 rounded-e-lg text-[10px] md:text-sm cursor-pointer"
 							@click="handleClick(2)">
 							<p>{{ app.sessions_button_label_three }}</p>
 						</div>
 					</div>
 
-					<!-- Lista dos prêmios -->
-					<div class="animate__animated animate__fadeInUp" ref="animateMyPrizes">
-						<AppGameInfoCard v-for="prize in storeIncentive.lotteryPrizesWonFilter" class="mt-8" :titulo="prize.name"
-							:subtitulo="store.descriptionPrizes(prize.typePrize)" :hasBgGradient="prize.typePrizeToggle"
-							:imagemSrc="prize.image" :link="`/app/detalhe-premio/${prize.id}`" date=""
-							:imgCard="store.imgTypePrizes(prize.typePrize)" :key="prize.id" />
+					<div v-if="storeIncentive.hasLotteryPrizesWonFilter">
+						<!-- Lista dos prêmios -->
+						<div class="animate__animated animate__fadeInUp" ref="animateMyPrizes">
+							<AppGameInfoCard v-for="prize in storeIncentive.lotteryPrizesWonFilter" class="mt-8" :titulo="prize.name"
+								:subtitulo="store.descriptionPrizes(prize.typePrize)" :hasBgGradient="prize.prizeTypeStyle"
+								:imagemSrc="prize.image" :link="`/app/detalhe-premio/${prize.id}`" date=""
+								:imgCard="store.imgTypePrizes(prize.typePrize)" :key="prize.id" />
+						</div>
 					</div>
+
+					<h1 v-else class="mt-16 text-center text-xl animate__animated animate__fadeIn">Não há prêmios no momento!</h1>
 				</div>
-				<h1 v-else class="text-center text-xl animate__animated animate__fadeIn">Não há prêmios no momento!</h1>
+				<div v-else class="mt-16 w-[100px] sm:w-[120px] md:w-[140px] h-full flex justify-center items-center m-auto">
+					<AppOthersSpin />
+				</div>
 
 			</div>
 		</UContainer>
@@ -65,6 +74,10 @@ const [animateMyPrizes] = useAutoAnimate({
 
 const textColor = computed(() => {
 	return `color: ${app.colors_text_one}`;
+});
+
+const textColorButton = computed(() => {
+	return `color: ${app.colors_text_button}`;
 });
 
 const backgroundColor = computed(() => {
