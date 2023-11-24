@@ -1,4 +1,5 @@
 import { useStoreApp } from './app';
+import { getCookie } from '../utils/helpers';
 
 export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
@@ -139,7 +140,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		// Detalhes do Prêmio Escolhido
 		choosePrizeDetails: (state) => {
 			if (state.inventory.loading) return state.inventory.choosePrizeDetails;
-			return ''
+			return '';
 		},
 	},
 
@@ -211,7 +212,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			console.log('buscando dados do Inventário');
 
 			const toast = useToast();
-			const cookieAuth = useCookie('tokenUser');
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
 
@@ -221,7 +221,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					{
 						method: 'get',
 						headers: {
-							Authorization: `Bearer ${cookieAuth.value}`,
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
 						},
 					}
 				);
@@ -233,17 +233,25 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					luckyNumbers: this.luckyNumbers(data.luckyNumbers),
 					lotteryPrizes: data.lotteryPrizes,
 					lotteryPrizesWon: data.lotteryPrizes
-						.filter((prizeItem) => prizeItem.status === 991 || prizeItem.status === 311)
+						.filter(
+							(prizeItem) =>
+								prizeItem.status === 991 || prizeItem.status === 311
+						)
 						.map((prize) => {
 							interator++;
 
 							return {
 								id: prize.id,
 								name: prize.baseContent.name,
-								image: prize.baseContent.images.find((img) => img.subType === 'Splash').uri,
-								typePrize: interator % 2 === 0 ? prize.baseContent.coreSubType : 'luckyNumber', // Simulando premios instantâneos e sorteios de número da sorte (Trocar depois)
-								typePrizeToggle: interator % 2 === 0 ? false : true //Gabiarra temporária
-							}
+								image: prize.baseContent.images.find(
+									(img) => img.subType === 'Splash'
+								).uri,
+								typePrize:
+									interator % 2 === 0
+										? prize.baseContent.coreSubType
+										: 'luckyNumber', // Simulando premios instantâneos e sorteios de número da sorte (Trocar depois)
+								typePrizeToggle: interator % 2 === 0 ? false : true, //Gabiarra temporária
+							};
 						}),
 					choosePrizeDetails: null,
 					allPrizes: [],
@@ -253,7 +261,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
 
 				// Lista com todos os prêmios (Rabiscadinhas e Números da sorte)
-				this.inventory.lotteryPrizesWon.forEach(item => {
+				this.inventory.lotteryPrizesWon.forEach((item) => {
 					this.inventory.allPrizes.push(item);
 				});
 
@@ -290,7 +298,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				$formatDayMonthYearComplete,
 			} = useNuxtApp();
 			const toast = useToast();
-			const cookieAuth = useCookie('tokenUser');
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
 
@@ -301,7 +308,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					{
 						method: 'get',
 						headers: {
-							Authorization: `Bearer ${cookieAuth.value}`,
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
 						},
 					}
 				);
@@ -354,7 +361,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					{
 						method: 'get',
 						headers: {
-							Authorization: `Bearer ${cookieAuth.value}`,
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
 						},
 					}
 				);
@@ -525,11 +532,18 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			});
 		},
 		filterLotteryPrizesWon(filter) {
-			if (!filter) return this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon;
-			this.inventory.lotteryPrizesWonFilter = this.inventory.lotteryPrizesWon.filter(item => item.typePrize === filter);
+			if (!filter)
+				return (this.inventory.lotteryPrizesWonFilter =
+					this.inventory.lotteryPrizesWon);
+			this.inventory.lotteryPrizesWonFilter =
+				this.inventory.lotteryPrizesWon.filter(
+					(item) => item.typePrize === filter
+				);
 		},
 		prizeDetails(id) {
-			this.inventory.choosePrizeDetails = this.inventory.allPrizes.find(prize => prize.id === id);
+			this.inventory.choosePrizeDetails = this.inventory.allPrizes.find(
+				(prize) => prize.id === id
+			);
 		},
 	},
 });
