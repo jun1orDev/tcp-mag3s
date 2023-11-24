@@ -136,6 +136,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				return state.inventory.lotteryPrizesWon.length > 0;
 			}
 		},
+		hasLotteryPrizesWonFilter: (state) => {
+			if (state.inventory.loading) {
+				return state.inventory.lotteryPrizesWonFilter.length > 0;
+			}
+		},
 
 		// Detalhes do Prêmio Escolhido
 		choosePrizeDetails: (state) => {
@@ -227,7 +232,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				// Inventário do usuário
-				let interator = 0;
 				this.inventory = {
 					userId: data.userId,
 					luckyNumbers: this.luckyNumbers(data.luckyNumbers),
@@ -238,19 +242,17 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 								prizeItem.status === 991 || prizeItem.status === 311
 						)
 						.map((prize) => {
-							interator++;
-
 							return {
 								id: prize.id,
 								name: prize.baseContent.name,
 								image: prize.baseContent.images.find(
 									(img) => img.subType === 'Splash'
 								).uri,
-								typePrize:
-									interator % 2 === 0
-										? prize.baseContent.coreSubType
-										: 'luckyNumber', // Simulando premios instantâneos e sorteios de número da sorte (Trocar depois)
-								typePrizeToggle: interator % 2 === 0 ? false : true, //Gabiarra temporária
+								typePrize: prize.baseContent.coreSubType,
+								prizeTypeStyle:
+									prize.baseContent.coreSubType === 'ScratchCard'
+										? false
+										: true,
 							};
 						}),
 					choosePrizeDetails: null,
