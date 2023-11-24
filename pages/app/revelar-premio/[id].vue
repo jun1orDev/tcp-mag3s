@@ -29,7 +29,8 @@
 			</div>
 
 			<!-- Números da sorte do usuário -->
-			<ul class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__slideInDown" v-auto-animate>
+			<ul class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
+				ref="animateNumbersUser">
 				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser" :key="dozensOfNumbers.id">
 					<ul
 						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
@@ -57,6 +58,10 @@ const storeIncentive = useStoreIncentive();
 
 const borderSept = store.contentApp.colors_border_two;
 
+const [animateNumbersUser] = useAutoAnimate({
+	duration: 1000
+});
+
 onMounted(() => {
 	switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
 		case true:
@@ -76,11 +81,13 @@ onMounted(() => {
 			break;
 
 		case null:
-			store.openModalPrizeResult(
-				store.contentApp.modal_text_prize_title_one,
-				store.contentApp.modal_text_prize_subtitle_one,
-				store.contentApp.modal_text_prize_label_one,
-				'reveal');
+			setTimeout(() => {
+				store.openModalPrizeResult(
+					store.contentApp.modal_text_prize_title_one,
+					store.contentApp.modal_text_prize_subtitle_one,
+					store.contentApp.modal_text_prize_label_one,
+					'reveal');
+			}, 1500);
 			break;
 	}
 });

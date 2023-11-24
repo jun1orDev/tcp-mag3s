@@ -35,7 +35,7 @@
 					</div>
 
 					<!-- Lista dos prêmios -->
-					<div class="animate__animated animate__fadeInUp" v-auto-animate>
+					<div class="animate__animated animate__fadeInUp" ref="animateMyPrizes">
 						<AppGameInfoCard v-for="prize in storeIncentive.lotteryPrizesWonFilter" class="mt-8" :titulo="prize.name"
 							:subtitulo="store.descriptionPrizes(prize.typePrize)" :hasBgGradient="prize.typePrizeToggle"
 							:imagemSrc="prize.image" :link="`/app/detalhe-premio/${prize.id}`" date=""
@@ -58,6 +58,10 @@ const app = useStoreApp().contentApp;
 
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
+
+const [animateMyPrizes] = useAutoAnimate({
+	duration: 400
+});
 
 const textColor = computed(() => {
 	return `color: ${app.colors_text_one}`;
