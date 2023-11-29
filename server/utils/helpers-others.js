@@ -48,7 +48,7 @@ export const listSchemaDataMedia = [
 		description: 'Imagem de fundo da aplicação.',
 		tag: 'layout',
 		type: typesMedia[3],
-	},		
+	},
 	{
 		name: 'layout_background_app_two',
 		description: 'Imagem de fundo da aplicação.',
@@ -104,13 +104,21 @@ export const listSchemaDataMedia = [
 	// Sessions
 	{
 		name: 'sessions_image_one',
-		description: 'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
+		description:
+			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
 		tag: 'sessions',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_two',
-		description: 'Imagem que representa o tipo de prêmio na seção de meus prêmios (Rabiscadinha)',
+		description:
+			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Rabiscadinha)',
+		tag: 'sessions',
+		type: typesMedia[3],
+	},
+	{
+		name: 'sessions_image_three',
+		description: 'Imagem que representa um logo, como exemplo o WhatsApp.',
 		tag: 'sessions',
 		type: typesMedia[3],
 	},
@@ -122,16 +130,67 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'sessions_title_two',
+		description:
+			'Título da seção de detalhes dos premios referente a rabiscadinha.',
+		value: 'Rabiscadinha',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_title_three',
+		description:
+			'Título da seção de detalhes dos premios referente ao número premiado.',
+		value: 'Número premiado:',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
 		name: 'sessions_subtitle_one',
-		description: 'Subtítulo da seção localizado na lista dos prêmios (sorteio) do ganhador.',
+		description:
+			'Subtítulo da seção localizado na lista dos prêmios (sorteio) do ganhador.',
 		value: 'Número da sorte',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_two',
-		description: 'Subtítulo da seção localizado na lista dos prêmios (rabiscadinha) do ganhador.',
+		description:
+			'Subtítulo da seção localizado na lista dos prêmios (rabiscadinha) do ganhador.',
 		value: 'Rabiscadinha',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_three',
+		description:
+			'Subtítulo da seção localizado no detalhes-premios do ganhador.',
+		value:
+			'Lembre-se: mantenha seu cadastro sempre atualizado pra nossa equipe poder entregar seu prêmio!',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_four',
+		description:
+			'Subtítulo da seção localizado no detalhes-premios do ganhador, como exemplo para dúvidas.',
+		value: 'Dúvidas? É só entrar em contato:',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_five',
+		description:
+			'Ultimo texto da seção localizado no detalhes-premios do ganhador, com informações de contato.',
+		value: '(11) 91221 3445',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_six',
+		description:
+			'Ultimo texto da seção localizado no detalhes-premios do ganhador.',
+		value: '*Este item não é reembolsável.',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
@@ -510,11 +569,10 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 
-	// Header		
+	// Header
 	{
 		name: 'header_button_label_one',
-		description:
-			'Texto localizado dentro do botão de login do header',
+		description: 'Texto localizado dentro do botão de login do header',
 		value: 'Login',
 		tag: 'header',
 		type: typesMedia[0],
