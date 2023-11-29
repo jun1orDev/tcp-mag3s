@@ -1,88 +1,15 @@
 <template>
 	<div>
 		<AppLayoutBgDefault />
-		<UContainer  class="pb-36">
+		<UContainer class="pb-36">
 			<div class="py-6">
 				<h1 class="title uppercase text-[#847248] text-[12px] md:text-[22px]">
-					TERMOS DE USO E POLÍTICA DE PRIVACIDADE
+					{{ store.contentApp.sessions_title_four }}
 				</h1>
 			</div>
-			<div class=" text flex justify-center pb-8">
+			<div class="text flex justify-center pb-8">
 				<p class="text-white text-[9px] md:text-[20px] text-justify">
-					1. Introdução & Termos Gerais Esta política de Privacidade & Cookies
-					descreve como as empresas da INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA
-					E MARKETING PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA
-					tratam seus dados pessoais em relação às atividades aqui descritas. A
-					INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA E MARKETING PARA EMPRESAS
-					LTDA – SPORT CLUB CORINTHIANS PAULISTA adota os cuidados razoáveis de
-					acordo com o padrão de mercado, visando proteger os dados pessoais de
-					quem usa o website WWW.CORINGAODASORTE.COM.BR, aplicativos, participa
-					de suas promoções comerciais ou entra em contato. Esta política de
-					Privacidade e Cookies, que você concorda em ler antes de confirmar a
-					ciência sobre seus termos, refere-se ao uso de quaisquer dados
-					pessoais que coletamos por meio dos seguintes serviços: • Qualquer
-					website CORINGÃO DA SORTE que faça referência a esta política de
-					Privacidade e Cookies; • Redes sociais, serviços de mensagem ou
-					conteúdo CORINGÃO DA SORTE oficial em outros websites ou aplicativos;
-					• Aplicativos de dispositivo móvel; • Telefone de contato do SAC
-					(Serviço de Atendimento ao Consumidor); • Qualquer endereço de e-mail
-					ou número de SMS/WhatsApp ou outros aplicativos de comunicação oficial
-					da CORINGÃO DA SORTE; • O endereço postal do SAC; ou Offline, em
-					eventos realizados pela INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA E
-					MARKETING PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA
-					(próprios, como patrocinadora ou apoiadora, conforme o caso) ou
-					quaisquer pontos de venda. A INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA
-					E MARKETING PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA
-					poderá solicitar que você confirme sua ciência sobre os termos desta
-					Política de Privacidade e Cookies por meio de cada um dos canais
-					descritos acima. Caso você não concorde com as condições do tratamento
-					de dados detalhadas neste instrumento, por favor, abstenha-se de usar
-					quaisquer dos serviços detalhados acima. Para otimizar a prestação dos
-					serviços e para facilitar al 1. Introdução & Termos Gerais Esta
-					política de Privacidade & Cookies descreve como as empresas da
-					INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA E MARKETING PARA EMPRESAS
-					LTDA – SPORT CLUB CORINTHIANS PAULISTA tratam seus dados pessoais em
-					relação às atividades aqui descritas. A INCENTIVA SERVICOS COMBINADOS,
-					TECNOLOGIA E MARKETING PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS
-					PAULISTA adota os cuidados razoáveis de acordo com o padrão de
-					mercado, visando proteger os dados pessoais de quem usa o website
-					WWW.CORINGAODASORTE.COM.BR, aplicativos, participa de suas promoções
-					comerciais ou entra em contato. Esta política de Privacidade e
-					Cookies, que você concorda em ler antes de confirmar a ciência sobre
-					seus termos, refere-se ao uso de quaisquer dados pessoais que
-					coletamos por meio dos seguintes serviços: • Qualquer website CORINGÃO
-					DA SORTE que faça referência a esta política de Privacidade e Cookies;
-					• Redes sociais, serviços de mensagem ou conteúdo CORINGÃO DA SORTE
-					oficial em outros websites ou aplicativos; • Aplicativos de
-					dispositivo móvel; • Telefone de contato do SAC (Serviço de
-					Atendimento ao Consumidor); • Qualquer endereço de e-mail ou número de
-					SMS/WhatsApp ou outros aplicativos de comunicação oficial da CORINGÃO
-					DA SORTE; • O endereço postal do SAC; ou Offline, em eventos
-					realizados pela INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA E MARKETING
-					PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA (próprios, como
-					patrocinadora ou apoiadora, conforme o caso) ou quaisquer pontos de
-					venda. A INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA E MARKETING PARA
-					EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA poderá solicitar que
-					você confirme sua ciência sobre os termos desta Política de
-					Privacidade e Cookies por meio de cada um dos canais descritos acima.
-					Caso você não concorde com as condições do tratamento de dados
-					detalhadas neste instrumento, por favor, abstenha-se de usar quaisquer
-					dos serviços detalhados acima. Para otimizar a prestação dos serviços
-					e para facilitar al1. Introdução & Termos Gerais Esta política de
-					Privacidade & Cookies descreve como as empresas da INCENTIVA SERVICOS
-					COMBINADOS, TECNOLOGIA E MARKETING PARA EMPRESAS LTDA – SPORT CLUB
-					CORINTHIANS PAULISTA tratam seus dados pessoais em relação às
-					atividades aqui descritas. A INCENTIVA SERVICOS COMBINADOS, TECNOLOGIA
-					E MARKETING PARA EMPRESAS LTDA – SPORT CLUB CORINTHIANS PAULISTA adota
-					os cuidados razoáveis de acordo com o padrão de mercado, visando
-					proteger os dados pessoais de quem usa o website
-					WWW.CORINGAODASORTE.COM.BR, aplicativos, participa de suas promoções
-					comerciais ou entra em contato. Esta política de Privacidade e
-					Cookies, que você concorda em ler antes de confirmar a ciência sobre
-					seus termos, refere-se ao uso de quaisquer dados pessoais que
-					coletamos por meio dos seguintes serviços: • Qualquer website CORINGÃO
-					DA SORTE que faça referência a esta política de Privacidade e Cookies;
-					• Redes sociais, serviços de mensagem ou conteúdo
+					{{ store.contentApp.sessions_subtitle_seven }}
 				</p>
 			</div>
 		</UContainer>
@@ -93,22 +20,46 @@
 			<UContainer>
 				<div>
 					<p class="text-white text-center text-[9px] md:text-[12px]">
-						Ao fornecer meus dados estou ciente e concordo que sejam tratados
-						para o fornecimento de serviços, atividades ou conteúdos online
-						disponibilizados pelo Fiel da Sorte e pelo Sport Club Corinthians
-						Paulista, bem como para novas ações de marketing do Fiel Digital, do
-						Fiel da Sorte e do Sport Club Corinthians Paulista.
+						{{ store.contentApp.sessions_subtitle_eight }}
 					</p>
 				</div>
-				<div class="p-4 bottom-0 left-0 right-0">
-					<img src="/imgs/fieldasorte.png" class="mx-auto" />
+				<div class="flex items-center justify-center">
+					<div class="p-4">
+						<img
+							:src="ImgFieldaSorte"
+							onerror="this.src='/imgs/img_fiel_da_sorte.png'"
+							class="mx-auto"
+						/>
+					</div>
+					<div class="h-10 border-l-2 border-white"></div>
+					<div class="p-4">
+						<img
+							:src="ImgFielDigital"
+							onerror="this.src='/imgs/fiel.png'"
+							class="mx-auto"
+						/>
+					</div>
 				</div>
 			</UContainer>
 		</div>
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+
+import { useStoreApp } from '~/stores/app';
+const store = useStoreApp();
+const { pathAssets } = useRuntimeConfig().public;
+
+
+const ImgFieldaSorte = computed(() => {
+	return `${pathAssets}${store.contentApp.sessions_image_four}`;
+});
+
+const ImgFielDigital = computed(() => {
+	return `${pathAssets}${store.contentApp.sessions_image_five}`;
+});
+</script>
 
 <style scoped>
 .title {
