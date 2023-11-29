@@ -9,9 +9,27 @@
           class="w-[200px] sm:w-[230px] md:w-[280px] lg:w-[310px] xl:w-[360px]">
         <p class="fm1">{{ app.brand_text_one }}</p>
       </div>
-      
+
       <!--  Efeito de quebra de seção -->
-      <div class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full" :style="bgColor"></div>
+      <div class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full" :style="bgColor">
+      </div>
+      
+      <!-- Influencer -->
+      <UContainer class="absolute bottom-[10%] lg:bottom-[20%] z-10">
+
+        <div class="absolute left-0 bottom-1/2 lg:flex items-end">
+          <!-- Imagem -->
+          <UAvatar src="/imgs/lp/influencer.jpg" alt="Avatar" size="4xl" :ui="configInfluencer" class="" />
+          <div class="absolute w-20 h-20 lg:w-36 lg:h-36 border-8 rounded-full top-0" :style="borderColor"></div>
+
+          <!-- Descrição -->
+          <div class="fm1 ms-2 mb-4">
+            <p>Influencer:</p>
+            <p>#nomedoinfluencer</p>
+          </div>
+        </div>
+
+      </UContainer>
 
       <!-- Imagem de destaque -->
       <div>
@@ -20,7 +38,7 @@
             <img class="max-w-[90%]" :src="brandMain" onerror="this.src='/imgs/lp/landing_cover_image.png'" alt="">
           </Slide>
         </Carousel>
-      </div>      
+      </div>
     </UContainer>
   </div>
 </template>
@@ -44,8 +62,18 @@ const colorText = computed(() => {
   return `color: ${app.colors_text_one};`;
 });
 
+const borderColor = computed(() => {
+  return `border-color: ${app.colors_border_one}`
+})
+
 const bgColor = computed(() => {
   return `background: linear-gradient(6deg, ${app.colors_background_two} 50%, transparent 50%); backface-visibility: hidden;`;
+});
+
+const configInfluencer = ref({
+  size: {
+    "4xl": 'w-20 h-20 lg:w-36 lg:h-36 text-4xl'
+  }
 });
 </script>
 
