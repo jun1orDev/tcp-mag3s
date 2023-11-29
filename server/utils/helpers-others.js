@@ -123,6 +123,19 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
+		name: 'sessions_image_four',
+		description: 'Imagem que representa um logo representativo (1).',
+		tag: 'sessions',
+		type: typesMedia[3],
+	},
+	{
+		name: 'sessions_image_five',
+		description: 'Imagem que representa um logo representativo (2).',
+		tag: 'sessions',
+		type: typesMedia[3],
+	},
+
+	{
 		name: 'sessions_title_one',
 		description: 'Título da seção de números premiados.',
 		value: 'Número premiado de hoje:',
@@ -142,6 +155,22 @@ export const listSchemaDataMedia = [
 		description:
 			'Título da seção de detalhes dos premios referente ao número premiado.',
 		value: 'Número premiado:',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_title_four',
+		description:
+			'Título da seção de termos.',
+		value: 'TERMOS DE USO E POLÍTICA DE PRIVACIDADE',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_title_five',
+		description:
+			'Título do Regulamento.',
+		value: 'Regulamento',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
@@ -191,6 +220,30 @@ export const listSchemaDataMedia = [
 		description:
 			'Ultimo texto da seção localizado no detalhes-premios do ganhador.',
 		value: '*Este item não é reembolsável.',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_seven',
+		description:
+			'Texto referente aos termos.',
+		value: 'Insira os termos',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_eight',
+		description:
+			'Texto referente a Política de Privacidae.',
+		value: 'Insira a Política de Privacidade',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
+		name: 'sessions_subtitle_nine',
+		description:
+			'Texto referente ao Regulamento.',
+		value: 'Insira texto do Regulamento',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
