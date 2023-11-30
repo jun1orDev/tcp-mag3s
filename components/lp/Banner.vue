@@ -63,11 +63,11 @@ const colorText = computed(() => {
 });
 
 const borderColor = computed(() => {
-  return `border-color: ${app.colors_border_one}`
+  return `border-color: ${app.colors_border_two}`
 })
 
 const bgColor = computed(() => {
-  return `background: linear-gradient(6deg, ${app.colors_background_two} 50%, transparent 50%); backface-visibility: hidden;`;
+  return `background: linear-gradient(6deg, ${app.colors_background_three} 50%, transparent 50%); backface-visibility: hidden;`;
 });
 
 const configInfluencer = ref({

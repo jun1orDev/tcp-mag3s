@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed w-full z-50 animate__animated animate__fadeInDown">
+  <div class="fixed w-full z-50 animate__animated animate__fadeInDown" :style="bgColor">
     <div class="bg-transparent py-2 lg:py-6">
       <UContainer class="flex justify-between items-center">
         <div>
@@ -16,6 +16,10 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
+
+const bgColor = computed(() => {
+  return `background-color: ${app.colors_background_one};`;
+});
 
 const color = computed(() => {
   return `color: ${app.colors_background_button};`;
