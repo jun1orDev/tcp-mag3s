@@ -47,8 +47,14 @@
 					v-html="app.sessions_title_six"
 				></p>
 			</div>
-			<div class="flex justify-center">
-				<img src="/imgs/whatsapp.png" class="w-[32px]" />
+			<div class="flex items-center justify-center">
+				<div>
+					<img
+						:src="ImgWhatsApp"
+						onerror="this.src='/imgs/whats.png'"
+						class="w-[30px]"
+					/>
+				</div>
 				<p class="fm3 ml-2 text-[20px] lg:text-[24px]">
 					{{ app.sessions_subtitle_five }}
 				</p>
@@ -66,6 +72,12 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
+
+const { pathAssets } = useRuntimeConfig().public;
+
+const ImgWhatsApp = computed(() => {
+	return `${pathAssets}${store.contentApp.sessions_image_three}`;
+});
 
 const colorText = computed(() => {
 	return `color: ${store.contentApp.colors_text_one}`;
