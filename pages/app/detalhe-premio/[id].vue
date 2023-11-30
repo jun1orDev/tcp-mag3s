@@ -37,14 +37,15 @@
 								class="w-[32px] md:w-[40px]"
 							/>
 						</div>
-						<p class="fm3 text-[16px] md:text-[24px] uppercase">{{ store.contentApp.sessions_title_two}}</p>
+						<p class="fm3 text-[16px] md:text-[24px] uppercase">
+							{{ store.contentApp.sessions_title_two }}
+						</p>
 					</div>
 				</div>
 				<div v-else>
 					<div class="flex items-center">
 						<p class="fm3 text-[10px] md:text-[14px]">
-
-							{{ store.contentApp.sessions_title_three}}
+							{{ store.contentApp.sessions_title_three }}
 						</p>
 					</div>
 					<div class="flex items-center">
@@ -65,11 +66,17 @@
 
 				<div class="animate__animated animate__zoomInUp mt-6">
 					<div class="fm1 text-[10px] md:text-[14px]">
-						<p>{{store.contentApp.sessions_subtitle_four }}</p>
+						<p>{{ store.contentApp.sessions_subtitle_four }}</p>
 					</div>
 					<div class="flex items-center justify-center mt-4">
-						<img :src="ImgWhatsApp" onerror="this.src='/imgs/whats.png'" class="w-[32px] md:w-[48px] me-3" />
-						<p class="fm3 text-[20px] md:text-[24px]">{{ store.contentApp.sessions_subtitle_five }}</p>
+						<img
+							:src="ImgWhatsApp"
+							onerror="this.src='/imgs/whats.png'"
+							class="w-[32px] md:w-[48px] me-3"
+						/>
+						<p class="fm3 text-[20px] md:text-[24px]">
+							{{ store.contentApp.sessions_subtitle_five }}
+						</p>
 					</div>
 				</div>
 				<div class="mt-16 lg:mt-10 animate__animated animate__fadeIn">
@@ -104,7 +111,7 @@ const imgScratchCard = computed(() => {
 
 const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_three}`;
-})
+});
 
 definePageMeta({
 	middleware: process.client

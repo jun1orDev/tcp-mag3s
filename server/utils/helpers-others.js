@@ -61,6 +61,13 @@ export const listSchemaDataMedia = [
 		tag: 'layout',
 		type: typesMedia[3],
 	},
+	{
+		name: 'layout_text_input',
+		description: 'Placeholder do Campo Pesquisa',
+		value: 'Qual sua dúvida?',
+		tag: 'layout',
+		type: typesMedia[0],
+	},
 
 	// Brand
 	{
@@ -175,6 +182,14 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'sessions_title_six',
+		description:
+			'Título do Footer.',
+		value: 'Insira um texto.',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
 		name: 'sessions_subtitle_one',
 		description:
 			'Subtítulo da seção localizado na lista dos prêmios (sorteio) do ganhador.',
@@ -210,7 +225,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'sessions_subtitle_five',
 		description:
-			'Ultimo texto da seção localizado no detalhes-premios do ganhador, com informações de contato.',
+			'Informações de contato.',
 		value: '(11) 91221 3445',
 		tag: 'sessions',
 		type: typesMedia[0],
@@ -248,6 +263,14 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'sessions_subtitle_teen',
+		description:
+			'e-mail.',
+		value: 'Insira o e-mail localizado no footer',
+		tag: 'sessions',
+		type: typesMedia[0],
+	},
+	{
 		name: 'sessions_button_label_one',
 		description:
 			'Texto de dentro dos botões de filtro para a tela de meus prêmios.',
@@ -271,6 +294,8 @@ export const listSchemaDataMedia = [
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
+
+
 
 	// Banner
 	{
@@ -478,6 +503,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'colors_text_two',
+		description: 'Cor do texto padrão utilizado na aplicação.',
+		value: '#FFFFFF',
+		tag: 'colors',
+		type: typesMedia[2],
+	},
+	{
 		name: 'colors_text_button',
 		description: 'Cor do texto interno do botão',
 		value: '#FFFFFF',
@@ -485,9 +517,16 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'colors_text_button_two',
+		description: 'Cor do texto interno do botão do FAQ',
+		value: '#847248',
+		tag: 'colors',
+		type: typesMedia[2],
+	},
+	{
 		name: 'colors_border_one',
 		description:
-			'Cor da borda que é compartilhada com outros componentes do site. Exemplo: Banner Blog e Números da Sorte.',
+			'Cor da borda que é compartilhada com outros componentes do site. Exemplo: Banner Blog, Números da Sorte e Campos de Pesquisa.',
 		value: '#847248',
 		tag: 'colors',
 		type: typesMedia[2],
