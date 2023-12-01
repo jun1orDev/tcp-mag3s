@@ -4,7 +4,6 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
-const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const labelButton = ref('Quero participar');
