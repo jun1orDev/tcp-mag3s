@@ -100,13 +100,6 @@ export const listSchemaDataMedia = [
 		tag: 'brand',
 		type: typesMedia[3],
 	},
-	{
-		name: 'brand_text_one',
-		description: 'Slogan de destaque do banner utilizado na landing page.',
-		value: 'É você de nave na garagem e dinheiro no bolso!',
-		tag: 'brand',
-		type: typesMedia[0],
-	},
 
 	// Sessions
 	{
@@ -167,24 +160,21 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'sessions_title_four',
-		description:
-			'Título da seção de termos.',
+		description: 'Título da seção de termos.',
 		value: 'TERMOS DE USO E POLÍTICA DE PRIVACIDADE',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_title_five',
-		description:
-			'Título do Regulamento.',
+		description: 'Título do Regulamento.',
 		value: 'Regulamento',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_title_six',
-		description:
-			'Título do Footer.',
+		description: 'Título do Footer.',
 		value: 'Insira um texto.',
 		tag: 'sessions',
 		type: typesMedia[0],
@@ -224,8 +214,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'sessions_subtitle_five',
-		description:
-			'Informações de contato.',
+		description: 'Informações de contato.',
 		value: '(11) 91221 3445',
 		tag: 'sessions',
 		type: typesMedia[0],
@@ -240,32 +229,28 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'sessions_subtitle_seven',
-		description:
-			'Texto referente aos termos.',
+		description: 'Texto referente aos termos.',
 		value: 'Insira os termos',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_eight',
-		description:
-			'Texto referente a Política de Privacidae.',
+		description: 'Texto referente a Política de Privacidae.',
 		value: 'Insira a Política de Privacidade',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_nine',
-		description:
-			'Texto referente ao Regulamento.',
+		description: 'Texto referente ao Regulamento.',
 		value: 'Insira texto do Regulamento',
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_teen',
-		description:
-			'e-mail.',
+		description: 'e-mail.',
 		value: 'Insira o e-mail localizado no footer',
 		tag: 'sessions',
 		type: typesMedia[0],
@@ -294,8 +279,6 @@ export const listSchemaDataMedia = [
 		tag: 'sessions',
 		type: typesMedia[0],
 	},
-
-
 
 	// Banner
 	{
@@ -661,12 +644,70 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 
-	// Header
+	// Hotsite
 	{
-		name: 'header_button_label_one',
+		name: 'header_colors_background',
+		description: 'cor de fundo padrão do header',
+		value: '#000000',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'header_button_label_hotsite',
 		description: 'Texto localizado dentro do botão de login do header',
 		value: 'Login',
-		tag: 'header',
+		tag: 'hotsite',
 		type: typesMedia[0],
+	},
+	{
+		name: 'header_button_background_colors_hotsite',
+		description: 'cor dentro do botão de login do header',
+		value: '#847248',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'header_button_text_colors_hotsite',
+		description: 'cor de texto do botão de login do header',
+		value: '#847248',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'brand_image_hotsite',
+		description: 'Imagem de fundo do hotsite.',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'brand_text_hotsite',
+		description: 'Slogan de destaque do banner utilizado na landing page.',
+		value: 'É você de nave na garagem e dinheiro no bolso!',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'layout_background_hotsite',
+		description: 'Imagem de fundo do hotsite.',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_hotsite_mobile',
+		description: 'Imagem de fundo do hotsite versão mobile.',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_hotsite_two',
+		description: 'Imagem de fundo das seções do hotsite.',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_hotsite_mobile_two',
+		description: 'Imagem de fundo das seções do hotsite versão mobile.',
+		tag: 'hotsite',
+		type: typesMedia[3],
 	},
 ];
