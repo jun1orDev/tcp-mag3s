@@ -56,7 +56,7 @@ export default defineNuxtConfig({
 			pathAssets: '',
 
 			// Incentive Campaign API Public
-			ApiIncentiveClientId: 'oi',
+			ApiIncentiveClientId: '',
 			ApiIncentiveClientSecret: '',
 			ApiIncentiveKeyValue: '',
 			ApiIncentiveReferral: '',

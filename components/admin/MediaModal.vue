@@ -160,6 +160,12 @@
 							<!-- Lista -->
 							<div v-if="store.typeMediaSelectedForm === 'json'">
 								<div v-for="(item, index) in store.formMedia.value.list" :key="index">
+									<div class="flex justify-end">
+										<UTooltip text="Remova esse item da lista" :popper="{ placement: 'left' }">
+											<UButton icon="i-material-symbols-playlist-remove" size="sm" color="red" square variant="solid"
+												@click="store.removeItemListJson(index)" />
+										</UTooltip>
+									</div>
 
 									<!-- Primeiro Texto Editável -->
 									<UFormGroup class="block mb-4" label="Insira o primeiro texto:" :name="`valueOne-${index}`" size="xl"
@@ -171,16 +177,19 @@
 									<!-- Segundo Texto Editável -->
 									<UFormGroup class="block" label="Insira o segundo texto:" :name="`valueOne-${index}`" size="xl"
 										required>
-										<UTextarea :id="`valueTwo-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
+										<UTextarea :id="`valueTwo-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="5"
 											v-model="store.formMedia.value.list[index].two" />
 									</UFormGroup>
 
 									<!-- Divisor -->
-									<hr v-if="store.formMedia.value.list.length - 1 !== index" class="my-12 border-t-2" :class="store.isEditMediaModal ? 'border-sky-300' : 'border-green-300'">
+									<hr v-if="store.formMedia.value.list.length - 1 !== index" class="my-12 border-t-2"
+										:class="store.isEditMediaModal ? 'border-sky-300' : 'border-green-300'">
 								</div>
 
 								<div class="flex justify-center mt-5">
-									<UButton label="adicionar novo item" size="sm" color="purble" variant="solid" @click="store.newItemListJson" />
+									<UButton label="adicionar novo item na lista" size="sm" color="purple" variant="solid"
+										icon="i-material-symbols-deployed-code-update-outline" :trailing="true"
+										@click="store.newItemListJson" />
 								</div>
 
 							</div>

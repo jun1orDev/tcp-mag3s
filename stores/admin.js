@@ -533,6 +533,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.filterMedias = this.medias;
 		},
 
+		// Type List Json
 		isMediaListJson(data) {
 			if (this.formMedia.value) {
 				if (data.type === 'json')
@@ -546,6 +547,14 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				one: '',
 				two: '',
 			});
+		},
+
+		removeItemListJson(index) {
+			this.formMedia.value.list.splice(index, 1);
+
+			if (!this.formMedia.value.list.length) {
+				this.newItemListJson();
+			}
 		},
 	},
 });

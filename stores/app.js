@@ -106,18 +106,31 @@ export const useStoreApp = defineStore('storeApp', {
 		// Meus Prêmios
 		descriptionPrizes: (state) => {
 			return (payload) => {
-				if (payload === 'luckyNumber') return state.contentApp.sessions_subtitle_one
-				if (payload === 'ScratchCard') return state.contentApp.sessions_subtitle_two
-			}
+				if (payload === 'luckyNumber')
+					return state.contentApp.sessions_subtitle_one;
+				if (payload === 'ScratchCard')
+					return state.contentApp.sessions_subtitle_two;
+			};
 		},
 		imgTypePrizes: (state) => {
 			const { pathAssets } = useRuntimeConfig().public;
 
 			return (payload) => {
-				if (payload === 'luckyNumber') return `${pathAssets}${state.contentApp.sessions_image_one}`
-				if (payload === 'ScratchCard') return `${pathAssets}${state.contentApp.sessions_image_two}`
-			}
-		}
+				if (payload === 'luckyNumber')
+					return `${pathAssets}${state.contentApp.sessions_image_one}`;
+				if (payload === 'ScratchCard')
+					return `${pathAssets}${state.contentApp.sessions_image_two}`;
+			};
+		},
+
+		// Faq
+		faq: (state) => {
+			if (!state.loading)
+				return state.contentApp.faq_questions_list
+					? state.contentApp.faq_questions_list
+					: { list: [] };
+			return { list: [] };
+		},
 	},
 
 	actions: {
