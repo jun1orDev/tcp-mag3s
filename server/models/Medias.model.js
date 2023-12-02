@@ -1,6 +1,6 @@
 import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
-export class MediasModel extends Model { }
+export class MediasModel extends Model {}
 
 const config = useRuntimeConfig();
 
@@ -41,6 +41,10 @@ MediasModel.init(
 						case config.typesMedia[6]:
 							return switchTextToBoolean(rawValue);
 
+						// Json
+						case config.typesMedia[7]:
+							return JSON.parse(rawValue);
+
 						// Text / Link / Color
 						default:
 							return rawValue;
@@ -48,10 +52,13 @@ MediasModel.init(
 				}
 			},
 			set(payload) {
-				if (typeof payload !== 'string') {
-					this.setDataValue('value', payload.join(';'));
-				} else {
-					this.setDataValue('value', payload);
+				switch (payload) {
+					case typeof payload !== 'string':
+						this.setDataValue('value', payload.join(';'));
+						break;
+
+					default:
+						this.setDataValue('value', payload);
 				}
 			},
 		},

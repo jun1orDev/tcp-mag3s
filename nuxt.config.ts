@@ -7,6 +7,7 @@ const typeMediaDefault = [
 	'icon',
 	'datetime',
 	'boolean',
+	'json',
 ];
 
 export default defineNuxtConfig({

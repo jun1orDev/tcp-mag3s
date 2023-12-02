@@ -28,7 +28,7 @@ export function toLetterFisrtUperCase(str) {
 		.join(' ');
 }
 
-// [0]: text, [1]: link, [2]: color, [3]: archive, [4]: icon, [5]: datatime, [6]: boolean
+// [0]: text, [1]: link, [2]: color, [3]: archive, [4]: icon, [5]: datatime, [6]: boolean, [7]: json
 const { typesMedia } = useRuntimeConfig();
 
 export const listSchemaDataMedia = [
@@ -709,5 +709,15 @@ export const listSchemaDataMedia = [
 		description: 'Imagem de fundo das seções do hotsite versão mobile.',
 		tag: 'hotsite',
 		type: typesMedia[3],
+	},
+
+	// Faq
+	{
+		name: 'faq_questions_list',
+		description: 'Lista com perguntas e respostas do Faq',
+		value:
+			'{"list":[{"one": "qual foi o maior presidente do brasil?", "two": "Bolsonaro"},{"one": "qual foi o pior presidente do brasil?", "two": "Lula"}]}',
+		tag: 'faq',
+		type: typesMedia[7],
 	},
 ];

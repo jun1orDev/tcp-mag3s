@@ -24,7 +24,8 @@
 							<UFormGroup class="block mb-2" label="Nome do conteúdo:" name="name"
 								help="Usado na api que alimenta da aplicação." size="xl" required>
 								<UInput id="name" type="text" placeholder="Digite aqui..." :trailing="false"
-									icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name" :disabled="store.isEditMediaModal" />
+									icon="i-material-symbols-media-link-outline-sharp" size="xl" v-model="store.formMedia.name"
+									:disabled="store.isEditMediaModal" />
 							</UFormGroup>
 						</div>
 
@@ -154,6 +155,34 @@
 									<URadio v-for="boolean of store.formMedia.valueBoolean" id="value" name="value" :key="boolean.name"
 										v-model="store.formMedia.value" v-bind="boolean" :label="boolean.label" />
 								</UFormGroup>
+							</div>
+
+							<!-- Lista -->
+							<div v-if="store.typeMediaSelectedForm === 'json'">
+								<div v-for="(item, index) in store.formMedia.value.list" :key="index">
+
+									<!-- Primeiro Texto Editável -->
+									<UFormGroup class="block mb-4" label="Insira o primeiro texto:" :name="`valueOne-${index}`" size="xl"
+										required>
+										<UTextarea :id="`valueOne-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
+											v-model="store.formMedia.value.list[index].one" />
+									</UFormGroup>
+
+									<!-- Segundo Texto Editável -->
+									<UFormGroup class="block" label="Insira o segundo texto:" :name="`valueOne-${index}`" size="xl"
+										required>
+										<UTextarea :id="`valueTwo-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
+											v-model="store.formMedia.value.list[index].two" />
+									</UFormGroup>
+
+									<!-- Divisor -->
+									<hr v-if="store.formMedia.value.list.length - 1 !== index" class="my-12 border-t-2" :class="store.isEditMediaModal ? 'border-sky-300' : 'border-green-300'">
+								</div>
+
+								<div class="flex justify-center mt-5">
+									<UButton label="adicionar novo item" size="sm" color="purble" variant="solid" @click="store.newItemListJson" />
+								</div>
+
 							</div>
 
 							<!-- Sem escolha -->

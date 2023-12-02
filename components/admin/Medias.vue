@@ -26,6 +26,9 @@
 				<div v-if="isMedia(media.type)">
 					<UButton variant="link" class="p-0 m-0" label="Abrir mídia" />
 				</div>
+				<div v-else-if="isList(media.type)">
+					<p class="line-clamp-1" v-html="media.value.list[0].one"></p>
+				</div>
 				<p v-else class="line-clamp-1" v-html="media.value"></p>
 			</div>
 			<div>
@@ -119,6 +122,10 @@ const setTypesMediaStyle = (type) => {
 
 const isMedia = (type) => {
 	return type === typesMedia[3]
+}
+
+const isList = (type) => {
+	return type === typesMedia[7]
 }
 </script>
 

@@ -29,7 +29,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			formMedia: {
 				id: null,
 				name: '',
-				value: '',
+				value: null,
 				valueFilesMedia: null,
 				valueBoolean: [
 					{
@@ -53,6 +53,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					{ name: 'ícone', value: 'icon' },
 					{ name: 'data/hora', value: 'datetime' },
 					{ name: 'verdadeiro/falso', value: 'boolean' },
+					{ name: 'lista', value: 'json' },
 				],
 				newTag: {
 					choise: 0,
@@ -136,7 +137,6 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					icon: `i-material-symbols-person-check-outline-rounded`,
 					timeout: 3500,
 				});
-
 			} catch (error) {
 				toast.add({
 					id: 'show_status_login_error',
@@ -150,7 +150,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 			this.loading = false;
 		},
-		
+
 		async getContent(useToast) {
 			const toast = useToast();
 
@@ -207,6 +207,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				type: this.formMedia.typeMS,
 				newtag: this.formMedia.newTag.choise,
 			};
+
+			// Caso a mídia seja uma lista
+			this.isMediaListJson(data);
 
 			for (const item in data) {
 				formData.append(item, data[item]);
@@ -290,7 +293,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				this.listArchiveMediaDelete = [];
 			}
 
-			this.formMedia.value = null;
+			// Caso a mídia seja uma lista para resetar
+			if (this.formMedia.typeMS === 'json')
+				this.formMedia.value = { list: [{ one: '', two: '' }] };
+			else this.formMedia.value = null;
+
 			this.listArchiveMedia = [];
 		},
 
@@ -405,6 +412,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.loading = true;
 			let formData = new FormData();
 
+			// tipo de mídia no formato de arquivo
 			if (this.formMedia.valueFilesMedia) {
 				for (const file of this.formMedia.valueFilesMedia) {
 					formData.append('value', file);
@@ -423,9 +431,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				data.value_list_delete = this.listArchiveMediaDelete.join(';');
 			}
 
-			if (this.formMedia.value) {
-				data.value = this.formMedia.value;
-			}
+			// Caso a mídia seja uma lista
+			this.isMediaListJson(data);
 
 			for (const item in data) {
 				formData.append(item, data[item]);
@@ -524,6 +531,21 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			this.filterMedias = this.medias;
+		},
+
+		isMediaListJson(data) {
+			if (this.formMedia.value) {
+				if (data.type === 'json')
+					data.value = JSON.stringify(this.formMedia.value);
+				else data.value = this.formMedia.value;
+			}
+		},
+
+		newItemListJson() {
+			this.formMedia.value.list.push({
+				one: '',
+				two: '',
+			});
 		},
 	},
 });
