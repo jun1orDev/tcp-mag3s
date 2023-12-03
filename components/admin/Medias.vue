@@ -114,6 +114,8 @@ const setTypesMediaStyle = (type) => {
 			return 'bg-amber-300'
 		case typesMedia[6]:
 			return 'bg-slate-300'
+		case typesMedia[7]:
+			return 'bg-lime-300'
 
 		default:
 			break;
