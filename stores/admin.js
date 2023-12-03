@@ -439,6 +439,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			} else {
 				this.formMedia.value = booleanToString(media.value);
 			}
+
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.typeJsonMS = this.formMedia.value.list[0].type;
+			}
 		},
 
 		async putEditMedia(useToast) {
