@@ -52,13 +52,10 @@ MediasModel.init(
 				}
 			},
 			set(payload) {
-				switch (payload) {
-					case typeof payload !== 'string':
-						this.setDataValue('value', payload.join(';'));
-						break;
-
-					default:
-						this.setDataValue('value', payload);
+				if (typeof payload !== 'string') {
+					this.setDataValue('value', payload.join(';'));
+				} else {
+					this.setDataValue('value', payload);
 				}
 			},
 		},

@@ -45,6 +45,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				],
 				tagSelected: null,
 				typeMS: null,
+				typeJsonMS: 'text',
 				typesMedia: [
 					{ name: 'texto', value: 'text' },
 					{ name: 'link', value: 'link' },
@@ -54,6 +55,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					{ name: 'data/hora', value: 'datetime' },
 					{ name: 'verdadeiro/falso', value: 'boolean' },
 					{ name: 'lista', value: 'json' },
+				],
+				typesMediasJson: [
+					{ name: 'texto', value: 'text' },
+					{ name: 'arquivo/imagem', value: 'archive' },
 				],
 				newTag: {
 					choise: 0,
@@ -76,6 +81,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 	getters: {
 		typesMediaForm: (state) => state.formMedia.typesMedia,
+		typesMediaJsonForm: (state) => state.formMedia.typesMediasJson,
+		typesMediaJsonTextOrFile: (state) => {
+			if (state.formMedia.typeJsonMS === 'text') return true;
+			return false;
+		},
 		totalMidias: (state) => state.filterMedias.length,
 		typeMediaSelectedForm: (state) => state.formMedia.typeMS,
 		newTag: (state) => state.formMedia.newTag,
@@ -200,6 +210,19 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				}
 			}
 
+			// Arquivos em listas json
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value.list.forEach((element, index) => {
+					if (typeof element.one === 'object') {
+						for (const file of element.one) {
+							formData.append(`valueJson-${index}`, file);
+						}
+
+						element.one = '';
+					}
+				});
+			}
+
 			const data = {
 				name: this.formMedia.name,
 				value: this.formMedia.value,
@@ -209,7 +232,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			};
 
 			// Caso a mídia seja uma lista
-			this.isMediaListJson(data);
+			if (data.type === 'json') {
+				data.value = this.isMediaListJson(data);
+			}
 
 			for (const item in data) {
 				formData.append(item, data[item]);
@@ -294,11 +319,20 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			// Caso a mídia seja uma lista para resetar
-			if (this.formMedia.typeMS === 'json')
-				this.formMedia.value = { list: [{ one: '', two: '' }] };
-			else this.formMedia.value = null;
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value = { list: [] };
+				this.newItemListJson();
+			} else this.formMedia.value = null;
 
 			this.listArchiveMedia = [];
+		},
+
+		$resetFormMediaValueJson() {
+			this.formMedia.valueFilesMedia = null;
+
+			this.formMedia.value.list.forEach((item) => {
+				item.type = this.formMedia.typeJsonMS;
+			});
 		},
 
 		$resetChosenMediaDelete() {
@@ -419,9 +453,23 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				}
 			}
 
+			// Arquivos em listas json
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value.list.forEach((element, index) => {
+					if (typeof element.one === 'object') {
+						for (const file of element.one) {
+							formData.append(`valueJson-${index}`, file);
+						}
+
+						element.one = '';
+					}
+				});
+			}
+
 			const data = {
 				id: this.formMedia.id,
 				name: this.formMedia.name,
+				value: this.formMedia.value,
 				tag: this.formMedia.tagSelected,
 				type: this.formMedia.typeMS,
 				newtag: this.formMedia.newTag.choise,
@@ -432,7 +480,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			// Caso a mídia seja uma lista
-			this.isMediaListJson(data);
+			if (data.type === 'json') {
+				data.value = this.isMediaListJson(data);
+			}
 
 			for (const item in data) {
 				formData.append(item, data[item]);
@@ -535,17 +585,15 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		// Type List Json
 		isMediaListJson(data) {
-			if (this.formMedia.value) {
-				if (data.type === 'json')
-					data.value = JSON.stringify(this.formMedia.value);
-				else data.value = this.formMedia.value;
-			}
+			if (data.type !== 'json') return;
+			return JSON.stringify(this.formMedia.value);
 		},
 
 		newItemListJson() {
 			this.formMedia.value.list.push({
 				one: '',
 				two: '',
+				type: this.formMedia.typeJsonMS,
 			});
 		},
 

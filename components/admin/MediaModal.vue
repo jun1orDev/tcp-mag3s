@@ -159,6 +159,14 @@
 
 							<!-- Lista -->
 							<div v-if="store.typeMediaSelectedForm === 'json'">
+
+								<!-- Escolha o tipo de mídia da lista -->
+								<UFormGroup class="block mb-10" label="Tipo de mídia da lista" name="type" size="xl">
+									<USelectMenu :id="`type-${index}`" :name="`type-${index}`" v-model="store.formMedia.typeJsonMS"
+										option-attribute="name" :options="store.typesMediaJsonForm" value-attribute="value" placeholder="tipo"
+										:trailing="false" icon="i-material-symbols-tamper-detection-on-sharp" size="xl" @change="store.$resetFormMediaValueJson" />
+								</UFormGroup>
+
 								<div v-for="(item, index) in store.formMedia.value.list" :key="index">
 									<div class="flex justify-end">
 										<UTooltip text="Remova esse item da lista" :popper="{ placement: 'left' }">
@@ -168,10 +176,15 @@
 									</div>
 
 									<!-- Primeiro Texto Editável -->
-									<UFormGroup class="block mb-4" label="Insira o primeiro texto:" :name="`valueOne-${index}`" size="xl"
-										required>
+									<UFormGroup v-if="store.typesMediaJsonTextOrFile" class="block mb-4" label="Insira o primeiro texto:"
+										:name="`valueOne-${index}`" size="xl" required>
 										<UTextarea :id="`valueOne-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
 											v-model="store.formMedia.value.list[index].one" />
+									</UFormGroup>
+									<UFormGroup v-else class="block mb-4" label="Insira a imagem:" :name="`valueOne-${index}`" size="xl"
+										required>
+										<input :id="`fileMedia-${index}`" type="file" size="xl" :name="`fileMedia-${index}`"
+											v-on:change="handleFileUploadMultiple($event, index)" />
 									</UFormGroup>
 
 									<!-- Segundo Texto Editável -->
@@ -271,6 +284,10 @@ const options = ref({
 
 const handleFileUpload = (event) => {
 	store.formMedia.valueFilesMedia = event.target.files || event.dataTransfer.files;
+}
+
+const handleFileUploadMultiple = (event, index) => {
+	store.formMedia.value.list[index].one = event.target.files || event.dataTransfer.files;
 }
 
 </script>

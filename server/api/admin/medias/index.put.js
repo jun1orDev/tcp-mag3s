@@ -11,13 +11,8 @@ export default defineEventHandler(async (event) => {
 	// verify user loggin
 	userIsLoggedIn(event);
 
-	// // create media directory if it doesn't exist
-	// if (!fs.existsSync('public/uploads')) {
-	// 	fs.mkdirSync(path.join('public', 'uploads'));
-	// }
-
 	let validArchive = false;
-	const { fields, form, files } = await readFiles(event, {
+	let { fields, form, files } = await readFiles(event, {
 		includeFields: true,
 		multiples: true,
 		maxFiles: 10,
@@ -49,7 +44,20 @@ export default defineEventHandler(async (event) => {
 	const createNewTag = Boolean(+fieldsSingle.newtag);
 	const type = fieldsSingle.type;
 
-	// Verify empty inputs
+	// Type json list
+	const filesJson = [];
+	console.log(Object.keys(files).length > 0);
+	console.log(value);
+	if (type === 'json' && Object.keys(files).length > 0) {
+		for (const file in files) {
+			filesJson.push(files[file][0]);
+		}
+		files.value = filesJson;
+	}
+
+	// ⬇️ Verify empty inputs ⬇️
+
+	// Exists Media
 	const getMedia = await MediasModel.findOne({ raw: true, where: { id } });
 	if (!Boolean(getMedia)) {
 		throw createError({
@@ -58,6 +66,7 @@ export default defineEventHandler(async (event) => {
 		});
 	}
 
+	// Name
 	if (!name) {
 		throw createError({
 			statusCode: 422,
@@ -192,12 +201,15 @@ export default defineEventHandler(async (event) => {
 	}
 
 	// Save media archive
+	let listFiles = [];
 	if (files.value) {
-		let valueDB = await MediasModel.findOne({
-			raw: true,
-			where: { id },
-		});
-		let listFiles = valueDB.value ? valueDB.value.split(';').filter(Boolean) : [];
+		if (type != 'json') {
+			let valueDB = await MediasModel.findOne({
+				raw: true,
+				where: { id },
+			});
+			listFiles = valueDB.value ? valueDB.value.split(';').filter(Boolean) : [];
+		}
 
 		for (const file of files.value) {
 			const extFile = file.mimetype.split('/')[1];
@@ -205,9 +217,6 @@ export default defineEventHandler(async (event) => {
 			const fileName = `${Date.now()}-${file.newFilename}-${
 				file.mimetype.split('/')[0]
 			}.${extFile}`;
-
-			// const newPath = `${path.join('public', 'uploads', fileName)}`;
-			// fs.copyFileSync(file.filepath, newPath);
 
 			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
 			const fileUp = bucket.file(
@@ -237,10 +246,32 @@ export default defineEventHandler(async (event) => {
 
 			listFiles.push(fileName);
 		}
-		value = listFiles;
+
+		// Caso as imagem sejam de uma lista
+		if (type === 'json') {
+			const valueMediaJson = listFiles;
+
+			let newValue = {
+				list: JSON.parse(value).list.map((element, index) => {
+					return {
+						one: valueMediaJson[index],
+						two: element.two,
+						type: 'archive',
+					};
+				}),
+			};
+
+			console.log(valueMediaJson);
+			console.log(newValue);
+
+			value = JSON.stringify(newValue);
+		} else {
+			value = listFiles;
+		}
 	}
 
 	// update media
+	console.log(value);
 	await MediasModel.update(
 		{
 			name,
