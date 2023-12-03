@@ -333,6 +333,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.formMedia.value.list.forEach((item) => {
 				item.type = this.formMedia.typeJsonMS;
 			});
+
+			this.formMedia.value = { list: [] };
+			this.newItemListJson();
 		},
 
 		$resetChosenMediaDelete() {

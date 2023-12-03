@@ -45,7 +45,7 @@ export default defineEventHandler(async (event) => {
 	const filesJson = [];
 	if (type === 'json' && Object.keys(files).length > 0) {
 		for (const file in files) {
-			filesJson.push(files[file][0]);
+			filesJson.push({ archive: files[file][0], posArr: file.split('-')[1] });
 		}
 		files.value = filesJson;
 	}
@@ -135,7 +135,8 @@ export default defineEventHandler(async (event) => {
 	// Save media archive
 	let listFiles = [];
 	if (files.value) {
-		for (const file of files.value) {
+		for (const fileOrigin of files.value) {
+			const file = type === 'json' ? fileOrigin.archive : fileOrigin;
 			const extFile = file.mimetype.split('/')[1];
 
 			const fileName = `${Date.now()}-${file.newFilename}-${
@@ -168,7 +169,11 @@ export default defineEventHandler(async (event) => {
 				console.log('Arquivo enviado com sucesso para o GCS');
 			});
 
-			listFiles.push(fileName);
+			if (type === 'json') {
+				listFiles.push({ archive: fileName, posArr: fileOrigin.posArr });
+			} else {
+				listFiles.push(fileName);
+			}
 		}
 
 		// Caso as imagem sejam de uma lista
@@ -177,8 +182,9 @@ export default defineEventHandler(async (event) => {
 
 			let newValue = {
 				list: JSON.parse(value).list.map((element, index) => {
+					let media = valueMediaJson.find((media) => +media.posArr === index);
 					return {
-						one: valueMediaJson[index],
+						one: media ? media.archive : '',
 						two: element.two,
 						type: 'archive',
 					};

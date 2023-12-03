@@ -164,28 +164,37 @@
 								<UFormGroup class="block mb-10" label="Tipo de mídia da lista" name="type" size="xl">
 									<USelectMenu :id="`type-${index}`" :name="`type-${index}`" v-model="store.formMedia.typeJsonMS"
 										option-attribute="name" :options="store.typesMediaJsonForm" value-attribute="value" placeholder="tipo"
-										:trailing="false" icon="i-material-symbols-tamper-detection-on-sharp" size="xl" @change="store.$resetFormMediaValueJson" />
+										:trailing="false" icon="i-material-symbols-tamper-detection-on-sharp" size="xl"
+										@change="store.$resetFormMediaValueJson" />
 								</UFormGroup>
 
-								<div v-for="(item, index) in store.formMedia.value.list" :key="index">
-									<div class="flex justify-end">
+								<div v-for="(item, index) in store.formMedia.value.list" :key="`ghtwk${index}_fei`" v-auto-animate>
+									<div class="flex justify-between mb-2">
+										<div class="bg-purple-600 text-white flex justify-center items-center w-8 h-8 rounded-md font-black">
+											<span>{{ index + 1 }}</span>
+										</div>
 										<UTooltip text="Remova esse item da lista" :popper="{ placement: 'left' }">
 											<UButton icon="i-material-symbols-playlist-remove" size="sm" color="red" square variant="solid"
 												@click="store.removeItemListJson(index)" />
 										</UTooltip>
 									</div>
 
-									<!-- Primeiro Texto Editável -->
+									<!-- Primeiro Texto Editável ou Imagem/arquivo -->
 									<UFormGroup v-if="store.typesMediaJsonTextOrFile" class="block mb-4" label="Insira o primeiro texto:"
 										:name="`valueOne-${index}`" size="xl" required>
 										<UTextarea :id="`valueOne-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
 											v-model="store.formMedia.value.list[index].one" />
 									</UFormGroup>
-									<UFormGroup v-else class="block mb-4" label="Insira a imagem:" :name="`valueOne-${index}`" size="xl"
-										required>
-										<input :id="`fileMedia-${index}`" type="file" size="xl" :name="`fileMedia-${index}`"
-											v-on:change="handleFileUploadMultiple($event, index)" />
-									</UFormGroup>
+									<div v-else>
+										<div>
+											<img :src="`${pathAssets}${store.formMedia.value.list[index].one}`" class="w-[120px]">
+										</div>
+										<UFormGroup class="block mb-4" label="Insira a imagem:" :name="`valueOne-${index}`" size="xl"
+											required>
+											<input :id="`fileMedia-${index}`" type="file" size="xl" :name="`fileMedia-${index}`"
+												v-on:change="handleFileUploadMultiple($event, index)" />
+										</UFormGroup>
+									</div>
 
 									<!-- Segundo Texto Editável -->
 									<UFormGroup class="block" label="Insira o segundo texto:" :name="`valueOne-${index}`" size="xl"
@@ -195,7 +204,7 @@
 									</UFormGroup>
 
 									<!-- Divisor -->
-									<hr v-if="store.formMedia.value.list.length - 1 !== index" class="my-12 border-t-2"
+									<hr v-if="store.formMedia.value.list.length - 1 !== index" class="my-8 border-t-2"
 										:class="store.isEditMediaModal ? 'border-sky-300' : 'border-green-300'">
 								</div>
 

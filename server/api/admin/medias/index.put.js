@@ -46,11 +46,9 @@ export default defineEventHandler(async (event) => {
 
 	// Type json list
 	const filesJson = [];
-	console.log(Object.keys(files).length > 0);
-	console.log(value);
 	if (type === 'json' && Object.keys(files).length > 0) {
 		for (const file in files) {
-			filesJson.push(files[file][0]);
+			filesJson.push({ archive: files[file][0], posArr: file.split('-')[1] });
 		}
 		files.value = filesJson;
 	}
@@ -175,10 +173,6 @@ export default defineEventHandler(async (event) => {
 				(archiveDelete) => !value_list_delete.split(';').includes(archiveDelete)
 			);
 		value_list_delete.split(';').forEach(async (mediaFile) => {
-			// const hasMediaExists = fs.existsSync(`public/uploads/${mediaFile}`);
-
-			// if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
-
 			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
 			const fileUp = bucket.file(
 				`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${mediaFile}`
@@ -211,7 +205,8 @@ export default defineEventHandler(async (event) => {
 			listFiles = valueDB.value ? valueDB.value.split(';').filter(Boolean) : [];
 		}
 
-		for (const file of files.value) {
+		for (const fileOrigin of files.value) {
+			const file = type === 'json' ? fileOrigin.archive : fileOrigin;
 			const extFile = file.mimetype.split('/')[1];
 
 			const fileName = `${Date.now()}-${file.newFilename}-${
@@ -244,7 +239,11 @@ export default defineEventHandler(async (event) => {
 				console.log('Arquivo enviado com sucesso para o GCS');
 			});
 
-			listFiles.push(fileName);
+			if (type === 'json') {
+				listFiles.push({ archive: fileName, posArr: fileOrigin.posArr });
+			} else {
+				listFiles.push(fileName);
+			}
 		}
 
 		// Caso as imagem sejam de uma lista
@@ -253,16 +252,14 @@ export default defineEventHandler(async (event) => {
 
 			let newValue = {
 				list: JSON.parse(value).list.map((element, index) => {
+					let media = valueMediaJson.find((media) => +media.posArr === index);
 					return {
-						one: valueMediaJson[index],
+						one: media ? media.archive : element.one,
 						two: element.two,
 						type: 'archive',
 					};
 				}),
 			};
-
-			console.log(valueMediaJson);
-			console.log(newValue);
 
 			value = JSON.stringify(newValue);
 		} else {
@@ -271,7 +268,6 @@ export default defineEventHandler(async (event) => {
 	}
 
 	// update media
-	console.log(value);
 	await MediasModel.update(
 		{
 			name,
