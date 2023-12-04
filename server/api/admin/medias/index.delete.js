@@ -23,12 +23,29 @@ export default defineEventHandler(async (event) => {
 		});
 
 		if (Boolean(media)) {
-			if (media.type === config.typesMedia[3]) {
-				if (media.value) {
-					media.value.forEach(async (mediaFile) => {
-						// const hasMediaExists = fs.existsSync(`public/uploads/${mediaFile}`);
+			if (media.value) {
+				const typeMediaArchive = media.type === config.typesMedia[3];
+				const typeMediaJson = media.type === config.typesMedia[7];
 
-						// if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
+				if (!typeMediaArchive && !typeMediaJson) return;
+
+				let medias;
+
+				if (typeMediaArchive) medias = media.value;
+				if (typeMediaJson) {
+					medias = [];
+					media.value.list.forEach((item) => {
+						if (item.type === 'archive') {
+							medias.push(item.one);
+						}
+					});
+				}
+
+				if (medias) {
+					medias.forEach(async (mediaFile) => {
+						console.log(mediaFile);
+
+						return;
 
 						const bucket = googleCloudStorage.bucket(config.gcsBucketname);
 						const fileUp = bucket.file(
@@ -41,26 +58,9 @@ export default defineEventHandler(async (event) => {
 						} catch (error) {
 							console.error(`Erro ao excluir a imagem: ${error}`);
 						}
-
-						// const stream = fileUp.createWriteStream({
-						// 	metadata: {
-						// 		contentType: file.mimetype, // Tipo MIME do arquivo
-						// 	},
-						// });
-
-						// stream.end(fs.readFileSync(file.filepath));
-
-						// stream.on('error', (error) => {
-						// 	console.error(`Erro ao enviar arquivo para o GCS: ${error}`);
-						// });
-
-						// stream.on('finish', () => {
-						// 	console.log('Arquivo enviado com sucesso para o GCS');
-						// });
 					});
 				}
 			}
-
 			await media.destroy();
 
 			await getMedias();

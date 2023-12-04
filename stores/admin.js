@@ -328,11 +328,8 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		$resetFormMediaValueJson() {
+			this.deleteArchivesListJson();
 			this.formMedia.valueFilesMedia = null;
-
-			this.formMedia.value.list.forEach((item) => {
-				item.type = this.formMedia.typeJsonMS;
-			});
 
 			this.formMedia.value = { list: [] };
 			this.newItemListJson();
@@ -605,11 +602,35 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		removeItemListJson(index) {
+			this.deleteArchiveListJson(index);
+
 			this.formMedia.value.list.splice(index, 1);
 
 			if (!this.formMedia.value.list.length) {
 				this.newItemListJson();
 			}
+		},
+
+		deleteArchiveListJson(index) {
+			const archiveDelete = this.formMedia.value.list.find(
+				(_item, indexItem) => indexItem === index && _item.type === 'archive'
+			);
+
+			if (
+				archiveDelete &&
+				typeof archiveDelete.one === 'string' &&
+				archiveDelete.one.length
+			) {
+				this.listArchiveMediaDelete.push(archiveDelete.one);
+			}
+		},
+
+		deleteArchivesListJson() {
+			this.formMedia.value.list.forEach((_item) => {
+				if (_item.type === 'archive' && typeof _item.one === 'string' && _item.one.length) {
+					this.listArchiveMediaDelete.push(_item.one);
+				}
+			});
 		},
 	},
 });
