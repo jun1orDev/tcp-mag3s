@@ -14,6 +14,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				id: 'not',
 				name: 'todos',
 			},
+			filterPerTypeMedia: null,
 			loading: false,
 			isOpenModalMedia: false,
 			isEditMediaModal: false,
@@ -263,9 +264,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetFormMedia();
-					this.filterPerTag(
+					this.filteringTheMedia(
 						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name
+						this.filterPerTagChoise.name,
+						this.filterPerTypeMedia
 					);
 				}
 
@@ -380,9 +382,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetChosenMediaDelete();
-					this.filterPerTag(
+					this.filteringTheMedia(
 						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name
+						this.filterPerTagChoise.name,
+						this.filterPerTypeMedia
 					);
 				}
 
@@ -519,9 +522,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					});
 
 					this.$resetFormMedia();
-					this.filterPerTag(
+					this.filteringTheMedia(
 						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name
+						this.filterPerTagChoise.name,
+						this.filterPerTypeMedia
 					);
 				}
 
@@ -564,11 +568,14 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			});
 		},
 
-		filterPerTag(id, tagChoice) {
+		filteringTheMedia(id, tagChoice, type = null, typeClicked = false) {
 			this.filterPerTagChoise.id = id;
 			this.filterPerTagChoise.name = tagChoice;
+			this.filterPerTypeMedia = type || this.filterPerTypeMedia;
+
 			this.filterMedias = null;
 
+			// Personalizando a Tag selecionada
 			this.tags.forEach((tag) => (tag.filter = false));
 
 			this.tags.find((tag) => {
@@ -577,14 +584,34 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				}
 			});
 
+			// Realizando o filtro
 			if (tagChoice !== 'todos') {
-				this.filterMedias = this.medias.filter(
-					(media) => media.tag == tagChoice
-				);
+				this.filteringPerTag(tagChoice);
+
+				if (this.filterPerTypeMedia) {
+					this.filteringPerTypeMedia(this.filterPerTypeMedia);
+				}
 				return;
 			}
 
 			this.filterMedias = this.medias;
+
+			if (!typeClicked) return this.filterPerTypeMedia = null;
+
+			if (this.filterPerTypeMedia) {
+				this.filteringPerTypeMedia(this.filterPerTypeMedia);
+			}
+
+		},
+
+		filteringPerTag(tag) {
+			this.filterMedias = this.medias.filter((media) => media.tag == tag);
+		},
+
+		filteringPerTypeMedia(type) {
+			this.filterMedias = this.filterMedias.filter(
+				(media) => media.type == type
+			);
 		},
 
 		// Type List Json
@@ -627,7 +654,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 		deleteArchivesListJson() {
 			this.formMedia.value.list.forEach((_item) => {
-				if (_item.type === 'archive' && typeof _item.one === 'string' && _item.one.length) {
+				if (
+					_item.type === 'archive' &&
+					typeof _item.one === 'string' &&
+					_item.one.length
+				) {
 					this.listArchiveMediaDelete.push(_item.one);
 				}
 			});

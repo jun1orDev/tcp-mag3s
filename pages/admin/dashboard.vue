@@ -16,12 +16,30 @@
 
 			<div v-if="doYouHaveMedia" class="py-24">
 				<!-- Filtros -->
-				<div class="mb-8">
-					<h2 class="mb-2 text-base font-semibold">Filtros de Tags:</h2>
-					<div class="flex pb-2 overflow-x-auto">
-						<AdmTag v-for="tag in store.tags" class="w-fit me-3 last:me-0" :tag="tag" />
+				<div class="mb-8 grid grid-cols-[minmax(200px,1fr)_auto] gap-5">
+					<div>
+						<h2 class="mb-2 text-base font-semibold">Filtre por Tags:</h2>
+						<div class="flex pb-2 overflow-x-auto">
+							<AdmTag v-for="tag in store.tags" class="w-fit me-3 last:me-0" :tag="tag" />
+						</div>
+					</div>
+
+					<div>
+						<h2 class="mb-2 text-base font-semibold">Filtre por Tipo de mídia:</h2>
+
+						<UFormGroup class="block mb-2" name="type" size="xl">
+							<USelectMenu id="type" name="type" option-attribute="name" v-model="store.filterPerTypeMedia"
+								:options="store.typesMediaForm" value-attribute="value" placeholder="selecione aqui..." :trailing="false"
+								icon="i-material-symbols-filter-alt" size="xl" @change="store.filteringTheMedia(
+									store.filterPerTagChoise.id,
+									store.filterPerTagChoise.name,
+									store.filterPerTypeMedia,
+									true
+								);" />
+						</UFormGroup>
 					</div>
 				</div>
+
 
 				<!-- Lista das mídias cadastradas -->
 				<div class="mb-8">

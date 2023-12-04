@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<div class="flex items-center justify-between">
-			<h2 class="mb-2 text-lg font-bold">API da aplicação:</h2>
+			<h2 class="mb-2 text-lg font-bold">Mídias Cadastradas:</h2>
 			<h3>
 				<UBadge :ui="{ rounded: 'rounded-full' }" size="xs" color="green" :label="store.totalMidias + ' Mídias'"
 					class="font-bold" />
 			</h3>
 		</div>
-		<div v-for="media in store.filterMedias" :key="media.id"
-			class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 transition-shadow ease-in-out duration-500">
+		<div v-if="store.totalMidias" v-for="media in store.filterMedias" :key="media.id"
+			class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 animate__animated animate__fadeInUp" v-auto-animate>
 			<div>
 				<small class="text-xs text-green-500">Nome do conteúdo:</small>
 				<p class="line-clamp-1">{{ media.name }}</p>
@@ -46,6 +46,13 @@
 			<div class="absolute right-0 top-0 rounded-e-xl w-[10px] h-full" :class="setTypesMediaStyle(media.type)"></div>
 			<div v-if="media.value === null || media.value === undefined"
 				class="absolute -top-1 -left-1 h-3 w-3 rounded-full bg-red-600 animate-ping"></div>
+		</div>
+
+		<div v-else class="flex flex-col items-center justify-center animate__animated animate__tada">
+			<UIcon name="i-material-symbols-sad-tab-rounded" class="w-20 h-20 text-red-500 opacity-95" />
+				<div class="text-xl text-gray-500">
+					<p>nenhuma mídia encontrada!</p>
+				</div>
 		</div>
 
 		<!-- Modal para descrição da mídia -->
