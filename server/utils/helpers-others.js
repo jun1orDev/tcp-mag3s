@@ -716,7 +716,7 @@ export const listSchemaDataMedia = [
 		name: 'faq_questions_list',
 		description: 'Lista com perguntas e respostas do Faq',
 		value:
-			'{"list":[{"one": "Por que precisam do meu CPF?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate"},{"one": "Meus dados bancários estão seguros?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate"}]}',
+			'{"list":[{"one": "Por que precisam do meu CPF?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"},{"one": "Meus dados bancários estão seguros?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"}]}',
 		tag: 'faq',
 		type: typesMedia[7],
 	},
