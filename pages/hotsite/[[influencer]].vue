@@ -45,6 +45,10 @@ const bgImageSessionTwo = computed(() => {
 });
 
 
+definePageMeta({
+	middleware: process.client ? ['chosen-influencer'] : undefined
+});
+
 </script>
 
 <style scoped>

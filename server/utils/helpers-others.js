@@ -714,7 +714,7 @@ export const listSchemaDataMedia = [
 		name: 'influencer_race_hotsite_list',
 		description: 'Lista da corrida dos influencers',
 		value:
-			'{"list":[{"one": "", "two": "cremosinho", "type": "archive"}]}',
+			'{"list":[{"one": "", "two": "cremosinha", "type": "archive"}, {"one": "", "two": "cremosinho", "type": "archive"}]}',
 		tag: 'hotsite',
 		type: typesMedia[7],
 	},

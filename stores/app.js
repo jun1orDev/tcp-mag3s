@@ -1,5 +1,7 @@
 import { useStoreIncentive } from './incentive';
 
+import { generateRandomNumber } from '../utils/helpers';
+
 export const useStoreApp = defineStore('storeApp', {
 	// arrow function recommended for full type inference
 	state: () => {
@@ -21,6 +23,7 @@ export const useStoreApp = defineStore('storeApp', {
 				labelButton: '',
 				typeAction: '',
 			},
+			influencerChosen: null,
 			loading: false,
 		};
 	},
@@ -206,6 +209,23 @@ export const useStoreApp = defineStore('storeApp', {
 				default:
 					console.log('o modal foi fechado apenas!');
 					break;
+			}
+		},
+
+		// Chosen Influencer Hotsite
+		chosenInfluencer(influencer) {
+			this.influencerChosen =
+				this.contentApp.influencer_race_hotsite_list.list.find(
+					(item) => item.two === influencer
+				);
+
+			if (!influencer) {
+				this.influencerChosen =
+					this.contentApp.influencer_race_hotsite_list.list[
+						generateRandomNumber(
+							this.contentApp.influencer_race_hotsite_list.list.length - 1
+						)
+					];
 			}
 		},
 	},

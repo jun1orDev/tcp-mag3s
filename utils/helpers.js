@@ -46,3 +46,9 @@ export function getCookie(name) {
 	// Return null if the cookie is not found
 	return null;
 }
+
+export function generateRandomNumber(maximum) {
+	// Math.random() generates a number between 0 (inclusive) and 1 (exclusive)
+	// We multiply it by the maximum value and use Math.floor() to round down
+	return Math.floor(Math.random() * (maximum + 1));
+}

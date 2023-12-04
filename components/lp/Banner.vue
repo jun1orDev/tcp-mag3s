@@ -17,17 +17,17 @@
 			<!-- Influencer -->
 			<UContainer class="absolute bottom-[10%] lg:bottom-[20%] z-10">
 
-				<div class="absolute left-0 bottom-1/2 lg:flex items-end">
+				<div v-if="store.influencerChosen" class="absolute left-0 bottom-1/2 lg:flex items-end">
 					<!-- Imagem -->
 					<div class="animate__animated animate__zoomIn">
-						<UAvatar src="/imgs/lp/influencer.jpg" alt="Avatar" size="4xl" :ui="configInfluencer" class="" />
+						<UAvatar :src="influencerImage" alt="Avatar" size="4xl" :ui="configInfluencer" class="" />
 						<div class="absolute w-20 h-20 lg:w-36 lg:h-36 border-8 rounded-full top-0" :style="borderColor"></div>
 					</div>
 
 					<!-- Descrição -->
 					<div class="fm1 ms-2 mb-4">
 						<p class="animate__animated animate__fadeInDown">Influencer:</p>
-						<p class="animate__animated animate__fadeInUp">#nomedoinfluencer</p>
+						<p class="animate__animated animate__fadeInUp">#{{ influencerName }}</p>
 					</div>
 				</div>
 
@@ -58,6 +58,18 @@ const logoMain = computed(() => {
 
 const brandMain = computed(() => {
 	return `${pathAssets}${app.brand_image_five}`;
+});
+
+const influencerImage = computed(() => {
+	if (store.influencerChosen.one) {
+		return `${pathAssets}${store.influencerChosen.one}`;
+	} else {
+		return `/imgs/lp/influencer.jpg`;
+	}
+});
+
+const influencerName = computed(() => {
+	return `${store.influencerChosen.two}`;
 });
 
 const colorText = computed(() => {
