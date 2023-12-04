@@ -1,6 +1,6 @@
 import { DataTypes, Model, UUIDV4 } from 'sequelize';
 
-export class MediasModel extends Model { }
+export class MediasModel extends Model {}
 
 const config = useRuntimeConfig();
 
@@ -40,6 +40,10 @@ MediasModel.init(
 						// Boolean
 						case config.typesMedia[6]:
 							return switchTextToBoolean(rawValue);
+
+						// Json
+						case config.typesMedia[7]:
+							return JSON.parse(rawValue);
 
 						// Text / Link / Color
 						default:

@@ -29,7 +29,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			formMedia: {
 				id: null,
 				name: '',
-				value: '',
+				value: null,
 				valueFilesMedia: null,
 				valueBoolean: [
 					{
@@ -45,6 +45,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				],
 				tagSelected: null,
 				typeMS: null,
+				typeJsonMS: 'text',
 				typesMedia: [
 					{ name: 'texto', value: 'text' },
 					{ name: 'link', value: 'link' },
@@ -53,6 +54,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					{ name: 'ícone', value: 'icon' },
 					{ name: 'data/hora', value: 'datetime' },
 					{ name: 'verdadeiro/falso', value: 'boolean' },
+					{ name: 'lista', value: 'json' },
+				],
+				typesMediasJson: [
+					{ name: 'texto', value: 'text' },
+					{ name: 'arquivo/imagem', value: 'archive' },
 				],
 				newTag: {
 					choise: 0,
@@ -75,6 +81,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 	getters: {
 		typesMediaForm: (state) => state.formMedia.typesMedia,
+		typesMediaJsonForm: (state) => state.formMedia.typesMediasJson,
+		typesMediaJsonTextOrFile: (state) => {
+			if (state.formMedia.typeJsonMS === 'text') return true;
+			return false;
+		},
 		totalMidias: (state) => state.filterMedias.length,
 		typeMediaSelectedForm: (state) => state.formMedia.typeMS,
 		newTag: (state) => state.formMedia.newTag,
@@ -136,7 +147,6 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					icon: `i-material-symbols-person-check-outline-rounded`,
 					timeout: 3500,
 				});
-
 			} catch (error) {
 				toast.add({
 					id: 'show_status_login_error',
@@ -150,7 +160,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 			this.loading = false;
 		},
-		
+
 		async getContent(useToast) {
 			const toast = useToast();
 
@@ -200,6 +210,19 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				}
 			}
 
+			// Arquivos em listas json
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value.list.forEach((element, index) => {
+					if (typeof element.one === 'object') {
+						for (const file of element.one) {
+							formData.append(`valueJson-${index}`, file);
+						}
+
+						element.one = '';
+					}
+				});
+			}
+
 			const data = {
 				name: this.formMedia.name,
 				value: this.formMedia.value,
@@ -207,6 +230,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				type: this.formMedia.typeMS,
 				newtag: this.formMedia.newTag.choise,
 			};
+
+			// Caso a mídia seja uma lista
+			if (data.type === 'json') {
+				data.value = this.isMediaListJson(data);
+			}
 
 			for (const item in data) {
 				formData.append(item, data[item]);
@@ -290,8 +318,24 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				this.listArchiveMediaDelete = [];
 			}
 
-			this.formMedia.value = null;
+			// Caso a mídia seja uma lista para resetar
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value = { list: [] };
+				this.newItemListJson();
+			} else this.formMedia.value = null;
+
 			this.listArchiveMedia = [];
+		},
+
+		$resetFormMediaValueJson() {
+			this.formMedia.valueFilesMedia = null;
+
+			this.formMedia.value.list.forEach((item) => {
+				item.type = this.formMedia.typeJsonMS;
+			});
+
+			this.formMedia.value = { list: [] };
+			this.newItemListJson();
 		},
 
 		$resetChosenMediaDelete() {
@@ -398,6 +442,10 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			} else {
 				this.formMedia.value = booleanToString(media.value);
 			}
+
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.typeJsonMS = this.formMedia.value.list[0].type;
+			}
 		},
 
 		async putEditMedia(useToast) {
@@ -405,15 +453,30 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			this.loading = true;
 			let formData = new FormData();
 
+			// tipo de mídia no formato de arquivo
 			if (this.formMedia.valueFilesMedia) {
 				for (const file of this.formMedia.valueFilesMedia) {
 					formData.append('value', file);
 				}
 			}
 
+			// Arquivos em listas json
+			if (this.formMedia.typeMS === 'json') {
+				this.formMedia.value.list.forEach((element, index) => {
+					if (typeof element.one === 'object') {
+						for (const file of element.one) {
+							formData.append(`valueJson-${index}`, file);
+						}
+
+						element.one = '';
+					}
+				});
+			}
+
 			const data = {
 				id: this.formMedia.id,
 				name: this.formMedia.name,
+				value: this.formMedia.value,
 				tag: this.formMedia.tagSelected,
 				type: this.formMedia.typeMS,
 				newtag: this.formMedia.newTag.choise,
@@ -423,8 +486,9 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 				data.value_list_delete = this.listArchiveMediaDelete.join(';');
 			}
 
-			if (this.formMedia.value) {
-				data.value = this.formMedia.value;
+			// Caso a mídia seja uma lista
+			if (data.type === 'json') {
+				data.value = this.isMediaListJson(data);
 			}
 
 			for (const item in data) {
@@ -524,6 +588,28 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			this.filterMedias = this.medias;
+		},
+
+		// Type List Json
+		isMediaListJson(data) {
+			if (data.type !== 'json') return;
+			return JSON.stringify(this.formMedia.value);
+		},
+
+		newItemListJson() {
+			this.formMedia.value.list.push({
+				one: '',
+				two: '',
+				type: this.formMedia.typeJsonMS,
+			});
+		},
+
+		removeItemListJson(index) {
+			this.formMedia.value.list.splice(index, 1);
+
+			if (!this.formMedia.value.list.length) {
+				this.newItemListJson();
+			}
 		},
 	},
 });

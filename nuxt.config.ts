@@ -7,6 +7,7 @@ const typeMediaDefault = [
 	'icon',
 	'datetime',
 	'boolean',
+	'json',
 ];
 
 export default defineNuxtConfig({
@@ -55,7 +56,7 @@ export default defineNuxtConfig({
 			pathAssets: '',
 
 			// Incentive Campaign API Public
-			ApiIncentiveClientId: 'oi',
+			ApiIncentiveClientId: '',
 			ApiIncentiveClientSecret: '',
 			ApiIncentiveKeyValue: '',
 			ApiIncentiveReferral: '',

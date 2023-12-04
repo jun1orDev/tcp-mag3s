@@ -11,13 +11,8 @@ export default defineEventHandler(async (event) => {
 	// verify user loggin
 	userIsLoggedIn(event);
 
-	// create media directory if it doesn't exist
-	// if (!fs.existsSync('public/uploads')) {
-	// 	fs.mkdirSync(path.join('public', 'uploads'));
-	// }
-
 	let validArchive = false;
-	const { fields, form, files } = await readFiles(event, {
+	let { fields, form, files } = await readFiles(event, {
 		includeFields: true,
 		multiples: true,
 		maxFiles: 10,
@@ -46,6 +41,14 @@ export default defineEventHandler(async (event) => {
 	const createNewTag = Boolean(+fieldsSingle.newtag);
 	const type = fieldsSingle.type;
 
+	// Type json list
+	const filesJson = [];
+	if (type === 'json' && Object.keys(files).length > 0) {
+		for (const file in files) {
+			filesJson.push({ archive: files[file][0], posArr: file.split('-')[1] });
+		}
+		files.value = filesJson;
+	}
 	// ⬇️ Verify empty inputs ⬇️
 
 	// Name
@@ -132,15 +135,13 @@ export default defineEventHandler(async (event) => {
 	// Save media archive
 	let listFiles = [];
 	if (files.value) {
-		for (const file of files.value) {
+		for (const fileOrigin of files.value) {
+			const file = type === 'json' ? fileOrigin.archive : fileOrigin;
 			const extFile = file.mimetype.split('/')[1];
 
 			const fileName = `${Date.now()}-${file.newFilename}-${
 				file.mimetype.split('/')[0]
 			}.${extFile}`;
-
-			// const newPath = `${path.join('public', 'uploads', fileName)}`;
-			// fs.copyFileSync(file.filepath, newPath);
 
 			const bucket = googleCloudStorage.bucket(config.gcsBucketname);
 			const fileUp = bucket.file(
@@ -168,9 +169,32 @@ export default defineEventHandler(async (event) => {
 				console.log('Arquivo enviado com sucesso para o GCS');
 			});
 
-			listFiles.push(fileName);
+			if (type === 'json') {
+				listFiles.push({ archive: fileName, posArr: fileOrigin.posArr });
+			} else {
+				listFiles.push(fileName);
+			}
 		}
-		value = listFiles;
+
+		// Caso as imagem sejam de uma lista
+		if (type === 'json') {
+			const valueMediaJson = listFiles;
+
+			let newValue = {
+				list: JSON.parse(value).list.map((element, index) => {
+					let media = valueMediaJson.find((media) => +media.posArr === index);
+					return {
+						one: media ? media.archive : '',
+						two: element.two,
+						type: 'archive',
+					};
+				}),
+			};
+
+			value = JSON.stringify(newValue);
+		} else {
+			value = listFiles;
+		}
 	}
 
 	// Create new media

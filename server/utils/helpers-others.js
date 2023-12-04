@@ -28,7 +28,7 @@ export function toLetterFisrtUperCase(str) {
 		.join(' ');
 }
 
-// [0]: text, [1]: link, [2]: color, [3]: archive, [4]: icon, [5]: datatime, [6]: boolean
+// [0]: text, [1]: link, [2]: color, [3]: archive, [4]: icon, [5]: datatime, [6]: boolean, [7]: json
 const { typesMedia } = useRuntimeConfig();
 
 export const listSchemaDataMedia = [
@@ -101,37 +101,37 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 
-	// Sessions
+	// App
 	{
 		name: 'sessions_image_one',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_two',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Rabiscadinha)',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_three',
 		description: 'Imagem que representa um logo, como exemplo o WhatsApp.',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_four',
 		description: 'Imagem que representa um logo representativo (1).',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_five',
 		description: 'Imagem que representa um logo representativo (2).',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 
@@ -139,7 +139,7 @@ export const listSchemaDataMedia = [
 		name: 'sessions_title_one',
 		description: 'Título da seção de números premiados.',
 		value: 'Número premiado de hoje:',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -147,7 +147,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Título da seção de detalhes dos premios referente a rabiscadinha.',
 		value: 'Rabiscadinha',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -155,28 +155,28 @@ export const listSchemaDataMedia = [
 		description:
 			'Título da seção de detalhes dos premios referente ao número premiado.',
 		value: 'Número premiado:',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_title_four',
 		description: 'Título da seção de termos.',
 		value: 'TERMOS DE USO E POLÍTICA DE PRIVACIDADE',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_title_five',
 		description: 'Título do Regulamento.',
 		value: 'Regulamento',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_title_six',
 		description: 'Título do Footer.',
 		value: 'Insira um texto.',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -184,7 +184,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Subtítulo da seção localizado na lista dos prêmios (sorteio) do ganhador.',
 		value: 'Número da sorte',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -192,7 +192,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Subtítulo da seção localizado na lista dos prêmios (rabiscadinha) do ganhador.',
 		value: 'Rabiscadinha',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -201,7 +201,7 @@ export const listSchemaDataMedia = [
 			'Subtítulo da seção localizado no detalhes-premios do ganhador.',
 		value:
 			'Lembre-se: mantenha seu cadastro sempre atualizado pra nossa equipe poder entregar seu prêmio!',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -209,14 +209,14 @@ export const listSchemaDataMedia = [
 		description:
 			'Subtítulo da seção localizado no detalhes-premios do ganhador, como exemplo para dúvidas.',
 		value: 'Dúvidas? É só entrar em contato:',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_five',
 		description: 'Informações de contato.',
 		value: '(11) 91221 3445',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -224,35 +224,35 @@ export const listSchemaDataMedia = [
 		description:
 			'Ultimo texto da seção localizado no detalhes-premios do ganhador.',
 		value: '*Este item não é reembolsável.',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_seven',
 		description: 'Texto referente aos termos.',
 		value: 'Insira os termos',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_eight',
 		description: 'Texto referente a Política de Privacidae.',
 		value: 'Insira a Política de Privacidade',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_nine',
 		description: 'Texto referente ao Regulamento.',
 		value: 'Insira texto do Regulamento',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'sessions_subtitle_teen',
 		description: 'e-mail.',
 		value: 'Insira o e-mail localizado no footer',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -260,7 +260,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto de dentro dos botões de filtro para a tela de meus prêmios.',
 		value: 'apenas rabiscadinhas',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -268,7 +268,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto de dentro dos botões de filtro para a tela de meus prêmios. ',
 		value: 'apenas sorteios',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -276,7 +276,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto de dentro dos botões de filtro para a tela de meus prêmios. ',
 		value: 'todos os sorteios',
-		tag: 'sessions',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 
@@ -285,65 +285,65 @@ export const listSchemaDataMedia = [
 		name: 'banner_background_card_one',
 		description:
 			'Imagem do Banner principal que está localizado como o primeiro banner da página.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_two',
 		description: 'Imagem do Banner secundário, localizado na página Hub.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_three',
 		description: 'Imagem do Card localizado ao lado esquerdo da página.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_four',
 		description: 'Imagem do Card localizado ao lado direito da página',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_one',
 		description: 'Primeira imagem localizada dentro do Banner principal.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_two',
 		description:
 			'Primeira imagem localizada dentro do Banner secundário, localizado na página Hub.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_three',
 		description: 'Imagem presente dentro do Banner destacado',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_four',
 		description:
 			'Imagem localizada dentro do Banner Blog (último Banner da página Hub).',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_scrathcard_two',
 		description:
 			'Imagem dentro no Banner secundário, localizada ao lado da quantidade de raspadinhas restantes.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_text_card_title_one',
 		description: 'Título do Banner principal do hub.',
 		value: 'Fique atento!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -351,28 +351,28 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto em primeira posição dentro do Banner secundário que contém raspadinhas.',
 		value: 'Está com sorte?',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_title_three',
 		description: 'Título localizado dentro do Card fixado ao lado esquerdo.',
 		value: 'Último sorteio',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_title_four',
 		description: 'Título localizado dentro do Card fixado ao lado direito.',
 		value: 'Próximos sorteios',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_title_five',
 		description: 'Título do banner que não contém raspadinhas disponíveis.',
 		value: 'Sem Rabiscadinhas?',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -380,28 +380,28 @@ export const listSchemaDataMedia = [
 		description:
 			'Título do Banner principal do hub em que o próximo sorteio já tenha sido realizado.',
 		value: 'O Prêmio já saiu!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_subtitle_one',
 		description: 'Subtitulo localizado dentro do Banner principal.',
 		value: 'Acompanhe a contagem regressiva pro sorteio de hoje e boa sorte!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_subtitle_two',
 		description: 'Subtitulo localizado dentro do Banner secundário.',
 		value: 'Você tem rabiscadinhas!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'banner_text_card_subtitle_three',
 		description: 'Subtitulo do banner quando o usuário não possui raspadinhas.',
 		value: 'Não se preocupe, logo mais você terá mais chances!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -409,7 +409,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Subtitulo do banner dentro do Banner principal em que o próximo sorteio já tenha sido realizado.',
 		value: 'Quer saber se você foi o sortudo? É só tocar pra revelar!',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -417,7 +417,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto abaixo da imagem referente a quantidade de raspadinhas.',
 		value: 'Rabiscadinhas',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -425,7 +425,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Subtitulo do (clique de redirecionamento) dentro Card fixado ao lado esquerdo.',
 		value: 'Revelar prêmio',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -433,7 +433,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Ultimo texto de (clique de redirecionamento) localizado ao final do Banner secundário.',
 		value: 'Rabiscar agora',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -441,7 +441,7 @@ export const listSchemaDataMedia = [
 		description:
 			'texto de (clique de redirecionamento) no botão do banner principal quando um sorteio já foi realizado.',
 		value: 'Revelar agora',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -449,7 +449,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto descritivo da data de expiração dentro do Banner Principal que revela o prêmio',
 		value: 'Números válidos até',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -457,7 +457,7 @@ export const listSchemaDataMedia = [
 		description: 'Texto dentro do Banner Destacado',
 		value:
 			'Toque aqui pra visualizar os prêmios que você já ganhou no seu Fiel da Sorte.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -465,7 +465,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto localizado dentro do Banner Blog, fixado ao final do Hub.',
 		value: 'Ganhadores do Fiel da Sorte: conheça suas histórias tocando aqui.',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -473,7 +473,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Insira um link de redirecionamento, ficará fixado dentro do Banner Blog.',
 		value: 'https://blog.fieldasorte.com.br/',
-		tag: 'banner',
+		tag: 'app',
 		type: typesMedia[1],
 	},
 
@@ -577,21 +577,21 @@ export const listSchemaDataMedia = [
 		description:
 			'Título principal do modal fixado dentro da página revelar prêmios.',
 		value: 'Boa sorte!',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'modal_text_prize_title_two',
 		description: 'Título informando retorno da raspadinha negativo.',
 		value: 'Não foi dessa vez...',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'modal_text_prize_title_three',
 		description: 'Título informando retorno da raspadinha positivo.',
 		value: 'Parabéns!',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -599,7 +599,7 @@ export const listSchemaDataMedia = [
 		description: 'Subtitulo do modal fixado dentro da página revelar prêmios.',
 		value:
 			'Se a combinação dos números sorteados bater com algum dos seus números, você ganhou!',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -608,7 +608,7 @@ export const listSchemaDataMedia = [
 			'Subtitulo do modal da página revelar-premio com retorno negativo.',
 		value:
 			'Continue atento aos sorteios, aqui no Fiel da Sorte todo dia tem ganhador!',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -617,14 +617,14 @@ export const listSchemaDataMedia = [
 			'Subtitulo do modal da página revelar-premio com retorno positivo.',
 		value:
 			'Seu número da sorte foi contemplado! Lembre-se: Mantenha seu cadastro atualizado que nossa equipe vai entrar em contato em breve!',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
 		name: 'modal_text_prize_label_one',
 		description: 'Texto dentro do botão da página revelar-premio.',
 		value: 'Revelar resultado',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -632,7 +632,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto dentro do botão da página revelar-premio com retorno negativo.',
 		value: 'voltar',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
@@ -640,7 +640,7 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto dentro do botão da página revelar-premio com retorno positivo.',
 		value: 'ver detalhes',
-		tag: 'modal',
+		tag: 'app',
 		type: typesMedia[0],
 	},
 
@@ -709,5 +709,15 @@ export const listSchemaDataMedia = [
 		description: 'Imagem de fundo das seções do hotsite versão mobile.',
 		tag: 'hotsite',
 		type: typesMedia[3],
+	},
+
+	// Faq
+	{
+		name: 'faq_questions_list',
+		description: 'Lista com perguntas e respostas do Faq',
+		value:
+			'{"list":[{"one": "Por que precisam do meu CPF?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate"},{"one": "Meus dados bancários estão seguros?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate"}]}',
+		tag: 'faq',
+		type: typesMedia[7],
 	},
 ];
