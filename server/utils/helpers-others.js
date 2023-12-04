@@ -710,6 +710,14 @@ export const listSchemaDataMedia = [
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
+	{
+		name: 'influencer_race_hotsite_list',
+		description: 'Lista da corrida dos influencers',
+		value:
+			'{"list":[{"one": "", "two": "cremosinho", "type": "archive"}]}',
+		tag: 'hotsite',
+		type: typesMedia[7],
+	},
 
 	// Faq
 	{
