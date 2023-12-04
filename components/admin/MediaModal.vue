@@ -185,9 +185,9 @@
 										<UTextarea :id="`valueOne-${index}`" type="text" placeholder="Digite aqui..." size="xl" :rows="1"
 											v-model="store.formMedia.value.list[index].one" />
 									</UFormGroup>
-									<div v-else>
+									<div v-else class="grid gap-4 grid-cols-[120px_1fr] mb-4">
 										<div>
-											<img :src="`${pathAssets}${store.formMedia.value.list[index].one}`" class="w-[120px]">
+											<img :src="`${pathAssets}${store.formMedia.value.list[index].one}`" onerror="this.src='/imgs/lp/influencer.jpg'">
 										</div>
 										<UFormGroup class="block mb-4" label="Insira a imagem:" :name="`valueOne-${index}`" size="xl"
 											required>
@@ -296,6 +296,7 @@ const handleFileUpload = (event) => {
 }
 
 const handleFileUploadMultiple = (event, index) => {
+	store.deleteArchiveListJson(index);
 	store.formMedia.value.list[index].one = event.target.files || event.dataTransfer.files;
 }
 

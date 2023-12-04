@@ -23,44 +23,40 @@ export default defineEventHandler(async (event) => {
 		});
 
 		if (Boolean(media)) {
-			if (media.type === config.typesMedia[3]) {
+			const typeMediaArchive = media.type === config.typesMedia[3];
+			const typeMediaJson = media.type === config.typesMedia[7];
+
+			if (typeMediaArchive || typeMediaJson) {
 				if (media.value) {
-					media.value.forEach(async (mediaFile) => {
-						// const hasMediaExists = fs.existsSync(`public/uploads/${mediaFile}`);
+					let medias;
 
-						// if (hasMediaExists) fs.unlinkSync(`public/uploads/${mediaFile}`);
+					if (typeMediaArchive) medias = media.value;
+					if (typeMediaJson) {
+						medias = [];
+						media.value.list.forEach((item) => {
+							if (item.type === 'archive') {
+								medias.push(item.one);
+							}
+						});
+					}
 
-						const bucket = googleCloudStorage.bucket(config.gcsBucketname);
-						const fileUp = bucket.file(
-							`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${mediaFile}`
-						);
+					if (medias) {
+						medias.forEach(async (mediaFile) => {
+							const bucket = googleCloudStorage.bucket(config.gcsBucketname);
+							const fileUp = bucket.file(
+								`${config.gcsSubfolder}${config.gcsSubfolderEnvironment}${mediaFile}`
+							);
 
-						try {
-							await fileUp.delete();
-							console.log('Arquivo excluído com sucesso');
-						} catch (error) {
-							console.error(`Erro ao excluir a imagem: ${error}`);
-						}
-
-						// const stream = fileUp.createWriteStream({
-						// 	metadata: {
-						// 		contentType: file.mimetype, // Tipo MIME do arquivo
-						// 	},
-						// });
-
-						// stream.end(fs.readFileSync(file.filepath));
-
-						// stream.on('error', (error) => {
-						// 	console.error(`Erro ao enviar arquivo para o GCS: ${error}`);
-						// });
-
-						// stream.on('finish', () => {
-						// 	console.log('Arquivo enviado com sucesso para o GCS');
-						// });
-					});
+							try {
+								await fileUp.delete();
+								console.log('Arquivo excluído com sucesso');
+							} catch (error) {
+								console.error(`Erro ao excluir a imagem: ${error}`);
+							}
+						});
+					}
 				}
 			}
-
 			await media.destroy();
 
 			await getMedias();

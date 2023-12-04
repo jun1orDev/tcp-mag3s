@@ -47,12 +47,12 @@ import { useStoreAdmin } from '~/stores/admin';
 
 definePageMeta({
 	middleware: ["login"]
-})
+});
 
-const store = useStoreAdmin()
-const toast = useToast()
-const passView = ref('password')
-const passIcon = ref('i-material-symbols-visibility-rounded')
+const store = useStoreAdmin();
+const toast = useToast();
+const passView = ref('password');
+const passIcon = ref('i-material-symbols-visibility-rounded');
 
 function togglePassView() {
 	switch (passView.value) {
@@ -75,8 +75,7 @@ useHead({
 })
 
 onMounted(() => {
-	const cookie = useCookie();
-	if (!cookie.value && store.logout)
+	if (store.logout) {
 		toast.add({
 			id: 'show_status_logout',
 			color: `red`,
@@ -86,6 +85,7 @@ onMounted(() => {
 			timeout: 3500,
 		});
 
-	store.logout = false;
+		store.logout = false;
+	}
 })
 </script>

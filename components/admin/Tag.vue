@@ -1,6 +1,6 @@
 <template>
 	<div class="px-6 py-3 border hover:border-green-500 rounded-lg cursor-pointer shadow-md transition-shadow ease-in-out duration-500"
-		@click="store.filterPerTag(id, name)" :class="colorButtonClick">
+		@click="store.filteringTheMedia(id, name, null, false)" :class="colorButtonClick">
 		<p class="text-sm">{{ name }}</p>
 	</div>
 </template>
