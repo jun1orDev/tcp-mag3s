@@ -16,6 +16,9 @@
 </template>
 
 <script setup>
+import { useStoreAdmin } from '~/stores/admin';
+const store = useStoreAdmin();
+
 const router = useRouter();
 const cookieAuth = useCookie('idUser');
 const items = [
@@ -27,6 +30,7 @@ const items = [
 				// Logout
 				cookieAuth.value = null;
 				router.push({ path: '/admin/login' });
+				store.logout = true;
 			}
 		},
 	]

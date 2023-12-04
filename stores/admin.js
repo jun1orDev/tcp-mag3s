@@ -201,6 +201,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		async postNewMedia(useToast) {
+			const router = useRouter();
 			const toast = useToast();
 			this.loading = true;
 			let formData = new FormData();
@@ -242,54 +243,45 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			try {
-				const { data, error, status } = await useFetch('/api/admin/medias', {
+				const { data, message } = await $fetch('/api/admin/medias', {
 					method: 'post',
 					body: formData,
 					credentials: 'include',
 				});
 
-				if (status.value === 'success') {
-					this.medias.push(data.value.data.media);
-					this.filterMedias = this.medias;
+				this.medias.push(data.media);
+				this.filterMedias = this.medias;
 
-					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
+				if (data.newTag) this.tags.push(data.newTag);
 
-					toast.add({
-						id: 'success_postNewMedia',
-						title: `Tudo certo!`,
-						description: `${data.value.message}`,
-						color: 'green',
-						icon: 'i-material-symbols-check-circle-rounded',
-						timeout: 3500,
-					});
+				toast.add({
+					id: 'success_postNewMedia',
+					title: `Tudo certo!`,
+					description: `${message}`,
+					color: 'green',
+					icon: 'i-material-symbols-check-circle-rounded',
+					timeout: 3500,
+				});
 
-					this.$resetFormMedia();
-					this.filteringTheMedia(
-						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name,
-						this.filterPerTypeMedia
-					);
-				}
-
-				if (status.value === 'error') {
-					toast.add({
-						id: 'error_postNewMedia',
-						title: `Erro: ${error.value.data.statusCode}`,
-						description: `${error.value.data.message}`,
-						color: 'red',
-						icon: 'i-material-symbols-warning-outline-rounded',
-						timeout: 5000,
-					});
-				}
+				this.$resetFormMedia();
+				this.filteringTheMedia(
+					this.filterPerTagChoise.id,
+					this.filterPerTagChoise.name,
+					this.filterPerTypeMedia
+				);
 			} catch (error) {
 				toast.add({
-					id: 'error_postNewMediaAPI',
-					title: `Opss... Algo de errado aconteceu!`,
-					description: `${error}`,
+					id: 'error_postNewMedia',
+					title: `Erro: ${error.response._data.statusCode}`,
+					description: `${error.response._data.message}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 5000,
 				});
+
+				if (error.response._data.data.redirect) {
+					router.push({ path: '/admin/login' });
+				}
 			}
 
 			this.loading = false;
@@ -356,11 +348,12 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		async deleteChosenMedia() {
+			const router = useRouter();
 			const toast = useToast();
 			this.loading = true;
 
 			try {
-				const { data, error, status } = await useFetch('/api/admin/medias', {
+				const { data, message } = await $fetch('/api/admin/medias', {
 					method: 'delete',
 					body: {
 						idMedia: this.chosenMediaDelete.id,
@@ -368,54 +361,45 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					credentials: 'include',
 				});
 
-				if (status.value === 'success') {
-					this.medias = data.value.data.medias;
-					this.filterMedias = data.value.data.medias;
+				this.medias = data.medias;
+				this.filterMedias = data.medias;
 
-					toast.add({
-						id: 'success_deleteMedia',
-						title: `Tudo certo!`,
-						description: `${data.value.message}`,
-						color: 'green',
-						icon: 'i-material-symbols-check-circle-rounded',
-						timeout: 3500,
-					});
+				toast.add({
+					id: 'success_deleteMedia',
+					title: `Tudo certo!`,
+					description: `${message}`,
+					color: 'green',
+					icon: 'i-material-symbols-check-circle-rounded',
+					timeout: 3500,
+				});
 
-					this.$resetChosenMediaDelete();
-					this.filteringTheMedia(
-						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name,
-						this.filterPerTypeMedia
-					);
-				}
-
-				if (status.value === 'error') {
-					toast.add({
-						id: 'error_delteMedia',
-						title: `Erro: ${error.value.data.statusCode}`,
-						description: `${error.value.data.message}`,
-						color: 'red',
-						icon: 'i-material-symbols-warning-outline-rounded',
-						timeout: 5000,
-					});
-
-					if (error.value.data.data.isDelete) {
-						this.medias = error.value.data.data.medias;
-						this.filterMedias = error.value.data.data.medias;
-
-						this.$resetChosenMediaDelete();
-						this.getContent();
-					}
-				}
+				this.$resetChosenMediaDelete();
+				this.filteringTheMedia(
+					this.filterPerTagChoise.id,
+					this.filterPerTagChoise.name,
+					this.filterPerTypeMedia
+				);
 			} catch (error) {
 				toast.add({
-					id: 'error_getContent',
-					title: `Opss... Algo de errado aconteceu!`,
-					description: `${error}`,
+					id: 'error_delteMedia',
+					title: `Erro: ${error.response._data.statusCode}`,
+					description: `${error.response._data.message}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 5000,
 				});
+
+				if (error.response._data.data.redirect) {
+					router.push({ path: '/admin/login' });
+				}
+
+				if (error.response._data.data.isDelete) {
+					this.medias = error.response._data.data.medias;
+					this.filterMedias = error.response._data.data.medias;
+
+					this.$resetChosenMediaDelete();
+					this.getContent();
+				}
 			}
 
 			this.loading = false;
@@ -449,6 +433,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 
 		async putEditMedia(useToast) {
+			const router = useRouter();
 			const toast = useToast();
 			this.loading = true;
 			let formData = new FormData();
@@ -496,58 +481,47 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			}
 
 			try {
-				const { data, error, status } = await useFetch('/api/admin/medias', {
+				const { data, message } = await $fetch('/api/admin/medias', {
 					method: 'put',
 					body: formData,
 					credentials: 'include',
 				});
 
-				if (status.value === 'success') {
-					this.medias = this.medias.filter(
-						(item) => item.id !== data.value.data.media.id
-					);
+				this.medias = this.medias.filter((item) => item.id !== data.media.id);
 
-					this.medias.splice(this.editMediaPosition, 0, data.value.data.media);
-					this.filterMedias = this.medias;
+				this.medias.splice(this.editMediaPosition, 0, data.media);
+				this.filterMedias = this.medias;
 
-					if (data.value.data.newTag) this.tags.push(data.value.data.newTag);
+				if (data.newTag) this.tags.push(data.newTag);
 
-					toast.add({
-						id: 'success_putEditMedia',
-						title: `Tudo certo!`,
-						description: `${data.value.message}`,
-						color: 'sky',
-						icon: 'i-material-symbols-check-circle-rounded',
-						timeout: 3500,
-					});
+				toast.add({
+					id: 'success_putEditMedia',
+					title: `Tudo certo!`,
+					description: `${message}`,
+					color: 'sky',
+					icon: 'i-material-symbols-check-circle-rounded',
+					timeout: 3500,
+				});
 
-					this.$resetFormMedia();
-					this.filteringTheMedia(
-						this.filterPerTagChoise.id,
-						this.filterPerTagChoise.name,
-						this.filterPerTypeMedia
-					);
-				}
-
-				if (status.value === 'error') {
-					toast.add({
-						id: 'error_putEditMedia',
-						title: `Erro: ${error.value.data.statusCode}`,
-						description: `${error.value.data.message}`,
-						color: 'red',
-						icon: 'i-material-symbols-warning-outline-rounded',
-						timeout: 5000,
-					});
-				}
+				this.$resetFormMedia();
+				this.filteringTheMedia(
+					this.filterPerTagChoise.id,
+					this.filterPerTagChoise.name,
+					this.filterPerTypeMedia
+				);
 			} catch (error) {
 				toast.add({
-					id: 'error_putEditMediaAPI',
-					title: `Opss... Algo de errado aconteceu!`,
-					description: `${error}`,
+					id: 'error_putEditMedia',
+					title: `Erro: ${error.response._data.statusCode}`,
+					description: `${error.response._data.message}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 5000,
 				});
+
+				if (error.response._data.data.redirect) {
+					router.push({ path: '/admin/login' });
+				}
 			}
 
 			this.loading = false;
@@ -596,12 +570,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 			this.filterMedias = this.medias;
 
-			if (!typeClicked) return this.filterPerTypeMedia = null;
+			if (!typeClicked) return (this.filterPerTypeMedia = null);
 
 			if (this.filterPerTypeMedia) {
 				this.filteringPerTypeMedia(this.filterPerTypeMedia);
 			}
-
 		},
 
 		filteringPerTag(tag) {

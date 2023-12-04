@@ -3,6 +3,9 @@ export const userIsLoggedIn = (event) => {
 		throw createError({
 			statusCode: 401,
 			message: 'Faça o login para continuar!',
+			data: {
+				redirect: true,
+			},
 		});
 	}
 };
