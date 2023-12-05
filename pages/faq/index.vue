@@ -1,14 +1,15 @@
 <template>
 	<AppLayoutBgDefault />
 	<UContainer>
-		<AppOthersCampoPesquisa :inputPlaceholder="store.contentApp.layout_text_input" class="mt-14" />
-
 		<!-- Faq -->
-		<UAccordion v-if="store.faq.list.length" :items="store.faq.list" :ui="{ wrapper: 'flex flex-col w-full' }"
-			class="mt-6">
+		<AppOthersCampoPesquisa :inputPlaceholder="store.contentApp.layout_text_input" class="mt-14"
+			@input="store.filteredFaq(store.searchingValue)" />
+
+		<UAccordion v-if="store.filteredFaq(store.searchingValue).length" :items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="mt-6">
 			<template #default="{ item, index, open }">
 				<UButton color="transparent" variant="ghost" class="border-b"
-					:ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }" :style="[colorText, open && colorTextButton, colorBorder]">
+					:ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
+					:style="[colorText, open && colorTextButton, colorBorder]">
 					<span class="fm3 lg:text-lg">{{ item.one }}</span>
 					<template #trailing>
 						<UIcon name="i-heroicons-chevron-down-20-solid"
@@ -29,7 +30,6 @@
 			<UIcon name="i-material-symbols-deployed-code-alert-outline-sharp" class="w-20 h-20" />
 			<p>Não há FAQ cadastrado no momento!</p>
 		</div>
-
 	</UContainer>
 
 	<!-- Footer informativo -->
@@ -55,11 +55,17 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-
 const { pathAssets } = useRuntimeConfig().public;
 
+// Lógica para pesquisa do Faq
+const handleSearch = () => {
+	store.filteredFaq = store.faq.list.filter((item) => { item.one.toLowerCase().includes(store.searchingValue) });
+};
+
+// Personalização da tela
 const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_three}`;
 });
