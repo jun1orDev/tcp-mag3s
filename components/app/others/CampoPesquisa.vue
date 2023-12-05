@@ -1,22 +1,15 @@
 <template>
 	<div class="flex relative items-center">
-		<UIcon
-			name="i-material-symbols-search-rounded"
-			class="absolute top-1/2 transform -translate-y-1/2 left-3"
-			:style="[iconColorSearch, 'pointer-events: none']"
-		/>
+		<UIcon name="i-material-symbols-search-rounded" class="absolute top-1/2 transform -translate-y-1/2 left-3"
+			:style="[iconColorSearch, 'pointer-events: none']" />
 
-		<input
-			type="text"
-			class="pl-10 pr-4 w-full h-8 rounded-md border-2 bg-transparent"
+		<input v-model="store.searchingValue" type="text" class="pl-10 pr-4 w-full h-8 rounded-md border-2 bg-transparent"
 			:style="[
 				colorTextSearch,
 				colorBorderSearch,
 				'outline: none;',
 				backgroundColor,
-			]"
-			:placeholder="inputPlaceholder"
-		/>
+			]" :placeholder="inputPlaceholder" />
 	</div>
 </template>
 
