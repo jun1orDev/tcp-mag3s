@@ -1,19 +1,36 @@
 <template>
 	<AppLayoutBgDefault />
 	<UContainer>
-		<AppOthersCampoPesquisa :inputPlaceholder="store.contentApp.layout_text_input" class="mt-14" />
-
 		<!-- Faq -->
-		<UAccordion v-if="store.faq.list.length" :items="store.faq.list" :ui="{ wrapper: 'flex flex-col w-full' }"
-			class="mt-6">
+		<AppOthersCampoPesquisa
+			v-model="searchText"
+			:inputPlaceholder="store.contentApp.layout_text_input"
+			class="mt-14"
+			@search="handleSearch"
+		/>
+
+		<UAccordion
+			v-if="filteredFaq.length"
+			:items="filteredFaq"
+			:ui="{ wrapper: 'flex flex-col w-full' }"
+			class="mt-6"
+		>
 			<template #default="{ item, index, open }">
-				<UButton color="transparent" variant="ghost" class="border-b"
-					:ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }" :style="[colorText, open && colorTextButton, colorBorder]">
+				<UButton
+					color="transparent"
+					variant="ghost"
+					class="border-b"
+					:ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
+					:style="[colorText, open && colorTextButton, colorBorder]"
+				>
 					<span class="fm3 lg:text-lg">{{ item.one }}</span>
 					<template #trailing>
-						<UIcon name="i-heroicons-chevron-down-20-solid"
+						<UIcon
+							name="i-heroicons-chevron-down-20-solid"
 							class="w-7 h-7 lg:w-10 lg:h-10 ms-auto transform transition-transform duration-200"
-							:style="[colorText, open && colorTextButton]" :class="[open && 'rotate-180']" />
+							:style="[colorText, open && colorTextButton]"
+							:class="[open && 'rotate-180']"
+						/>
 					</template>
 				</UButton>
 			</template>
@@ -25,21 +42,37 @@
 			</template>
 		</UAccordion>
 
-		<div v-else :style="colorText" class="flex flex-col justify-center items-center mt-20">
-			<UIcon name="i-material-symbols-deployed-code-alert-outline-sharp" class="w-20 h-20" />
+		<div
+			v-else
+			:style="colorText"
+			class="flex flex-col justify-center items-center mt-20"
+		>
+			<UIcon
+				name="i-material-symbols-deployed-code-alert-outline-sharp"
+				class="w-20 h-20"
+			/>
 			<p>Não há FAQ cadastrado no momento!</p>
 		</div>
-
 	</UContainer>
 
 	<!-- Footer informativo -->
-	<div class="p-9 justify-end fixed bottom-0 left-0 right-0 bg-cover" :style="colorText">
+	<div
+		class="p-9 justify-end fixed bottom-0 left-0 right-0 bg-cover"
+		:style="colorText"
+	>
 		<div class="flex flex-col">
-			<p class="fm1 text-[10px] md:text-[14px] text-center mb-3" v-html="app.sessions_title_six"></p>
+			<p
+				class="fm1 text-[10px] md:text-[14px] text-center mb-3"
+				v-html="app.sessions_title_six"
+			></p>
 		</div>
 		<div class="flex items-center justify-center">
 			<div>
-				<img :src="ImgWhatsApp" onerror="this.src='/imgs/whats.png'" class="w-[30px]" />
+				<img
+					:src="ImgWhatsApp"
+					onerror="this.src='/imgs/whats.png'"
+					class="w-[30px]"
+				/>
 			</div>
 			<p class="fm3 ml-2 text-[20px] lg:text-[24px]">
 				{{ app.sessions_subtitle_five }}
@@ -55,10 +88,27 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { ref, computed } from 'vue';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-
 const { pathAssets } = useRuntimeConfig().public;
+
+const searchText = ref('');
+
+// computed para criar um getter dinâmico
+const filteredFaq = computed(() => {
+	console.log(filteredFaq)
+	const searchTerm = searchText.value.toLowerCase();
+
+	// Filtrar a lista com base no texto de pesquisa
+	return store.faq.list.filter((item) => {
+		return (
+			item.one.toLowerCase().includes(searchTerm) ||
+			item.two.toLowerCase().includes(searchTerm)
+		);
+	});
+});
 
 const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_three}`;
@@ -75,6 +125,11 @@ const colorTextButton = computed(() => {
 const colorBorder = computed(() => {
 	return `border-color: ${store.contentApp.colors_border_one}`;
 });
+
+const handleSearch = () => {
+	// Acesse a função emit usando a propriedade context
+	context.emit('search', searchText.value);
+};
 </script>
 
 <style scoped></style>
