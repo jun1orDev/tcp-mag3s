@@ -61,13 +61,6 @@ export const listSchemaDataMedia = [
 		tag: 'layout',
 		type: typesMedia[3],
 	},
-	{
-		name: 'layout_text_input',
-		description: 'Placeholder do Campo Pesquisa',
-		value: 'Qual sua dúvida?',
-		tag: 'layout',
-		type: typesMedia[0],
-	},
 
 	// Brand
 	{
@@ -266,7 +259,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'sessions_button_label_two',
 		description:
-			'Texto de dentro dos botões de filtro para a tela de meus prêmios. ',
+			'Texto de dentro dos botões de filtro para a tela de meus prêmios.',
 		value: 'apenas sorteios',
 		tag: 'app',
 		type: typesMedia[0],
@@ -274,8 +267,15 @@ export const listSchemaDataMedia = [
 	{
 		name: 'sessions_button_label_three',
 		description:
-			'Texto de dentro dos botões de filtro para a tela de meus prêmios. ',
+			'Texto de dentro dos botões de filtro para a tela de meus prêmios.',
 		value: 'todos os sorteios',
+		tag: 'app',
+		type: typesMedia[0],
+	},	
+	{
+		name: 'session_text_input_search',
+		description: 'Placeholder do Campo Pesquisa',
+		value: 'Qual sua dúvida?',
 		tag: 'app',
 		type: typesMedia[0],
 	},
