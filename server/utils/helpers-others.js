@@ -789,6 +789,28 @@ export const listSchemaDataMedia = [
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
+	{
+		name: 'session_background_colors_hotsite_one',
+		description: 'cor de fundo da seção',
+		value: '#E1F32D',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_colors_text_one',
+		description: 'cor de texto da seção',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_background_influencer_race_hotsite',
+		description: 'Imagem de fundo do primeiro colocado da corrida dos influencers',
+		value: '',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+
 
 	// Faq
 	{

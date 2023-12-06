@@ -14,6 +14,9 @@
 
 		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two" :image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo" positionText="right" positionImage="left"/>
 
+		<!-- Influencers Ranking -->
+		<LpInfluencerRace/>
+
 		<!-- Call to action -->
 		<LpCallToAction/>
 	</div>
