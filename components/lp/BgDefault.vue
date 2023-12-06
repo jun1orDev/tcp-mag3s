@@ -14,7 +14,7 @@ let widthWindow = ref(null);
 
 const background = computed(() => {
 	if (widthWindow.value != null && widthWindow.value <= 912) {
-		return `background-image: url('${props.imageMobile}'), url('/imgs/lp/cover_banner.png'); background-color: ${store.contentApp.colors_background_one}`;
+		return `background-image: url('${props.imageMobile}'), url('/imgs/lp/cover_banner_mobile.png'); background-color: ${store.contentApp.colors_background_one}`;
 	}
 
 	if (widthWindow.value != null && widthWindow.value > 912) {

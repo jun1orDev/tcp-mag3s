@@ -10,9 +10,9 @@
 		<LpStepsRegister/>
 
 		<!-- Sesstions -->
-		<LpSession title="R$200.000,00" description="SÃO MAIS DE R$200.000,00 EM PRÊMIOS NAS RASPADINHAS DIGITAIS PRA VOCÊ DESCOBRIR DIRETO NA TELA DO SEU COMPUTADOR E CELULAR" image="/imgs/lp/session_placeholder.png" :bgImage="bgImageSessionOne" :bgImageMobile="bgMobileImageSessionOne" positionText="left" positionImage="right"/>
+		<LpSession :title="app.session_text_title_hotsite_one" :description="app.session_text_description_hotsite_one" :image="app.session_image_hotsite_one" :bgImage="bgImageSessionOne" :bgImageMobile="bgMobileImageSessionOne" positionText="left" positionImage="right"/>
 
-		<LpSession title="RANGE ROVER" description="CONCORRA A UMA RANGE ROVER NO FINAL DA PROMOÇÃO COM SEUS NÚMEROS DA SORTE!" image="/imgs/lp/session_placeholder_2.png" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo" positionText="right" positionImage="left"/>
+		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two" :image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo" positionText="right" positionImage="left"/>
 
 		<!-- Call to action -->
 		<LpCallToAction/>
