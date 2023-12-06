@@ -271,7 +271,7 @@ export const listSchemaDataMedia = [
 		value: 'todos os sorteios',
 		tag: 'app',
 		type: typesMedia[0],
-	},	
+	},
 	{
 		name: 'session_text_input_search',
 		description: 'Placeholder do Campo Pesquisa',

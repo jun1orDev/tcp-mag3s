@@ -1,15 +1,21 @@
 <template>
 	<AppLayoutBgDefault />
 	<UContainer
-		class="flex items-center justify-center py-8 min-h-screen"
+		class="flex items-center justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52"
 	>
-		<div class="grid lg:grid-cols-[400px_1fr] gap-16 items-start justify-center w-screen">
+		<div
+			class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 items-start justify-center w-screen" :class="classGrid"
+		>
 			<!-- brand -->
-			<div class="">
-				<img src="/imgs/lp/landing_cover_image.png" class="w-28 lg:w-auto" />
+			<div class="flex justify-center" v-if="app.config_will_have_image_brand_faq">
+				<img
+					class="w-28 lg:w-auto"
+					:src="imgBrand"
+					onerror="this.src='/imgs/lp/landing_cover_image.png'"
+				/>
 			</div>
 
-			<div class="">
+			<div>
 				<!-- Campo de pesquisa  -->
 				<AppOthersCampoPesquisa
 					:inputPlaceholder="store.contentApp.layout_text_input"
@@ -68,28 +74,28 @@
 
 	<!-- Footer informativo -->
 	<div
-		class="p-9 justify-end fixed bottom-0 left-0 right-0 bg-cover"
-		:style="colorText"
+		class="bg-no-repeat bg-cover bg-center px-6 py-8 lg:py-6 text-center fixed bottom-0 right-0 left-0"
+		:style="[background, colorText]"
 	>
-		<div class="flex flex-col">
+		<div class="flex flex-col text-white relative z-10">
 			<p
 				class="fm1 text-[10px] md:text-[14px] text-center mb-3"
 				v-html="app.sessions_title_six"
 			></p>
-		</div>
-		<div class="flex items-center justify-center">
-			<div>
-				<img
-					:src="ImgWhatsApp"
-					onerror="this.src='/imgs/whats.png'"
-					class="w-[30px]"
-				/>
+
+			<div class="flex items-center justify-center">
+				<div>
+					<img
+						:src="ImgWhatsApp"
+						onerror="this.src='/imgs/whats.png'"
+						class="w-[30px]"
+					/>
+				</div>
+				<p class="fm3 ml-2 text-[20px] lg:text-[24px]">
+					{{ app.sessions_subtitle_five }}
+				</p>
 			</div>
-			<p class="fm3 ml-2 text-[20px] lg:text-[24px]">
-				{{ app.sessions_subtitle_five }}
-			</p>
-		</div>
-		<div>
+
 			<p class="fm3 text-center text-[14px] md:text-[20px] mt-1">
 				{{ app.sessions_subtitle_teen }}
 			</p>
@@ -112,6 +118,11 @@ const handleSearch = () => {
 };
 
 // Personalização da tela
+
+const imgBrand = computed(() => {
+	return `${pathAssets}${store.contentApp.brand_image_five}`;
+});
+
 const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_three}`;
 });
@@ -127,6 +138,17 @@ const colorTextButton = computed(() => {
 const colorBorder = computed(() => {
 	return `border-color: ${store.contentApp.colors_border_one}`;
 });
+
+const background = computed(() => {
+	return `background-image: url('${pathAssets}${store.contentApp.layout_background_modal}'), url('/imgs/fundo_modal_placeholder.png'); background-color: ${store.contentApp.colors_background_one}`;
+});
+
+const classGrid = computed(() => {
+    return {
+        'grid': app.config_will_have_image_brand_faq
+    };
+});
+
 </script>
 
 <style scoped></style>
