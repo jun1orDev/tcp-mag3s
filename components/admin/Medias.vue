@@ -8,7 +8,8 @@
 			</h3>
 		</div>
 		<div v-if="store.totalMidias" v-for="media in store.filterMedias" :key="media.id"
-			class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 animate__animated animate__fadeInUp" v-auto-animate>
+			class="relative grid grid-cols-5 border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 animate__animated animate__fadeInUp"
+			v-auto-animate>
 			<div>
 				<small class="text-xs text-green-500">Nome do conteúdo:</small>
 				<p class="line-clamp-1">{{ media.name }}</p>
@@ -24,7 +25,7 @@
 			<div class="flex flex-col justify-center">
 				<small class="text-xs text-green-500">Valor:</small>
 				<div v-if="isMedia(media.type)">
-					<UButton variant="link" class="p-0 m-0" label="Abrir mídia" />
+					<UButton variant="link" class="p-0 m-0" label="Abrir mídia" @click="openModalMedias(media.value)" />
 				</div>
 				<div v-else-if="isList(media.type)">
 					<p class="line-clamp-1" v-html="media.value.list[0].one"></p>
@@ -50,9 +51,9 @@
 
 		<div v-else class="flex flex-col items-center justify-center animate__animated animate__tada">
 			<UIcon name="i-material-symbols-sad-tab-rounded" class="w-20 h-20 text-red-500 opacity-95" />
-				<div class="text-xl text-gray-500">
-					<p>nenhuma mídia encontrada!</p>
-				</div>
+			<div class="text-xl text-gray-500">
+				<p>nenhuma mídia encontrada!</p>
+			</div>
 		</div>
 
 		<!-- Modal para descrição da mídia -->
@@ -75,6 +76,25 @@
 				<Placeholder class="h-32" />
 			</UCard>
 		</UModal>
+
+		<!-- Modal para mostrar as Mídias do tipo arquivo -->
+		<UModal v-model="isOpenModalMedias">
+			<UCard>
+				<template #header>
+					<div class="flex items-center justify-end uppercase">
+						<UButton color="gray" variant="ghost" label="Fechar" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+							@click="isOpenModalMedias = false" trailing />
+					</div>
+				</template>
+				<div class="p-4">
+					<img v-if="mediaOpen" :src="`${pathAssets}${mediaOpen}`" alt="" srcset="">
+					<div v-else class="flex flex-col justify-center items-center text-red-500">
+						<UIcon name="i-material-symbols-tamper-detection-off-outline-sharp w-20 h-20" />
+						<h3 class="">Mídia não cadastrada!</h3>
+					</div>
+				</div>
+			</UCard>
+		</UModal>
 	</div>
 </template>
 
@@ -82,18 +102,26 @@
 import { useStoreAdmin } from '~/stores/admin';
 
 const store = useStoreAdmin();
-const { typesMedia } = useRuntimeConfig().public;
+const { typesMedia, pathAssets } = useRuntimeConfig().public;
 
 let isOpenModalDescription = ref(false);
+let isOpenModalMedias = ref(false);
 
 let detailsModal = ref({
 	title: '',
 	description: '',
 });
 
+let mediaOpen = ref('');
+
 function openModalDescription(description) {
 	isOpenModalDescription.value = true;
 	detailsModal.value = description;
+}
+
+function openModalMedias(media) {
+	isOpenModalMedias.value = true;
+	mediaOpen = media;
 }
 
 function closeModalDescption() {
