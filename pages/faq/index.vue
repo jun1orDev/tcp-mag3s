@@ -7,13 +7,7 @@
 			class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 items-start justify-center w-screen" :class="classGrid"
 		>
 			<!-- brand -->
-			<div class="flex justify-center" v-if="app.config_will_have_image_brand_faq">
-				<img
-					class="w-28 lg:w-auto"
-					:src="imgBrand"
-					onerror="this.src='/imgs/lp/landing_cover_image.png'"
-				/>
-			</div>
+		<AppOthersImageBrand/>
 
 			<div>
 				<!-- Campo de pesquisa  -->
