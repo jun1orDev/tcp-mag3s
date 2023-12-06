@@ -728,4 +728,12 @@ export const listSchemaDataMedia = [
 		tag: 'faq',
 		type: typesMedia[7],
 	},
+	{
+		name: 'config_will_have_image_brand_faq',
+		description:
+			'Utilizado para exibir ou não a imagem da marca na tela de FAQ',
+		value: 'null',
+		tag: 'faq',
+		type: typesMedia[6],
+	},
 ];
