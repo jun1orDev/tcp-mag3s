@@ -11,11 +11,11 @@
 			</div>
 
 			<!--  Efeito de quebra de seção -->
-			<div class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full animate__animated animate__slideInUp" :style="bgColor">
+			<div v-if="app.config_will_have_effect_banner_main" class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full animate__animated animate__slideInUp" :style="bgColor">
 			</div>
 
 			<!-- Influencer -->
-			<UContainer class="absolute bottom-[10%] lg:bottom-[20%] z-10">
+			<UContainer v-if="app.config_will_have_influencer_race" class="absolute bottom-[10%] lg:bottom-[20%] z-10">
 
 				<div v-if="store.influencerChosen" class="absolute left-0 bottom-1/2 lg:flex items-end">
 					<!-- Imagem -->
@@ -33,7 +33,7 @@
 
 			</UContainer>
 
-			<!-- Imagem de destaque -->
+			<!-- Imagem de destaque (Brand secundário) -->
 			<div class="w-[90%] xl:w-[95%] m-auto animate__animated animate__zoomIn">
 				<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true">
 					<Slide v-for="slide in 1" :key="slide">

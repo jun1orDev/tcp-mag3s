@@ -37,7 +37,15 @@ export const listSchemaDataMedia = [
 		name: 'config_will_have_hotsite',
 		description:
 			'Utilizado para exibir a primeira página da aplicação, que será a landing page ou o hub autenticado.',
-		value: 'null',
+		value: '0',
+		tag: 'config',
+		type: typesMedia[6],
+	},	
+	{
+		name: 'config_will_have_image_brand_session_hotsite',
+		description:
+			'Utilizado para exibir ou não a imagem da marca no conteúdo das telas da aplicação',
+		value: '0',
 		tag: 'config',
 		type: typesMedia[6],
 	},
@@ -718,6 +726,99 @@ export const listSchemaDataMedia = [
 		tag: 'hotsite',
 		type: typesMedia[7],
 	},
+	{
+		name: 'config_will_have_influencer_race',
+		description: 'Habilitar ou não a corrida dos influencers',
+		value: '0',
+		tag: 'hotsite',
+		type: typesMedia[6],
+	},
+	{
+		name: 'config_will_have_effect_banner_main',
+		description: 'Habilitar ou não o efeito do banner principal',
+		value: '0',
+		tag: 'hotsite',
+		type: typesMedia[6],
+	},
+	{
+		name: 'register_steps_title_hotsite',
+		description: 'Título da seção de passo a passo para participar da promoção',
+		value: 'Olha só como é fácil participar',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'register_steps_list_items_hotsite',
+		description: 'Items dos passso a passo para participar da promoção',
+		value:
+			'{"list":[{"one": "Adiquira", "two": "você se cadastra rapidinho e já pode começar sua coleção de figurinhas.", "type": "text"}, {"one": "Concorra", "two": "Cada figurinha te dá números da sorte pra você concorrer a uma viagem até Miami e a chance conhecer seu artista favorito!", "type": "text"}, {"one": "Participe", "two": "Quanto mais figurinhas você colecionar, mais chances você vai ter no dia do sorteio!", "type": "text"}]}',
+		tag: 'hotsite',
+		type: typesMedia[7],
+	},
+	{
+		name: 'session_text_title_hotsite_one',
+		description: 'Título da seção do hotsite',
+		value: 'R$200.000,00',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_text_title_hotsite_two',
+		description: 'Título da seção do hotsite',
+		value: 'Range Rover',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_text_description_hotsite_one',
+		description: 'Descrição da seção do hotsite',
+		value: 'São mais de R$200.000,00 em prêmios nas raspadinhas digitais pra você descobrir direto na tela do seu computador e celular.',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_text_description_hotsite_two',
+		description: 'Descrição da seção do hotsite',
+		value: 'Concorra a uma Range Rover no final da promoção com seus números da sorte!',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_image_hotsite_one',
+		description: 'Imagem da seção do hotsite',
+		value: '', // Imagem da primeira seção do hotsite
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'session_image_hotsite_two',
+		description: 'Imagem da seção do hotsite',
+		value: '', // Imagem da segunda seção do hotsite
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'session_background_colors_hotsite_one',
+		description: 'cor de fundo da seção',
+		value: '#E1F32D',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_colors_text_one',
+		description: 'cor de texto da seção',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_background_influencer_race_hotsite',
+		description: 'Imagem de fundo do primeiro colocado da corrida dos influencers',
+		value: '',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+
 
 	// Faq
 	{
@@ -727,13 +828,5 @@ export const listSchemaDataMedia = [
 			'{"list":[{"one": "Por que precisam do meu CPF?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"},{"one": "Meus dados bancários estão seguros?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"}]}',
 		tag: 'faq',
 		type: typesMedia[7],
-	},
-	{
-		name: 'config_will_have_image_brand_faq',
-		description:
-			'Utilizado para exibir ou não a imagem da marca na tela de FAQ',
-		value: 'null',
-		tag: 'faq',
-		type: typesMedia[6],
 	},
 ];
