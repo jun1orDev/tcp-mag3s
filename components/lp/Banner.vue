@@ -5,8 +5,7 @@
 
 			<!-- Brand Principal -->
 			<div class="flex flex-col justify-start mb-12 lg:mb-0 lg:mt-12 xl:mt-6">
-				<img :src="logoMain" onerror="this.src='/imgs/lp/logo_main.png'" alt=""
-					class="w-[200px] sm:w-[230px] md:w-[250px] lg:w-[280px] xl:w-[300px] animate__animated animate__fadeInDown">
+				<LpImageBrand/>
 				<p class="fm1 animate__animated animate__fadeInUp" v-html="app.brand_text_hotsite"></p>
 			</div>
 
@@ -51,10 +50,6 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
-
-const logoMain = computed(() => {
-	return `${pathAssets}${app.brand_image_hotsite}`;
-});
 
 const brandMain = computed(() => {
 	return `${pathAssets}${app.brand_image_five}`;
