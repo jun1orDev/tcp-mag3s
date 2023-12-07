@@ -9,11 +9,11 @@ const app = useStoreApp().contentApp;
 const labelButton = ref('Quero participar');
 
 const colorBgButton = computed(() => {
-  return `background-color: ${app.colors_background_button}`;
+  return `background-color: ${app.colors_background_button_hotsite}`;
 });
 
 const colorTextButton = computed(() => {
-  return `color: ${app.colors_text_button}`;
+  return `color: ${app.colors_text_button_hotsite}`;
 });
 </script>
 

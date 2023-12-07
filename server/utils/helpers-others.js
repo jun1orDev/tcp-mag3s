@@ -654,11 +654,11 @@ export const listSchemaDataMedia = [
 
 	// Hotsite
 	{
-		name: 'header_colors_background',
+		name: 'header_colors_background_hotsite',
 		description: 'cor de fundo padrão do header',
 		value: '#000000',
 		tag: 'hotsite',
-		type: typesMedia[0],
+		type: typesMedia[2],
 	},
 	{
 		name: 'header_button_label_hotsite',
@@ -831,6 +831,34 @@ export const listSchemaDataMedia = [
 		value: '',
 		tag: 'hotsite',
 		type: typesMedia[3],
+	},
+	{
+		name: 'footer_colors_background_hotsite',
+		description: 'cor de fundo padrão do footer',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'footer_colors_text_hotsite',
+		description: 'cor de texto do footer',
+		value: '#00AEEF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_background_button_hotsite',
+		description: 'cor de fundo para botões',
+		value: '#00F919',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_text_button_hotsite',
+		description: 'cor de fundo para botões',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
 	},
 
 

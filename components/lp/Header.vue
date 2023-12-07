@@ -20,7 +20,7 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const bgColor = computed(() => {
-	return `${app.header_colors_background}`;
+	return `${app.header_colors_background_hotsite}`;
 });
 
 const colorButton = computed(() => {
