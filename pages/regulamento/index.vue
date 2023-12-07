@@ -4,10 +4,10 @@
 
 		<UContainer>
 			<div
-				class="flex items-center justify-center min-h-screen pt-14 lg:pt-24 pb-10"
+				class="flex justify-center min-h-screen pt-14 lg:pt-24 pb-10" :class="center"
 			>
 				<div
-					class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 items-start justify-center w-screen"
+					class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen"
 					:class="classGrid"
 				>
 					<!-- Imagem do Brand -->
@@ -46,6 +46,13 @@ const classGrid = computed(() => {
 	return {
 		grid: app.config_will_have_image_brand_session_hotsite,
 	};
+});
+
+// centralizar conteúdo
+const center = computed(() => {
+return {
+	'items-center': app.config_will_have_image_brand_session_hotsite,
+};
 });
 </script>
 
