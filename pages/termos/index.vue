@@ -12,13 +12,19 @@
 
 			<div class="flex flex-col justify-center">
 				<div>
-					<h1 class="fm3 uppercase text-[#847248] text-[12px] md:text-[22px]">
+					<h1
+						class="fm3 uppercase text-[12px] md:text-[22px]"
+						:style="`color: ${store.contentApp.colors_text_two}`"
+					>
 						{{ store.contentApp.sessions_title_four }}
 					</h1>
 				</div>
 
 				<div class="fm2">
-					<p class="text-white text-[9px] md:text-[20px] text-justify">
+					<p
+						class="text-[9px] md:text-[20px] text-justify"
+						:style="`color: ${store.contentApp.colors_text_one}`"
+					>
 						{{ store.contentApp.sessions_subtitle_seven }}
 					</p>
 				</div>
@@ -32,7 +38,10 @@
 	>
 		<UContainer>
 			<div>
-				<p class="text-white text-center text-[9px] md:text-[12px]">
+				<p
+					class="text-center text-[9px] md:text-[12px]"
+					:style="`color: ${store.contentApp.colors_text_one}`"
+				>
 					{{ store.contentApp.sessions_subtitle_eight }}
 				</p>
 			</div>
@@ -44,7 +53,10 @@
 						class="mx-auto"
 					/>
 				</div>
-				<div class="h-10 border-l-2 border-white"></div>
+				<div
+					class="h-10 border-l-2"
+					:style="`color: ${store.contentApp.colors_text_one}`"
+				></div>
 				<div class="p-4">
 					<img
 						:src="ImgFielDigital"
