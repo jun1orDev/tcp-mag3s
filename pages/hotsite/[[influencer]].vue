@@ -15,7 +15,7 @@
 		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two" :image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo" positionText="right" positionImage="left"/>
 
 		<!-- Influencers Ranking -->
-		<LpInfluencerRace/>
+		<LpInfluencerRace v-if="app.config_will_have_influencer_race"/>
 
 		<!-- Call to action -->
 		<LpCallToAction/>
@@ -46,7 +46,6 @@ const bgMobileImageSessionTwo = computed(() => {
 const bgImageSessionTwo = computed(() => {
 	return `${pathAssets}${app.layout_background_hotsite_two}`;
 });
-
 
 definePageMeta({
 	middleware: process.client ? ['chosen-influencer'] : undefined
