@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- brand -->
-		<div class="flex justify-center" v-if="app.config_will_have_image_brand_faq">
+		<div class="flex justify-center" v-if="app.config_will_have_image_brand_session_hotsite">
 				<img
 					class="w-28 lg:w-auto"
 					:src="imgBrand"

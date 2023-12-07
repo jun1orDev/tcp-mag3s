@@ -74,7 +74,7 @@ const ImgFielDigital = computed(() => {
 
 const classGrid = computed(() => {
 	return {
-		grid: app.config_will_have_image_brand_faq,
+		grid: app.config_will_have_image_brand_session_hotsite,
 	};
 });
 </script>
