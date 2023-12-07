@@ -40,7 +40,7 @@ export const listSchemaDataMedia = [
 		value: '0',
 		tag: 'config',
 		type: typesMedia[6],
-	},	
+	},
 	{
 		name: 'config_will_have_image_brand_session_hotsite',
 		description:
@@ -496,7 +496,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'colors_text_two',
 		description: 'Cor do texto padrão utilizado na aplicação.',
-		value: '#FFFFFF',
+		value: '#847248',
 		tag: 'colors',
 		type: typesMedia[2],
 	},
