@@ -770,6 +770,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'session_text_title_hotsite_three',
+		description: 'Título da seção do hotsite',
+		value: 'Corrida de Influencers',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
 		name: 'session_text_description_hotsite_one',
 		description: 'Descrição da seção do hotsite',
 		value: 'São mais de R$200.000,00 em prêmios nas raspadinhas digitais pra você descobrir direto na tela do seu computador e celular.',
@@ -780,6 +787,13 @@ export const listSchemaDataMedia = [
 		name: 'session_text_description_hotsite_two',
 		description: 'Descrição da seção do hotsite',
 		value: 'Concorra a uma Range Rover no final da promoção com seus números da sorte!',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_text_description_hotsite_three',
+		description: 'Descrição da seção do hotsite',
+		value: 'Quer saber a posição do seu influencer favorito? Acompanhe o ranking em tempo real:',
 		tag: 'hotsite',
 		type: typesMedia[0],
 	},
