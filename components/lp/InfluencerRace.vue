@@ -79,7 +79,7 @@ const backgroundInfluencer = computed(() => {
 });
 
 const imageInfluencerFirstRanking = computed(() => {
-	return !app.loading ? `${pathAssets}${store.influencerFirst.one}` : '/imgs/lp/influencer.jpg';
+	return store.influencerFirst.one ? `${pathAssets}${store.influencerFirst.one}` : '/imgs/lp/influencer.jpg';
 });
 
 const imageInfluencersList = (image) => {
