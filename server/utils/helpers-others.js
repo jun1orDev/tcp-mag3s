@@ -621,7 +621,7 @@ export const listSchemaDataMedia = [
 		name: 'regulation_text_title',
 		description: 'Título do Regulamento.',
 		value: 'Regulamento',
-		tag: 'regulation',
+		tag: 'regulamento',
 		type: typesMedia[0],
 	},
 	{
@@ -629,7 +629,7 @@ export const listSchemaDataMedia = [
 		description: 'Texto referente ao Regulamento',
 		value:
 			'Mussum Ipsum, cacilds vidis litro abertis.  Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo! Delegadis gente finis, bibendum egestas augue arcu ut est. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis.',
-		tag: 'regulation',
+		tag: 'regulamento',
 		type: typesMedia[0],
 	},
 
