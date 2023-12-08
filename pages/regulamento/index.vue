@@ -14,12 +14,12 @@
 					<AppOthersImageBrand />
 
 					<div class="flex flex-col justify-center">
-						<div class="py-6">
+						<div class="">
 							<h1
 								class="fm3 uppercase text-[12px] md:text-[22px]"
 								:style="`color: ${store.contentApp.colors_text_two}`"
 							>
-								{{ store.contentApp.sessions_title_five }}
+								{{ store.contentApp.regulation_text_title }}
 							</h1>
 						</div>
 						<div class="fm2 flex justify-center pb-8">
@@ -27,7 +27,7 @@
 								class="text-[9px] md:text-[20px] text-justify"
 								:style="`color: ${store.contentApp.colors_text_one}`"
 							>
-								{{ store.contentApp.sessions_subtitle_nine }}
+								{{ store.contentApp.regulation_text_document }}
 							</p>
 						</div>
 					</div>

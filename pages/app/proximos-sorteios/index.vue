@@ -17,7 +17,7 @@
 			</Carousel>
 
 			<!-- Pesquisar -->
-			<AppOthersCampoPesquisa class="mt-6" />
+			<AppOthersInputSearching class="mt-6" />
 
 			<AppGameInfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
 				:customBackground="card.hasBg" :imagemSrc="card.img" :source="card.source" :date="card.date" />

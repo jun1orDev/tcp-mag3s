@@ -128,11 +128,16 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					return state.filterMedias;
 				}
 
+				// Filtrando por nome, conteúdo (value) ou descrição
 				return state.filterMedias.filter((item) => {
-					if (item.value) {
-						return String(item.value)
-							.toLowerCase()
-							.includes(payload.toLowerCase());
+					if (item.value || item.description) {
+						return (
+							String(item.value)
+								.toLowerCase()
+								.includes(payload.toLowerCase()) ||
+							String(item.name).toLowerCase().includes(payload.toLowerCase()) ||
+							String(item.description).toLowerCase().includes(payload.toLowerCase())
+						);
 					}
 				});
 			};

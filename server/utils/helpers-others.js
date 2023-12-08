@@ -49,6 +49,26 @@ export const listSchemaDataMedia = [
 		tag: 'config',
 		type: typesMedia[6],
 	},
+	{
+		name: 'config_text_email_contact',
+		description: 'e-mail.',
+		value: 'falae@campanhapromocional.com.br',
+		tag: 'config',
+		type: typesMedia[0],
+	},
+	{
+		name: 'config_text_phone_contact',
+		description: 'Telefone de contato.',
+		value: '(11) 91221 3445',
+		tag: 'config',
+		type: typesMedia[0],
+	},
+	{
+		name: 'config_image_whatsapp',
+		description: 'Imagem do logo do WhatsApp.',
+		tag: 'config',
+		type: typesMedia[3],
+	},
 
 	// Layout
 	{
@@ -64,7 +84,7 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
-		name: 'layout_background_modal',
+		name: 'layout_background_footer_app',
 		description: 'Imagem de fundo referente ao modal da página Revelar-Prêmio',
 		tag: 'layout',
 		type: typesMedia[3],
@@ -118,25 +138,6 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
-		name: 'sessions_image_three',
-		description: 'Imagem do logo do WhatsApp.',
-		tag: 'app',
-		type: typesMedia[3],
-	},
-	{
-		name: 'sessions_image_four',
-		description: 'Primeira Imagem de logo no footer da página de termos',
-		tag: 'app',
-		type: typesMedia[3],
-	},
-	{
-		name: 'sessions_image_five',
-		description: 'Segunda Imagem de logo no footer da página de termos',
-		tag: 'app',
-		type: typesMedia[3],
-	},
-
-	{
 		name: 'sessions_title_one',
 		description: 'Título da seção de números premiados.',
 		value: 'Número premiado de hoje:',
@@ -156,27 +157,6 @@ export const listSchemaDataMedia = [
 		description:
 			'Título da seção de detalhes dos premios referente ao número premiado.',
 		value: 'Número premiado:',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_title_four',
-		description: 'Título da seção de termos.',
-		value: 'TERMOS DE USO E POLÍTICA DE PRIVACIDADE',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_title_five',
-		description: 'Título do Regulamento.',
-		value: 'Regulamento',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_title_six',
-		description: 'Título do Footer.',
-		value: 'Insira um texto.',
 		tag: 'app',
 		type: typesMedia[0],
 	},
@@ -214,45 +194,10 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
-		name: 'sessions_subtitle_five',
-		description: 'Informações de contato.',
-		value: '(11) 91221 3445',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
 		name: 'sessions_subtitle_six',
 		description:
 			'Ultimo texto da seção localizado no detalhes-premios do ganhador.',
 		value: '*Este item não é reembolsável.',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_subtitle_seven',
-		description: 'Texto referente aos termos.',
-		value: 'Insira os termos',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_subtitle_eight',
-		description: 'Texto referente a Política de Privacidae.',
-		value: 'Insira a Política de Privacidade',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_subtitle_nine',
-		description: 'Texto referente ao Regulamento.',
-		value: 'Insira texto do Regulamento',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'sessions_subtitle_teen',
-		description: 'e-mail.',
-		value: 'Insira o e-mail localizado no footer',
 		tag: 'app',
 		type: typesMedia[0],
 	},
@@ -287,8 +232,6 @@ export const listSchemaDataMedia = [
 		tag: 'app',
 		type: typesMedia[0],
 	},
-
-	// Banner
 	{
 		name: 'banner_background_card_one',
 		description:
@@ -484,34 +427,32 @@ export const listSchemaDataMedia = [
 		tag: 'app',
 		type: typesMedia[1],
 	},
-
-	// Colors
 	{
 		name: 'colors_text_one',
 		description: 'Cor do texto padrão utilizado na aplicação.',
 		value: '#FFFFFF',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_text_two',
 		description: 'Cor do texto padrão utilizado na aplicação.',
 		value: '#847248',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_text_button',
 		description: 'Cor do texto interno do botão',
 		value: '#FFFFFF',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_text_button_two',
 		description: 'Cor do texto interno do botão do FAQ',
 		value: '#847248',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
@@ -519,67 +460,65 @@ export const listSchemaDataMedia = [
 		description:
 			'Cor da borda que é compartilhada com outros componentes do site. Exemplo: Banner Blog, Números da Sorte e Campos de Pesquisa.',
 		value: '#847248',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_border_two',
 		description: 'Cor da borda do separador utilizado entre seções',
 		value: '#FFBE00',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_background_one',
 		description: 'Cor de fundo do Banner Blog.',
 		value: '#000006',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_background_two',
 		description: 'Cor de fundo do Banner Destacado',
 		value: '#847248',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_background_three',
 		description: 'Cor dos campos de números sorteados',
 		value: '#DFA701',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_detach_one',
 		description: 'Cor para destacar elementos gerais na aplicação.',
 		value: '#FF0019',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_background_button',
 		description: 'Selecione a cor padrão dos botões.',
 		value: '#847248',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_carousel_pagination_background',
 		description: 'Cor de fundo da paginação do slide que não está ativo.',
 		value: '#FFFFFF',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
 	{
 		name: 'colors_carousel_pagination_active',
 		description: 'Cor ativa da paginação, do slide que foi selecionado.',
 		value: '#FF0019',
-		tag: 'colors',
+		tag: 'app',
 		type: typesMedia[2],
 	},
-
-	// Modal
 	{
 		name: 'modal_text_prize_title_one',
 		description:
@@ -649,6 +588,48 @@ export const listSchemaDataMedia = [
 			'Texto dentro do botão da página revelar-premio com retorno positivo.',
 		value: 'ver detalhes',
 		tag: 'app',
+		type: typesMedia[0],
+	},
+
+	// Termos
+	{
+		name: 'terms_and_confitions_text_title',
+		description: 'Título da seção de termos.',
+		value: 'Termos de uso e política de privacidade',
+		tag: 'termos',
+		type: typesMedia[0],
+	},
+	{
+		name: 'terms_and_condition_text_document',
+		description: 'Texto referente aos termos de uso',
+		value:
+			'Mussum Ipsum, cacilds vidis litro abertis.  Interagi no mé, cursus quis, vehicula ac nisi. Nullam volutpat risus nec leo commodo, ut interdum diam laoreet. Sed non consequat odio. Eu nunca mais boto a boca num copo de cachaça, agora eu só uso canudis! Pellentesque nec nulla ligula. Donec gravida turpis a vulputate ultricies.',
+		tag: 'termos',
+		type: typesMedia[0],
+	},
+	{
+		name: 'terms_and_condition_text_policy',
+		description: 'Texto referente a Política de Privacidae',
+		value:
+			'Mussum Ipsum, cacilds vidis litro abertis.  Cevadis im ampola pa arma uma pindureta. Aenean aliquam molestie leo, vitae iaculis nisl. Interagi no mé, cursus quis, vehicula ac nisi. Admodum accumsan disputationi eu sit. Vide electram sadipscing et per.',
+		tag: 'termos',
+		type: typesMedia[0],
+	},
+
+	// Regulamento
+	{
+		name: 'regulation_text_title',
+		description: 'Título do Regulamento.',
+		value: 'Regulamento',
+		tag: 'regulation',
+		type: typesMedia[0],
+	},
+	{
+		name: 'regulation_text_document',
+		description: 'Texto referente ao Regulamento',
+		value:
+			'Mussum Ipsum, cacilds vidis litro abertis.  Admodum accumsan disputationi eu sit. Vide electram sadipscing et per. Todo mundo vê os porris que eu tomo, mas ninguém vê os tombis que eu levo! Delegadis gente finis, bibendum egestas augue arcu ut est. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis.',
+		tag: 'regulation',
 		type: typesMedia[0],
 	},
 
@@ -888,5 +869,20 @@ export const listSchemaDataMedia = [
 			'{"list":[{"one": "Por que precisam do meu CPF?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"},{"one": "Meus dados bancários estão seguros?", "two": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate", "type": "text"}]}',
 		tag: 'faq',
 		type: typesMedia[7],
+	},
+	{
+		name: 'faq_text_tittle_footer',
+		description: 'Título do Footer do faq.',
+		value:
+			'<strong>Dúvidas?</strong> É só entrar em contato com a gente através do WhatsApp ou pelo nosso e-mail. Estamos aqui pra te ajudar!',
+		tag: 'faq',
+		type: typesMedia[0],
+	},
+	{
+		name: 'faq_text_placeholder_input_search',
+		description: 'Placeholder do campo de pesquisa do faq',
+		value: 'Qual é a sua dúvida?',
+		tag: 'faq',
+		type: typesMedia[0],
 	},
 ];
