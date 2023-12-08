@@ -26,7 +26,7 @@ const { pathAssets } = useRuntimeConfig().public;
 const props = defineProps(['typeAction'])
 
 const background = computed(() => {
-	return `background-image: url('${pathAssets}${store.contentApp.layout_background_modal}'), url('/imgs/fundo_modal_placeholder.png'); background-color: ${store.contentApp.colors_background_one}`;
+	return `background-image: url('${pathAssets}${store.contentApp.layout_background_footer_app}'), url('/imgs/fundo_modal_placeholder.png'); background-color: ${store.contentApp.colors_background_one}`;
 });
 
 const colorText = computed(() => {

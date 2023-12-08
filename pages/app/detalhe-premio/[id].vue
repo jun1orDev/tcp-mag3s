@@ -75,7 +75,7 @@
 							class="w-[32px] md:w-[48px] me-3"
 						/>
 						<p class="fm3 text-[20px] md:text-[24px]">
-							{{ store.contentApp.sessions_subtitle_five }}
+							{{ store.contentApp.config_text_phone_contact }}
 						</p>
 					</div>
 				</div>
@@ -110,7 +110,7 @@ const imgScratchCard = computed(() => {
 });
 
 const ImgWhatsApp = computed(() => {
-	return `${pathAssets}${store.contentApp.sessions_image_three}`;
+	return `${pathAssets}${store.contentApp.config_image_whatsapp}`;
 });
 
 definePageMeta({

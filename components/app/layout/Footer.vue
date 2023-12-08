@@ -12,8 +12,7 @@
 
 			<!-- Logo -->
 			<div class="w-[80px] sm:w-[90] md:w-[100] lg:w-[110px]">
-				<img :src="imageLogo" onerror="this.src='/imgs/fiel.png'
-" class="animate__animated animate__fadeIn" />
+				<img :src="imageLogo" onerror="this.src='/imgs/fiel.png'" class="animate__animated animate__fadeIn" />
 			</div>
 
 		</div>
