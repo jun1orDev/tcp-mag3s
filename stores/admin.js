@@ -77,6 +77,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					],
 				},
 			},
+			searchingMedia: null,
 		};
 	},
 
@@ -87,7 +88,11 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 			if (state.formMedia.typeJsonMS === 'text') return true;
 			return false;
 		},
-		totalMidias: (state) => state.filterMedias.length,
+		totalMidias: (state) => state.filteredMedias(state.searchingMedia).length,
+		totalMidiasNoValue: (state) =>
+			state
+				.filteredMedias(state.searchingMedia)
+				.filter((item) => item.value === undefined).length,
 		typeMediaSelectedForm: (state) => state.formMedia.typeMS,
 		newTag: (state) => state.formMedia.newTag,
 		tagsMediaFormSelected: (state) => {
@@ -116,6 +121,21 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 		},
 		carouselEnableLoop: (state) => {
 			return state.listArchiveMedia.length > 1 ? true : false;
+		},
+		filteredMedias: (state) => {
+			return (payload) => {
+				if (!payload) {
+					return state.filterMedias;
+				}
+
+				return state.filterMedias.filter((item) => {
+					if (item.value) {
+						return String(item.value)
+							.toLowerCase()
+							.includes(payload.toLowerCase());
+					}
+				});
+			};
 		},
 	},
 

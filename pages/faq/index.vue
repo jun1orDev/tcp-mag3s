@@ -106,19 +106,7 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
-// Lógica para pesquisa do Faq
-const handleSearch = () => {
-	store.filteredFaq = store.faq.list.filter((item) => {
-		item.one.toLowerCase().includes(store.searchingValue);
-	});
-};
-
 // Personalização da tela
-
-const imgBrand = computed(() => {
-	return `${pathAssets}${store.contentApp.brand_image_five}`;
-});
-
 const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_three}`;
 });

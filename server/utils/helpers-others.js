@@ -119,19 +119,19 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'sessions_image_three',
-		description: 'Imagem que representa um logo, como exemplo o WhatsApp.',
+		description: 'Imagem do logo do WhatsApp.',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_four',
-		description: 'Imagem que representa um logo representativo (1).',
+		description: 'Primeira Imagem de logo no footer da página de termos',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'sessions_image_five',
-		description: 'Imagem que representa um logo representativo (2).',
+		description: 'Segunda Imagem de logo no footer da página de termos',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -683,7 +683,8 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'header_button_hover_text_colors_hotsite',
-		description: 'cor de texto do botão de login do header quando o usuário passar o mouse por cima dele',
+		description:
+			'cor de texto do botão de login do header quando o usuário passar o mouse por cima dele',
 		value: '#FFFFFF',
 		tag: 'hotsite',
 		type: typesMedia[2],
