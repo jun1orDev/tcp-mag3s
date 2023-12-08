@@ -6,6 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 	return {
 		provide: {
 			relative: (d) => moment().from(d),
+			year: (date) => moment().year(date),
 			mostRecentDate: (dates, type) => {
 				// Converta as strings de datas para objetos Moment
 				const datasMoment = dates.map((dateStr) => moment(dateStr));

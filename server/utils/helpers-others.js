@@ -654,11 +654,11 @@ export const listSchemaDataMedia = [
 
 	// Hotsite
 	{
-		name: 'header_colors_background',
+		name: 'header_colors_background_hotsite',
 		description: 'cor de fundo padrão do header',
 		value: '#000000',
 		tag: 'hotsite',
-		type: typesMedia[0],
+		type: typesMedia[2],
 	},
 	{
 		name: 'header_button_label_hotsite',
@@ -770,6 +770,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'session_text_title_hotsite_three',
+		description: 'Título da seção do hotsite',
+		value: 'Corrida de Influencers',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
 		name: 'session_text_description_hotsite_one',
 		description: 'Descrição da seção do hotsite',
 		value: 'São mais de R$200.000,00 em prêmios nas raspadinhas digitais pra você descobrir direto na tela do seu computador e celular.',
@@ -780,6 +787,13 @@ export const listSchemaDataMedia = [
 		name: 'session_text_description_hotsite_two',
 		description: 'Descrição da seção do hotsite',
 		value: 'Concorra a uma Range Rover no final da promoção com seus números da sorte!',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'session_text_description_hotsite_three',
+		description: 'Descrição da seção do hotsite',
+		value: 'Quer saber a posição do seu influencer favorito? Acompanhe o ranking em tempo real:',
 		tag: 'hotsite',
 		type: typesMedia[0],
 	},
@@ -817,6 +831,34 @@ export const listSchemaDataMedia = [
 		value: '',
 		tag: 'hotsite',
 		type: typesMedia[3],
+	},
+	{
+		name: 'footer_colors_background_hotsite',
+		description: 'cor de fundo padrão do footer',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'footer_colors_text_hotsite',
+		description: 'cor de texto do footer',
+		value: '#00AEEF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_background_button_hotsite',
+		description: 'cor de fundo para botões',
+		value: '#00F919',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_text_button_hotsite',
+		description: 'cor de fundo para botões',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
 	},
 
 

@@ -144,6 +144,19 @@ export const useStoreApp = defineStore('storeApp', {
 
 				return state.faq.list.filter(item => item.one.toLowerCase().includes(payload.toLowerCase()));
 			}
+		},
+
+		// Hotsite
+		influencerList: (state) => {
+			if (!state.loading)
+				return state.contentApp.influencer_race_hotsite_list
+					? state.contentApp.influencer_race_hotsite_list
+					: { list: [] };
+			return { list: [] };
+		},
+
+		influencerFirst: (state) => {
+			return state.influencerList.list[0];
 		}
 	},
 

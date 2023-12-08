@@ -1,24 +1,31 @@
 <template>
 	<div>
 		<!-- Header -->
-		<LpHeader/>
+		<LpHeader />
 
 		<!-- Banner -->
-		<LpBanner/>
+		<LpBanner />
 
 		<!-- Steps Register -->
-		<LpStepsRegister/>
+		<LpStepsRegister />
 
 		<!-- Sesstions -->
-		<LpSession :title="app.session_text_title_hotsite_one" :description="app.session_text_description_hotsite_one" :image="app.session_image_hotsite_one" :bgImage="bgImageSessionOne" :bgImageMobile="bgMobileImageSessionOne" positionText="left" positionImage="right"/>
+		<LpSession :title="app.session_text_title_hotsite_one" :description="app.session_text_description_hotsite_one"
+			:image="app.session_image_hotsite_one" :bgImage="bgImageSessionOne" :bgImageMobile="bgMobileImageSessionOne"
+			positionText="left" positionImage="right" />
 
-		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two" :image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo" positionText="right" positionImage="left"/>
+		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two"
+			:image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo"
+			positionText="right" positionImage="left" />
 
 		<!-- Influencers Ranking -->
-		<LpInfluencerRace/>
+		<LpInfluencerRace v-if="app.config_will_have_influencer_race" />
+
+		<!-- Footer -->
+		<LpFooter />
 
 		<!-- Call to action -->
-		<LpCallToAction/>
+		<LpCallToAction />
 	</div>
 </template>
 
@@ -47,13 +54,10 @@ const bgImageSessionTwo = computed(() => {
 	return `${pathAssets}${app.layout_background_hotsite_two}`;
 });
 
-
 definePageMeta({
 	middleware: process.client ? ['chosen-influencer'] : undefined
 });
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
