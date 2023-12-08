@@ -3,15 +3,24 @@
 		<div class="flex items-center justify-between">
 			<h2 class="mb-2 text-lg font-bold">Mídias Cadastradas:</h2>
 			<div class="flex justify-end items-center">
-				<h3 class="text-end uppercase me-4 relative">
+				<h3 class="text-end uppercase me-4 relative cursor-default">
 					<UBadge :ui="{ rounded: 'rounded-full' }" size="xs" color="red"
 						:label="store.totalMidiasNoValue + ' Mídias sem valor'" class="font-bold" />
-					<div v-if="store.totalMidiasNoValue" class="absolute -top-1 -right-2 h-3 w-3 rounded-full bg-red-600 animate-ping border"></div>
+					<div v-if="store.totalMidiasNoValue"
+						class="absolute -top-1 -right-2 h-3 w-3 rounded-full bg-red-600 animate-ping border"></div>
 				</h3>
-				<h3 class="text-end uppercase">
+				<h3 class="text-end uppercase me-4 cursor-default">
 					<UBadge :ui="{ rounded: 'rounded-full' }" size="xs" color="green"
 						:label="store.totalMidias + ' Mídias cadastradas'" class="font-bold" />
 				</h3>
+
+				<UTooltip class="cursor-pointer" text="Mude a disposição das mídias no layout"
+					:popper="{ placement: 'top-start' }">
+					<div class="cursor-pointer w-6 h-6 text-green-500 hover:text-green-800" @click="typeLayout = !typeLayout">
+						<UIcon v-if="typeLayout" name="i-material-symbols-grid-view-outline-rounded" class="w-full h-full" />
+						<UIcon v-else name="i-material-symbols-lists-rounded" class="w-full h-full" />
+					</div>
+				</UTooltip>
 			</div>
 		</div>
 		<div v-if="store.totalMidias" class="grid" :class="typeLayoutGrid">
@@ -19,14 +28,19 @@
 				class="relative grid border rounded-xl mb-5 last:mb-0 px-4 py-2 shadow-md hover:shadow-lg hover:border-green-500 animate__animated animate__fadeInUp"
 				:class="typeLayoutGridElements" v-auto-animate>
 
+				<!-- se o layout mudar, exibir imagens de mídia caso seja esse o tipo -->
+				<div v-if="isMedia(media.type) && !typeLayout" class="absolute top-2 right-5 w-auto max-w-[100px] h-28">
+					<img v-if="media.value" class="w-full h-full object-contain object-center" :src="`${pathAssets}${media.value}`" >
+				</div>
+
 				<!-- Nome do conteúdo  -->
-				<div>
+				<div :class="[typeLayoutGridElementsChildren, typeLayoutGridElementsChildrenTwo]">
 					<small class="text-xs text-green-500">Nome do conteúdo (API):</small>
 					<p class="line-clamp-1">{{ media.name }}</p>
 				</div>
 
 				<!-- Valor -->
-				<div class="flex flex-col justify-center">
+				<div class="flex flex-col justify-center" :class="typeLayoutGridElementsChildrenTwo">
 					<small class="text-xs text-green-500">Conteúdo da Mídia:</small>
 					<div v-if="isMedia(media.type)">
 						<UButton variant="link" class="p-0 m-0" label="Abrir mídia" @click="openModalMedias(media.value)" />
@@ -49,19 +63,19 @@
 				</div>
 
 				<!-- Tag -->
-				<div>
+				<div :class="typeLayoutGridElementsChildrenTwo">
 					<small class="text-xs text-green-500">Tag:</small>
 					<p class="line-clamp-1">{{ media.tag }}</p>
 				</div>
 
 				<!-- Tipo -->
-				<div>
+				<div :class="typeLayoutGridElementsChildrenTwo">
 					<small class="text-xs text-green-500">Tipo:</small>
 					<p>{{ media.type }}</p>
 				</div>
 
 				<!-- Açoes -->
-				<div>
+				<div :class="typeLayoutGridElementsChildrenTwo">
 					<small class="block text-md text-red-500">Ações:</small>
 					<UButton color="red" icon="i-material-symbols-delete-forever-outline" variant="soft" size="sm" class="me-2"
 						label="excluir" @click="store.openModalMediaDelete(media)" />
@@ -116,7 +130,7 @@
 					</div>
 				</template>
 				<div class="p-4">
-					<img v-if="mediaOpen" :src="`${pathAssets}${mediaOpen}`" alt="" srcset="">
+					<img class="m-auto" v-if="mediaOpen" :src="`${pathAssets}${mediaOpen}`" alt="" srcset="">
 					<div v-else class="flex flex-col justify-center items-center text-red-500">
 						<UIcon name="i-material-symbols-tamper-detection-off-outline-sharp w-20 h-20" />
 						<h3 class="">Mídia não cadastrada!</h3>
@@ -165,13 +179,26 @@ const typeLayout = ref(true);
 
 const typeLayoutGrid = computed(() => {
 	return {
-		'grid-cols-2': !typeLayout
+		'grid-cols-2 gap-6': !typeLayout.value
 	}
 });
 
 const typeLayoutGridElements = computed(() => {
 	return {
-		'grid-cols-[minmax(400px,1fr)_1fr_minmax(100px,100px)_minmax(80px,80px)_auto]': typeLayout
+		'grid-cols-[minmax(400px,1fr)_1fr_minmax(100px,100px)_minmax(80px,80px)_auto]': typeLayout.value,
+		'grid-rows-2 grid-cols-2': !typeLayout.value
+	}
+});
+
+const typeLayoutGridElementsChildren = computed(() => {
+	return {
+		'col-span-2': !typeLayout.value
+	}
+});
+
+const typeLayoutGridElementsChildrenTwo = computed(() => {
+	return {
+		'mb-2': !typeLayout.value
 	}
 });
 
