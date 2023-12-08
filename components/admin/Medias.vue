@@ -81,7 +81,7 @@
 						label="excluir" @click="store.openModalMediaDelete(media)" />
 					<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" label="editar"
 						@click="store.openModalMediaEdit(media.id)" />
-					<UTooltip class="cursor-pointer" :text="media.description"
+					<UTooltip v-if="media.description" class="cursor-pointer" :text="media.description"
 						:popper="{ placement: 'bottom' }">
 						<UIcon class="text-2xl" name="i-material-symbols-contact-support-outline"
 							@click="openModalDescription({ title: media.name, description: media.description })" />

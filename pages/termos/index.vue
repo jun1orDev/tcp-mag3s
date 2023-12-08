@@ -8,7 +8,7 @@
 			<div class="flex flex-col justify-center">
 				<div>
 					<h1 class="fm3 uppercase text-[12px] md:text-[22px]" :style="`color: ${app.colors_text_two}`">
-						{{ app.terms_and_confitions_text_title }}
+						{{ app.terms_and_condition_text_title }}
 					</h1>
 				</div>
 
