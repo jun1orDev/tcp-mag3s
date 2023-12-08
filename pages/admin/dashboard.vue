@@ -16,12 +16,20 @@
 
 			<div v-if="doYouHaveMedia" class="py-24">
 				<!-- Filtros -->
-				<div class="mb-8 grid grid-cols-[minmax(200px,1fr)_auto] gap-5">
+				<div class="mb-8 grid grid-cols-[minmax(200px,1fr)_auto_auto] gap-5">
 					<div>
 						<h2 class="mb-2 text-base font-semibold">Filtre por Tags:</h2>
 						<div class="flex pb-2 overflow-x-auto">
 							<AdmTag v-for="tag in store.tags" class="w-fit me-3 last:me-0" :tag="tag" />
 						</div>
+					</div>
+
+					<div>
+						<h2 class="mb-2 text-base font-semibold">Filtre por nome, conteúdo ou descrição:</h2>
+
+						<UFormGroup class="block mb-2" name="type" size="xl">
+							<UInput color="green" variant="outline" placeholder="Pesquise aqui..." v-model="store.searchingMedia" icon="i-heroicons-magnifying-glass-20-solid" @input="store.filteredMedias(store.searchingMedia)" />
+						</UFormGroup>
 					</div>
 
 					<div>
