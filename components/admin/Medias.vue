@@ -29,8 +29,8 @@
 				:class="typeLayoutGridElements" v-auto-animate>
 
 				<!-- se o layout mudar, exibir imagens de mídia caso seja esse o tipo -->
-				<div v-if="isMedia(media.type) && !typeLayout" class="absolute top-2 right-5 w-auto max-w-[100px] h-28">
-					<img v-if="media.value" class="w-full h-full object-contain object-center" :src="`${pathAssets}${media.value}`" >
+				<div v-if="isMedia(media.type) && !typeLayout" class="absolute top-2 right-5 w-auto max-w-[100px] h-28 p-1">
+					<img v-if="media.value" class="w-full h-full object-contain object-center bg-black p-2 rounded-md" :src="`${pathAssets}${media.value}`" >
 				</div>
 
 				<!-- Nome do conteúdo  -->
@@ -81,7 +81,7 @@
 						label="excluir" @click="store.openModalMediaDelete(media)" />
 					<UButton color="sky" icon="i-material-symbols-edit-outline" variant="soft" size="sm" class="me-2" label="editar"
 						@click="store.openModalMediaEdit(media.id)" />
-					<UTooltip v-if="media.description" class="cursor-pointer" :text="media.description"
+					<UTooltip class="cursor-pointer" :text="media.description"
 						:popper="{ placement: 'bottom' }">
 						<UIcon class="text-2xl" name="i-material-symbols-contact-support-outline"
 							@click="openModalDescription({ title: media.name, description: media.description })" />
