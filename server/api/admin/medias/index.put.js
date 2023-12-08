@@ -297,6 +297,7 @@ export default defineEventHandler(async (event) => {
 				name: media.name,
 				value: media.value,
 				tag: media.tag,
+				description: media.description,
 				type: media.type,
 			},
 			newTag: newTag

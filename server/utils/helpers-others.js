@@ -593,7 +593,7 @@ export const listSchemaDataMedia = [
 
 	// Termos
 	{
-		name: 'terms_and_confitions_text_title',
+		name: 'terms_and_condition_text_title',
 		description: 'Título da seção de termos.',
 		value: 'Termos de uso e política de privacidade',
 		tag: 'termos',
