@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- Header -->
-		<LpHeader />
+		<LpHeader v-if="app.config_will_have_header_hotsite" />
 
 		<!-- Banner -->
 		<LpBanner />

@@ -656,7 +656,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'header_colors_background_hotsite',
 		description: 'cor de fundo padrão do header',
-		value: '#000000',
+		value: '#061049',
 		tag: 'hotsite',
 		type: typesMedia[2],
 	},
@@ -670,14 +670,21 @@ export const listSchemaDataMedia = [
 	{
 		name: 'header_button_background_colors_hotsite',
 		description: 'cor dentro do botão de login do header',
-		value: '#847248',
+		value: '#00AEEF',
 		tag: 'hotsite',
 		type: typesMedia[2],
 	},
 	{
 		name: 'header_button_text_colors_hotsite',
 		description: 'cor de texto do botão de login do header',
-		value: '#847248',
+		value: '#00AEEF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'header_button_hover_text_colors_hotsite',
+		description: 'cor de texto do botão de login do header quando o usuário passar o mouse por cima dele',
+		value: '#FFFFFF',
 		tag: 'hotsite',
 		type: typesMedia[2],
 	},
@@ -741,6 +748,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
+		name: 'config_will_have_header_hotsite',
+		description: 'Habilitar ou não o header do hotsite',
+		value: '1',
+		tag: 'hotsite',
+		type: typesMedia[6],
+	},
+	{
 		name: 'register_steps_title_hotsite',
 		description: 'Título da seção de passo a passo para participar da promoção',
 		value: 'Olha só como é fácil participar',
@@ -779,21 +793,24 @@ export const listSchemaDataMedia = [
 	{
 		name: 'session_text_description_hotsite_one',
 		description: 'Descrição da seção do hotsite',
-		value: 'São mais de R$200.000,00 em prêmios nas raspadinhas digitais pra você descobrir direto na tela do seu computador e celular.',
+		value:
+			'São mais de R$200.000,00 em prêmios nas raspadinhas digitais pra você descobrir direto na tela do seu computador e celular.',
 		tag: 'hotsite',
 		type: typesMedia[0],
 	},
 	{
 		name: 'session_text_description_hotsite_two',
 		description: 'Descrição da seção do hotsite',
-		value: 'Concorra a uma Range Rover no final da promoção com seus números da sorte!',
+		value:
+			'Concorra a uma Range Rover no final da promoção com seus números da sorte!',
 		tag: 'hotsite',
 		type: typesMedia[0],
 	},
 	{
 		name: 'session_text_description_hotsite_three',
 		description: 'Descrição da seção do hotsite',
-		value: 'Quer saber a posição do seu influencer favorito? Acompanhe o ranking em tempo real:',
+		value:
+			'Quer saber a posição do seu influencer favorito? Acompanhe o ranking em tempo real:',
 		tag: 'hotsite',
 		type: typesMedia[0],
 	},
@@ -827,7 +844,8 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'session_background_influencer_race_hotsite',
-		description: 'Imagem de fundo do primeiro colocado da corrida dos influencers',
+		description:
+			'Imagem de fundo do primeiro colocado da corrida dos influencers',
 		value: '',
 		tag: 'hotsite',
 		type: typesMedia[3],
@@ -860,7 +878,6 @@ export const listSchemaDataMedia = [
 		tag: 'hotsite',
 		type: typesMedia[2],
 	},
-
 
 	// Faq
 	{

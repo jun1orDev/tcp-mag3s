@@ -1,11 +1,11 @@
 <template>
-	<div id="main_menu" class="fixed w-full z-50 animate__animated animate__fadeInDown">
+	<div id="header-hotsite" class="fixed w-full z-50 animate__animated animate__fadeInDown">
 		<div class="bg-transparent py-2 lg:py-6">
 			<UContainer class="flex justify-between items-center">
 				<div>
 				</div>
 				<div>
-					<UButton to="/login" size="xl" variant="outline" :style="colorButton" :ui="optionsButton">
+					<UButton to="/login" size="xl" variant="outline" :ui="optionsButton" class="transition-all ease-in-out">
 						<span :style="colorTextButton">{{ app.header_button_label_hotsite }}</span>
 					</UButton>
 				</div>
@@ -24,11 +24,15 @@ const bgColor = computed(() => {
 });
 
 const colorButton = computed(() => {
-	return `color: ${app.header_button_background_colors_hotsite};`;
+	return `${app.header_button_background_colors_hotsite}`;
 });
 
 const colorTextButton = computed(() => {
-	return `color: ${app.header_button_text_colors_hotsite};`;
+	return `${app.header_button_text_colors_hotsite}`;
+});
+
+const colorTextButtonHover = computed(() => {
+	return `${app.header_button_hover_text_colors_hotsite}`;
 });
 
 const optionsButton = ref({
@@ -41,10 +45,13 @@ const optionsButton = ref({
 		"lg": "px-5 py-2.5",
 		"xl": "px-8 py-2.5"
 	},
+	"variant": {
+		"outline": "hover-btn color-text-button",
+	}
 });
 
 onMounted(() => {
-	let menu = document.getElementById("main_menu");;
+	let menu = document.getElementById("header-hotsite");;
 
 	window.addEventListener("scroll", function () {
 		if (!menu) {
@@ -52,10 +59,10 @@ onMounted(() => {
 		}
 
 		if (window.scrollY > 200) {
-			menu.classList.add("hasColor");
+			menu.classList.add("has-bg-color");
 			menu.classList.add("animate__fadeInDown");
 		} else {
-			menu.classList.remove("hasColor");
+			menu.classList.remove("has-bg-color");
 			menu.classList.remove("animate__fadeInDown");
 		}
 	});
@@ -63,12 +70,17 @@ onMounted(() => {
 });
 </script>
 
-<style scoped>
-.hasColor {
+<style>
+#header-hotsite.has-bg-color {
 	background-color: v-bind(bgColor);
 }
 
-.hover-btn {
-	background-color: v-bind(bgColor) !important;
+#header-hotsite .color-text-button {
+	color: v-bind(colorTextButton);
+}
+
+#header-hotsite .hover-btn:hover {
+	background-color: v-bind(colorButton) !important;
+	color: v-bind(colorTextButtonHover);
 }
 </style>
