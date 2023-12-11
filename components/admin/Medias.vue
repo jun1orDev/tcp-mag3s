@@ -185,7 +185,7 @@ const typeLayoutGrid = computed(() => {
 
 const typeLayoutGridElements = computed(() => {
 	return {
-		'grid-cols-[minmax(400px,1fr)_1fr_minmax(100px,100px)_minmax(80px,80px)_auto]': typeLayout.value,
+		'grid-cols-[minmax(400px,1fr)_1fr_minmax(140px,140px)_minmax(80px,80px)_auto]': typeLayout.value,
 		'grid-rows-2 grid-cols-2': !typeLayout.value
 	}
 });

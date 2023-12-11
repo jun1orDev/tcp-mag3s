@@ -36,6 +36,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				},
 				qtdScratchCard: 0,
 			},
+			formLogin: {
+				user: '',
+				password: '',
+			},
 			filterPrizes: 2,
 			loading: true,
 		};
@@ -114,8 +118,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				.showDrawnNumbersToday;
 		},
 		drawnNumbersToday: (state) => {
-			return state.gamification.lotteryDraws.revealChosenDraw.drawnNumber[0]
-				.dozens;
+			if (state.showDrawnNumbersToday)
+				return state.gamification.lotteryDraws.revealChosenDraw.drawnNumber[0]
+					.dozens;
+
+			return null;
 		},
 
 		// Inventário do usuário
@@ -175,7 +182,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Login do usuário
-		async userLogin(hasHostsite = true, useToast) {
+		async userLogin(useToast, hasHostsite = true) {
 			const toast = useToast();
 			const {
 				ApiIncentiveSystemIdentity,
@@ -191,8 +198,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					body: {
 						clientId: ApiIncentiveClientId,
 						clientSecret: ApiIncentiveClientSecret,
-						userInfo: hasHostsite ? '' : ApiIncentiveUserTest,
-						password: hasHostsite ? '' : ApiIncentivePassTest,
+						userInfo: hasHostsite ? this.formLogin.user : ApiIncentiveUserTest,
+						password: hasHostsite
+							? this.formLogin.password
+							: ApiIncentivePassTest,
 					},
 				});
 
@@ -392,10 +401,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					(item) => item.divulgationDate
 				);
 				const mostRecentDate = $mostRecentDate(datesDraws, 'min');
-				this.gamification.lotteryDraws.nextDraw =
-					this.gamification.lotteryDraws.listDrawsUpcoming.find(
-						(item) => item.fullDate === $formatDayMonthYearFull(mostRecentDate)
-					);
+
+				if (this.gamification.lotteryDraws.listDrawsUpcoming.length) {
+					this.gamification.lotteryDraws.nextDraw =
+						this.gamification.lotteryDraws.listDrawsUpcoming.find(
+							(item) =>
+								item.fullDate === $formatDayMonthYearFull(mostRecentDate)
+						);
+				}
 
 				this.gamification.lotteryDraws.nextDraw.loading = true;
 			} catch (error) {

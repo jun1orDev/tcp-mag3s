@@ -21,7 +21,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	// Autenticação automática para aplicativos integrados
 	if (!doesCookieExist('tokenUser')) {
 		console.log('cadastrando um novo cookie de autenticação');
-		const data = await storeIncentive.userLogin(false, useToast);
+		const data = await storeIncentive.userLogin(useToast, false);
 		if (data) {
 			const cookieAuth = useCookie('tokenUser', {
 				maxAge: +data.expires_in,

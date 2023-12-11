@@ -70,26 +70,6 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 
-	// Layout
-	{
-		name: 'layout_background_app',
-		description: 'Imagem de fundo da aplicação.',
-		tag: 'layout',
-		type: typesMedia[3],
-	},
-	{
-		name: 'layout_background_app_two',
-		description: 'Imagem de fundo da aplicação.',
-		tag: 'layout',
-		type: typesMedia[3],
-	},
-	{
-		name: 'layout_background_footer_app',
-		description: 'Imagem de fundo referente ao modal da página Revelar-Prêmio',
-		tag: 'layout',
-		type: typesMedia[3],
-	},
-
 	// Brand
 	{
 		name: 'brand_image_one',
@@ -122,7 +102,54 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 
+	// Login/Checkout
+	{
+		name: 'layout_background_app_two',
+		description: 'Imagem de fundo utilizado em: login, checkout, etc..',
+		tag: 'login/checkout',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_app_mobile_two',
+		description:
+			'Imagem de fundo versão mobile utilizado em: login, checkout, etc..',
+		tag: 'login/checkout',
+		type: typesMedia[3],
+	},
+	{
+		name: 'login_text_title',
+		description: 'Título da tela de login',
+		value: 'Bem-vindo de volta!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'layout_text_colors_login_and_checkout',
+		description: 'Cor de texto da tela de login',
+		value: '#061049',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+
 	// App
+	{
+		name: 'layout_background_app',
+		description: 'Imagem de fundo da aplicação geral.',
+		tag: 'app',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_app_mobile',
+		description: 'Imagem de fundo da aplicação geral versão mobile.',
+		tag: 'app',
+		type: typesMedia[3],
+	},
+	{
+		name: 'layout_background_footer_app',
+		description: 'Imagem de fundo referente ao modal da página Revelar-Prêmio',
+		tag: 'app',
+		type: typesMedia[3],
+	},
 	{
 		name: 'sessions_image_one',
 		description:
@@ -635,6 +662,13 @@ export const listSchemaDataMedia = [
 
 	// Hotsite
 	{
+		name: 'config_will_have_header_hotsite',
+		description: 'Habilitar ou não o header do hotsite',
+		value: '1',
+		tag: 'hotsite',
+		type: typesMedia[6],
+	},
+	{
 		name: 'header_colors_background_hotsite',
 		description: 'cor de fundo padrão do header',
 		value: '#061049',
@@ -684,6 +718,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'banner_text_colors_hotsite',
+		description: 'cor de texto do banner principal.',
+		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
 		name: 'layout_background_hotsite',
 		description: 'Imagem de fundo do hotsite.',
 		tag: 'hotsite',
@@ -730,11 +771,56 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
-		name: 'config_will_have_header_hotsite',
-		description: 'Habilitar ou não o header do hotsite',
-		value: '1',
+		name: 'session_influencer_effect_colors_hotsite',
+		description: 'cor de fundo do efeito do banner principal',
+		value: '#FFBE00',
 		tag: 'hotsite',
-		type: typesMedia[6],
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_influencer_text_colors_hotsite',
+		description: 'cor de texto da seção do influencer após o banner principal',
+		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'session_influencer_border_colors_hotsite',
+		description:
+			'cor de borda da foto do influencer após o banner principal e seção de corrida dos influencers',
+		value: '#FFBE00',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'register_steps_text_colors_hotsite',
+		description: 'cor de texto da seção de etapas de cadastro.',
+		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'register_steps_background_colors_hotsite',
+		description: 'cor de fundo da seção de etapas de cadastro.',
+		value: '#FFBE00',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'register_steps_button_text_colors_hotsite',
+		description:
+			'cor de texto do número da "etapa" da seção de etapas de cadastro.',
+		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'register_steps_button_background_colors_hotsite',
+		description:
+			'cor de fundo do número da "etapa" da seção de etapas de cadastro.',
+		value: '#061049',
+		tag: 'hotsite',
+		type: typesMedia[2],
 	},
 	{
 		name: 'register_steps_title_hotsite',
@@ -750,6 +836,13 @@ export const listSchemaDataMedia = [
 			'{"list":[{"one": "Adiquira", "two": "você se cadastra rapidinho e já pode começar sua coleção de figurinhas.", "type": "text"}, {"one": "Concorra", "two": "Cada figurinha te dá números da sorte pra você concorrer a uma viagem até Miami e a chance conhecer seu artista favorito!", "type": "text"}, {"one": "Participe", "two": "Quanto mais figurinhas você colecionar, mais chances você vai ter no dia do sorteio!", "type": "text"}]}',
 		tag: 'hotsite',
 		type: typesMedia[7],
+	},
+	{
+		name: 'session_text_colors_hotsite',
+		description: 'cor de texto das demais seção do hotsite.',
+		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
 	},
 	{
 		name: 'session_text_title_hotsite_one',
@@ -799,14 +892,12 @@ export const listSchemaDataMedia = [
 	{
 		name: 'session_image_hotsite_one',
 		description: 'Imagem da seção do hotsite',
-		value: '', // Imagem da primeira seção do hotsite
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'session_image_hotsite_two',
 		description: 'Imagem da seção do hotsite',
-		value: '', // Imagem da segunda seção do hotsite
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
@@ -828,7 +919,6 @@ export const listSchemaDataMedia = [
 		name: 'session_background_influencer_race_hotsite',
 		description:
 			'Imagem de fundo do primeiro colocado da corrida dos influencers',
-		value: '',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},

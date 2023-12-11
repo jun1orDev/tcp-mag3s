@@ -67,6 +67,7 @@ definePageMeta({
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
+console.log('estou no hub')
 });
 </script>
 
