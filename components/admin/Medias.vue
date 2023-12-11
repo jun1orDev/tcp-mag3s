@@ -130,7 +130,7 @@
 					</div>
 				</template>
 				<div class="p-4">
-					<img class="m-auto" v-if="mediaOpen" :src="`${pathAssets}${mediaOpen}`" alt="" srcset="">
+					<img class="m-auto bg-black p-2 rounded-md" v-if="mediaOpen" :src="`${pathAssets}${mediaOpen}`" alt="" srcset="">
 					<div v-else class="flex flex-col justify-center items-center text-red-500">
 						<UIcon name="i-material-symbols-tamper-detection-off-outline-sharp w-20 h-20" />
 						<h3 class="">Mídia não cadastrada!</h3>
