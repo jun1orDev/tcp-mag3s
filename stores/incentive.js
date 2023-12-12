@@ -1,5 +1,5 @@
 import { useStoreApp } from './app';
-import { getCookie } from '../utils/helpers';
+import { getCookie, enumsResponseServer } from '../utils/helpers';
 
 export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
@@ -183,7 +183,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Login do usuário
 		async userLogin(useToast, hasHostsite = true) {
+			this.loading = false;
 			const toast = useToast();
+			const router = useRouter();
 			const {
 				ApiIncentiveSystemIdentity,
 				ApiIncentiveClientId,
@@ -205,13 +207,29 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					},
 				});
 
+				if (hasHostsite) {
+					const cookieAuth = useCookie('tokenUser', {
+						maxAge: +data.expires_in,
+						sameSite: true,
+						httpOnly: false,
+					});
+					cookieAuth.value = data.access_token;
+					this.loading = false;
+					router.push('/app/hub');
+				}
+
 				this.loading = false;
 				return data;
 			} catch (error) {
+				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `Erro: ${error}`,
-					description: `${error}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
