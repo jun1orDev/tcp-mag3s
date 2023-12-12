@@ -1,23 +1,28 @@
 <template>
-	<div v-show="!storeIncentive.loading" class="pt-12 min-h-screen flex flex-col justify-between">
+	<div v-show="!storeIncentive.loading" class="min-h-screen flex flex-col justify-between">
 		<AppLayoutBgDefault />
 
-		<UContainer>
+		<AppLayoutHeader v-show="app.config_will_have_hotsite" />
+
+		<UContainer class="pt-12" :class="hasHeader">
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-3">
 				<!-- Banner Principal -->
-				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true" :imageDetach="app.banner_image_card_one"
-					:loading="storeIncentive.nextDrawLoading" :title="store.titleCardNextDraw"
-					:subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate" :callToAction="store.labelButtonCardNextDraw" :hasDescription="false"
-					:description="false" :imageAward="storeIncentive.nextDrawFull.image" />
+				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true"
+					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
+					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
+					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
+					:imageAward="storeIncentive.nextDrawFull.image" />
 
 				<!-- Separador -->
 				<div class="h-1 md:h-2 lg:hidden"></div>
 
 				<!-- Banner Secundário -->
-				<AppBannersCard2 :linkSource="store.linkCardScratchQtd" :hasQtdDescriptionFigure="storeIncentive.hasScratchCardQtd" :qtdDescriptionFigure="storeIncentive.gamification.qtdScratchCard"
-					:title="store.titleCardScratchQtd" :subtitle="store.subtitleCardScratchQtd"
-					:imageDetach="app.banner_image_card_two" :callToAction="store.callToActionCardScratchQtd" />
+				<AppBannersCard2 :linkSource="store.linkCardScratchQtd"
+					:hasQtdDescriptionFigure="storeIncentive.hasScratchCardQtd"
+					:qtdDescriptionFigure="storeIncentive.gamification.qtdScratchCard" :title="store.titleCardScratchQtd"
+					:subtitle="store.subtitleCardScratchQtd" :imageDetach="app.banner_image_card_two"
+					:callToAction="store.callToActionCardScratchQtd" />
 			</div>
 
 			<!-- Separador -->
@@ -37,7 +42,8 @@
 
 					<!-- Lado Direito -->
 					<AppBannersCard4 linkSource="" :background="app.banner_background_card_four"
-						:title="app.banner_text_card_title_four" :callToAction="false" :loading="storeIncentive.nextDrawLoading" :awards="storeIncentive.listDrawsUpcomingLimited(5)" :carouselAutoPlay="5000" />
+						:title="app.banner_text_card_title_four" :callToAction="false" :loading="storeIncentive.nextDrawLoading"
+						:awards="storeIncentive.listDrawsUpcomingLimited(5)" :carouselAutoPlay="5000" />
 				</div>
 
 				<!-- Banner Blog -->
@@ -62,6 +68,12 @@ const storeIncentive = useStoreIncentive();
 
 definePageMeta({
 	middleware: ['auth-user']
+});
+
+const hasHeader = computed(() => {
+	return {
+		'pt-24': app.config_will_have_hotsite
+	}
 });
 
 onMounted(async () => {

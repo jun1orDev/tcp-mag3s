@@ -158,6 +158,20 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
+		name: 'header_colors_background_app',
+		description: 'cor de fundo padrão do header da aplicação',
+		value: '#000000',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'header_colors_text_app',
+		description: 'cor de text padrão do header da aplicação',
+		value: '#FFFFFF',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
 		name: 'sessions_image_one',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
