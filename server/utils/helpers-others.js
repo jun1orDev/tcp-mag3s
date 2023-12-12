@@ -561,8 +561,8 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
-		name: 'colors_carousel_pagination_active',
-		description: 'Cor ativa da paginação, do slide que foi selecionado.',
+		name: 'colors_emphasis_active_and_hover',
+		description: 'Cor de destaque utilizado para chamar a atenção do usuário.',
 		value: '#FF0019',
 		tag: 'app',
 		type: typesMedia[2],

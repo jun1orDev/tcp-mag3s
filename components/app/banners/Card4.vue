@@ -71,7 +71,7 @@ const bgCarouselPagination = computed(() => {
 })
 
 const bgCarouselPaginationActive = computed(() => {
-	return store.contentApp.colors_carousel_pagination_active;
+	return store.contentApp.colors_emphasis_active_and_hover;
 })
 
 </script>

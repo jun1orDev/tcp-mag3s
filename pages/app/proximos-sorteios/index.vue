@@ -39,7 +39,7 @@ const bgCarouselPagination = computed(() => {
 })
 
 const bgCarouselPaginationActive = computed(() => {
-	return store.colors_carousel_pagination_active;
+	return store.colors_emphasis_active_and_hover;
 })
 
 let cards = ref([
