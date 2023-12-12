@@ -1,6 +1,6 @@
 <template>
 	<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" placeholderImage="/imgs/lp/cover_banner_3.png"
-		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" position="fixed" />
+		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two" position="fixed" />
 
 	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-0" :class="isItemsCenter" :style="textColor">
 		<div class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
@@ -30,7 +30,7 @@
 
 					<div class="flex justify-center">
 						<UButton size="xl" label="entrar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-							class="fm3" :disabled="disabledButtonLogin" />
+							class="fm3" :disabled="disabledButtonLogin" :loading="!storeIncentive.loading" trailing />
 					</div>
 				</UForm>
 
@@ -47,6 +47,10 @@ const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
+
+definePageMeta({
+	middleware: ['login-app']
+});
 
 const disabledButtonLogin = computed(() => {
 	return !storeIncentive.formLogin.user || !storeIncentive.formLogin.password

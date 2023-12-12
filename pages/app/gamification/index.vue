@@ -14,7 +14,7 @@ import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
-	middleware: process.client ? ['auth-user'] : undefined
+	middleware: ['auth-user']
 });
 </script>
 

@@ -61,13 +61,12 @@ import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
-	middleware: process.client ? ['auth-user'] : undefined
+	middleware: ['auth-user']
 });
 
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
-console.log('estou no hub')
 });
 </script>
 

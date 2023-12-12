@@ -93,7 +93,7 @@ onMounted(() => {
 });
 
 definePageMeta({
-	middleware: process.client ? ['auth-user', 'reveal-chosen-draw'] : undefined
+	middleware: ['auth-user', 'reveal-chosen-draw']
 });
 </script>
 

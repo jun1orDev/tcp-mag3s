@@ -8,7 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 	// Caso a aplicação tenha autenticação obrigatória do usuário redirecionar para a tela de Login
 	if (storeApp.contentApp.config_will_have_hotsite) {
-		if (!doesCookieExist('tokenUser')) {
+		if (!useCookie('tokenUser').value) {
 			console.log('sem cookie de autenticação, refaça o login');
 			storeIncentive.loading = true;
 			return navigateTo({ path: '/login' });
@@ -19,7 +19,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	}
 
 	// Autenticação automática para aplicativos integrados
-	if (!doesCookieExist('tokenUser')) {
+	if (!useCookie('tokenUser').value) {
 		console.log('cadastrando um novo cookie de autenticação');
 		const data = await storeIncentive.userLogin(useToast, false);
 		if (data) {
