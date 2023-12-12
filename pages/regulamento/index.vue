@@ -4,10 +4,10 @@
 
 		<UContainer>
 			<div
-				class="flex justify-center min-h-screen pt-14 lg:pt-24 pb-10" :class="isItemsCenter"
+				class="flex justify-center min-h-screen py-14" :class="isItemsCenter"
 			>
 				<div
-					class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen"
+					class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center w-screen"
 					:class="isGridLayout"
 				>
 					<!-- Imagem do Brand -->
