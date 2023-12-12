@@ -104,6 +104,13 @@ export const listSchemaDataMedia = [
 
 	// Login/Checkout
 	{
+		name: 'layout_background_colors_app_two',
+		description: 'Cor de fundo utilizado em: login, checkout, etc..',
+		value: '#FFBE00',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'layout_background_app_two',
 		description: 'Imagem de fundo utilizado em: login, checkout, etc..',
 		tag: 'login/checkout',
@@ -721,6 +728,13 @@ export const listSchemaDataMedia = [
 		name: 'banner_text_colors_hotsite',
 		description: 'cor de texto do banner principal.',
 		value: '#FFFFFF',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'layout_background_colors_hotsite',
+		description: 'Cor de fundo da Imagem de fundo do hotsite.',
+		value: '#061049',
 		tag: 'hotsite',
 		type: typesMedia[2],
 	},

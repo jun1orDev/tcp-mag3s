@@ -8,20 +8,20 @@
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 
-const props = defineProps(['imageMobile', 'image', 'placeholderImage', 'placeholderImageMobile', 'position']);
+const props = defineProps(['imageMobile', 'image', 'placeholderImage', 'placeholderImageMobile', 'bgColor', 'position']);
 
 let widthWindow = ref(null);
 
 const background = computed(() => {
 	if (widthWindow.value != null && widthWindow.value <= 912) {
-		return `background-image: url('${props.imageMobile}'), url('${props.placeholderImageMobile}'); background-color: ${store.contentApp.colors_background_one}`;
+		return `background-image: url('${props.imageMobile}'), url('${props.placeholderImageMobile}'); background-color: ${props.bgColor}`;
 	}
 
 	if (widthWindow.value != null && widthWindow.value > 912) {
-		return `background-image: url('${props.image}'), url('${props.placeholderImage}'); background-color: ${store.contentApp.colors_background_one}`;
+		return `background-image: url('${props.image}'), url('${props.placeholderImage}'); background-color: ${props.bgColor}`;
 	}
 
-	return `background-color: ${store.contentApp.colors_background_one}`;
+	return `background-color: ${props.bgColor}`;
 });
 
 onMounted(() => {
