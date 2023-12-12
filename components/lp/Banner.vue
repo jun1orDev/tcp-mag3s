@@ -1,20 +1,23 @@
 <template>
 	<div class="h-screen flex items-center" :style="colorText">
-		<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" />
+		<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" placeholderImage="/imgs/lp/cover_banner.png"
+			placeholderImageMobile="/imgs/lp/cover_banner_mobile.png" :bgColor="app.layout_background_colors_hotsite" position="absolute" />
 		<UContainer class="grid lg:grid-cols-2">
 
 			<!-- Brand Principal -->
 			<div class="flex flex-col justify-start mb-12 lg:mb-0 lg:mt-12 xl:mt-6">
-				<LpImageBrand/>
+				<LpImageBrand />
 				<p class="fm1 animate__animated animate__fadeInUp" v-html="app.brand_text_hotsite"></p>
 			</div>
 
 			<!--  Efeito de quebra de seção -->
-			<div v-if="app.config_will_have_effect_banner_main" class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full animate__animated animate__slideInUp" :style="bgColor">
+			<div v-if="app.config_will_have_effect_banner_main"
+				class="absolute left-0 bottom-0 h-3/6 lg:h-3/6 w-full animate__animated animate__slideInUp" :style="bgColor">
 			</div>
 
 			<!-- Influencer -->
-			<UContainer v-if="app.config_will_have_influencer_race" class="absolute bottom-[10%] lg:bottom-[20%] z-10">
+			<UContainer v-if="app.config_will_have_influencer_race" :style="colorTextTwo"
+				class="absolute bottom-[10%] lg:bottom-[20%] z-10">
 
 				<div v-if="store.influencerChosen" class="absolute left-0 bottom-1/2 lg:flex items-end">
 					<!-- Imagem -->
@@ -68,15 +71,19 @@ const influencerName = computed(() => {
 });
 
 const colorText = computed(() => {
-	return `color: ${app.colors_text_one};`;
+	return `color: ${app.banner_text_colors_hotsite};`;
+});
+
+const colorTextTwo = computed(() => {
+	return `color: ${app.session_influencer_text_colors_hotsite};`;
 });
 
 const borderColor = computed(() => {
-	return `border-color: ${app.colors_border_two}`
+	return `border-color: ${app.session_influencer_border_colors_hotsite}`
 })
 
 const bgColor = computed(() => {
-	return `background: linear-gradient(6deg, ${app.colors_background_three} 50%, transparent 50%); backface-visibility: hidden;`;
+	return `background: linear-gradient(6deg, ${app.session_influencer_effect_colors_hotsite} 50%, transparent 50%); backface-visibility: hidden;`;
 });
 
 const bgImage = computed(() => {

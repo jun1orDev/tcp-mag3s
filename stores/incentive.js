@@ -1,5 +1,5 @@
 import { useStoreApp } from './app';
-import { getCookie } from '../utils/helpers';
+import { getCookie, enumsResponseServer } from '../utils/helpers';
 
 export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
@@ -35,6 +35,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					LuckyNumbersWereDrawn: null,
 				},
 				qtdScratchCard: 0,
+			},
+			formLogin: {
+				user: '',
+				password: '',
 			},
 			filterPrizes: 2,
 			loading: true,
@@ -114,8 +118,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				.showDrawnNumbersToday;
 		},
 		drawnNumbersToday: (state) => {
-			return state.gamification.lotteryDraws.revealChosenDraw.drawnNumber[0]
-				.dozens;
+			if (state.showDrawnNumbersToday)
+				return state.gamification.lotteryDraws.revealChosenDraw.drawnNumber[0]
+					.dozens;
+
+			return null;
 		},
 
 		// Inventário do usuário
@@ -175,8 +182,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Login do usuário
-		async userLogin(hasHostsite = true, useToast) {
+		async userLogin(useToast, hasHostsite = true) {
+			this.loading = false;
 			const toast = useToast();
+			const router = useRouter();
 			const {
 				ApiIncentiveSystemIdentity,
 				ApiIncentiveClientId,
@@ -191,18 +200,36 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					body: {
 						clientId: ApiIncentiveClientId,
 						clientSecret: ApiIncentiveClientSecret,
-						userInfo: hasHostsite ? '' : ApiIncentiveUserTest,
-						password: hasHostsite ? '' : ApiIncentivePassTest,
+						userInfo: hasHostsite ? this.formLogin.user : ApiIncentiveUserTest,
+						password: hasHostsite
+							? this.formLogin.password
+							: ApiIncentivePassTest,
 					},
 				});
+
+				if (hasHostsite) {
+					const cookieAuth = useCookie('tokenUser', {
+						maxAge: +data.expires_in,
+						sameSite: true,
+						httpOnly: false,
+					});
+					cookieAuth.value = data.access_token;
+					this.loading = false;
+					router.push('/app/hub');
+				}
 
 				this.loading = false;
 				return data;
 			} catch (error) {
+				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `Erro: ${error}`,
-					description: `${error}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -392,10 +419,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					(item) => item.divulgationDate
 				);
 				const mostRecentDate = $mostRecentDate(datesDraws, 'min');
-				this.gamification.lotteryDraws.nextDraw =
-					this.gamification.lotteryDraws.listDrawsUpcoming.find(
-						(item) => item.fullDate === $formatDayMonthYearFull(mostRecentDate)
-					);
+
+				if (this.gamification.lotteryDraws.listDrawsUpcoming.length) {
+					this.gamification.lotteryDraws.nextDraw =
+						this.gamification.lotteryDraws.listDrawsUpcoming.find(
+							(item) =>
+								item.fullDate === $formatDayMonthYearFull(mostRecentDate)
+						);
+				}
 
 				this.gamification.lotteryDraws.nextDraw.loading = true;
 			} catch (error) {

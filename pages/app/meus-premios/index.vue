@@ -99,7 +99,7 @@ const handleClick = (position, filter) => {
 };
 
 definePageMeta({
-	middleware: process.client ? ['auth-user'] : undefined
+	middleware: ['auth-user']
 });
 
 onMounted(async () => {

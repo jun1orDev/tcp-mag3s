@@ -22,19 +22,19 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const colorText = computed(() => {
-  return `color: ${app.colors_text_one};`;
+  return `color: ${app.register_steps_text_colors_hotsite};`;
 });
 
 const bgColor = computed(() => {
-  return `background: ${app.colors_background_three};`;
+  return `background: ${app.register_steps_background_colors_hotsite};`;
 });
 
 const colorBgButton = computed(() => {
-  return `background-color: ${app.colors_background_button};`;
+  return `background-color: ${app.register_steps_button_background_colors_hotsite};`;
 });
 
 const colorTextButton = computed(() => {
-  return `color: ${app.colors_text_button};`;
+  return `color: ${app.register_steps_button_text_colors_hotsite};`;
 });
 </script>
 

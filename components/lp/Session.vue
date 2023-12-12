@@ -1,7 +1,7 @@
 <template >
 	<div class="relative">
 
-		<LpBgDefault :image="props.bgImage" :imageMobile="props.bgImageMobile" />
+		<LpBgDefault :image="props.bgImage" :imageMobile="props.bgImageMobile" placeholderImage="/imgs/lp/cover_banner_2.png" placeholderImageMobile="/imgs/lp/cover_banner_mobile_2.png" :bgColor="app.layout_background_colors_hotsite" position="absolute" />
 		<UContainer :style="colorText" class="py-12">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-center md:text-start">
 				<div :class="['order-1', orderText]">
@@ -54,7 +54,7 @@ const orderImage = computed(() => {
 });
 
 const colorText = computed(() => {
-	return `color: ${app.colors_text_one};`;
+	return `color: ${app.session_text_colors_hotsite};`;
 });
 </script>
 

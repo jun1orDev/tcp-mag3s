@@ -52,3 +52,19 @@ export function generateRandomNumber(maximum) {
 	// We multiply it by the maximum value and use Math.floor() to round down
 	return Math.floor(Math.random() * (maximum + 1));
 }
+
+export function enumsResponseServer(code) {
+	switch (code) {
+		case 'UsernameAndPasswordRequired':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Usuário ou senha inválidos.',
+			};
+
+		default:
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Verifique com o administrador do sistema.',
+			};
+	}
+}

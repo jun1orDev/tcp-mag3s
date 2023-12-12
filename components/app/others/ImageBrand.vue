@@ -15,12 +15,12 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
-const app = useStoreApp().contentApp;
+const app = store.contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
 
 const imgBrand = computed(() => {
-	return `${pathAssets}${store.contentApp.brand_image_five}`;
+	return `${pathAssets}${app.brand_image_five}`;
 });
 </script>
 

@@ -4,11 +4,11 @@
 
 		<UContainer>
 			<div
-				class="flex justify-center min-h-screen pt-14 lg:pt-24 pb-10" :class="center"
+				class="flex justify-center min-h-screen pt-14 lg:pt-24 pb-10" :class="isItemsCenter"
 			>
 				<div
 					class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen"
-					:class="classGrid"
+					:class="isGridLayout"
 				>
 					<!-- Imagem do Brand -->
 					<AppOthersImageBrand />
@@ -42,14 +42,14 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
-const classGrid = computed(() => {
+const isGridLayout = computed(() => {
 	return {
-		grid: app.config_will_have_image_brand_session_hotsite,
+		'grid': app.config_will_have_image_brand_session_hotsite,
 	};
 });
 
 // centralizar conteúdo
-const center = computed(() => {
+const isItemsCenter = computed(() => {
 return {
 	'items-center': app.config_will_have_image_brand_session_hotsite,
 };

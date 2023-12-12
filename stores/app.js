@@ -142,8 +142,10 @@ export const useStoreApp = defineStore('storeApp', {
 					return state.faq.list;
 				}
 
-				return state.faq.list.filter(item => item.one.toLowerCase().includes(payload.toLowerCase()));
-			}
+				return state.faq.list.filter((item) =>
+					item.one.toLowerCase().includes(payload.toLowerCase())
+				);
+			};
 		},
 
 		// Hotsite
@@ -157,7 +159,7 @@ export const useStoreApp = defineStore('storeApp', {
 
 		influencerFirst: (state) => {
 			return state.influencerList.list[0];
-		}
+		},
 	},
 
 	actions: {
@@ -246,9 +248,9 @@ export const useStoreApp = defineStore('storeApp', {
 			if (!influencer) {
 				this.influencerChosen =
 					this.contentApp.influencer_race_hotsite_list.list[
-					generateRandomNumber(
-						this.contentApp.influencer_race_hotsite_list.list.length - 1
-					)
+						generateRandomNumber(
+							this.contentApp.influencer_race_hotsite_list.list.length - 1
+						)
 					];
 			}
 		},

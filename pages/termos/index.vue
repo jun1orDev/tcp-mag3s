@@ -1,7 +1,7 @@
 <template>
 	<AppLayoutBgDefault />
-	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="center">
-		<div class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen" :class="classGrid">
+	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="isItemsCenter">
+		<div class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen" :class="isGridLayout">
 			<!-- Imagem do Brand -->
 			<AppOthersImageBrand />
 
@@ -62,13 +62,13 @@ const imageLogoTwo = computed(() => {
 	return `${pathAssets}${app.brand_image_two}`;
 });
 
-const classGrid = computed(() => {
+const isGridLayout = computed(() => {
 	return {
 		'grid': app.config_will_have_image_brand_session_hotsite,
 	};
 });
 
-const center = computed(() => {
+const isItemsCenter = computed(() => {
 	return {
 		'items-center': app.config_will_have_image_brand_session_hotsite,
 	};

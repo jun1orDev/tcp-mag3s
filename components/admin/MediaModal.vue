@@ -152,7 +152,7 @@
 							<!-- Verdadeiro/Falso -->
 							<div v-if="store.typeMediaSelectedForm === 'boolean'">
 								<UFormGroup class="block mb-2" label="Escolha apenas 1 opção:" name="value" size="xl" required>
-									<URadio v-for="boolean of store.formMedia.valueBoolean" id="value" name="value" :key="boolean.name"
+									<URadio v-for="(boolean,index) of store.formMedia.valueBoolean" :id="`value-${index}`" name="value" :key="boolean.name"
 										v-model="store.formMedia.value" v-bind="boolean" :label="boolean.label" />
 								</UFormGroup>
 							</div>
