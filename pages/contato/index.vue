@@ -1,13 +1,7 @@
 <template>
 	<AppLayoutBgDefault />
-	<UContainer
-		class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52"
-		:class="isGridLayout"
-	>
-		<div
-			class="md:grid-cols-[400px_1fr] gap-12 lg:gap-24 items-center justify-center w-screen"
-			:class="isItemsCenter"
-		>
+	<UContainer class="flex justify-center min-h-screen py-14" :class="isItemsCenter">
+		<div class="md:grid-cols-[400px_1fr] gap-12 lg:gap-24 items-center justify-center w-screen" :class="isGridLayout">
 			<!-- Imagem do Brand -->
 			<AppOthersImageBrand class="order-2 lg:order-1" />
 
@@ -19,7 +13,7 @@
 				</div>
 
 				<div class="fm2">
-					<p class="text-[9px] md:text-[20px] text-justify text-white order-1">
+					<p class="text-[9px] md:text-[20px] text-white order-1">
 						Nossa serviço de atendimento está pronto pra te atender e tirar qualquer dúvida.
 					</p>
 				</div>

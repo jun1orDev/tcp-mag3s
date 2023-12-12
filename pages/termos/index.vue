@@ -1,7 +1,7 @@
 <template>
 	<AppLayoutBgDefault />
-	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="isItemsCenter">
-		<div class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-24 justify-center w-screen" :class="isGridLayout">
+	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 pb-52 lg:pb-80" :class="isItemsCenter">
+		<div class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen" :class="isGridLayout">
 			<!-- Imagem do Brand -->
 			<AppOthersImageBrand />
 

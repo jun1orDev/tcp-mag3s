@@ -5,6 +5,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 	// arrow function recommended for full type inference
 	state: () => {
 		return {
+			userAcountData: {
+				name: '',
+				email: '',
+				status: '',
+				documents: null,
+				phones: null,
+				addresses: null,
+			},
 			inventory: {
 				loading: false,
 				luckyNumbers: [],
@@ -46,6 +54,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 	},
 
 	getters: {
+		// Dados do usuário
+		firstUserName: (state) => {
+			return state.userAcountData.name.split(' ')[0];
+		},
+
 		// Rapadinha
 		hasScratchCardQtd: (state) => {
 			return +state.gamification.qtdScratchCard > 0;
@@ -215,6 +228,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					});
 					cookieAuth.value = data.access_token;
 					this.loading = false;
+					this.formLogin.user = '';
+					this.formLogin.password = '';
 					router.push('/app/hub');
 				}
 
@@ -230,6 +245,61 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					description: `${
 						enumsResponseServer(error.response._data.request.code).message
 					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+		},
+
+		// Saindo da aplicação
+		userLogout(useToast) {
+			const toast = useToast();
+			const router = useRouter();
+			const cookieAuth = useCookie('tokenUser');
+
+			cookieAuth.value = null;
+			this.loading = true;
+
+			toast.add({
+				id: 'error_logOutUser',
+				title: `Atenção!`,
+				description: `Faça o login novamente para entrar.`,
+				color: 'red',
+				icon: 'i-material-symbols-warning-outline-rounded',
+				timeout: 3500,
+			});
+
+			router.push({ path: '/login' });
+		},
+
+		// Dados do usuário
+		async userAccount(useToast) {
+			if (this.inventory.loading) return;
+			console.log('buscando dados do usuário');
+
+			const toast = useToast();
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(`${ApiIncentiveSystemIdentity}account/user`, {
+					method: 'get',
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
+
+				this.userAcountData.name = data.name;
+				this.userAcountData.email = data.email;
+				this.userAcountData.status = data.status;
+				this.userAcountData.documents = data.documents;
+				this.userAcountData.phones = data.phones;
+				this.userAcountData.addresses = data.addresses;
+			} catch (error) {
+				toast.add({
+					id: 'error_getContentAppLoginUser',
+					title: `${enumsResponseServer(error).title}`,
+					description: `${enumsResponseServer(error).message}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,

@@ -53,6 +53,7 @@ export function generateRandomNumber(maximum) {
 	return Math.floor(Math.random() * (maximum + 1));
 }
 
+// Mensagens padrões de resposta do servidor externo de incentivo
 export function enumsResponseServer(code) {
 	switch (code) {
 		case 'UsernameAndPasswordRequired':
@@ -67,4 +68,23 @@ export function enumsResponseServer(code) {
 				message: 'Verifique com o administrador do sistema.',
 			};
 	}
+}
+
+// Menu scroll para mudar seu estilo
+export function headerScrollStyle(idHeader, scrollDistance, animate) {
+	let menu = document.getElementById(idHeader);
+
+	window.addEventListener('scroll', function () {
+		if (!menu) {
+			return;
+		}
+
+		if (window.scrollY >= scrollDistance) {
+			menu.classList.add('has-bg-color');
+			menu.classList.add(animate);
+		} else {
+			menu.classList.remove('has-bg-color');
+			menu.classList.remove(animate);
+		}
+	});
 }

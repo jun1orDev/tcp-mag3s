@@ -14,6 +14,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 			return navigateTo({ path: '/login' });
 		}
 
+		// Obtendo os dados do usuário
+		await storeIncentive.userAccount(useToast);
+
 		storeIncentive.loading = false;
 		return;
 	}

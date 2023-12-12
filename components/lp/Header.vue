@@ -1,5 +1,5 @@
 <template>
-	<div id="header-hotsite" class="fixed w-full z-50 animate__animated animate__fadeInDown">
+	<div id="header-hotsite" class="fixed w-full z-50 animate__animated animate__fadeIn">
 		<div class="bg-transparent py-2 lg:py-6">
 			<UContainer class="flex justify-between items-center">
 				<div>
@@ -51,22 +51,7 @@ const optionsButton = ref({
 });
 
 onMounted(() => {
-	let menu = document.getElementById("header-hotsite");;
-
-	window.addEventListener("scroll", function () {
-		if (!menu) {
-			return;
-		}
-
-		if (window.scrollY > 200) {
-			menu.classList.add("has-bg-color");
-			menu.classList.add("animate__fadeInDown");
-		} else {
-			menu.classList.remove("has-bg-color");
-			menu.classList.remove("animate__fadeInDown");
-		}
-	});
-
+	headerScrollStyle('header-hotsite', 200, 'animate__fadeInDown');
 });
 </script>
 

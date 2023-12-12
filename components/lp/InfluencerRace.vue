@@ -9,7 +9,7 @@
 					:style="backgroundInfluencer">
 					<!-- Imagem -->
 					<div class="animate__animated animate__zoomIn w-36 h-36 lg:w-48 lg:h-48">
-						<UAvatar :src="imageInfluencerFirstRanking" alt="Avatar" size="4xl" :ui="configInfluencer" />
+						<UAvatar :src="imageInfluencerFirstRanking" alt="Avatar" size="4xl" />
 						<div class="absolute w-36 h-36 lg:w-48 lg:h-48 border-8 rounded-full top-0" :style="borderColor"></div>
 					</div>
 
