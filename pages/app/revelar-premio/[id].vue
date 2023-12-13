@@ -1,8 +1,10 @@
 <template>
-	<div v-show="!storeIncentive.loading" class="py-12" :style="`color: ${store.contentApp.colors_text_one}`">
-		<AppLayoutBgDefault />
+	<AppLayoutBgDefault />
+	<div v-show="!storeIncentive.loading" class="" :style="`color: ${store.contentApp.colors_text_one}`">
 
-		<UContainer>
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" />
+
+		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal -->
 			<div class="max-w-[700px] m-auto flex justify-center">
 				<AppBannersCard linkSource="" :hasImageDetach="false" imageDetach=""
@@ -52,14 +54,25 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
+const app = useStoreApp().contentApp;
 
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
+
+definePageMeta({
+	middleware: ['auth-user', 'reveal-chosen-draw']
+});
 
 const borderSept = store.contentApp.colors_border_two;
 
 const [animateNumbersUser] = useAutoAnimate({
 	duration: 1000
+});
+
+const hasHeader = computed(() => {
+	return {
+		'py-14 lg:py-24': app.config_will_have_hotsite
+	}
 });
 
 onMounted(() => {
@@ -90,10 +103,6 @@ onMounted(() => {
 			}, 1000);
 			break;
 	}
-});
-
-definePageMeta({
-	middleware: ['auth-user', 'reveal-chosen-draw']
 });
 </script>
 
