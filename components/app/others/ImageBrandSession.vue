@@ -20,7 +20,7 @@ const app = store.contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
 const imgBrand = computed(() => {
-	return `${pathAssets}${app.brand_image_five}`;
+	return `${pathAssets}${app.brand_image_session}`;
 });
 </script>
 

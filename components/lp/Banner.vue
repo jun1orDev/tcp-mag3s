@@ -55,7 +55,7 @@ const app = useStoreApp().contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
 const brandMain = computed(() => {
-	return `${pathAssets}${app.brand_image_five}`;
+	return `${pathAssets}${app.brand_image_session}`;
 });
 
 const influencerImage = computed(() => {

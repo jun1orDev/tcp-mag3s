@@ -66,6 +66,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'config_image_whatsapp',
 		description: 'Imagem do logo do WhatsApp.',
+		placeholder: '/imgs/whats.png',
 		tag: 'config',
 		type: typesMedia[3],
 	},
@@ -74,30 +75,28 @@ export const listSchemaDataMedia = [
 	{
 		name: 'brand_image_one',
 		description: 'Imagem do logo na página de carregamento.',
+		placeholder: '/imgs/img_fiel_da_sorte.png',
 		tag: 'brand',
 		type: typesMedia[3],
 	},
 	{
 		name: 'brand_image_two',
 		description: 'Imagem do logo presente dentro do footer na página Hub.',
+		placeholder: '/imgs/fiel.png',
 		tag: 'brand',
 		type: typesMedia[3],
 	},
 	{
 		name: 'brand_image_three',
 		description: 'Imagem principal da página de carregamento.',
+		placeholder: '/imgs/img_loading.png',
 		tag: 'brand',
 		type: typesMedia[3],
 	},
 	{
-		name: 'brand_image_four',
-		description: 'Imagem de logo principal utilizado na landing page.',
-		tag: 'brand',
-		type: typesMedia[3],
-	},
-	{
-		name: 'brand_image_five',
-		description: 'Imagem de destaque do banner utilizado na landing page.',
+		name: 'brand_image_session',
+		description: 'Imagem de destaque do banner utilizado nas seções do site.',
+		placeholder: '/imgs/lp/landing_cover_image.png',
 		tag: 'brand',
 		type: typesMedia[3],
 	},
@@ -113,13 +112,15 @@ export const listSchemaDataMedia = [
 	{
 		name: 'layout_background_app_two',
 		description: 'Imagem de fundo utilizado em: login, checkout, etc..',
+		placeholder: '/imgs/lp/cover_banner_3.png',
 		tag: 'login/checkout',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_app_mobile_two',
 		description:
-			'Imagem de fundo versão mobile utilizado em: login, checkout, etc..',
+		'Imagem de fundo versão mobile utilizado em: login, checkout, etc..',
+		placeholder: '/imgs/lp/cover_banner_mobile_3.png',
 		tag: 'login/checkout',
 		type: typesMedia[3],
 	},
@@ -142,6 +143,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'layout_background_app',
 		description: 'Imagem de fundo da aplicação geral.',
+		placeholder: 'img_fundo_loading.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -734,7 +736,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'brand_image_hotsite',
-		description: 'Imagem de brand utilizado no header e footer.',
+		description: 'Imagem de logo principal utilizado na landing page e header da aplicação, etc.',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
