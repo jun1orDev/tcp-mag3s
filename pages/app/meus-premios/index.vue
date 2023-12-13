@@ -2,7 +2,7 @@
 	<div v-show="!storeIncentive.loading" :style="textColor">
 		<AppLayoutBgDefault />
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="pt-12" :class="hasHeader">
 			<div class="max-w-[700px] m-auto flex flex-col justify-center">

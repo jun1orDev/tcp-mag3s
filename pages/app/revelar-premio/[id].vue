@@ -2,7 +2,7 @@
 	<AppLayoutBgDefault />
 	<div v-show="!storeIncentive.loading" class="" :style="`color: ${store.contentApp.colors_text_one}`">
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal -->

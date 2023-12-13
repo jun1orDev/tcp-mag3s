@@ -18,7 +18,7 @@
 			:class="isGridLayout"
 		>
 			<!-- brand -->
-			<AppOthersImageBrand />
+			<AppOthersImageBrandSession />
 
 			<div class="w-full pb-8 sm:pb-0">
 				<!-- Titulo -->

@@ -165,6 +165,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'header_colors_background_app_two',
+		description: 'cor de fundo padrão do header da aplicação clara',
+		value: '#FFBE00',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
 		name: 'header_colors_text_app',
 		description: 'cor de text padrão do header da aplicação',
 		value: '#FFFFFF',
@@ -727,7 +734,13 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'brand_image_hotsite',
-		description: 'Imagem de fundo do hotsite.',
+		description: 'Imagem de brand utilizado no header e footer.',
+		tag: 'hotsite',
+		type: typesMedia[3],
+	},
+	{
+		name: 'brand_dark_image_hotsite',
+		description: 'Imagem versão dark do brand utilizado no header e footer.',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},

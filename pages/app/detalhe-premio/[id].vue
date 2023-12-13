@@ -1,7 +1,7 @@
 <template>
 	<AppLayoutBgDefault />
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 	<div class="min-h-screen flex items-center pt-12" :class="hasHeader" v-show="!storeIncentive.loading"
 		:style="textColor">

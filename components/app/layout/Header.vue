@@ -3,10 +3,11 @@
 		<div class="bg-transparent py-2 lg:py-6">
 			<UContainer class="flex justify-between items-center">
 				<div>
-					<LpImageBrand class="max-w-[110px] lg:max-w-[130px]" />
+					<LpImageBrandDark v-if="isLogoDark" class="max-w-[110px] lg:max-w-[130px]" />
+					<LpImageBrand v-else class="max-w-[110px] lg:max-w-[130px]" />
 				</div>
 				<div class="flex items-center">
-					<p class="fm1 me-4 text-base">Olá, {{ storeIncentive.firstUserName }} </p>
+					<p v-if="hasLogout" class="fm1 me-4 text-base">Olá, {{ storeIncentive.firstUserName }} </p>
 					<UTooltip v-if="hasLogout" text="clique para sair"
 						:popper="{ arrow: true, placement: 'bottom-end', offsetDistance: 10 }">
 						<UIcon name="i-material-symbols-exit-to-app" class="w-6 h-6 cursor-pointer"
@@ -44,7 +45,7 @@ const app = useStoreApp().contentApp;
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
-const props = defineProps(['hasLogout']);
+const props = defineProps(['bgColor', 'textColor', 'hasLogout', 'isLogoDark']);
 
 const isOpenModal = ref(false);
 
@@ -56,15 +57,15 @@ const configModal = ref({
 });
 
 const bgColor = computed(() => {
-	return app.header_colors_background_app;
+	return props.bgColor;
 });
 
 const bgColorModal = computed(() => {
-	return `background-color: ${app.header_colors_background_app}`;
+	return `background-color: ${props.bgColor}`;
 });
 
 const textColor = computed(() => {
-	return `color: ${app.header_colors_text_app}`;
+	return `color: ${props.textColor}`;
 });
 
 const emphasis = computed(() => {

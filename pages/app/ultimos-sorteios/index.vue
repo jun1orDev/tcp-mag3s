@@ -1,7 +1,7 @@
 <template>
 	<AppLayoutBgDefault />
 	<div v-show="!storeIncentive.loading">		
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="py-12" :class="hasHeader">
 			<AppBannersCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"

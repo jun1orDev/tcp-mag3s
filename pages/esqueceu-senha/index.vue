@@ -1,24 +1,18 @@
 <template>
-	<LpBgDefault
-		:image="bgImage"
-		:imageMobile="bgImageMobile"
-		placeholderImage="/imgs/lp/cover_banner_3.png"
-		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png"
-		:bgColor="app.layout_background_colors_app_two"
-		position="fixed"
-	/>
+	<!-- BG padrão de fundo da página -->
+	<div class="absolute">
+		<LpBgDefault v-if="app.config_will_have_hotsite" :image="app.layout_background_app_two" :imageMobile="app.layout_background_app_mobile_two" placeholderImage="/imgs/lp/cover_banner_3.png"
+		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two" position="fixed" />
+		<AppLayoutBgDefault v-else />
+	</div>
 
-	<UContainer
-		class="flex justify-center min-h-screen pt-14 lg:pt-0"
-		:class="isItemsCenter"
-		:style="textColor"
-	>
-		<div
-			class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
-			:class="isGridLayout"
-		>
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
+
+	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-0" :class="isItemsCenter" :style="textColor">
+		<div class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
+			:class="isGridLayout">
 			<!-- brand -->
-			<AppOthersImageBrand />
+			<AppOthersImageBrandSession />
 
 			<div class="w-full pb-8 sm:pb-0">
 				<!-- Titulo -->
@@ -30,33 +24,15 @@
 				</p>
 
 				<!-- E-mail cadastrado para recuperar a senha -->
-				<UForm
-					id="formLogin"
-					class="space-y-4"
-					@submit="storeIncentive.userLogin(useToast)"
-				>
+				<UForm id="formLogin" class="space-y-4" @submit="storeIncentive.userLogin(useToast)">
 					<UFormGroup label="Seu e-mail cadastrado" name="email">
-						<UInput
-							size="xl"
-							icon="i-material-symbols-mail-lock-outline-rounded"
-							v-model="storeIncentive.formLogin.user"
-							type="text"
-							color="white"
-							variant="outline"
-							:ui="configInput"
-						/>
+						<UInput size="xl" icon="i-material-symbols-mail-lock-outline-rounded" v-model="storeIncentive.formLogin.user"
+							type="text" color="white" variant="outline" :ui="configInput" />
 					</UFormGroup>
 
 					<div class="flex justify-center">
-						<UButton
-							size="xl"
-							label="enviar instruções"
-							type="submit"
-							:ui="configButton"
-							:style="[colorBgButton, colorTextButton]"
-							class="fm3"
-							trailing
-						/>
+						<UButton size="xl" label="enviar instruções" type="submit" :ui="configButton"
+							:style="[colorBgButton, colorTextButton]" class="fm3" trailing />
 					</div>
 				</UForm>
 			</div>
