@@ -1,6 +1,12 @@
 <template>
-	<div>
-		<AppLayoutBgDefault />
+	<!-- BG padrão de fundo da página -->
+	<div class="absolute">
+		<LpBgDefault v-if="app.config_will_have_hotsite" :image="app.layout_background_app_two" :imageMobile="app.layout_background_app_mobile_two" placeholderImage="/imgs/lp/cover_banner_3.png"
+		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two" position="fixed" />
+		<AppLayoutBgDefault v-else />
+	</div>
+
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 		<UContainer>
 			<div
@@ -11,7 +17,7 @@
 					:class="isGridLayout"
 				>
 					<!-- Imagem do Brand -->
-					<AppOthersImageBrand />
+					<AppOthersImageBrandSession />
 
 					<div class="flex flex-col justify-center">
 						<div class="">
@@ -34,7 +40,6 @@
 				</div>
 			</div>
 		</UContainer>
-	</div>
 </template>
 
 <script setup>

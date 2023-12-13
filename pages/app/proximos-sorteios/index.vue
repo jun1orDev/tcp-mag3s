@@ -1,13 +1,15 @@
 <template>
-	<div v-show="!storeIncentive.loading" class="py-12">
-		<AppLayoutBgDefault />
+	<AppLayoutBgDefault />
 
-		<UContainer>
+	<div v-show="!storeIncentive.loading">
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+
+		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal com Carousel -->
 			<Carousel id="carousel-next-prizes" :autoplay="5000" :wrap-around="true" :pause-autoplay-on-hover="true">
 				<Slide v-for="slide in 4" :key="slide">
-					<AppBannersCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach="" title="21 DE NOVEMBRO, 2023"
-						subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
+					<AppBannersCard linkSource="/app/revelar-premio" :hasImageDetach="false" imageDetach=""
+						title="21 DE NOVEMBRO, 2023" subtitle="Luva autografada do Cassio" :countdown="false" :callToAction="false"
 						description="Números válidos até 21/11/2023" imageAward="https://imagedaapi.com" />
 				</Slide>
 
@@ -29,17 +31,21 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
-const store = useStoreApp().contentApp;
+const app = useStoreApp().contentApp;
 
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
+definePageMeta({
+	middleware: ['auth-user']
+});
+
 const bgCarouselPagination = computed(() => {
-	return store.colors_carousel_pagination_background;
+	return app.colors_carousel_pagination_background;
 })
 
 const bgCarouselPaginationActive = computed(() => {
-	return store.colors_emphasis_active_and_hover;
+	return app.colors_emphasis_active_and_hover;
 })
 
 let cards = ref([
@@ -47,8 +53,10 @@ let cards = ref([
 	{ titulo: 'Luva do cassio autografada', subtitulo: '', source: '/detalhes-premios', hasBg: false, img: '/imgs/exemplo_premio_luva.png', date: { day: '12', month: 'Fev' } },
 ]);
 
-definePageMeta({
-	middleware: ['auth-user']
+const hasHeader = computed(() => {
+	return {
+		'py-14 lg:py-24': app.config_will_have_hotsite
+	}
 });
 </script>
 

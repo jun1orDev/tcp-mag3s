@@ -1,7 +1,10 @@
 <template>
-	<div v-show="!storeIncentive.loading" :style="textColor" class="mt-10">
+	<div v-show="!storeIncentive.loading" :style="textColor">
 		<AppLayoutBgDefault />
-		<UContainer>
+
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+
+		<UContainer class="pt-12" :class="hasHeader">
 			<div class="max-w-[700px] m-auto flex flex-col justify-center">
 				<!-- Banner Principal -->
 				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true"
@@ -68,6 +71,10 @@ const app = useStoreApp().contentApp;
 import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
+definePageMeta({
+	middleware: ['auth-user']
+});
+
 const [animateMyPrizes] = useAutoAnimate({
 	duration: 400
 });
@@ -98,8 +105,10 @@ const handleClick = (position, filter) => {
 	storeIncentive.filterLotteryPrizesWon(filter);
 };
 
-definePageMeta({
-	middleware: ['auth-user']
+const hasHeader = computed(() => {
+	return {
+		'pt-14 lg:pt-24': app.config_will_have_hotsite
+	}
 });
 
 onMounted(async () => {

@@ -1,6 +1,11 @@
 <template>
-	<div class="min-h-screen flex items-center" v-show="!storeIncentive.loading" :style="textColor">
-		<AppLayoutBgDefault />
+	<AppLayoutBgDefault />
+
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+
+	<div class="min-h-screen flex items-center pt-12" :class="hasHeader" v-show="!storeIncentive.loading"
+		:style="textColor">
+
 		<UContainer>
 			<!-- Imagem do Prêmio -->
 			<div v-show="storeIncentive.loadingInventory" class="animate__animated animate__zoomIn">
@@ -77,6 +82,10 @@ const storeIncentive = useStoreIncentive();
 
 const { pathAssets } = useRuntimeConfig().public;
 
+definePageMeta({
+	middleware: ['auth-user', 'choose-prize-details']
+});
+
 const textColor = computed(() => {
 	return `color: ${app.colors_text_one}`;
 });
@@ -89,8 +98,10 @@ const ImgWhatsApp = computed(() => {
 	return `${pathAssets}${store.contentApp.config_image_whatsapp}`;
 });
 
-definePageMeta({
-	middleware: ['auth-user', 'choose-prize-details']
+const hasHeader = computed(() => {
+	return {
+		'pt-14': app.config_will_have_hotsite
+	}
 });
 </script>
 
