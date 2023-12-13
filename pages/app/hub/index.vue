@@ -2,7 +2,7 @@
 	<div v-show="!storeIncentive.loading" class="min-h-screen flex flex-col justify-between">
 		<AppLayoutBgDefault />
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="true" />
 
 		<UContainer class="pt-12" :class="hasHeader">
 
