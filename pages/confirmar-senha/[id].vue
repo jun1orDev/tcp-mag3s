@@ -22,23 +22,17 @@
 
 			<div class="w-full pb-8 sm:pb-0">
 				<!-- Titulo -->
-				<p class="fm3 text-base lg:text-lg mb-4">Esqueceu sua senha?</p>
+				<p class="fm3 text-base lg:text-lg mb-4">Cadastre sua nova senha.</p>
 
-				<!-- subtitulo -->
-				<p class="fm2 text-base lg:text-lg mb-4">
-					Digite seu e-mail cadastrado para receber as instruções de alteração:
-				</p>
-
-				<!-- E-mail cadastrado para recuperar a senha -->
+				<!-- Login e senha -->
 				<UForm
 					id="formLogin"
 					class="space-y-4"
-					@submit="storeIncentive.userLogin(useToast)"
 				>
-					<UFormGroup label="Seu e-mail cadastrado" name="email">
+					<UFormGroup label="seu e-mail cadastrado" name="email">
 						<UInput
 							size="xl"
-							icon="i-material-symbols-mail-lock-outline-rounded"
+							icon="i-material-symbols-stacked-email-outline"
 							v-model="storeIncentive.formLogin.user"
 							type="text"
 							color="white"
@@ -47,10 +41,32 @@
 						/>
 					</UFormGroup>
 
+					<UFormGroup label="sua nova senha" name="password">
+						<UInput
+							size="xl"
+							icon="i-material-symbols-passkey-outline-rounded"
+							v-model="storeIncentive.formLogin.password"
+							type="password"
+							color="white"
+							:ui="configInput"
+						/>
+					</UFormGroup>
+
+					<UFormGroup label="confirme sua nova senha" name="password">
+						<UInput
+							size="xl"
+							icon="i-material-symbols-passkey-outline-rounded"
+							v-model="storeIncentive.formLogin.password"
+							type="password"
+							color="white"
+							:ui="configInput"
+						/>
+					</UFormGroup>
+
 					<div class="flex justify-center">
 						<UButton
 							size="xl"
-							label="enviar instruções"
+							label="salvar"
 							type="submit"
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
@@ -71,6 +87,21 @@ import { useStoreIncentive } from '~/stores/incentive';
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
+const { pathAssets } = useRuntimeConfig().public;
+
+
+const bgImage = computed(() => {
+	return `${pathAssets}${app.layout_background_app_two}`;
+});
+
+const bgImageMobile = computed(() => {
+	return `${pathAssets}${app.layout_background_app_mobile_two}`;
+});
+
+const textColor = computed(() => {
+	return `color: ${app.layout_text_colors_login_and_checkout}`;
+});
+
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
@@ -86,11 +117,6 @@ const isGridLayout = computed(() => {
 	};
 });
 
-const isItemsCenter = computed(() => {
-	return {
-		'items-center': app.config_will_have_image_brand_session_hotsite,
-	};
-});
 
 const configInput = ref({
 	rounded: 'rounded-full',
