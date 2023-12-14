@@ -325,7 +325,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'banner_image_card_one',
 		description: 'Primeira imagem localizada dentro do Banner principal.',
-		placeholder: '/imgs/card_sorteio_atual_mobile.png',
+		placeholder: '/imgs/Mosqueteiro_tablet.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
