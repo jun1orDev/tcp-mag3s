@@ -1,6 +1,6 @@
 <template>
 	<div :style="background"
-		class="overflow-hidden bg-cover top-0 right-0 left-0 bottom-0 bg-no-repeat bg-center bg-fixed -z-10" :class="position">
+		class="overflow-hidden bg-cover top-0 right-0 left-0 bottom-0 bg-no-repeat bg-center bg-fixed -z-10 h-screen" :class="position">
 	</div>
 </template>
 
