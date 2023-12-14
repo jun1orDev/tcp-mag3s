@@ -297,30 +297,35 @@ export const listSchemaDataMedia = [
 		name: 'banner_background_card_one',
 		description:
 			'Imagem do Banner principal que está localizado como o primeiro banner da página.',
+		placeholder: '/imgs/card_sorteio_atual_mobile.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_two',
 		description: 'Imagem do Banner secundário, localizado na página Hub.',
+		placeholder: '/imgs/fundo_card_2.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_three',
 		description: 'Imagem do Card localizado ao lado esquerdo da página.',
+		placeholder: '/imgs/card_sorteio_futuro_mobile.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_background_card_four',
 		description: 'Imagem do Card localizado ao lado direito da página',
+		placeholder: '/imgs/card_sorteio_futuro_mobile.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_one',
 		description: 'Primeira imagem localizada dentro do Banner principal.',
+		placeholder: '/imgs/card_sorteio_atual_mobile.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -328,12 +333,14 @@ export const listSchemaDataMedia = [
 		name: 'banner_image_card_two',
 		description:
 			'Primeira imagem localizada dentro do Banner secundário, localizado na página Hub.',
+		placeholder: '/imgs/fundo_card_2.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'banner_image_card_three',
 		description: 'Imagem presente dentro do Banner destacado',
+		placeholder: '/imgs/thumb_premios1.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -341,6 +348,7 @@ export const listSchemaDataMedia = [
 		name: 'banner_image_card_four',
 		description:
 			'Imagem localizada dentro do Banner Blog (último Banner da página Hub).',
+		placeholder: '/imgs/selo_fiel.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -348,6 +356,7 @@ export const listSchemaDataMedia = [
 		name: 'banner_image_card_scrathcard_two',
 		description:
 			'Imagem dentro no Banner secundário, localizada ao lado da quantidade de raspadinhas restantes.',
+		placeholder: '/imgs/image_rasp.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -740,13 +749,16 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'brand_image_hotsite',
-		description: 'Imagem de logo principal utilizado na landing page e header da aplicação, etc.',
+		description:
+			'Imagem de logo principal utilizado na landing page e header da aplicação, etc.',
+		placeholder: '/imgs/lp/logo_main.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'brand_dark_image_hotsite',
 		description: 'Imagem versão dark do brand utilizado no header e footer.',
+		placeholder: '/imgs/lp/logo_main_dark.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
@@ -774,24 +786,28 @@ export const listSchemaDataMedia = [
 	{
 		name: 'layout_background_hotsite',
 		description: 'Imagem de fundo do hotsite.',
+		placeholder: '/imgs/lp/cover_banner.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_hotsite_mobile',
 		description: 'Imagem de fundo do hotsite versão mobile.',
+		placeholder: '/imgs/lp/cover_banner_mobile.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_hotsite_two',
 		description: 'Imagem de fundo das seções do hotsite.',
+		placeholder: '/imgs/lp/cover_banner_2.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_hotsite_mobile_two',
 		description: 'Imagem de fundo das seções do hotsite versão mobile.',
+		placeholder: '/imgs/lp/cover_banner_mobile_2.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
@@ -939,12 +955,14 @@ export const listSchemaDataMedia = [
 	{
 		name: 'session_image_hotsite_one',
 		description: 'Imagem da seção do hotsite',
+		placeholder: '/imgs/lp/session_placeholder.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
 	{
 		name: 'session_image_hotsite_two',
 		description: 'Imagem da seção do hotsite',
+		placeholder: '/imgs/lp/session_placeholder.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
@@ -966,6 +984,7 @@ export const listSchemaDataMedia = [
 		name: 'session_background_influencer_race_hotsite',
 		description:
 			'Imagem de fundo do primeiro colocado da corrida dos influencers',
+		placeholder: '/imgs/lp/bg_ranking_influencers.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
