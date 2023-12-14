@@ -311,7 +311,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'banner_background_card_three',
 		description: 'Imagem do Card localizado ao lado esquerdo da página.',
-		placeholder: '/imgs/card_sorteio_futuro_mobile.png',
+		placeholder: '/imgs/card_sorteio_anterior_tablet.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
