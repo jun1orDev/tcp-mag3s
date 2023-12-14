@@ -333,7 +333,7 @@ export const listSchemaDataMedia = [
 		name: 'banner_image_card_two',
 		description:
 			'Primeira imagem localizada dentro do Banner secundário, localizado na página Hub.',
-		placeholder: '/imgs/fundo_card_2.png',
+		placeholder: '/imgs/gol.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
