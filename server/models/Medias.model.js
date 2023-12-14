@@ -58,6 +58,11 @@ MediasModel.init(
 					this.setDataValue('value', payload);
 				}
 			},
+		},		
+		placeholder: {
+			type: DataTypes.STRING,
+			required: false,
+			allowNull: true,
 		},
 		tag: {
 			type: DataTypes.STRING,
