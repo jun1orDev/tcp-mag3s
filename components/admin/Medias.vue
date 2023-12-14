@@ -30,8 +30,8 @@
 
 				<!-- se o layout mudar, exibir imagens de mídia caso seja esse o tipo -->
 				<div v-if="isMedia(media.type) && !typeLayout" class="absolute top-2 right-5 w-auto max-w-[100px] h-28 p-1">
-					<img v-if="media.value" class="w-full h-full object-contain object-center bg-black p-2 rounded-md" :src="`${pathAssets}${media.value}`" >
-					<img v-else class="w-full h-full object-contain object-center bg-black p-2 rounded-md" :src="`${media.placeholder}`" >
+					<img v-if="media.value" class="w-full h-full object-contain object-center bg-gray-400 p-2 rounded-md" :src="`${pathAssets}${media.value}`" >
+					<img v-else class="w-full h-full object-contain object-center bg-gray-400 p-2 rounded-md" :src="`${media.placeholder}`" >
 				</div>
 
 				<!-- Nome do conteúdo  -->

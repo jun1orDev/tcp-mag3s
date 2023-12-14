@@ -119,7 +119,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'layout_background_app_mobile_two',
 		description:
-		'Imagem de fundo versão mobile utilizado em: login, checkout, etc..',
+			'Imagem de fundo versão mobile utilizado em: login, checkout, etc..',
 		placeholder: '/imgs/lp/cover_banner_mobile_3.png',
 		tag: 'login/checkout',
 		type: typesMedia[3],
@@ -143,19 +143,21 @@ export const listSchemaDataMedia = [
 	{
 		name: 'layout_background_app',
 		description: 'Imagem de fundo da aplicação geral.',
-		placeholder: 'img_fundo_loading.png',
+		placeholder: '/imgs/bg_default.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_app_mobile',
 		description: 'Imagem de fundo da aplicação geral versão mobile.',
+		placeholder: '/imgs/bg_default_mobile.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
 	{
 		name: 'layout_background_footer_app',
 		description: 'Imagem de fundo referente ao modal da página Revelar-Prêmio',
+		placeholder: '/imgs/fundo_modal_placeholder.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -184,6 +186,7 @@ export const listSchemaDataMedia = [
 		name: 'sessions_image_one',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
+		placeholder: '/imgs/trevo.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
@@ -191,6 +194,7 @@ export const listSchemaDataMedia = [
 		name: 'sessions_image_two',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Rabiscadinha)',
+		placeholder: '/imgs/rabiscadinha.png',
 		tag: 'app',
 		type: typesMedia[3],
 	},
