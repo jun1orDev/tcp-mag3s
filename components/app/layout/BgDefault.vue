@@ -7,11 +7,26 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
+const app = useStoreApp().contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
 
-const background = computed(() => {
-	return `background-image: url('${pathAssets}${store.contentApp.layout_background_app}'), url('/imgs/img_fundo_loading.png'); background-color: ${store.contentApp.colors_background_one}`;
+let widthWindow = ref(null);
+
+const background = computed(() => {	
+	if (widthWindow.value != null && widthWindow.value <= 912) {
+		return `background-image: url('${pathAssets}${app.layout_background_app_mobile}'), url('/imgs/bg_default_mobile.png'); background-color: ${app.colors_background_one}`;
+	}
+
+	if (widthWindow.value != null && widthWindow.value > 912) {
+		return `background-image: url('${pathAssets}${app.layout_background_app}'), url('/imgs/bg_default.png'); background-color: ${app.colors_background_one}`;
+	}
+
+	return `background-color: ${app.colors_background_one}`;
+});
+
+onMounted(() => {
+	widthWindow.value = window.innerWidth;
 });
 </script>
 
