@@ -962,7 +962,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'session_image_hotsite_two',
 		description: 'Imagem da seção do hotsite',
-		placeholder: '/imgs/lp/session_placeholder.png',
+		placeholder: '/imgs/lp/session_placeholder_2.png',
 		tag: 'hotsite',
 		type: typesMedia[3],
 	},
