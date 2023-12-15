@@ -88,3 +88,14 @@ export function headerScrollStyle(idHeader, scrollDistance, animate) {
 		}
 	});
 }
+
+// Função usada para retornar qual é o valor do produto popular
+export function searchValuePopular(numbers) {
+	// Sort the array in ascending order
+	const sortedNumbers = numbers.sort((a, b) => a - b);
+
+	// The middle number will be the second element of the sorted array
+	const middleNumber = sortedNumbers[1];
+
+	return middleNumber;
+}

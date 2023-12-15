@@ -72,7 +72,7 @@ definePageMeta({
 
 const hasHeader = computed(() => {
 	return {
-		'pt-14 lg:pt-24': app.config_will_have_hotsite
+		'pt-14 lg:pt-20': app.config_will_have_hotsite
 	}
 });
 

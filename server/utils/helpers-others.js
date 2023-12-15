@@ -132,6 +132,60 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
+		name: 'purchase_tables_text_title',
+		description: 'Título da tela de tabela de pacotes/preços',
+		value: 'Escolha o seu pacote:',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'purchase_tables_text_description',
+		description: 'Descrição da tela de tabela de pacotes/preços',
+		value:
+			'<strong>Lembre-se:</strong> Você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar. ;)',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'purchase_tables_images_list',
+		description:
+			'Lista das imagens dos pacotes e seus respectivos textos descritivos',
+		value:
+			'{"list":[{"one": "", "two": "pacote básico", "type": "archive"}, {"one": "", "two": "mais popular", "type": "archive"}, {"one": "", "two": "pacote premium", "type": "archive"}]}',
+		tag: 'login/checkout',
+		type: typesMedia[7],
+	},
+	{
+		name: 'purchase_tables_text_colors_popular_product',
+		description: 'Cor de texto do badge que destaca o produto mais popular',
+		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_background_colors_package',
+		description:
+			'Cor de fundo do card que é representado pelo pacote a ser adiquirido pelo usuário',
+		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_text_colors_package',
+		description:
+			'Cor de texto do card que é representado pelo pacote a ser adiquirido pelo usuário',
+		value: '#061049',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_background_colors_popular_product',
+		description: 'Cor de fundo do badge que destaca o produto mais popular',
+		value: '#00F919',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'layout_text_colors_login_and_checkout',
 		description: 'Cor de texto da tela de login',
 		value: '#061049',
