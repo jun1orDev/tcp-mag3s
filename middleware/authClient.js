@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	const storeIncentive = useStoreIncentive(app.$pinia);
 
 	if (!cookieAuth.value) {
-		const data = await storeIncentive.clientLogin();
+		const data = await storeIncentive.clientLogin(useToast);
 		let cookie = useCookie('tokenClient', { maxAge: data.expires_in });
 		cookie.value = data.access_token;
 		return;

@@ -171,7 +171,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 	actions: {
 		// Login do Client (utilizado para recuperar senha, cadastrar novo usuário, etc...)
-		async clientLogin() {
+		async clientLogin(useToast) {
+			const toast = useToast();
 			const {
 				ApiIncentiveSystemIdentity,
 				ApiIncentiveClientId,
@@ -179,19 +180,30 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				ApiIncentiveKeyValue,
 			} = useRuntimeConfig().public;
 
-			const { data, error, status } = await useFetch(
-				`${ApiIncentiveSystemIdentity}login/client`,
-				{
-					method: 'post',
-					body: {
-						clientId: ApiIncentiveClientId,
-						clientSecret: ApiIncentiveClientSecret,
-						keyValue: ApiIncentiveKeyValue,
-					},
-				}
-			);
+			try {
+				const { data, error, status } = await useFetch(
+					`${ApiIncentiveSystemIdentity}login/client`,
+					{
+						method: 'post',
+						body: {
+							clientId: ApiIncentiveClientId,
+							clientSecret: ApiIncentiveClientSecret,
+							keyValue: ApiIncentiveKeyValue,
+						},
+					}
+				);
 
-			return data.value;
+				return data.value;
+			} catch (error) {
+				toast.add({
+					id: 'error_client_token',
+					title: `Opss... Algo de errado aconteceu!`,
+					description: `${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
 		},
 
 		// Login do usuário
