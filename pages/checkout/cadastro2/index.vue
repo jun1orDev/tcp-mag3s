@@ -7,7 +7,7 @@
 
 			<!-- Segunda parte do Cadastro -->
 			<UForm id="formRegisterTwo" :validate="validate" :state="state" class="space-y-4 mt-6"
-				@submit="storeIncentive.userLogin(useToast)">
+				@submit="storeCheckout.registerOthersDatas(useToast, storeCheckout.packageChosen.id, '/checkout/pagamento')">
 				<UFormGroup label="Nome completo:" name="name">
 					<UInput size="xl" v-model="storeCheckout.formRegister.name" type="text" color="white" variant="outline"
 						:ui="configInput" icon="i-material-symbols-person-outline" />
@@ -25,8 +25,7 @@
 
 				<div class="flex justify-center">
 					<UButton size="xl" label="continuar para pagamento" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-						class="fm3 mt-6" :loading="storeCheckout.formRegister.loading" trailing
-						@click="storeCheckout.registerOthersDatas(useToast, storeCheckout.packageChosen.id, '/checkout/cadastro2')" :disabled="!storeCheckout.enableButtonNextTwo" />
+						class="fm3 mt-6" :loading="storeCheckout.formRegister.loading" trailing :disabled="!storeCheckout.enableButtonNextTwo" />
 				</div>
 			</UForm>
 

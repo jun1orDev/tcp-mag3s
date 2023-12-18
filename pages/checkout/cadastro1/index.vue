@@ -8,7 +8,7 @@
 
 		<!-- Primeira parte do Cadastro -->
 		<UForm id="formRegisterOne" :validate="validate" :state="state" class="space-y-4 mt-6"
-			@submit="storeIncentive.userLogin(useToast)">
+			@submit="storeCheckout.registerEmail(useToast, storeCheckout.packageChosen.id, '/checkout/cadastro2')">
 			<UFormGroup label="E-mail:" name="email">
 				<UInput size="xl" v-model="storeCheckout.formRegister.email" type="email" color="white" variant="outline"
 					:ui="configInput" icon="i-material-symbols-stacked-email-outline" />
@@ -30,8 +30,7 @@
 
 			<div class="flex justify-center">
 				<UButton size="xl" label="continuar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-					class="fm3" :loading="storeCheckout.formRegister.loading" trailing
-					@click="storeCheckout.registerEmail(useToast, storeCheckout.packageChosen.id, '/checkout/cadastro2')" :disabled="!storeCheckout.enableButtonNextOne" />
+					class="fm3" :loading="storeCheckout.formRegister.loading" trailing :disabled="!storeCheckout.enableButtonNextOne" />
 			</div>
 		</UForm>
 
