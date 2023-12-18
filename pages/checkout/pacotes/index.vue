@@ -22,16 +22,16 @@
 				<p class="fm3 text-xl mb-2" v-html="titleText"></p>
 
 				<!-- Descrição -->
-				<p class="fm1 text-base mb-4" v-html="descriptionText"></p>
+				<p class="fm2 text-base mb-4" v-html="descriptionText"></p>
 
 				<!-- Tabela de Preços -->
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-					<CheckoutPackage :package="packageProduct" v-for="packageProduct in storeCheckout.packages" />
+					<CheckoutPackage :package="packageProduct" :isCallToAction="true" v-for="packageProduct in storeCheckout.packages" />
 				</div>
 
 				<!-- Novo Cadastro -->
-				<p class="fm1 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se <strong>
-						<NuxtLink to="" class="fm3 decoration-solid">
+				<p class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se <strong>
+						<NuxtLink to="/login" class="fm3 decoration">
 							aqui</NuxtLink>
 					</strong> e receba um número da sorte grátis. ;)
 				</p>

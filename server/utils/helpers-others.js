@@ -192,6 +192,21 @@ export const listSchemaDataMedia = [
 		tag: 'login/checkout',
 		type: typesMedia[2],
 	},
+	{
+		name: 'layout_colors_pregress_bar_bg_checkout',
+		description:
+			'Cor de fundo da barra de prograsso das etapas de compra do checkout',
+		value: '#de9e00',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'layout_colors_pregress_bar_colorbase_checkout',
+		description: 'Cor da barra de prograsso das etapas de compra do checkout',
+		value: '#00F919',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
 
 	// App
 	{
