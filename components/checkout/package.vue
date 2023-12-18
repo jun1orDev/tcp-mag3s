@@ -1,6 +1,6 @@
 <template>
 	<UForm class="w-full max-w-[400px] hover:scale-105 transition-all"
-		@submit="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro-1')">
+		@submit="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro1')">
 		<!-- Bedge de destaque -->
 		<div class="fm3 w-full flex justify-center items-center uppercase"
 			:class="props.package.isPopularProduct ? 'rounded-t-xl h-7' : 'bg-transparent md:h-7'"
