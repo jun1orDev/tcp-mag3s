@@ -62,6 +62,42 @@ export function enumsResponseServer(code) {
 				message: 'Usuário ou senha inválidos.',
 			};
 
+		case 'InvalidEmail':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Digite um E-mail válido.',
+			};
+
+		case 'InvalidPhone':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Número de telefone inválido.',
+			};
+
+		case 'PhoneAlreadyInUse':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Número de telefone já existe, tente outro.',
+			};
+
+		case 'DocumentAlreadyInUse':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Número de CPF já cadastrado, tente outro.',
+			};
+
+		case 'InvalidDocument':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Número de CPF inválido.',
+			};
+
+		case 'General':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'A senha é muito curta.',
+			};
+
 		default:
 			return {
 				title: 'Ops, algo deu errado!',

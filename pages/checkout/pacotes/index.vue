@@ -30,7 +30,7 @@
 				</div>
 
 				<!-- Novo Cadastro -->
-				<p class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se <strong>
+				<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se <strong>
 						<NuxtLink to="/login" class="fm3 decoration">
 							aqui</NuxtLink>
 					</strong> e receba um número da sorte grátis. ;)
@@ -44,9 +44,11 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreCheckout } from '~/stores/checkout';
+import { useStoreIncentive } from '~/stores/incentive';
 
 const store = useStoreApp();
 const app = store.contentApp;
+const storeIncentive = useStoreIncentive();
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 

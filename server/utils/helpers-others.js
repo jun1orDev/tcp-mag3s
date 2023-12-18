@@ -207,6 +207,41 @@ export const listSchemaDataMedia = [
 		tag: 'login/checkout',
 		type: typesMedia[2],
 	},
+	{
+		name: 'create_user_text_title_one',
+		description: 'Título da tela de cadastro no checkout (parte 1)',
+		value: 'Pra gente começar, faça seu cadastro.',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'create_user_text_description_one',
+		description: 'Descrição da tela de cadastro no checkout (parte 1)',
+		value: 'Já tem um cadastro?',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'create_user_text_title_two',
+		description: 'Título da tela de cadastro no checkout (parte 2)',
+		value: 'Agora, seus dados pessoais.',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'create_user_text_description_two',
+		description: 'Descrição da tela de cadastro no checkout (parte 2)',
+		value: 'Assim a gente consegue te identificar quando ganhar um prêmio!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'create_user_text_title_three',
+		description: 'Título da tela de escolha da forma de pagamento no checkout',
+		value: 'Agora, escolha uma forma de pagamento.',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
 
 	// App
 	{
