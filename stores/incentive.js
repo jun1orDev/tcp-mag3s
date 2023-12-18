@@ -48,6 +48,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				user: '',
 				password: '',
 			},
+			userLoggedIn: null,
 			filterPrizes: 2,
 			loading: true,
 		};
@@ -56,7 +57,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 	getters: {
 		// Dados do usuário
 		firstUserName: (state) => {
-			return state.userAcountData.name.split(' ')[0];
+			if (state.userAcountData.name)
+				return state.userAcountData.name.split(' ')[0];
+			else return state.userAcountData.email;
 		},
 
 		// Rapadinha

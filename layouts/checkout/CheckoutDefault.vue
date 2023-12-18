@@ -39,17 +39,19 @@
 
 		</div>
 
-		<div
-			class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 lg:gap-16 justify-center items-center">
+		<div class="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-8 lg:gap-64 justify-center items-start mt-10 lg:mt-8">
 
 			<!-- Navegação de outras rotas do checkout -->
 			<NuxtPage />
 
 			<div class="flex justify-center">
-				<CheckoutPackage :package="storeCheckout.packageChosen" :isCallToAction="false" class="mt-6 lg:mt-20 lg:rotate-12 lg:-translate-x-10" />
+				<CheckoutPackage :package="storeCheckout.packageChosen" :isCallToAction="false"
+					class="mt-6 lg:rotate-12 lg:-translate-x-10" />
 			</div>
 		</div>
 	</UContainer>
+
+	<UNotifications />
 </template>
 
 <script setup>
@@ -61,20 +63,8 @@ const app = store.contentApp;
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
-// definePageMeta({
-// 	middleware: []
-// });
-
 const textColor = computed(() => {
 	return `color: ${app.layout_text_colors_login_and_checkout}`;
-});
-
-const titleText = computed(() => {
-	return `${app.purchase_tables_text_title}`;
-});
-
-const descriptionText = computed(() => {
-	return `${app.purchase_tables_text_description}`;
 });
 
 const colorBgButton = computed(() => {

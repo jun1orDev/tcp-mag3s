@@ -13,10 +13,40 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				{ step: 3, label: 'Confirmação', complete: false },
 			],
 			progressPurchaseStatus: 0,
+			formRegister: {
+				// Parte 1
+				email: '',
+				password: '',
+				confirmPassword: '',
+				terms: false,
+
+				// Parte 2
+				name: '',
+				phone: '',
+				cpf: '',
+				loading: false,
+			},
 		};
 	},
 
-	getters: {},
+	getters: {
+		// Form register
+		enableButtonNextOne: (state) => {
+			return (
+				state.formRegister.email &&
+				state.formRegister.password &&
+				state.formRegister.confirmPassword &&
+				state.formRegister.terms
+			);
+		},
+		enableButtonNextTwo: (state) => {
+			return (
+				state.formRegister.name &&
+				state.formRegister.phone &&
+				state.formRegister.cpf
+			);
+		},
+	},
 
 	actions: {
 		// Loja
@@ -85,7 +115,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 		// Progresso da compra
 		progressPurchase(stepsMod, progress, showStep) {
-			this.steps.forEach((item,index) => {
+			this.steps.forEach((item, index) => {
 				if (item.step === stepsMod[index].step) {
 					item.complete = stepsMod[index].complete;
 				}
@@ -93,6 +123,129 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 			this.progressPurchaseStatus = progress;
 			this.showingSteps = showStep;
+		},
+
+		// Registro de Email
+		async registerEmail(useToast, IDpkgChosen, pathTo) {
+			const toast = useToast();
+			this.formRegister.loading = true;
+
+			const {
+				ApiIncentiveSystemIdentity,
+				ApiIncentiveClientId,
+				ApiIncentiveClientSecret,
+			} = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/email`,
+					{
+						method: 'post',
+						body: {
+							clientId: ApiIncentiveClientId,
+							clientSecret: ApiIncentiveClientSecret,
+							userInfo: this.formRegister.email,
+							password: this.formRegister.password,
+						},
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenClient').value}`,
+						},
+					}
+				);
+
+				const cookieAuth = useCookie('tokenUser', {
+					maxAge: +data.expires_in,
+					sameSite: true,
+					httpOnly: false,
+				});
+				cookieAuth.value = data.access_token;
+
+				this.purchasePackage(IDpkgChosen, pathTo);
+			} catch (error) {
+				toast.add({
+					id: 'error_getContentAppLoginUser',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.loading = false;
+		},
+
+		// Registro de Email
+		async registerOthersDatas(useToast, IDpkgChosen, pathTo) {
+			const toast = useToast();
+			this.formRegister.loading = true;
+
+			const {
+				ApiIncentiveSystemIdentity,
+				ApiIncentiveClientId,
+				ApiIncentiveClientSecret,
+			} = useRuntimeConfig().public;
+
+			try {
+				// Nome
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/details`, {
+					method: 'post',
+					body: {
+						name: this.formRegister.name,
+						occupation: 'Sem Ocupação',
+						monthlyIncome: '0',
+					},
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
+
+				// Telefone
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`, {
+					method: 'post',
+					body: {
+						phoneNumber: this.formRegister.phone,
+						phoneType: 'Mobile',
+						countryCode: 55,
+					},
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
+
+				// CPF
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/document`, {
+					method: 'post',
+					body: {
+						documentType: 102,
+						documentNumber: this.formRegister.cpf,
+					},
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
+
+				// this.purchasePackage(IDpkgChosen, pathTo);
+			} catch (error) {
+				toast.add({
+					id: 'error_getContentAppLoginUser',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.loading = false;
 		},
 	},
 });
