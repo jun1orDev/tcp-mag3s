@@ -25,6 +25,27 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				phone: '',
 				cpf: '',
 				loading: false,
+
+				// payment
+				optionsPayment: [
+					{
+						value: 501,
+						label: 'Pix',
+						icon: 'i-ic-round-pix',
+						path: '/checkout/pagamento-pix',
+					},
+					{
+						value: 301,
+						label: 'Cartão de crédito',
+						icon: 'i-ic-baseline-credit-card',
+						path: '/checkout/pagamento-cartao',
+					},
+				],
+				configPayment: {
+					labelButton: 'escolha antes de continuar...',
+					choicePathTo: null,
+				},
+				selectedPayment: null,
 			},
 		};
 	},
@@ -184,11 +205,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const toast = useToast();
 			this.formRegister.loading = true;
 
-			const {
-				ApiIncentiveSystemIdentity,
-				ApiIncentiveClientId,
-				ApiIncentiveClientSecret,
-			} = useRuntimeConfig().public;
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
 				// Nome
@@ -229,10 +246,70 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				// this.purchasePackage(IDpkgChosen, pathTo);
+				this.purchasePackage(IDpkgChosen, pathTo);
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.loading = false;
+		},
+
+		// Escolha do Método de Pagamento
+		changeMethodPayment(method) {
+			this.formRegister.configPayment.labelButton = `pagar com ${method.label}`;
+			this.formRegister.configPayment.choicePathTo = method.path;
+		},
+		async paymentMethod(useToast, IDpkgChosen, pathTo) {
+			// Caso o método seja cartão
+			if (this.formRegister.selectedPayment === 301) {
+				return this.purchasePackage(IDpkgChosen, pathTo);
+			}
+
+			// Caso o método seja Pix
+			if (this.formRegister.selectedPayment === 501) {
+				await this.paymentPix(useToast, IDpkgChosen, pathTo);
+			}
+		},
+
+		// Pagamento via Pix
+		async paymentPix(useToast, IDpkgChosen, pathTo) {
+			const toast = useToast();
+			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
+			this.formRegister.loading = true;
+
+			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+
+			try {
+				await $fetch(
+					`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
+					{
+						method: 'post',
+						body: {
+							amount: 1,
+							paymentType: 501,
+						},
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+						},
+					}
+				);
+
+				this.purchasePackage(IDpkgChosen, pathTo);
+			} catch (error) {
+				console.log(error);
+				toast.add({
+					id: 'error_PaymentPix',
 					title: `${
 						enumsResponseServer(error.response._data.request.code).title
 					}`,

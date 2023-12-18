@@ -235,6 +235,13 @@ export const listSchemaDataMedia = [
 		tag: 'login/checkout',
 		type: typesMedia[0],
 	},
+	{
+		name: 'create_user_text_title_three',
+		description: 'Título da tela de escolha da forma de pagamento no checkout',
+		value: 'Agora, escolha uma forma de pagamento.',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
 
 	// App
 	{
