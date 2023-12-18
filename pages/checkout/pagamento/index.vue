@@ -21,9 +21,9 @@
 			</URadio>
 
 			<div class="flex justify-center">
-				<UButton size="xl" :label="storeCheckout.formRegister.configPayment.labelButton" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-					class="fm3 mt-6" :loading="storeCheckout.formRegister.loading" trailing
-					:disabled="!storeCheckout.formRegister.selectedPayment" />
+				<UButton size="xl" :label="storeCheckout.formRegister.configPayment.labelButton" type="submit" :ui="configButton"
+					:style="[colorBgButton, colorTextButton]" class="fm3 mt-6" :loading="storeCheckout.formRegister.loading"
+					trailing :disabled="!storeCheckout.formRegister.selectedPayment" />
 			</div>
 		</UForm>
 
@@ -61,6 +61,8 @@ onMounted(() => {
 		],
 		50,
 		true);
+
+	storeCheckout.formRegister.configPayment.labelButton = `escolha antes de continuar...`;
 });
 
 const colorBgButton = computed(() => {

@@ -42,7 +42,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				],
 				configPayment: {
-					labelButton: 'escolha antes de continuar...',
+					labelButton: '',
 					choicePathTo: null,
 				},
 				selectedPayment: null,
@@ -273,6 +273,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		async paymentMethod(useToast, IDpkgChosen, pathTo) {
 			// Caso o método seja cartão
 			if (this.formRegister.selectedPayment === 301) {
+				this.formRegister.selectedPayment = null;
 				return this.purchasePackage(IDpkgChosen, pathTo);
 			}
 
@@ -323,6 +324,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			}
 
 			this.formRegister.loading = false;
+			this.formRegister.selectedPayment = null;
 		},
 	},
 });
