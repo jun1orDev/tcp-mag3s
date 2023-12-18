@@ -1,8 +1,9 @@
 <template>
-	<div class="w-full max-w-[400px] hover:scale-105 transition-all">
+	<UForm class="w-full max-w-[400px] hover:scale-105 transition-all"
+		@submit="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro-1')">
 		<!-- Bedge de destaque -->
-		<div class="fm3 w-full h-7 flex justify-center items-center uppercase"
-			:class="props.package.isPopularProduct ? 'bg-green-400 rounded-t-xl' : 'bg-transparent'"
+		<div class="fm3 w-full flex justify-center items-center uppercase"
+			:class="props.package.isPopularProduct ? 'rounded-t-xl h-7' : 'bg-transparent md:h-7'"
 			:style="[colorTextBedgePopularProduct, colorBackgroundBedgePopularProduct]">
 			<p v-if="props.package.isPopularProduct">Mais Popular</p>
 		</div>
@@ -12,14 +13,14 @@
 			:style="[colorBackgroundPackage, colorTextPackage]">
 
 			<!-- Preço do Produto -->
-			<div class="fm3">
+			<div class="fm2">
 				<!-- Imagem representativa -->
 				<div class="flex justify-center mb-2">
 					<img :src="imageRepresentative" onerror="this.src='/imgs/checkout/package_image_1.png'"
 						:class="props.package.isPopularProduct ? 'animate__animated animate__tada animate__delay-2s animate__repeat-2' : ''"
 						alt="">
 				</div>
-				<p><strong class="text-4xl">{{ price }}</strong></p>
+				<p><strong class="text-4xl fm3">{{ price }}</strong></p>
 			</div>
 
 			<!-- Conteúdo do Produto -->
@@ -29,30 +30,38 @@
 					<hr class="w-full border-t-slate-300" :class="index > 0 ? 'my-3' : 'mb-3'">
 
 					<!-- Descrição -->
-					<p class="fm1"><strong class="hidden">{{ item.qtd }}</strong> {{ item.description }}</p>
+					<p><strong class="hidden">{{ item.qtd }}</strong> {{ item.description }}</p>
 				</div>
 			</div>
 
 			<!-- Botão de compra -->
-			<div class="flex justify-center">
+			<div v-if="props.isCallToAction" class="flex justify-center">
 				<UButton size="xl" label="comprar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
 					class="fm3" />
 			</div>
+
+			<!-- Ou Confirmação de escolha -->
+			<div v-else :style="[colorBgButton, colorTextButton]"
+				class="w-10 h-10 rounded-full flex justify-center items-center">
+				<UIcon class="w-9 h-9 text-white" name="i-material-symbols-check-small-rounded" />
+			</div>
 		</div>
 
-	</div>
+	</UForm>
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
+import { useStoreCheckout } from '~/stores/checkout';
 
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
+const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['package']);
+const props = defineProps(['package', 'isCallToAction']);
 
 const imageRepresentative = computed(() => {
 	return `${pathAssets}${props.package.image}`

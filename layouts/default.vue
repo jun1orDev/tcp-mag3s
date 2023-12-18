@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<NuxtPage />
+		<NuxtPage :page-key="route => route.fullPath" />
 	</div>
 
 	<UNotifications />

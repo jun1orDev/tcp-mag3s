@@ -5,6 +5,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	state: () => {
 		return {
 			packages: [],
+			packageChosen: null,
+			showingSteps: false,
+			steps: [
+				{ step: 1, label: 'Cadastro/Login', complete: false },
+				{ step: 2, label: 'Pagamento', complete: false },
+				{ step: 3, label: 'Confirmação', complete: false },
+			],
+			progressPurchaseStatus: 0,
 		};
 	},
 
@@ -37,7 +45,9 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					this.packages.push({
 						id: item.id,
 						isPopularProduct: hasPopularProduct,
-						image: app.purchase_tables_images_list.list[index] ? app.purchase_tables_images_list.list[index].one : '',
+						image: app.purchase_tables_images_list.list[index]
+							? app.purchase_tables_images_list.list[index].one
+							: '',
 						price: item.price,
 						items: item.baseContent.subContents.map((content) => {
 							return { qtd: content.amount, description: content.description };
@@ -54,6 +64,35 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					timeout: 3500,
 				});
 			}
+		},
+
+		// Compra do pacote escolhido
+		purchasePackage(IDpkgChosen, pathTo) {
+			this.chosenPackage(IDpkgChosen);
+
+			navigateTo({
+				path: pathTo,
+				query: {
+					idPkg: IDpkgChosen,
+				},
+			});
+		},
+
+		// escolha do pacote
+		chosenPackage(id) {
+			this.packageChosen = this.packages.find((item) => item.id === id);
+		},
+
+		// Progresso da compra
+		progressPurchase(stepsMod, progress, showStep) {
+			this.steps.forEach((item,index) => {
+				if (item.step === stepsMod[index].step) {
+					item.complete = stepsMod[index].complete;
+				}
+			});
+
+			this.progressPurchaseStatus = progress;
+			this.showingSteps = showStep;
 		},
 	},
 });

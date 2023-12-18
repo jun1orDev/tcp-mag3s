@@ -3,7 +3,9 @@
 		<div class="bg-transparent py-2 lg:py-6">
 			<UContainer class="flex justify-between items-center">
 				<div>
-					<LpImageBrandDark v-if="isLogoDark" class="max-w-[110px] lg:max-w-[130px]" />
+					<NuxtLink v-if="isLogoDark" to="/">
+						<LpImageBrandDark class="max-w-[110px] lg:max-w-[130px]" />
+					</NuxtLink>
 					<LpImageBrand v-else class="max-w-[110px] lg:max-w-[130px]" />
 				</div>
 				<div class="flex items-center">
@@ -15,7 +17,8 @@
 					</UTooltip>
 
 					<UTooltip v-else text="voltar" :popper="{ arrow: true, placement: 'bottom-end', offsetDistance: 10 }">
-						<UIcon name="i-material-symbols-arrow-back-ios-rounded" class="w-6 h-6 cursor-pointer" @click="back()" />
+						<UIcon name="i-material-symbols-arrow-back-ios-rounded" class="w-6 h-6 md:w-8 md:h-8 cursor-pointer"
+							@click="back()" />
 					</UTooltip>
 				</div>
 			</UContainer>
