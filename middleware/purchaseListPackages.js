@@ -10,4 +10,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		await storeCheckout.storePackages(useToast);
 		return;
 	}
+
+return;
 });
