@@ -12,6 +12,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				documents: null,
 				phones: null,
 				addresses: null,
+				paymentMethods: {
+					status: null,
+					id: null,
+					number: null,
+					name: null,
+					validity: null,
+					cvv: null,
+				},
 			},
 			inventory: {
 				loading: false,
@@ -310,6 +318,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.userAcountData.documents = data.documents;
 				this.userAcountData.phones = data.phones;
 				this.userAcountData.addresses = data.addresses;
+
+				if (data.paymentMethods.length) {
+					this.userAcountData.paymentMethods = {
+						status: data.paymentMethods[0].status,
+						id: data.paymentMethods[0].id,
+						number: data.paymentMethods[0].numbers,
+						name: data.paymentMethods[0].holder,
+						validity: data.paymentMethods[0].expirationDate,
+						cvv: data.paymentMethods[0].code,
+					};
+				} else {
+					this.userAcountData.paymentMethods = {
+						status: null,
+						id: null,
+						number: null,
+						name: null,
+						validity: null,
+						cvv: null,
+					};
+				}
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
