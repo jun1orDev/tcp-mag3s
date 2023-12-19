@@ -242,6 +242,51 @@ export const listSchemaDataMedia = [
 		tag: 'login/checkout',
 		type: typesMedia[0],
 	},
+	{
+		name: 'checkout_pix_text_title',
+		description: 'Título da tela de pagamento via Pix',
+		value: 'Agora você só precisa finalizar seu pagamento:',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'checkout_card_text_title',
+		description: 'Título da tela de pagamento via Cartão de Crédito',
+		value: 'Insira os dados do cartão de crédito:',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'checkout_pix_text_list_steps_description_three',
+		description: 'Descrição da tela de pagamento via Pix',
+		value:
+			'{"list":[{"one": "1.", "two": "Abra o aplicativo do seu banco no celular;", "type": "text"}, {"one": "2.", "two": "Seleciona a opção de pagar com o Pix/Escanear QR Code;", "type": "text"}, {"one": "3.", "two": "Aponte sua câmera para o QR code e efetue o pagamento.", "type": "text"}]}',
+		tag: 'login/checkout',
+		type: typesMedia[7],
+	},
+	{
+		name: 'checkout_feedback_text_title',
+		description: 'Título da tela de feedback ao finalizar uma compra',
+		value: 'Valeu e boa sorte!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'checkout_feedback_pix_text_list_description',
+		description: 'Feedback de pagamento via Pix',
+		value:
+			'{"list":[{"one": "Importante:", "two": "seu pagamento via Pix pode levar até 5 minutos pra ser processado, aí você pode aproveitar seus conteúdos, suas raspadinhas digitais pra concorrer a prêmios na hora e seus números da sorte pro grande sorteio!", "type": "text"}, {"one": "Lembre-se:", "two": "Você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar. 😉", "type": "text"}]}',
+		tag: 'login/checkout',
+		type: typesMedia[7],
+	},
+	{
+		name: 'checkout_feedback_card_credit_text_list_description',
+		description: 'Feedback de pagamento via Pix',
+		value:
+			'{"list":[{"one": "Lembre-se:", "two": "você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar. 👏", "type": "text"}]}',
+		tag: 'login/checkout',
+		type: typesMedia[7],
+	},
 
 	// App
 	{

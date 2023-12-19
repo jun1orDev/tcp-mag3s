@@ -1,4 +1,5 @@
 import { useStoreApp } from './app';
+import { useStoreIncentive } from './incentive';
 
 export const useStoreCheckout = defineStore('storeCheckout', {
 	// arrow function recommended for full type inference
@@ -32,20 +33,30 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						value: 501,
 						label: 'Pix',
 						icon: 'i-ic-round-pix',
-						path: '/checkout/pagamento-pix',
+						path: '/checkout/pix',
 					},
 					{
 						value: 301,
 						label: 'Cartão de crédito',
 						icon: 'i-ic-baseline-credit-card',
-						path: '/checkout/pagamento-cartao',
+						path: '/checkout/cartao',
 					},
 				],
 				configPayment: {
 					labelButton: '',
 					choicePathTo: null,
 				},
+				creditCard: {
+					number: '',
+					name: '',
+					validity: '',
+					cvv: '',
+					status: null,
+				},
 				selectedPayment: null,
+				paymentPix: null,
+				feedbackPayment: null,
+				isOpenModalCreditCardRemove: false,
 			},
 		};
 	},
@@ -65,6 +76,19 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				state.formRegister.name &&
 				state.formRegister.phone &&
 				state.formRegister.cpf
+			);
+		},
+
+		// Form CreditCard
+		hasCardCreditRegister: (state) => {
+			return state.formRegister.creditCard.status;
+		},
+		enableButtonPurchaseCreditCard: (state) => {
+			return (
+				state.formRegister.creditCard.number &&
+				state.formRegister.creditCard.name &&
+				state.formRegister.creditCard.validity &&
+				state.formRegister.creditCard.cvv
 			);
 		},
 	},
@@ -292,7 +316,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
 
 			try {
-				await $fetch(
+				const data = await $fetch(
 					`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
 					{
 						method: 'post',
@@ -305,6 +329,11 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						},
 					}
 				);
+
+				this.formRegister.paymentPix = {
+					qrCode: `data:image/png;base64, ${data.paymentMessage}`,
+					copyPaste: data.paymentCode,
+				};
 
 				this.purchasePackage(IDpkgChosen, pathTo);
 			} catch (error) {
@@ -325,6 +354,182 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 			this.formRegister.loading = false;
 			this.formRegister.selectedPayment = null;
+		},
+
+		// Cadastrar Cartão de Crédito
+		async registerCreditCard(useToast) {
+			const storeIncentive = useStoreIncentive();
+			const toast = useToast();
+			this.formRegister.configPayment.labelButton = `Cadastrando cartão, aguarde`;
+			this.formRegister.loading = true;
+
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/payment`, {
+					method: 'post',
+					body: {
+						brand: 'Visa',
+						number: this.formRegister.creditCard.number,
+						holder: this.formRegister.creditCard.name,
+						expDate: this.formRegister.creditCard.validity,
+						code: this.formRegister.creditCard.cvv,
+						paymentOperator: 'brazil_nix',
+						paymentType: '301',
+					},
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
+
+				// Obtendo os dados do usuário
+				await storeIncentive.userAccount(useToast);
+			} catch (error) {
+				console.log(error);
+				toast.add({
+					id: 'error_Register_CreditCard',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.loading = false;
+		},
+
+		// Deletar Cartão de Crédito cadastrado
+		async deleteCreditCard(useToast) {
+			const storeIncentive = useStoreIncentive();
+			const toast = useToast();
+			this.formRegister.loading = true;
+
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/payment/${storeIncentive.userAcountData.paymentMethods.id}`,
+					{
+						method: 'delete',
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+						},
+					}
+				);
+
+				this.formRegister.creditCard = {
+					number: '',
+					name: '',
+					validity: '',
+					cvv: '',
+					status: null,
+				};
+
+				toast.add({
+					id: 'credit_card_remove_success',
+					color: `green`,
+					title: `Tudo certo!`,
+					description: `cartão excluído com sucesso`,
+					icon: `i-material-symbols-credit-score-outline-rounded`,
+					timeout: 3500,
+				});
+
+				// Obtendo os dados do usuário
+				await storeIncentive.userAccount(useToast);
+			} catch (error) {
+				console.log(error);
+				toast.add({
+					id: 'error_Remove_CreditCard',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.isOpenModalCreditCardRemove = false;
+			this.formRegister.loading = false;
+		},
+
+		// Pagamento via Cartão de Crédito
+		async paymentCreditCard(useToast, IDpkgChosen, pathTo) {
+			const storeIncentive = useStoreIncentive();
+			const toast = useToast();
+
+			// Caso não tenha cartão cadastrado, cadastrar um novo
+			if (!storeIncentive.userAcountData.paymentMethods.status) {
+				await this.registerCreditCard(useToast);
+			}
+
+			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
+			this.formRegister.loading = true;
+
+			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
+					{
+						method: 'post',
+						body: {
+							amount: 1,
+							paymentMethodType: 'CreditCard',
+							userPaymentMethodId:
+								storeIncentive.userAcountData.paymentMethods.id,
+							paymentType: 301,
+						},
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+						},
+					}
+				);
+
+				console.log(data);
+
+				this.showFeedback(IDpkgChosen, pathTo, 'credit-card');
+			} catch (error) {
+				console.log(error);
+				toast.add({
+					id: 'error_PaymentPix',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.loading = false;
+		},
+
+		// Feedback de pagamento
+		showFeedback(IDpkgChosen, pathTo, typePayment) {
+			this.formRegister.feedbackPayment = typePayment;
+
+			this.purchasePackage(IDpkgChosen, pathTo);
+		},
+
+		// Finalizar compra
+		finishPurchase() {
+			setTimeout(() => {
+				this.formRegister.feedbackPayment = null;
+			}, 5000);
+
+			navigateTo('/app/hub');
 		},
 	},
 });
