@@ -1,4 +1,5 @@
 import { useStoreApp } from './app';
+import { useStoreCheckout } from './checkout';
 import { getCookie, enumsResponseServer } from '../utils/helpers';
 
 export const useStoreIncentive = defineStore('storeIncentive', {
@@ -8,9 +9,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			userAcountData: {
 				name: '',
 				email: '',
-				status: '',
-				documents: null,
-				phones: null,
+				status: null,
+				cpf: null,
+				phone: null,
 				addresses: null,
 				paymentMethods: {
 					status: null,
@@ -218,10 +219,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Login do usuário
-		async userLogin(useToast, hasHostsite = true) {
+		async userLogin(useToast, hasHostsite = true, isCheckout = false) {
 			this.loading = false;
+			const storeCheckout = useStoreCheckout();
 			const toast = useToast();
-			const router = useRouter();
 			const {
 				ApiIncentiveSystemIdentity,
 				ApiIncentiveClientId,
@@ -253,7 +254,19 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.loading = false;
 					this.formLogin.user = '';
 					this.formLogin.password = '';
-					router.push('/app/hub');
+
+					if (isCheckout) {
+						navigateTo({
+							path: '/checkout/cadastro2',
+							query: {
+								idPkg: storeCheckout.packageChosen.id,
+							},
+						});
+					} else {
+						navigateTo({
+							path: '/app/hub',
+						});
+					}
 				}
 
 				this.loading = false;
@@ -315,8 +328,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.userAcountData.name = data.name;
 				this.userAcountData.email = data.email;
 				this.userAcountData.status = data.status;
-				this.userAcountData.documents = data.documents;
-				this.userAcountData.phones = data.phones;
+				if (data.documents.length) {
+					this.userAcountData.cpf = data.documents[0].documentNumber;
+				}
+				if (data.phones.length) {
+					this.userAcountData.phone = `${data.phones[0].cityCode}${data.phones[0].phoneNumber}`;
+				}
 				this.userAcountData.addresses = data.addresses;
 
 				if (data.paymentMethods.length) {

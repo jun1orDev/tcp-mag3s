@@ -208,6 +208,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'login_user_text_title',
+		description: 'Título da tela de login no checkout/login',
+		value: 'Bem-vindo de volta!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
 		name: 'create_user_text_title_one',
 		description: 'Título da tela de cadastro no checkout (parte 1)',
 		value: 'Pra gente começar, faça seu cadastro.',
