@@ -1,6 +1,5 @@
 <template>
-	<UForm class="w-full max-w-[400px] hover:scale-105 transition-all"
-		@submit="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro1')">
+	<div class="w-full max-w-[400px] hover:scale-105 transition-all">
 		<!-- Bedge de destaque -->
 		<div class="fm3 w-full flex justify-center items-center uppercase"
 			:class="props.package.isPopularProduct ? 'rounded-t-xl h-7' : 'bg-transparent md:h-7'"
@@ -36,8 +35,8 @@
 
 			<!-- Botão de compra -->
 			<div v-if="props.isCallToAction" class="flex justify-center">
-				<UButton size="xl" label="comprar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-					class="fm3" />
+				<UButton size="xl" label="comprar" type="button" :ui="configButton" :style="[colorBgButton, colorTextButton]"
+					class="fm3" @click="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro1')" />
 			</div>
 
 			<!-- Ou Confirmação de escolha -->
@@ -47,7 +46,7 @@
 			</div>
 		</div>
 
-	</UForm>
+	</div>
 </template>
 
 <script setup>
