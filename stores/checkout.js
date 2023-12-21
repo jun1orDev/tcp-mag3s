@@ -6,7 +6,13 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	state: () => {
 		return {
 			packages: [],
-			packageChosen: null,
+			packageChosen: {
+				id: null,
+				isPopularProduct: false,
+				image: '',
+				price: '',
+				items: [],
+			},
 			showingSteps: false,
 			steps: [
 				{ step: 1, label: 'Cadastro/Login', complete: false },
@@ -209,12 +215,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -274,12 +278,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -340,12 +342,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -388,12 +388,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Register_CreditCard',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -445,12 +443,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -501,12 +497,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
