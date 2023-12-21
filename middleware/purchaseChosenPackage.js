@@ -5,8 +5,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	const app = useNuxtApp();
 	const storeCheckout = useStoreCheckout(app.$pinia);
 
-	if (cookieAuth.value) {
-		if (!storeCheckout.packageChosen) {
+	if (cookieAuth.value) {		
+		if (!storeCheckout.packageChosen.id) {
 			storeCheckout.chosenPackage(to.query.idPkg);
 		}
 
