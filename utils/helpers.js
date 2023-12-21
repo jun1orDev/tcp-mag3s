@@ -98,6 +98,12 @@ export function enumsResponseServer(code) {
 				message: 'A senha é muito curta.',
 			};
 
+		case 'TokenNotCreated':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Erro do Operador de Pagamento.',
+			};
+
 		default:
 			return {
 				title: 'Ops, algo deu errado!',
