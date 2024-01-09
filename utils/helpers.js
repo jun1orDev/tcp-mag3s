@@ -141,3 +141,6 @@ export function searchValuePopular(numbers) {
 
 	return middleNumber;
 }
+
+// Cookie User Token Access
+export const useTokenUser = () => useCookie('tokenUser', { /* shared options */ })
