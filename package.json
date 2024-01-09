@@ -5,8 +5,8 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev --dotenv .env.development",
-		"fieldasorte": "npx nuxi dev --dotenv .env.fieldasorte",
-		"pgi": "npx nuxi dev --dotenv .env.pginfluencer",
+		"fieldasorte": "npx nuxi dev --dotenv .env.fieldasorte --host",
+		"pgi": "npx nuxi dev --dotenv .env.pginfluencer --host",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare"
