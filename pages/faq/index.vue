@@ -12,7 +12,9 @@
 	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="isItemsCenter">
 		<div class="grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen" :class="isGridLayout">
 			<!-- brand -->
-			<AppOthersImageBrandSession />
+			<div class="hidden md:flex justify-center">
+				<AppOthersImageBrandSession />
+			</div>
 
 			<div class="w-full">
 				<!-- Campo de pesquisa  -->
