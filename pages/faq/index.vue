@@ -10,11 +10,11 @@
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="isItemsCenter">
-		<div class="lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen" :class="isGridLayout">
+		<div class="grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen" :class="isGridLayout">
 			<!-- brand -->
 			<AppOthersImageBrandSession />
 
-			<div>
+			<div class="w-full">
 				<!-- Campo de pesquisa  -->
 				<AppOthersInputSearching :inputPlaceholder="app.faq_text_placeholder_input_search"
 					@input="store.filteredFaq(store.searchingValue)" />

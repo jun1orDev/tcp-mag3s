@@ -1,5 +1,5 @@
 <template>
-	<div class="lg:hidden fixed top-0 left-0 right-0 bottom-0" :style="bgColor">
+	<div class="lg:hidden fixed top-0 left-0 right-0 bottom-0 z-50" :style="bgColor">
 		<!-- texto central  -->
 		<div
 			class="fm3 text-center justify-start absolute flex top-0 left-0 right-0 bottom-0 text-[14px] md:text-[20px] mt-16 flex-col">
