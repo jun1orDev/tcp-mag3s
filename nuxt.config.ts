@@ -62,6 +62,7 @@ export default defineNuxtConfig({
 			ApiIncentiveReferral: '',
 			ApiIncentiveSystemIdentity: '',
 			ApiIncentiveSystemContents: '',
+			ApiIncentiveGamification: '',
 
 			// User Auth Login Test Hub
 			ApiIncentiveUserTest: '',

@@ -1,17 +1,19 @@
 <template>
-	<div v-show="!storeIncentive.loading">
-		<img class="w-full h-screen" src="/imgs/Scratchcard_Gamification.png" />
+	<AppGameRotateScreen class="landscape:hidden" />
+	<div>
+		<iframe
+      :src="iframeSrc"
+      frameborder="0"
+      allowfullscreen
+			class="w-screen h-screen border-0 m-0 p-0 overflow-hidden z-auto"
+    ></iframe>
 	</div>
-	<!-- <AppGameRotateScreen /> -->
-	<!-- <AppGameFeedbackNegative /> -->
-	<AppGameFeedbackPositive />
-
-	<AppLayoutLoading v-if="storeIncentive.loading" />
 </template>
 
 <script setup>
-import { useStoreIncentive } from '~/stores/incentive';
-const storeIncentive = useStoreIncentive();
+const { ApiIncentiveGamification } = useRuntimeConfig().public;
+const iframeSrc = ref(`${ApiIncentiveGamification}?tkn=${useTokenUser().value}`);
+console.log(useTokenUser().value)
 
 definePageMeta({
 	middleware: ['auth-user']
