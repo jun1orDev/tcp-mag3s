@@ -9,14 +9,16 @@
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-0" :class="isItemsCenter" :style="textColor">
-		<div class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
+		<div class="grid-cols-1 lg:grid-cols-[500px_1fr] lg:gap-16 justify-center content-center w-screen"
 			:class="isGridLayout">
 			<!-- brand -->
-			<AppOthersImageBrandSession />
+			<div class="hidden md:flex justify-center">
+				<AppOthersImageBrandSession />
+			</div>
 
-			<div class="w-full pb-8 sm:pb-0">
+			<div class="w-full">
 				<!-- Titulo -->
-				<p class="fm3 text-base lg:text-lg mb-4">Cadastre sua nova senha.</p>
+				<p class="fm3 text-base lg:text-lg pb-4">Cadastre sua nova senha.</p>
 
 				<!-- Login e senha -->
 				<UForm id="formLogin" class="space-y-4">
