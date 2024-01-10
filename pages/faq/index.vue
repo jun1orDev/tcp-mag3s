@@ -37,11 +37,11 @@
 			<!-- Informações de contato -->
 			<div class="w-full">
 				<div  v-if="app.config_will_have_hotsite" class="pb-5">
-					<p class=" fm3 ">Perguntas frequentes.</p>
-					<p class="fm2">Nosso whatsapp:</p>
-					<div class="flex">
-						<img src="public/imgs/whatsapp.png" alt=""  />
-						<p class="fm3 px-2">(11) 91221 3445</p>
+					<p class=" fm3 text-[22px] md:text-[26px] sm:text-[16px]">Perguntas frequentes.</p>
+					<p class="fm2 md:text-[24px] ">Nosso whatsapp:</p>
+					<div class="flex items-center text-[22px]">
+						<img src="public/imgs/whatsapp.png" alt="" class="md:w-12" />
+						<p class="fm3 px-2 md:text-[28px]">(11) 91221 3445</p>
 					</div>
 				</div>
 
