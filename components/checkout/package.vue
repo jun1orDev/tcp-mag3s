@@ -36,7 +36,7 @@
 			<!-- Botão de compra -->
 			<div v-if="props.isCallToAction" class="flex justify-center">
 				<UButton size="xl" label="comprar" type="button" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-					class="fm3" @click="storeCheckout.purchasePackage(props.package.id, '/checkout/cadastro1')" />
+					class="fm3" @click="storeCheckout.purchasePackage(props.package.id, packageOBId, '/checkout/cadastro1')" />
 			</div>
 
 			<!-- Ou Confirmação de escolha -->
@@ -60,7 +60,12 @@ const storeIncentive = useStoreIncentive();
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['package', 'isCallToAction']);
+const props = defineProps(['package', 'packageOB', 'isCallToAction']);
+
+const packageOBId = computed(() => {
+	if (props.packageOB) return props.packageOB.id;
+	return null;
+});
 
 const imageRepresentative = computed(() => {
 	return `${pathAssets}${props.package.image}`

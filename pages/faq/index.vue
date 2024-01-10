@@ -1,51 +1,114 @@
 <template>
-
 	<!-- BG padrão de fundo da página -->
 	<div class="absolute">
-		<LpBgDefault v-if="app.config_will_have_hotsite" :image="app.layout_background_app_two" :imageMobile="app.layout_background_app_mobile_two" placeholderImage="/imgs/lp/cover_banner_3.png"
-		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two" position="fixed" />
+		<LpBgDefault
+			v-if="app.config_will_have_hotsite"
+			:image="app.layout_background_app_two"
+			:imageMobile="app.layout_background_app_mobile_two"
+			placeholderImage="/imgs/lp/cover_banner_3.png"
+			placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png"
+			:bgColor="app.layout_background_colors_app_two"
+			position="fixed"
+		/>
 		<AppLayoutBgDefault v-else />
 	</div>
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
+	<AppLayoutHeader
+		v-if="app.config_will_have_hotsite"
+		:hasLogout="false"
+		:bgColor="app.header_colors_background_app_two"
+		:textColor="app.header_colors_text_app"
+		:isLogoDark="true"
+	/>
 
-	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52" :class="isItemsCenter">
-		<div class="grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen" :class="isGridLayout">
+	<UContainer
+		class="flex justify-center min-h-screen pt-14 lg:pt-24 lg:pb-80 pb-52"
+		:class="isItemsCenter"
+	>
+		<div
+			class="grid-cols-1 lg:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-start w-screen"
+			:class="isGridLayout"
+		>
 			<!-- brand -->
-			<AppOthersImageBrandSession />
+			<div class="hidden md:flex justify-center">
+				<AppOthersImageBrandSession />
+			</div>
 
+			<!-- Informações de contato -->
 			<div class="w-full">
+				<div  v-if="app.config_will_have_hotsite" class="pb-5">
+					<p class=" fm3 text-[22px] md:text-[26px] sm:text-[16px]">Perguntas frequentes.</p>
+					<p class="fm2 md:text-[24px] ">Nosso whatsapp:</p>
+					<div class="flex items-center text-[22px]">
+						<img src="public/imgs/whatsapp.png" alt="" class="md:w-12" />
+						<p class="fm3 px-2 md:text-[28px]">(11) 91221 3445</p>
+					</div>
+				</div>
+
 				<!-- Campo de pesquisa  -->
-				<AppOthersInputSearching :inputPlaceholder="app.faq_text_placeholder_input_search"
-					@input="store.filteredFaq(store.searchingValue)" />
+				<AppOthersInputSearching
+					:inputPlaceholder="app.faq_text_placeholder_input_search"
+					@input="store.filteredFaq(store.searchingValue)"
+				/>
 
 				<!-- Faq -->
-				<UAccordion v-if="store.filteredFaq(store.searchingValue).length" :items="store.filteredFaq(store.searchingValue)"
-					:ui="{ wrapper: 'flex flex-col w-full' }" class="py-2">
+				<UAccordion
+					v-if="store.filteredFaq(store.searchingValue).length"
+					:items="store.filteredFaq(store.searchingValue)"
+					:ui="{ wrapper: 'flex flex-col w-full' }"
+					class="py-2"
+				>
 					<template #default="{ item, index, open }">
-						<UButton color="transparent" variant="ghost" :class="!open && index + 1 < store.filteredFaq(store.searchingValue).length ? 'border-b-2' : null" :ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
-							:style="[colorText, open && colorTextButton, colorBorder]">
+						<UButton
+							color="transparent"
+							variant="ghost"
+							:class="
+								!open &&
+								index + 1 < store.filteredFaq(store.searchingValue).length
+									? 'border-b-2'
+									: null
+							"
+							:ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
+							:style="[colorText, open && colorTextButton, colorBorder]"
+						>
 							<span class="fm3 lg:text-lg">{{ item.one }}</span>
 							<template #trailing>
-								<UIcon name="i-heroicons-chevron-down-20-solid"
+								<UIcon
+									name="i-heroicons-chevron-down-20-solid"
 									class="w-7 h-7 lg:w-10 lg:h-10 ms-auto transform transition-transform duration-200"
-									:style="[colorText, open && colorTextButton]" :class="[open && 'rotate-180']" />
+									:style="[colorText, open && colorTextButton]"
+									:class="[open && 'rotate-180']"
+								/>
 							</template>
 						</UButton>
 					</template>
 
 					<template #item="{ item, index }">
-							<p class="fm1 text-md md:text-base lg:text-lg" :style="colorText">
-								{{ item.two }}
-							</p>
-						<div class="mt-5" :class="index + 1 < store.filteredFaq(store.searchingValue).length ? 'border-b-2' : null" :style="[colorBorder]">
-						</div>
+						<p class="fm1 text-md md:text-base lg:text-lg" :style="colorText">
+							{{ item.two }}
+						</p>
+						<div
+							class="mt-5"
+							:class="
+								index + 1 < store.filteredFaq(store.searchingValue).length
+									? 'border-b-2'
+									: null
+							"
+							:style="[colorBorder]"
+						></div>
 					</template>
 				</UAccordion>
 
 				<!-- Sem FAQ -->
-				<div v-else :style="colorText" class="flex flex-col justify-center items-center mt-20">
-					<UIcon name="i-material-symbols-deployed-code-alert-outline-sharp" class="w-20 h-20" />
+				<div
+					v-else
+					:style="colorText"
+					class="flex flex-col justify-center items-center mt-20"
+				>
+					<UIcon
+						name="i-material-symbols-deployed-code-alert-outline-sharp"
+						class="w-20 h-20"
+					/>
 					<p>Não há FAQ cadastrado no momento!</p>
 				</div>
 			</div>
@@ -53,7 +116,7 @@
 	</UContainer>
 
 	<!-- Footer para contato -->
-	<UContainer class="fixed bottom-0 left-0 right-0 px-0 md:px-4">
+	<UContainer  v-if="!app.config_will_have_hotsite" class="fixed bottom-0 left-0 right-0 px-0 md:px-4">
 		<div class="py-6 px-4 bg-cover" :style="background">
 			<div class="flex flex-col text-white relative z-10">
 				<div class="max-w-[500px] m-auto">
@@ -90,7 +153,11 @@ const ImgWhatsApp = computed(() => {
 });
 
 const colorText = computed(() => {
-	return `color: ${app.colors_text_one}`;
+	if(app.config_will_have_hotsite) {
+		return `color: ${app.colors_text_one_dark}`;
+	} else {
+		return `color: ${app.colors_text_one}`;
+	}
 });
 
 const colorTextButton = computed(() => {
@@ -107,7 +174,7 @@ const background = computed(() => {
 
 const isGridLayout = computed(() => {
 	return {
-		'grid': app.config_will_have_image_brand_session_hotsite,
+		grid: app.config_will_have_image_brand_session_hotsite,
 	};
 });
 

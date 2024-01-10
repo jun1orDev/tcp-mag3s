@@ -8,6 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	if (cookieAuth.value) {		
 		if (!storeCheckout.packageChosen.id) {
 			storeCheckout.chosenPackage(to.query.idPkg);
+			storeCheckout.packageOB(to.query.idOB);
 		}
 
 		if (!to.query.idPkg) {

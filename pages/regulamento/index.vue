@@ -17,7 +17,9 @@
 					:class="isGridLayout"
 				>
 					<!-- Imagem do Brand -->
-					<AppOthersImageBrandSession />
+					<div class="hidden lg:block md:flex justify-center">
+						<AppOthersImageBrandSession />
+					</div>
 
 					<div class="flex flex-col justify-center">
 						<div class="">
@@ -31,7 +33,7 @@
 						<div class="fm2 flex justify-center pb-8">
 							<p
 								class="text-[9px] md:text-[20px] text-justify"
-								:style="`color: ${store.contentApp.colors_text_one}`"
+								:style="colorText"
 							>
 								{{ store.contentApp.regulation_text_document }}
 							</p>
@@ -51,6 +53,14 @@ const isGridLayout = computed(() => {
 	return {
 		'grid': app.config_will_have_image_brand_session_hotsite,
 	};
+});
+
+const colorText = computed(() => {
+	if(app.config_will_have_hotsite) {
+		return `color: ${app.colors_text_one_dark}`;
+	} else {
+		return `color: ${app.colors_text_one}`;
+	}
 });
 
 // centralizar conteúdo

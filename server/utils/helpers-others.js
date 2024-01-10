@@ -156,6 +156,22 @@ export const listSchemaDataMedia = [
 		type: typesMedia[7],
 	},
 	{
+		name: 'purchase_tables_background_colors_order_bump',
+		description:
+			'Cor de fundo do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_text_colors_order_bump',
+		description:
+			'Cor de texto do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: '#061049',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'purchase_tables_text_colors_popular_product',
 		description: 'Cor de texto do badge que destaca o produto mais popular',
 		value: '#FFFFFF',
@@ -657,6 +673,13 @@ export const listSchemaDataMedia = [
 		name: 'colors_text_one',
 		description: 'Cor do texto padrão utilizado na aplicação.',
 		value: '#FFFFFF',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_text_one_dark',
+		description: 'Cor do texto padrão utilizado na aplicação para fundos claros.',
+		value: '#000000',
 		tag: 'app',
 		type: typesMedia[2],
 	},

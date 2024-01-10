@@ -1,4 +1,4 @@
-<template>	
+<template>
 	<!-- BG padrão de fundo da página -->
 	<div class="absolute">
 		<LpBgDefault v-if="app.config_will_have_hotsite" :image="app.layout_background_app_two" :imageMobile="app.layout_background_app_mobile_two" placeholderImage="/imgs/lp/cover_banner_3.png"
@@ -7,7 +7,7 @@
 	</div>
 
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
-	
+
 	<UContainer class="flex justify-center min-h-screen py-14" :class="isItemsCenter">
 		<div class="md:grid-cols-[400px_1fr] gap-12 lg:gap-24 items-center justify-center w-screen" :class="isGridLayout">
 			<!-- Imagem do Brand -->
@@ -15,20 +15,20 @@
 
 			<div class="flex flex-col justify-center order-1 lg:order-2  ">
 				<div>
-					<h1 class="fm3 uppercase text-[12px] md:text-[22px] text-white">
+					<h1 class="fm3 uppercase text-[12px] md:text-[22px]" :style="colorText">
 						Dúvidas? Sugestões? Entre com contato com a gente.
 					</h1>
 				</div>
 
 				<div class="fm2">
-					<p class="text-[9px] md:text-[20px] text-white order-1">
+					<p class="text-[9px] md:text-[20px] order-1" :style="colorText">
 						Nossa serviço de atendimento está pronto pra te atender e tirar qualquer dúvida.
 					</p>
 				</div>
 
 				<div class="flex items-center py-7">
 					<img src="/imgs/whats.png">
-					<p class="fm3 text-white px-2 text-[22px] md:text-[32px]">(11) 91221 3445</p>
+					<p class="fm3 px-2 text-[22px] md:text-[32px]" :style="colorText">(11) 91221 3445</p>
 				</div>
 			</div>
 		</div>
@@ -51,6 +51,14 @@ const isItemsCenter = computed(() => {
 	return {
 		'items-center': app.config_will_have_image_brand_session_hotsite,
 	};
+});
+
+const colorText = computed(() => {
+	if(app.config_will_have_hotsite) {
+		return `color: ${app.colors_text_one_dark}`;
+	} else {
+		return `color: ${app.colors_text_one}`;
+	}
 });
 </script>
 

@@ -20,10 +20,17 @@
 				</template>
 			</URadio>
 
-			<div class="flex justify-center">
-				<UButton size="xl" :label="storeCheckout.formRegister.configPayment.labelButton" type="submit" :ui="configButton"
-					:style="[colorBgButton, colorTextButton]" class="fm3 mt-6" :loading="storeCheckout.formRegister.loading"
-					trailing :disabled="!storeCheckout.formRegister.selectedPayment" />
+			<div class="flex flex-col items-center w-full">
+				<!-- Order Bump -->
+				<CheckoutOrderBump v-if="storeCheckout.formRegister.selectedPayment" class="mt-10 sm:w-10/12 md:w-8/12 lg:w-7/12 my-auto" />
+
+				<!-- Botão avançar -->
+				<div>
+					<UButton size="xl" :label="storeCheckout.formRegister.configPayment.labelButton" type="submit"
+						:ui="configButton" :style="[colorBgButton, colorTextButton]" class="fm3 mt-6"
+						:loading="storeCheckout.formRegister.loading" trailing
+						:disabled="!storeCheckout.formRegister.selectedPayment" />
+				</div>
 			</div>
 		</UForm>
 
