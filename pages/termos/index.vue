@@ -49,7 +49,7 @@
 				<div class="fm2">
 					<p
 						class="text-[9px] md:text-[20px] text-justify"
-						:style="`color: ${app.colors_text_one}`"
+						:style="colorText"
 						v-html="app.terms_and_condition_text_document"
 					></p>
 				</div>
@@ -98,6 +98,14 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
+
+const colorText = computed(() => {
+	if(app.config_will_have_hotsite) {
+		return `color: ${app.colors_text_one_dark}`;
+	} else {
+		return `color: ${app.colors_text_one}`;
+	}
+});
 
 const background = computed(() => {
 	return `background-image: url('${pathAssets}${app.layout_background_footer_app}'), url('/imgs/fundo_modal_placeholder.png'); background-color: ${app.colors_background_one}`;
