@@ -17,7 +17,9 @@
 					:class="isGridLayout"
 				>
 					<!-- Imagem do Brand -->
-					<AppOthersImageBrandSession />
+					<div class="hidden lg:block md:flex justify-center">
+						<AppOthersImageBrandSession />
+					</div>
 
 					<div class="flex flex-col justify-center">
 						<div class="">
