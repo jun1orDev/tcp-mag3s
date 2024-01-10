@@ -58,7 +58,7 @@
 	</UContainer>
 
 	<!-- footer politica e logos -->
-	<UContainer class="fixed bottom-0 left-0 right-0 px-0 md:px-4">
+	<UContainer v-if="!app.config_will_have_hotsite" class="fixed bottom-0 left-0 right-0 px-0 md:px-4">
 		<div class="py-6 px-4 bg-cover" :style="background">
 			<div class="max-w-[600px] m-auto">
 				<p
