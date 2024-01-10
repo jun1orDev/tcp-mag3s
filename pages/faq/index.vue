@@ -153,7 +153,11 @@ const ImgWhatsApp = computed(() => {
 });
 
 const colorText = computed(() => {
-	return `color: ${app.colors_text_one}`;
+	if(app.config_will_have_hotsite) {
+		return `color: ${app.colors_text_one_dark}`;
+	} else {
+		return `color: ${app.colors_text_one}`;
+	}
 });
 
 const colorTextButton = computed(() => {
