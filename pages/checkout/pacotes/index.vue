@@ -26,7 +26,7 @@
 
 				<!-- Tabela de Preços -->
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-					<CheckoutPackage :package="packageProduct" :isCallToAction="true" v-for="packageProduct in storeCheckout.packages" />
+					<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]" :isCallToAction="true" v-for="(packageProduct, index) in storeCheckout.packages" />
 				</div>
 
 				<!-- Novo Cadastro -->

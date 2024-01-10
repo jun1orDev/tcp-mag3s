@@ -13,6 +13,13 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				price: '',
 				items: [],
 			},
+			packageChosenOB: {
+				id: null,
+				isPopularProduct: false,
+				image: '',
+				price: '',
+				items: [],
+			},
 			showingSteps: false,
 			steps: [
 				{ step: 1, label: 'Cadastro/Login', complete: false },
@@ -148,13 +155,15 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Compra do pacote escolhido
-		purchasePackage(IDpkgChosen, pathTo) {
+		purchasePackage(IDpkgChosen, IDpkgOB, pathTo) {
 			this.chosenPackage(IDpkgChosen);
+			this.packageOB(IDpkgOB);
 
 			navigateTo({
 				path: pathTo,
 				query: {
 					idPkg: IDpkgChosen,
+					idOB: IDpkgOB ? IDpkgOB : false,
 				},
 			});
 		},
@@ -162,6 +171,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		// escolha do pacote
 		chosenPackage(id) {
 			this.packageChosen = this.packages.find((item) => item.id === id);
+		},
+
+		// pacote do order bump
+		packageOB(id) {
+			this.packageChosenOB = id ? this.packages.find((item) => item.id === id) : {
+				id: null,
+				isPopularProduct: false,
+				image: '',
+				price: '',
+				items: [],
+			};
 		},
 
 		// Progresso da compra
