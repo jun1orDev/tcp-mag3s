@@ -11,6 +11,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 			path: '/checkout/cadastro2',
 			query: {
 				idPkg: to.query.idPkg,
+				idOB: to.query.idOB,
 			},
 		});
 	}

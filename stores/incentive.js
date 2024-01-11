@@ -260,6 +260,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 							path: '/checkout/cadastro2',
 							query: {
 								idPkg: storeCheckout.packageChosen.id,
+								idOB: storeCheckout.packageChosenOB.id,
 							},
 						});
 					} else {
