@@ -5,6 +5,7 @@
       :src="iframeSrc"
       frameborder="0"
       allowfullscreen
+			sandbox="allow-same-origin allow-scripts"
 			class="w-screen h-screen border-0 m-0 p-0 overflow-hidden z-auto"
     ></iframe>
 	</div>
