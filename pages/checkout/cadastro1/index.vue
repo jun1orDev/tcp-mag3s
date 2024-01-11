@@ -2,7 +2,7 @@
 	<div class="max-w-[600px] m-auto lg:w-full lg:m-0">
 		<div>
 			<h1 v-html="titleText" class="fm3 text-xl lg:text-2xl mb-1"></h1>
-			<p class="fm2 text-lg">{{ descriptionText }} <ULink type="link" :to="{path: '/checkout/login', query: {idPkg: storeCheckout.packageChosen.id}}" class="fm3">Clique aqui</ULink>
+			<p class="fm2 text-lg">{{ descriptionText }} <ULink type="link" :to="{path: '/checkout/login', query: {idPkg: storeCheckout.packageChosen.id, idOB: storeCheckout.packageChosenOB.id}}" class="fm3">Clique aqui</ULink>
 				.</p>
 		</div>
 

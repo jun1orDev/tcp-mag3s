@@ -14,7 +14,6 @@
 <script setup>
 const { ApiIncentiveGamification } = useRuntimeConfig().public;
 const iframeSrc = ref(`${ApiIncentiveGamification}?tkn=${useTokenUser().value}`);
-console.log(useTokenUser().value)
 
 definePageMeta({
 	middleware: ['auth-user']

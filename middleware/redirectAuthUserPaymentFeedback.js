@@ -12,7 +12,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		return navigateTo({
 			path: '/checkout/pagamento',
 			query: {
-				idPkg: to.query.idPkg,
+				idPkg: to.query.idPkg,				
+				idOB: to.query.idOB,
 			},
 		});
 	}

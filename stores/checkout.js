@@ -20,6 +20,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				price: '',
 				items: [],
 			},
+			selectedOB: null,
 			showingSteps: false,
 			steps: [
 				{ step: 1, label: 'Cadastro/Login', complete: false },
@@ -166,6 +167,11 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					idOB: IDpkgOB ? IDpkgOB : false,
 				},
 			});
+		},
+
+		// Troca do pacote escolhido
+		changePackage() {
+			console.log('trocou');
 		},
 
 		// escolha do pacote
@@ -316,21 +322,21 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.configPayment.labelButton = `pagar com ${method.label}`;
 			this.formRegister.configPayment.choicePathTo = method.path;
 		},
-		async paymentMethod(useToast, IDpkgChosen, pathTo) {
+		async paymentMethod(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			// Caso o método seja cartão
 			if (this.formRegister.selectedPayment === 301) {
 				this.formRegister.selectedPayment = null;
-				return this.purchasePackage(IDpkgChosen, pathTo);
+				return this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 			}
 
 			// Caso o método seja Pix
 			if (this.formRegister.selectedPayment === 501) {
-				await this.paymentPix(useToast, IDpkgChosen, pathTo);
+				await this.paymentPix(useToast, IDpkgChosen, IDpkgOB, pathTo);
 			}
 		},
 
 		// Pagamento via Pix
-		async paymentPix(useToast, IDpkgChosen, pathTo) {
+		async paymentPix(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
 			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
 			this.formRegister.loading = true;
@@ -357,7 +363,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					copyPaste: data.paymentCode,
 				};
 
-				this.purchasePackage(IDpkgChosen, pathTo);
+				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 			} catch (error) {
 				console.log(error);
 				toast.add({
