@@ -27,7 +27,7 @@
 				<div>
 					<UButton size="xl" label="já paguei" type="button" icon="i-ic-round-playlist-add-check" :ui="configButton"
 						:style="[colorBgButton, colorTextButton]" class="fm3 mt-6"
-						@click.prevent="storeCheckout.showFeedback(storeCheckout.packageChosen.id, '/checkout/feedback', 'pix')" />
+						@click.prevent="storeCheckout.showFeedback(storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, '/checkout/feedback', 'pix')" />
 				</div>
 			</div>
 

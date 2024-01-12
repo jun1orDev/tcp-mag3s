@@ -11,7 +11,7 @@
 		</div>
 
 		<UForm id="formCreditCard" :validate="validate" :state="state" class="space-y-4" :class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6'"
-			@submit="storeCheckout.paymentCreditCard(useToast, storeCheckout.packageChosen.id, '/checkout/feedback')">
+			@submit="storeCheckout.paymentCreditCard(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, '/checkout/feedback')">
 			<UFormGroup label="Número do cartão:" name="numberCard">
 				<UInput size="xl" v-model="storeCheckout.formRegister.creditCard.number" type="text" color="white"
 					variant="outline" :ui="configInput" icon="i-ic-baseline-credit-card"
