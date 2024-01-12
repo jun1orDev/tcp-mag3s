@@ -56,6 +56,12 @@ export function generateRandomNumber(maximum) {
 // Mensagens padrões de resposta do servidor externo de incentivo
 export function enumsResponseServer(code) {
 	switch (code) {
+		case 'UsernameAlreadyInUse':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Este usuário já está em uso, tente outro e-mail.',
+			};
+
 		case 'UsernameAndPasswordRequired':
 			return {
 				title: 'Ops, algo deu errado!',
@@ -113,7 +119,8 @@ export function enumsResponseServer(code) {
 		case 'PaymentAborted':
 			return {
 				title: 'Ops, algo deu errado!',
-				message: 'Houve um problema para finalizar o pagamento, tente novamente mais tarde!',
+				message:
+					'Houve um problema para finalizar o pagamento, tente novamente mais tarde!',
 			};
 
 		default:
