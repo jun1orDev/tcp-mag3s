@@ -289,6 +289,44 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			}
 		},
 
+		// Reset de senha
+		async userReset(useToast) {
+			this.loading = false;
+			const toast = useToast();
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/password/reset`,
+					{
+						method: 'post',
+						body: {
+							userInfo: '',
+							code: '',
+							callbackURL: ApiIncentiveSystemIdentity,
+						},
+					}
+				);
+
+				this.loading = false;
+				return data;
+			} catch (error) {
+				this.loading = true;
+				toast.add({
+					id: 'error_getContentAppLoginUser',
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+		},
+
 		// Saindo da aplicação
 		userLogout(useToast) {
 			const toast = useToast();
