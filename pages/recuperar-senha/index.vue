@@ -46,9 +46,9 @@
 
 				<!-- E-mail cadastrado para recuperar a senha -->
 				<UForm
-					id="formLogin"
+					id="userReset"
 					class="space-y-4"
-					@submit="storeIncentive.userLogin(useToast)"
+					@submit="storeIncentive.userReset(useToast)"
 				>
 					<UFormGroup label="Seu e-mail cadastrado" name="email">
 						<UInput
