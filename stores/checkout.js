@@ -105,6 +105,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				state.formRegister.creditCard.cvv
 			);
 		},
+
+		// Value Order Bump Price
+		diferencePriceOrderBump: (state) => {
+			const price = state.packageChosenOB.price - state.packageChosen.price;
+
+			return price.toLocaleString('pt-br', {
+				style: 'currency',
+				currency: 'BRL',
+				currencyDisplay: 'symbol',
+			});
+		},
 	},
 
 	actions: {
@@ -164,14 +175,18 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				path: pathTo,
 				query: {
 					idPkg: IDpkgChosen,
-					idOB: IDpkgOB ? IDpkgOB : false,
+					idOB: IDpkgOB ? IDpkgOB : '',
 				},
 			});
 		},
 
 		// Troca do pacote escolhido
-		changePackage() {
-			console.log('trocou');
+		changePackage(idPkg, idPkgOB) {
+			if (this.selectedOB) {
+				this.packageChosen = this.packages.find((item) => item.id === idPkgOB);
+			} else {
+				this.packageChosen = this.packages.find((item) => item.id === idPkg);
+			}
 		},
 
 		// escolha do pacote
@@ -181,13 +196,15 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 		// pacote do order bump
 		packageOB(id) {
-			this.packageChosenOB = id ? this.packages.find((item) => item.id === id) : {
-				id: null,
-				isPopularProduct: false,
-				image: '',
-				price: '',
-				items: [],
-			};
+			this.packageChosenOB = id
+				? this.packages.find((item) => item.id === id)
+				: {
+						id: null,
+						isPopularProduct: false,
+						image: '',
+						price: '',
+						items: [],
+				  };
 		},
 
 		// Progresso da compra
@@ -241,10 +258,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -304,10 +323,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -368,10 +389,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -414,10 +437,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Register_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -469,10 +494,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -484,13 +511,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, pathTo) {
+		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
 
 			// Caso não tenha cartão cadastrado, cadastrar um novo
 			if (!storeIncentive.userAcountData.paymentMethods.status) {
-				await this.registerCreditCard(useToast);
+				try {
+					await this.registerCreditCard(useToast);
+				} catch (error) {
+					return error;
+				}
 			}
 
 			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
@@ -516,17 +547,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					}
 				);
 
-				console.log(data);
-
-				this.showFeedback(IDpkgChosen, pathTo, 'credit-card');
+				this.showFeedback(IDpkgChosen, IDpkgOB, pathTo, 'credit-card');
 			} catch (error) {
-				console.log(error);
 				toast.add({
-					id: 'error_PaymentPix',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					id: 'error_PaymentCardCredit',
+					title: `${enumsResponseServer(error.response._data.code).title}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -534,13 +562,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			}
 
 			this.formRegister.loading = false;
+			this.formRegister.configPayment.labelButton = `finalizar pagamento`;
 		},
 
 		// Feedback de pagamento
-		showFeedback(IDpkgChosen, pathTo, typePayment) {
+		showFeedback(IDpkgChosen, IDpkgOB, pathTo, typePayment) {
 			this.formRegister.feedbackPayment = typePayment;
 
-			this.purchasePackage(IDpkgChosen, pathTo);
+			this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 		},
 
 		// Finalizar compra
