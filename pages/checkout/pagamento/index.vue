@@ -22,7 +22,8 @@
 
 			<div class="flex flex-col items-center w-full">
 				<!-- Order Bump -->
-				<CheckoutOrderBump v-if="storeCheckout.formRegister.selectedPayment" class="mt-10 sm:w-10/12 md:w-8/12 lg:w-7/12 my-auto" />
+				<CheckoutOrderBump v-if="storeCheckout.formRegister.selectedPayment && hasIdPkgOB"
+					class="mt-10 sm:w-10/12 md:w-8/12 lg:w-7/12 my-auto animate__animated animate__tada" />
 
 				<!-- Botão avançar -->
 				<div>
@@ -46,10 +47,16 @@ const app = store.contentApp;
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
+const route = useRoute();
+
 definePageMeta({
 	layout: 'checkout-default',
 	middleware: ['auth-client', 'purchase-list-packages', 'purchase-chosen-package', 'redirect-auth-user-payments']
 });
+
+const hasIdPkgOB = computed(() => {
+	return Boolean(route.query.idOB);
+})
 
 const textColor = computed(() => {
 	return `color: ${app.layout_text_colors_login_and_checkout}`;
@@ -69,7 +76,20 @@ onMounted(() => {
 		50,
 		true);
 
-	storeCheckout.formRegister.configPayment.labelButton = `escolha antes de continuar...`;
+	switch (storeCheckout.formRegister.selectedPayment) {
+		case 301:
+			storeCheckout.formRegister.configPayment.labelButton = `pagar com ${storeCheckout.formRegister.optionsPayment.find(payment => payment.value === 301).label}`;
+			break;
+
+		case 501:
+			storeCheckout.formRegister.configPayment.labelButton = `pagar com ${storeCheckout.formRegister.optionsPayment.find(payment => payment.value === 501).label}`;
+			break;
+
+		default:
+			storeCheckout.formRegister.configPayment.labelButton = `escolha antes de continuar...`;
+			break;
+	}
+
 });
 
 const colorBgButton = computed(() => {

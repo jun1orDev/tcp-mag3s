@@ -104,6 +104,18 @@ export function enumsResponseServer(code) {
 				message: 'Erro do Operador de Pagamento.',
 			};
 
+		case 'InvalidExpirationDate':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Data de validade inválida, use "MM/AAAA"',
+			};
+
+		case 'PaymentAborted':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Houve um problema para finalizar o pagamento, tente novamente mais tarde!',
+			};
+
 		default:
 			return {
 				title: 'Ops, algo deu errado!',
