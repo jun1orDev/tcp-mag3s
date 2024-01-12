@@ -12,7 +12,8 @@
 		:textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer class="flex justify-center min-h-screen pt-14 lg:py-16" :class="isItemsCenter" :style="textColor">
-		<div class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
+		<div
+			class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
 			:class="isGridLayout">
 			<!-- brand -->
 			<AppOthersImageBrandSession />
@@ -26,11 +27,13 @@
 
 				<!-- Tabela de Preços -->
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-					<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]" :isCallToAction="true" v-for="(packageProduct, index) in storeCheckout.packages" />
+					<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]" :isCallToAction="true"
+						v-for="(packageProduct, index) in storeCheckout.packages" />
 				</div>
 
 				<!-- Novo Cadastro -->
-				<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se <strong>
+				<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se
+					<strong>
 						<NuxtLink to="/login" class="fm3 decoration">
 							aqui</NuxtLink>
 					</strong> e receba um número da sorte grátis. ;)
@@ -86,6 +89,10 @@ const isItemsCenter = computed(() => {
 	return {
 		'items-center': app.config_will_have_image_brand_session_hotsite,
 	};
+});
+
+onMounted(() => {
+	storeCheckout.selectedOB = null;
 });
 </script>
 

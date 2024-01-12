@@ -156,10 +156,51 @@ export const listSchemaDataMedia = [
 		type: typesMedia[7],
 	},
 	{
+		name: 'purchase_tables_text_title_qtd_order_bump',
+		description:
+			'Título da quantidade de vezes do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: '2x',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'purchase_tables_text_title_order_bump',
+		description:
+			'Título do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: 'Super Oferta!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'purchase_tables_text_description_order_bump',
+		description:
+			'Descrição do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value:
+			'Receba o <strong>DOBRO</strong> de raspadinhas e o <strong>DOBRO</strong> de números da sorte por um adicional de apenas',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
+		name: 'purchase_tables_text_checkbox_order_bump',
+		description:
+			'Descrição para o checkbox do card que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: 'Sim, eu quero!',
+		tag: 'login/checkout',
+		type: typesMedia[0],
+	},
+	{
 		name: 'purchase_tables_background_colors_order_bump',
 		description:
 			'Cor de fundo do card que é representado pelo order bump de escolha do pacote pelo usuário',
 		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_background_colors_order_bump_two',
+		description:
+			'Cor de fundo do texto de destaque que é representado pelo order bump de escolha do pacote pelo usuário',
+		value: '#00F919',
 		tag: 'login/checkout',
 		type: typesMedia[2],
 	},
@@ -678,7 +719,8 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'colors_text_one_dark',
-		description: 'Cor do texto padrão utilizado na aplicação para fundos claros.',
+		description:
+			'Cor do texto padrão utilizado na aplicação para fundos claros.',
 		value: '#000000',
 		tag: 'app',
 		type: typesMedia[2],
