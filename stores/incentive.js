@@ -59,7 +59,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			},
 			resetUser: {
 				email: '',
-				code:''
+				code: '',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -298,21 +298,23 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			this.loading = false;
 			const storeCheckout = useStoreCheckout();
 			const toast = useToast();
-			this.resetUser.code = `Requisição de nova senha via Postman`
-			const {
-				ApiIncentiveSystemIdentity,
-				ApiIncentiveRecovery
-			} = useRuntimeConfig().public;
+			this.resetUser.code = `Requisição de nova senha via Postman`;
+			const { ApiIncentiveSystemIdentity, ApiIncentiveRecovery } =
+				useRuntimeConfig().public;
 
 			try {
-				const data = await $fetch(`${ApiIncentiveSystemIdentity}/account/user/password/reset`, {
-					method: 'post',
-					body: {
-						userInfo: this.resetUser.email,
-						code: this.resetUser.code,
-						callbackURL: ApiIncentiveRecovery
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/password/reset`,
+					{
+						method: 'post',
+						body: {
+							userInfo: this.resetUser.email,
+							code: this.resetUser.code,
+							callbackURL: ApiIncentiveRecovery,
+							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+						},
 					},
-				});
+				);
 
 				if (hasHostsite) {
 					const cookieAuth = useCookie('tokenUser', {
@@ -325,14 +327,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.resetUser.email = '';
 
 					navigateTo({
-						path: '/recuperar-senha/',
+						path: '/login/',
 						query: {
-								idPkg: storeCheckout.packageChosen.id,
-								idOB: storeCheckout.packageChosenOB.id,
+							idPkg: storeCheckout.packageChosen.id,
+							idOB: storeCheckout.packageChosenOB.id,
 						},
-				});
-
-
+					});
 				}
 
 				this.loading = false;
@@ -353,7 +353,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				});
 			}
 		},
-
 
 		// Saindo da aplicação
 		userLogout(useToast) {
