@@ -60,6 +60,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			resetUser: {
 				email: '',
 				code: '',
+				callbackURL: '',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -310,8 +311,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						body: {
 							userInfo: this.resetUser.email,
 							code: this.resetUser.code,
-							callbackURL: ApiIncentiveRecovery,
-							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+							callbackURL: `http://localhost:3000/confirmar-senha/`,
 						},
 					},
 				);
