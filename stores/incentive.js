@@ -300,7 +300,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			const storeCheckout = useStoreCheckout();
 			const toast = useToast();
 			this.resetUser.code = `Requisição de nova senha via Postman`;
-			const { ApiIncentiveSystemIdentity, ApiIncentiveRecovery } =
+			const { ApiIncentiveSystemIdentity } =
 				useRuntimeConfig().public;
 
 			try {
