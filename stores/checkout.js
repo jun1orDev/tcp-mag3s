@@ -220,7 +220,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Registro de Email
-		async registerEmail(useToast, IDpkgChosen, pathTo) {
+		async registerEmail(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
 			this.formRegister.loading = true;
 
@@ -254,7 +254,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				});
 				cookieAuth.value = data.access_token;
 
-				this.purchasePackage(IDpkgChosen, pathTo);
+				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
@@ -274,7 +274,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Registro de Email
-		async registerOthersDatas(useToast, IDpkgChosen, pathTo) {
+		async registerOthersDatas(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
 			this.formRegister.loading = true;
 
@@ -319,7 +319,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				this.purchasePackage(IDpkgChosen, pathTo);
+				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
