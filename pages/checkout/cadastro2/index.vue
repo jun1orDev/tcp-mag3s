@@ -7,7 +7,7 @@
 
 			<!-- Segunda parte do Cadastro -->
 			<UForm id="formRegisterTwo" :validate="validate" :state="state" class="space-y-4 mt-6"
-				@submit="storeCheckout.registerOthersDatas(useToast, storeCheckout.packageChosen.id, '/checkout/pagamento')">
+				@submit="storeCheckout.registerOthersDatas(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, '/checkout/pagamento')">
 				<UFormGroup label="Nome completo:" name="name">
 					<UInput size="xl" v-model="storeCheckout.formRegister.name" type="text" color="white" variant="outline"
 						:ui="configInput" icon="i-material-symbols-person-outline" />

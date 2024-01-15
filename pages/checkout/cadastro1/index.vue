@@ -8,7 +8,7 @@
 
 		<!-- Primeira parte do Cadastro -->
 		<UForm id="formRegisterOne" :state="storeCheckout.formRegister" class="space-y-4 mt-6"
-			@submit="storeCheckout.registerEmail(useToast, storeCheckout.packageChosen.id, '/checkout/cadastro2')">
+			@submit="storeCheckout.registerEmail(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, '/checkout/cadastro2')">
 			<UFormGroup label="E-mail:" name="email">
 				<UInput size="xl" v-model="storeCheckout.formRegister.email" type="email" color="white" variant="outline"
 					:ui="configInput" icon="i-material-symbols-stacked-email-outline" />
