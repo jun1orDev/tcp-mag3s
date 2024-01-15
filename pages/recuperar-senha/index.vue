@@ -46,7 +46,7 @@
 
 				<!-- E-mail cadastrado para recuperar a senha -->
 				<UForm
-					id="userReset"
+					id="resetUser"
 					class="space-y-4"
 					@submit="storeIncentive.userReset(useToast)"
 				>
@@ -54,7 +54,7 @@
 						<UInput
 							size="xl"
 							icon="i-material-symbols-mail-lock-outline-rounded"
-							v-model="storeIncentive.formLogin.user"
+							v-model="storeIncentive.resetUser.email"
 							type="text"
 							color="white"
 							variant="outline"

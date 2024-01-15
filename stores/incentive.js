@@ -57,6 +57,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				user: '',
 				password: '',
 			},
+			resetUser: {
+				email: '',
+				code:''
+			},
 			userLoggedIn: null,
 			filterPrizes: 2,
 			loading: true,
@@ -290,23 +294,46 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Reset de senha
-		async userReset(useToast) {
+		async userReset(useToast, hasHostsite = true, isCheckout = false) {
 			this.loading = false;
+			const storeCheckout = useStoreCheckout();
 			const toast = useToast();
-			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+			this.resetUser.code = `Requisição de nova senha via Postman`
+			const {
+				ApiIncentiveSystemIdentity,
+				ApiIncentiveRecovery
+			} = useRuntimeConfig().public;
 
 			try {
-				const data = await $fetch(
-					`${ApiIncentiveSystemIdentity}account/user/password/reset`,
-					{
-						method: 'post',
-						body: {
-							userInfo: '',
-							code: '',
-							callbackURL: ApiIncentiveSystemIdentity,
+				const data = await $fetch(`${ApiIncentiveSystemIdentity}/account/user/password/reset`, {
+					method: 'post',
+					body: {
+						userInfo: this.resetUser.email,
+						code: this.resetUser.code,
+						callbackURL: ApiIncentiveRecovery
+					},
+				});
+
+				if (hasHostsite) {
+					const cookieAuth = useCookie('tokenUser', {
+						maxAge: +data.expires_in,
+						sameSite: true,
+						httpOnly: false,
+					});
+					cookieAuth.value = data.access_token;
+					this.loading = false;
+					this.resetUser.email = '';
+
+					navigateTo({
+						path: '/recuperar-senha/',
+						query: {
+								idPkg: storeCheckout.packageChosen.id,
+								idOB: storeCheckout.packageChosenOB.id,
 						},
-					}
-				);
+				});
+
+
+				}
 
 				this.loading = false;
 				return data;
@@ -326,6 +353,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				});
 			}
 		},
+
 
 		// Saindo da aplicação
 		userLogout(useToast) {
