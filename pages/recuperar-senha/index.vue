@@ -46,15 +46,15 @@
 
 				<!-- E-mail cadastrado para recuperar a senha -->
 				<UForm
-					id="formLogin"
+					id="resetUser"
 					class="space-y-4"
-					@submit="storeIncentive.userLogin(useToast)"
+					@submit="storeIncentive.userReset(useToast)"
 				>
 					<UFormGroup label="Seu e-mail cadastrado" name="email">
 						<UInput
 							size="xl"
 							icon="i-material-symbols-mail-lock-outline-rounded"
-							v-model="storeIncentive.formLogin.user"
+							v-model="storeIncentive.resetUser.email"
 							type="text"
 							color="white"
 							variant="outline"
@@ -70,6 +70,8 @@
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
+							:disabled="buttonDisabled"
+							:loading="!storeIncentive.loading"
 							trailing
 						/>
 					</div>
@@ -86,6 +88,10 @@ import { useStoreIncentive } from '~/stores/incentive';
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
+
+const buttonDisabled = computed(() => {
+  return !storeIncentive.resetUser.email
+});
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;

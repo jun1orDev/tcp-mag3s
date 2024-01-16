@@ -13,7 +13,7 @@ const typeMediaDefault = [
 export default defineNuxtConfig({
 	ui: {
 		global: true,
-		icons: ['material-symbols', 'ic'],
+		icons: ['material-symbols', 'ic', 'mdi'],
 	},
 
 	typescript: {
