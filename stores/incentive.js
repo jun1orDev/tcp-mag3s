@@ -60,6 +60,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			resetUser: {
 				email: '',
 				callbackURL: '',
+				password:'',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -342,6 +343,57 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					timeout: 3500,
 				});
 			}
+		},
+
+		// Confirmação de senha
+
+		async confirmPassword(useToast) {
+			const toast = useToast();
+			const route = useRoute();
+
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/password/reset/code`,
+					{
+						method: 'put',
+						body: {
+							userInfo: this.resetUser.email,
+							code: `${route.fullPath}`,
+							password: this.resetUser.password,
+						},
+					}
+				);
+
+				if (data.success) {
+					toast.add({
+						id: 'info_reset_password',
+						title: `Senha alterada com sucesso!`,
+						color: 'green',
+						icon: 'i-material-symbols-check-circle-outline-rounded',
+						timeout: 3500,
+					});
+
+					navigateTo('/login');
+				}
+
+				this.loading = true;
+			} catch (error) {
+				this.loading = true;
+				toast.add({
+					id: 'error_reset_password',
+					title: `${enumsResponseServer(error.response._data.code).title}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+
 		},
 
 		// Saindo da aplicação
