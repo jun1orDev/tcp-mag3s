@@ -298,31 +298,44 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			this.loading = false;
 			const toast = useToast();
 
-			const { ApiIncentiveSystemIdentity } =
-				useRuntimeConfig().public;
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
-				const data = await $fetch(`${ApiIncentiveSystemIdentity}account/user/password/reset`,
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/password/reset`,
 					{
 						method: 'post',
 						body: {
 							userInfo: this.resetUser.email,
-							code: `Requisição de nova senha via Postman`,
-							callbackURL: `http://localhost:3000/confirmar-senha/`,
+							code: `Requisição de nova senha`,
+							callbackURL: `${window.location.protocol}//${window.location.host}/confirmar-senha/`,
 						},
-					},
+					}
 				);
 
-				this.loading = false;
+				this.resetUser.email = '';
+
+				if (data.success) {
+					toast.add({
+						id: 'info_reset_password',
+						title: `Solicitação enviada!`,
+						description: `E-mail enviado com sucesso.`,
+						color: 'green',
+						icon: 'i-material-symbols-check-circle-outline-rounded',
+						timeout: 3500,
+					});
+
+					navigateTo('/login');
+				}
+
+				this.loading = true;
 			} catch (error) {
 				this.loading = true;
 				toast.add({
-					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
+					id: 'error_reset_password',
+					title: `${enumsResponseServer(error.response._data.code).title}`,
 					description: `${
-						enumsResponseServer(error.response._data.request.code).message
+						enumsResponseServer(error.response._data.code).message
 					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',

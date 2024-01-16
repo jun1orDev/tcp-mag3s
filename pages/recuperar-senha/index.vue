@@ -70,6 +70,7 @@
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
+							:disabled="buttonDisabled"
 							:loading="!storeIncentive.loading"
 							trailing
 						/>
@@ -87,6 +88,10 @@ import { useStoreIncentive } from '~/stores/incentive';
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
+
+const buttonDisabled = computed(() => {
+  return !storeIncentive.resetUser.email
+});
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;

@@ -56,6 +56,12 @@ export function generateRandomNumber(maximum) {
 // Mensagens padrões de resposta do servidor externo de incentivo
 export function enumsResponseServer(code) {
 	switch (code) {
+		case 'Unknown':
+			return {
+				title: 'Ops, algo deu errado!',
+				message: 'Verifique com o administrador do sistema.',
+			};
+
 		case 'UsernameAlreadyInUse':
 			return {
 				title: 'Ops, algo deu errado!',
