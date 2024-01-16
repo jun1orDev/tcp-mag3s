@@ -23,6 +23,10 @@ export const useStoreApp = defineStore('storeApp', {
 				labelButton: '',
 				typeAction: '',
 			},
+			menuBehaviour: [
+				{ icon: 'i-ic-round-home', name: 'Home', path: '/app/hub', badge: false, enable: false, show: true },
+				{ icon: 'i-mdi-clover', name: 'Números da Sorte', path: '/revelar-premio', badge: false, enable: false, show: true },
+			],
 			influencerChosen: null,
 			searchingValue: null,
 			loading: false,
@@ -248,9 +252,9 @@ export const useStoreApp = defineStore('storeApp', {
 			if (!influencer) {
 				this.influencerChosen =
 					this.contentApp.influencer_race_hotsite_list.list[
-						generateRandomNumber(
-							this.contentApp.influencer_race_hotsite_list.list.length - 1
-						)
+					generateRandomNumber(
+						this.contentApp.influencer_race_hotsite_list.list.length - 1
+					)
 					];
 			}
 		},

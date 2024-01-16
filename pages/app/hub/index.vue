@@ -2,7 +2,8 @@
 	<div v-show="!storeIncentive.loading" class="min-h-screen flex flex-col justify-between">
 		<AppLayoutBgDefault />
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="true" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="true" :bgColor="app.header_colors_background_app"
+			:textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="pt-12" :class="hasHeader">
 
@@ -50,9 +51,11 @@
 				<AppBannersCard5 class="" :linkSource="app.banner_link_external_card_one"
 					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
 			</div>
+			<AppLayoutMenuBehaviour v-if="app.config_will_have_hotsite" />
 		</UContainer>
 
-		<AppLayoutFooter class="lg:mt-10" :imageLogo="app.brand_image_two" :menu="store.footerApp.menu" />
+		<AppLayoutFooter v-if="!app.config_will_have_hotsite" class="lg:mt-10" :imageLogo="app.brand_image_two"
+			:menu="store.footerApp.menu" />
 	</div>
 
 	<AppLayoutLoading v-if="storeIncentive.loading" />

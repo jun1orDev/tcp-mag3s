@@ -51,7 +51,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'config_text_email_contact',
-		description: 'e-mail.',
+		description: 'E-mail de contato.',
 		value: 'falae@campanhapromocional.com.br',
 		tag: 'config',
 		type: typesMedia[0],
@@ -880,6 +880,15 @@ export const listSchemaDataMedia = [
 		value: 'ver detalhes',
 		tag: 'app',
 		type: typesMedia[0],
+	},
+
+	// Menu	Behaviour
+	{
+		name: 'menu_behaviour_background_colors',
+		description: 'Cor de fundo do menu behaviour.',
+		value: '#FFFFFF',
+		tag: 'menu',
+		type: typesMedia[2],
 	},
 
 	// Termos
