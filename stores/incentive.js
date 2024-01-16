@@ -59,7 +59,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			},
 			resetUser: {
 				email: '',
-				code: '',
 				callbackURL: '',
 			},
 			userLoggedIn: null,
@@ -295,48 +294,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Reset de senha
-		async userReset(useToast, hasHostsite = true, isCheckout = false) {
+		async userReset(useToast) {
 			this.loading = false;
-			const storeCheckout = useStoreCheckout();
 			const toast = useToast();
-			this.resetUser.code = `Requisição de nova senha via Postman`;
+
 			const { ApiIncentiveSystemIdentity } =
 				useRuntimeConfig().public;
 
 			try {
-				const data = await $fetch(
-					`${ApiIncentiveSystemIdentity}account/user/password/reset`,
+				const data = await $fetch(`${ApiIncentiveSystemIdentity}account/user/password/reset`,
 					{
 						method: 'post',
 						body: {
 							userInfo: this.resetUser.email,
-							code: this.resetUser.code,
+							code: `Requisição de nova senha via Postman`,
 							callbackURL: `http://localhost:3000/confirmar-senha/`,
 						},
 					},
 				);
 
-				if (hasHostsite) {
-					const cookieAuth = useCookie('tokenUser', {
-						maxAge: +data.expires_in,
-						sameSite: true,
-						httpOnly: false,
-					});
-					cookieAuth.value = data.access_token;
-					this.loading = false;
-					this.resetUser.email = '';
-
-					navigateTo({
-						path: '/login/',
-						query: {
-							idPkg: storeCheckout.packageChosen.id,
-							idOB: storeCheckout.packageChosenOB.id,
-						},
-					});
-				}
-
 				this.loading = false;
-				return data;
 			} catch (error) {
 				this.loading = true;
 				toast.add({

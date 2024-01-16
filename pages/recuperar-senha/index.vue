@@ -70,6 +70,7 @@
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
+							:loading="!storeIncentive.loading"
 							trailing
 						/>
 					</div>
