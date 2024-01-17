@@ -15,7 +15,7 @@
             class="group-hover:-translate-y-7 group-hover:md:-translate-y-9 group-hover:lg:-translate-y-10 transition-all">
             <UChip :text="item.badge" size="2xl" :show="item.badge" inset>
               <Icon :name="item.icon"
-                class="w-8 h-8 md:w-12 md:h-12 xl:w-14 xl:h-14 transition-all h-icon-i group-hover:rounded-full group-hover:p-1 group-hover:lg:p-2"
+                class="w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 transition-all h-icon-i group-hover:rounded-full group-hover:p-1 group-hover:lg:p-2"
                 :class="item.enable ? 'h-icon-i-enable rounded-full p-1 lg:p-2' : '' || !item.name ? `h-icon-i-hamburger` : ''"
                 :color="iconColor" />
             </UChip>
