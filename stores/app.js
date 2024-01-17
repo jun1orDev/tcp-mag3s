@@ -24,8 +24,16 @@ export const useStoreApp = defineStore('storeApp', {
 				typeAction: '',
 			},
 			menuBehaviour: [
-				{ icon: 'i-ic-round-home', name: 'Home', path: '/app/hub', badge: false, enable: false, show: true },
-				{ icon: 'i-mdi-clover', name: 'Números da Sorte', path: '/revelar-premio', badge: false, enable: false, show: true },
+				{ id: 1, icon: 'i-ic-round-home', name: 'Home', path: '/app/hub', badge: false, enable: false, hidden: true, submenu: false },
+				{ id: 2, icon: 'i-mdi-checkerboard', name: 'Raspadinha', path: '/app/gamification', badge: 2, enable: false, hidden: true, submenu: false },
+				{ id: 3, icon: 'i-mdi-storefront-plus', name: 'Comprar', path: '/checkout/pacotes', badge: false, enable: false, hidden: true, submenu: false },
+				{ id: 4, icon: 'i-mdi-clover', name: 'Sorte', path: '/app/revelar-premio', badge: false, enable: false, hidden: true, submenu: false },
+				{
+					id: 5, icon: 'i-mdi-menu', name: false, path: false, badge: false, enable: false, hidden: true,
+					submenu: [
+						{ id: 1, icon: '', name: 'FAQ', path: '/faq', badge: false, enable: false, hidden: true, submenu: false }
+					]
+				},
 			],
 			influencerChosen: null,
 			searchingValue: null,
@@ -258,5 +266,10 @@ export const useStoreApp = defineStore('storeApp', {
 					];
 			}
 		},
+
+		// Select Menu
+		selectMenuBehaviour(id, propety, value) {
+			this.menuBehaviour.find(item => item.id === id)[propety] = value;
+		}
 	},
 });

@@ -51,7 +51,12 @@
 				<AppBannersCard5 class="" :linkSource="app.banner_link_external_card_one"
 					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
 			</div>
-			<AppLayoutMenuBehaviour v-if="app.config_will_have_hotsite" />
+
+			<!-- Menu Behaviour -->
+			<div v-if="app.config_will_have_hotsite">
+				<AppLayoutMenuBehaviour />
+				<div class="mt-16 md:mt-32"></div>
+			</div>
 		</UContainer>
 
 		<AppLayoutFooter v-if="!app.config_will_have_hotsite" class="lg:mt-10" :imageLogo="app.brand_image_two"
@@ -78,6 +83,9 @@ const hasHeader = computed(() => {
 		'pt-14 lg:pt-20': app.config_will_have_hotsite
 	}
 });
+
+// Menu Habilitado
+store.selectMenuBehaviour(1, 'enable', true);
 
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
