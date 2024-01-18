@@ -890,6 +890,27 @@ export const listSchemaDataMedia = [
 		tag: 'menu',
 		type: typesMedia[2],
 	},
+	{
+		name: 'menu_behaviour_icon_colors',
+		description: 'Cor dos ícones do menu behaviour.',
+		value: '#00F919',
+		tag: 'menu',
+		type: typesMedia[2],
+	},
+	{
+		name: 'menu_behaviour_icon_hover_colors',
+		description: 'Cor dos ícones do menu behaviour.',
+		value: '#061049',
+		tag: 'menu',
+		type: typesMedia[2],
+	},
+	{
+		name: 'menu_behaviour_text_colors',
+		description: 'Cor dos texto dos ícones do menu behaviour.',
+		value: '#061049',
+		tag: 'menu',
+		type: typesMedia[2],
+	},
 
 	// Termos
 	{
