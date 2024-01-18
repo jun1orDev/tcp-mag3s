@@ -53,6 +53,7 @@
 			</div>
 
 			<!-- Menu Behaviour -->
+			<AppLayoutOverlay :showing="store.isOpenMenuBehaviour"/>
 			<div v-if="app.config_will_have_hotsite">
 				<AppLayoutMenuBehaviour />
 				<div class="mt-16 md:mt-32"></div>
@@ -86,7 +87,6 @@ const hasHeader = computed(() => {
 
 // Menu Habilitado
 store.selectMenuBehaviour(1, 'enable', true);
-store.selectMenuBehaviour(2, 'badge', storeIncentive.gamification.qtdScratchCard);
 
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);

@@ -60,7 +60,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			resetUser: {
 				email: '',
 				callbackURL: '',
-				password:'',
+				password: '',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -281,12 +281,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -335,9 +333,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -384,9 +381,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -481,6 +477,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			if (this.inventory.loading) return;
 			console.log('buscando dados do Inventário');
 
+			const storeApp = useStoreApp();
 			const toast = useToast();
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
@@ -536,6 +533,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.gamification.qtdScratchCard = data.scratchCards.filter(
 					(scratchCard) => scratchCard.status === 202
 				).length;
+				storeApp.selectMenuBehaviour(2, 'badge', this.gamification.qtdScratchCard);
 
 				this.inventory.loading = true;
 			} catch (error) {
