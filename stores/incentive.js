@@ -61,6 +61,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				email: '',
 				callbackURL: '',
 				password:'',
+				confirmPassword:'',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -347,22 +348,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Confirmação de senha
 
-		async confirmPassword(useToast) {
+		async confirmResetPassword(useToast) {
 			const toast = useToast();
 			const route = useRoute();
 
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
+
 				const data = await $fetch(
 					`${ApiIncentiveSystemIdentity}account/user/password/reset/code`,
 					{
 						method: 'put',
 						body: {
 							userInfo: this.resetUser.email,
-							code: `${route.fullPath}`,
+							code: decodeURIComponent(route.path.split('/').pop()),
 							password: this.resetUser.password,
 						},
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenClient').value}`,
+						}
 					}
 				);
 
