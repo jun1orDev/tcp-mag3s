@@ -60,12 +60,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			resetUser: {
 				email: '',
 				callbackURL: '',
-<<<<<<< HEAD
 				password:'',
 				confirmPassword:'',
-=======
-				password: '',
->>>>>>> ed471ac0b060eeaa2a51d5ca5dd67df7f2329b14
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
