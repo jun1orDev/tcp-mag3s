@@ -24,21 +24,126 @@ export const useStoreApp = defineStore('storeApp', {
 				typeAction: '',
 			},
 			menuBehaviour: [
-				{ id: 1, icon: 'i-ic-round-home', name: 'Home', path: '/app/hub', badge: false, enable: false, hidden: true, submenu: false },
-				{ id: 2, icon: 'i-mdi-checkerboard', name: 'Raspadinha', path: '/app/gamification', badge: 0, enable: false, hidden: true, submenu: false },
-				{ id: 3, icon: 'i-mdi-storefront-plus', name: 'Comprar', path: '/checkout/pacotes', badge: false, enable: false, hidden: true, submenu: false },
-				{ id: 4, icon: 'i-mdi-clover', name: 'Sorte', path: '/app/revelar-premio', badge: false, enable: false, hidden: true, submenu: false },
 				{
-					id: 5, icon: 'i-mdi-menu', name: false, path: false, badge: false, enable: false, hidden: true,
+					id: 1,
+					icon: 'i-ic-round-home',
+					name: 'Home',
+					path: '/app/hub',
+					badge: false,
+					enable: false,
+					hidden: true,
+					submenu: false,
+				},
+				{
+					id: 2,
+					icon: 'i-mdi-checkerboard',
+					name: 'Raspadinha',
+					path: '/app/gamification',
+					badge: 0,
+					enable: false,
+					hidden: true,
+					submenu: false,
+				},
+				{
+					id: 3,
+					icon: 'i-mdi-storefront-plus',
+					name: 'Comprar',
+					path: '/checkout/pacotes',
+					badge: false,
+					enable: false,
+					hidden: true,
+					submenu: false,
+				},
+				{
+					id: 4,
+					icon: 'i-mdi-clover',
+					name: 'Sorte',
+					path: '/app/revelar-premio',
+					badge: false,
+					enable: false,
+					hidden: true,
+					submenu: false,
+				},
+				{
+					id: 5,
+					icon: 'i-mdi-menu',
+					name: false,
+					path: false,
+					badge: false,
+					enable: false,
+					hidden: true,
 					submenu: [
-						{ id: 1, icon: 'i-mdi-account-edit', name: 'Perfil', path: 'app/perfil', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 2, icon: 'i-mdi-gift-open-outline', name: 'Meus Prêmios', path: 'app/meus-premios', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 3, icon: 'i-mdi-credit-card-edit-outline', name: 'Meu Cartão', path: 'app/meu-cartao', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 4, icon: 'i-mdi-file-lock-open-outline', name: 'Termos e Política', path: '/termos', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 5, icon: 'i-mdi-file-document-outline', name: 'Regulamento', path: '/termos', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 6, icon: 'i-mdi-help-box-outline', name: 'Perguntas', path: '/faq', badge: false, enable: false, hidden: true, submenu: false },
-						{ id: 7, icon: 'i-mdi-phone-message', name: 'Suporte', path: '/contato', badge: false, enable: false, hidden: true, submenu: false },
-					]
+						{
+							id: 1,
+							icon: 'i-mdi-account-edit',
+							name: 'Perfil',
+							path: '/app/perfil',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 2,
+							icon: 'i-mdi-gift-open-outline',
+							name: 'Meus Prêmios',
+							path: '/app/meus-premios',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 3,
+							icon: 'i-mdi-credit-card-edit-outline',
+							name: 'Meu Cartão',
+							path: '/app/meu-cartao',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 4,
+							icon: 'i-mdi-file-lock-open-outline',
+							name: 'Termos e Política',
+							path: '/termos',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 5,
+							icon: 'i-mdi-file-document-outline',
+							name: 'Regulamento',
+							path: '/termos',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 6,
+							icon: 'i-mdi-help-box-outline',
+							name: 'Perguntas',
+							path: '/faq',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+						{
+							id: 7,
+							icon: 'i-mdi-phone-message',
+							name: 'Suporte',
+							path: '/contato',
+							badge: false,
+							enable: false,
+							hidden: true,
+							submenu: false,
+						},
+					],
 				},
 			],
 			isOpenMenuBehaviour: false,
@@ -267,22 +372,25 @@ export const useStoreApp = defineStore('storeApp', {
 			if (!influencer) {
 				this.influencerChosen =
 					this.contentApp.influencer_race_hotsite_list.list[
-					generateRandomNumber(
-						this.contentApp.influencer_race_hotsite_list.list.length - 1
-					)
+						generateRandomNumber(
+							this.contentApp.influencer_race_hotsite_list.list.length - 1
+						)
 					];
 			}
 		},
 
 		// Select Menu
 		selectMenuBehaviour(id, propety, value) {
-			this.menuBehaviour.find(item => item.id === id)[propety] = value;
+			this.menuBehaviour.find((item) => item.id === id)[propety] = value;
 		},
 
 		// Open Menu
 		openMenuBehaviour(hasSubmenu) {
-			if(!hasSubmenu) return;
+			if (!hasSubmenu) return;
 			this.isOpenMenuBehaviour = !this.isOpenMenuBehaviour;
-		}
+			this.isOpenMenuBehaviour
+				? this.selectMenuBehaviour(5, 'icon', 'i-mdi-window-close')
+				: this.selectMenuBehaviour(5, 'icon', 'i-mdi-menu');
+		},
 	},
 });
