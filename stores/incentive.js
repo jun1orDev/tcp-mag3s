@@ -60,8 +60,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			resetUser: {
 				email: '',
 				callbackURL: '',
-				password:'',
-				confirmPassword:'',
+				password: '',
+				confirmPassword: '',
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -282,10 +282,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -294,7 +296,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Reset de senha
-		async userReset(useToast) {
+		async resetPassword(useToast) {
 			this.loading = false;
 			const toast = useToast();
 
@@ -334,8 +336,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -344,7 +347,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Confirmação de senha
-
 		async confirmResetPassword(useToast) {
 			const toast = useToast();
 			const route = useRoute();
@@ -352,7 +354,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
-
 				const data = await $fetch(
 					`${ApiIncentiveSystemIdentity}account/user/password/reset/code`,
 					{
@@ -364,7 +365,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenClient').value}`,
-						}
+						},
 					}
 				);
 
@@ -386,15 +387,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
 			}
-
-
 		},
 
 		// Saindo da aplicação
@@ -538,7 +538,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.gamification.qtdScratchCard = data.scratchCards.filter(
 					(scratchCard) => scratchCard.status === 202
 				).length;
-				storeApp.selectMenuBehaviour(2, 'badge', this.gamification.qtdScratchCard);
+				storeApp.selectMenuBehaviour(
+					2,
+					'badge',
+					this.gamification.qtdScratchCard
+				);
 
 				this.inventory.loading = true;
 			} catch (error) {
