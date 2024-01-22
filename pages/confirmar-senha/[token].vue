@@ -60,29 +60,45 @@
 					<UFormGroup label="sua nova senha" name="password">
 						<UInput
 							size="xl"
-							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.password"
 							color="white"
-							:ui="configInput"
-							:type="passView"
-							:icon="passIcon"
-							@click="togglePassView"
-
-						/>
+							:type="passView.password"
+							:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
+							icon="i-material-symbols-passkey-outline-rounded"
+						>
+							<template #trailing>
+								<UButton
+									v-show="storeIncentive.resetUser.password !== ''"
+									color="gray"
+									variant="link"
+									:icon="passIcon.password"
+									:padded="false"
+									@click="togglePassView('password')"
+								/>
+							</template>
+						</UInput>
 					</UFormGroup>
 
 					<UFormGroup label="confirme sua nova senha" name="password">
 						<UInput
 							size="xl"
-							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.confirmPassword"
 							color="white"
-							:ui="configInput"
-							:type="passView"
-							:icon="passIcon"
-							@click="togglePassView"
-
-						/>
+							:type="passView.confirmPassword"
+							:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
+							icon="i-material-symbols-passkey-outline-rounded"
+						>
+							<template #trailing>
+								<UButton
+									v-show="storeIncentive.resetUser.confirmPassword !== ''"
+									color="gray"
+									variant="link"
+									:icon="passIcon.confirmPassword"
+									:padded="false"
+									@click="togglePassView('confirmPassword')"
+								/>
+							</template>
+						</UInput>
 					</UFormGroup>
 
 					<div class="flex justify-center">
@@ -112,30 +128,29 @@ const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 const toast = useToast();
-const passView = ref('password');
-const passIcon = ref('i-material-symbols-visibility-rounded');
 
-function togglePassView() {
-	switch (passView.value) {
-		case 'password':
-			passView.value = 'text';
-			passIcon.value = 'i-material-symbols-visibility-off-rounded';
-			break;
-
-		default:
-			passView.value = 'password';
-			passIcon.value = 'i-material-symbols-visibility-rounded';
-			break;
-	}
-}
-
-const disabledButton = computed(() => {
-	return (
-		!storeIncentive.resetUser.email ||
-		!storeIncentive.resetUser.password ||
-		!storeIncentive.resetUser.confirmPassword
-	);
+const passView = reactive({
+  password: 'password',
+  confirmPassword: 'password',
 });
+
+const passIcon = reactive({
+  password: 'i-material-symbols-visibility-rounded',
+  confirmPassword: 'i-material-symbols-visibility-rounded',
+});
+
+function togglePassView(view) {
+  switch (passView[view]) {
+    case 'password':
+      passView[view] = 'text';
+      passIcon[view] = 'i-material-symbols-visibility-off-rounded';
+      break;
+    default:
+      passView[view] = 'password';
+      passIcon[view] = 'i-material-symbols-visibility-rounded';
+      break;
+  }
+}
 
 definePageMeta({
 	middleware: ['auth-client'],
