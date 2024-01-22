@@ -60,12 +60,13 @@
 					<UFormGroup label="sua nova senha" name="password">
 						<UInput
 							size="xl"
-							:type="passView"
-							:icon="passIcon"
 							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.password"
 							color="white"
 							:ui="configInput"
+							:type="passView"
+							:icon="passIcon"
+							@click="togglePassView"
 
 						/>
 					</UFormGroup>
@@ -75,10 +76,11 @@
 							size="xl"
 							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.confirmPassword"
-							:type="passView"
-							:icon="passIcon"
 							color="white"
 							:ui="configInput"
+							:type="passView"
+							:icon="passIcon"
+							@click="togglePassView"
 
 						/>
 					</UFormGroup>
