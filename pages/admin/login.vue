@@ -5,29 +5,28 @@
 				<img class="w-5/12 sm:w-4/12 md:w-auto" src="/imgs/mag3s.jpeg" alt="Logo Mag3s" />
 			</div>
 			<div>
-				<form class="md:w-80">
+				<UForm class="md:w-80" :state="store.login" :schema="schema">
 					<h1 class="mb-4 text-xl">Bem-vindo, faça o login:</h1>
 
 					<!-- E-mail -->
 					<div class="flex flex-col mb-6">
-						<label for="email" class="mb-1">E-mail:</label>
-
-						<UInput id="email" name="email" type="email" color="gray" placeholder="Digite seu e-mail" size="xl"
-							v-model="store.login.email" :ui="{ icon: { trailing: { pointer: '' } } }"
-							icon="i-material-symbols-account-circle-outline" />
+						<UFormGroup label="Email:" name="email">
+							<UInput id="email" name="email" type="email" placeholder="Digite seu e-mail" v-model="store.login.email"
+								:ui="configInput" icon="i-material-symbols-account-circle-outline" />
+						</UFormGroup>
 					</div>
 
 					<!-- Password -->
 					<div class="flex flex-col">
-						<label for="password" class="mb-1">Senha:</label>
-						<UInput id="password" name="password" color="gray" placeholder="Digite sua senha" :type="passView" size="xl"
-							v-model="store.login.password" :ui="{ icon: { trailing: { pointer: '' } } }"
-							icon="i-material-symbols-password-rounded">
-							<template #trailing>
-								<UButton v-show="store.login.password !== ''" color="primary" variant="link" :icon="passIcon"
-									:padded="false" @click="togglePassView" />
-							</template>
-						</UInput>
+						<UFormGroup label="Senha: " name="password">
+							<UInput id="password" name="password" placeholder="Digite sua senha" :type="passView"
+								v-model="store.login.password" :ui="configInput" icon="i-material-symbols-password-rounded">
+								<template #trailing>
+									<UButton v-show="store.login.password !== ''" color="primary" variant="link" :icon="passIcon"
+										:padded="false" @click="togglePassView" />
+								</template>
+							</UInput>
+						</UFormGroup>
 					</div>
 
 					<!-- Button -->
@@ -36,7 +35,7 @@
 							:trailing="false" :disabled="!store.login.email || !store.login.password" class="mt-8 md:mt-4"
 							:block="false" @click="store.loggingIn(useToast)" icon="i-material-symbols-login-rounded" />
 					</div>
-				</form>
+				</UForm>
 			</div>
 		</div>
 	</div>
@@ -44,9 +43,23 @@
 
 <script setup>
 import { useStoreAdmin } from '~/stores/admin';
+import { object, string } from 'yup';
 
 definePageMeta({
 	middleware: ["login"]
+});
+
+useHead({
+	bodyAttrs: {
+		class: 'bg-gradient-to-r from-cyan-500 to-blue-500',
+	},
+});
+
+const schema = object({
+	email: string().email('E-mail inválido').required('Campo obrigatório'),
+	password: string()
+		.min(8, 'Mínimo 8 caracteres')
+		.required('Campo obrigatório')
 });
 
 const store = useStoreAdmin();
@@ -68,11 +81,17 @@ function togglePassView() {
 	}
 }
 
-useHead({
-	bodyAttrs: {
-		class: 'bg-gradient-to-r from-cyan-500 to-blue-500',
+const configInput = ref({
+	icon: {
+		trailing: {
+			pointer: ''
+		}
 	},
-})
+	default: {
+		size: "lg",
+		color: "gray",
+	}
+});
 
 onMounted(() => {
 	if (store.logout) {
