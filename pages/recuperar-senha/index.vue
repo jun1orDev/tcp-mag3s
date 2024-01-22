@@ -48,7 +48,7 @@
 				<UForm
 					id="resetUser"
 					class="space-y-4"
-					@submit="storeIncentive.resetPassword(useToast)"
+					@submit="storeIncentive.userReset(useToast)"
 				>
 					<UFormGroup label="Seu e-mail cadastrado" name="email">
 						<UInput

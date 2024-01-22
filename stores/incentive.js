@@ -296,7 +296,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Reset de senha
-		async resetPassword(useToast) {
+		async userReset(useToast) {
 			this.loading = false;
 			const toast = useToast();
 
@@ -347,6 +347,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Confirmação de senha
+
 		async confirmResetPassword(useToast) {
 			const toast = useToast();
 			const route = useRoute();
@@ -362,6 +363,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 							userInfo: this.resetUser.email,
 							code: decodeURIComponent(route.path.split('/').pop()),
 							password: this.resetUser.password,
+							confirmPassword: this.resetUser.confirmPassword,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenClient').value}`,

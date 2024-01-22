@@ -60,12 +60,13 @@
 					<UFormGroup label="sua nova senha" name="password">
 						<UInput
 							size="xl"
+							:type="passView"
+							:icon="passIcon"
 							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.password"
-							type="password"
-							:type="passView"
 							color="white"
 							:ui="configInput"
+
 						/>
 					</UFormGroup>
 
@@ -74,10 +75,11 @@
 							size="xl"
 							icon="i-material-symbols-passkey-outline-rounded"
 							v-model="storeIncentive.resetUser.confirmPassword"
-							type="password"
 							:type="passView"
+							:icon="passIcon"
 							color="white"
 							:ui="configInput"
+
 						/>
 					</UFormGroup>
 
@@ -87,12 +89,10 @@
 							label="salvar"
 							type="submit"
 							:ui="configButton"
-							:icon="passIcon"
-							@click="togglePassView"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
 							trailing
-
+							:disabled="disabledButton"
 						/>
 					</div>
 				</UForm>
@@ -116,7 +116,7 @@ const passIcon = ref('i-material-symbols-visibility-rounded');
 function togglePassView() {
 	switch (passView.value) {
 		case 'password':
-			passView.value = 'password';
+			passView.value = 'text';
 			passIcon.value = 'i-material-symbols-visibility-off-rounded';
 			break;
 
@@ -126,6 +126,14 @@ function togglePassView() {
 			break;
 	}
 }
+
+const disabledButton = computed(() => {
+	return (
+		!storeIncentive.resetUser.email ||
+		!storeIncentive.resetUser.password ||
+		!storeIncentive.resetUser.confirmPassword
+	);
+});
 
 definePageMeta({
 	middleware: ['auth-client'],
