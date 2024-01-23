@@ -16,7 +16,7 @@
 
 					<!-- E-mail -->
 					<div class="flex flex-col mb-6">
-						<UFormGroup label="Email:" name="email">
+						<UFormGroup label="Email:" name="email" size="lg">
 							<UInput id="email" name="email" type="email" placeholder="Digite seu e-mail" v-model="store.login.email"
 								:ui="configInput" icon="i-material-symbols-account-circle-outline" />
 						</UFormGroup>
@@ -24,7 +24,7 @@
 
 					<!-- Password -->
 					<div class="flex flex-col">
-						<UFormGroup label="Senha: " name="password">
+						<UFormGroup label="Senha: " name="password" size="lg">
 							<UInput id="password" name="password" placeholder="Digite sua senha" :type="passView"
 								v-model="store.login.password" :ui="configInput" icon="i-material-symbols-password-rounded">
 								<template #trailing>
@@ -74,7 +74,6 @@ useHead({
 const schema = object({
 	email: string().email('E-mail inválido').required('Campo obrigatório'),
 	password: string()
-		.min(8, 'Mínimo 8 caracteres')
 		.required('Campo obrigatório')
 });
 
@@ -98,14 +97,14 @@ function togglePassView() {
 }
 
 const configInput = ref({
+	rounded: 'rounded-xl',
 	icon: {
 		trailing: {
 			pointer: ''
 		}
 	},
-	default: {
-		size: "lg",
-		color: "gray",
+	variant: {
+		outline: 'bg-white'
 	}
 });
 
