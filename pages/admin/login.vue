@@ -1,8 +1,14 @@
 <template>
 	<div class="container py-30 text-stone-50">
-		<div class="grid grid-cols-1 md:grid-cols-2 auto-rows-min md:auto-rows-auto md:min-h-screen items-center">
+		<div
+			class="grid grid-cols-1 md:grid-cols-2 auto-rows-min md:auto-rows-auto md:min-h-screen items-center"
+		>
 			<div class="flex justify-center">
-				<img class="w-5/12 sm:w-4/12 md:w-auto" src="/imgs/mag3s.jpeg" alt="Logo Mag3s" />
+				<img
+					class="w-5/12 sm:w-4/12 md:w-auto"
+					src="/imgs/mag3s.jpeg"
+					alt="Logo Mag3s"
+				/>
 			</div>
 			<div>
 				<UForm class="md:w-80" :state="store.login" :schema="schema">
@@ -31,9 +37,19 @@
 
 					<!-- Button -->
 					<div class="flex justify-end">
-						<UButton label="fazer login" color="black" variant="solid" size="lg" :loading="store.loading"
-							:trailing="false" :disabled="!store.login.email || !store.login.password" class="mt-8 md:mt-4"
-							:block="false" @click="store.loggingIn(useToast)" icon="i-material-symbols-login-rounded" />
+						<UButton
+							label="fazer login"
+							color="black"
+							variant="solid"
+							size="lg"
+							:loading="store.loading"
+							:trailing="false"
+							:disabled="!store.login.email || !store.login.password"
+							class="mt-8 md:mt-4"
+							:block="false"
+							@click="store.loggingIn(useToast)"
+							icon="i-material-symbols-login-rounded"
+						/>
 					</div>
 				</UForm>
 			</div>
@@ -46,7 +62,7 @@ import { useStoreAdmin } from '~/stores/admin';
 import { object, string } from 'yup';
 
 definePageMeta({
-	middleware: ["login"]
+	middleware: ['login'],
 });
 
 useHead({
@@ -69,14 +85,14 @@ const passIcon = ref('i-material-symbols-visibility-rounded');
 function togglePassView() {
 	switch (passView.value) {
 		case 'password':
-			passView.value = 'text'
-			passIcon.value = 'i-material-symbols-visibility-off-rounded'
-			break
+			passView.value = 'text';
+			passIcon.value = 'i-material-symbols-visibility-off-rounded';
+			break;
 
 		default:
-			passView.value = 'password'
-			passIcon.value = 'i-material-symbols-visibility-rounded'
-			break
+			passView.value = 'password';
+			passIcon.value = 'i-material-symbols-visibility-rounded';
+			break;
 	}
 }
 
@@ -105,5 +121,5 @@ onMounted(() => {
 
 		store.logout = false;
 	}
-})
+});
 </script>
