@@ -36,7 +36,15 @@ export const listSchemaDataMedia = [
 	{
 		name: 'config_will_have_hotsite',
 		description:
-			'Utilizado para exibir a primeira página da aplicação, que será a landing page ou o hub autenticado.',
+			'Utilizado para exibir a primeira página da aplicação, que será a landing page e outros elementos que só possuem no hotsite',
+		value: '0',
+		tag: 'config',
+		type: typesMedia[6],
+	},
+	{
+		name: 'config_will_have_raffle',
+		description:
+			'Utilizado para exibir elementos que só possuem em sites de rifas.',
 		value: '0',
 		tag: 'config',
 		type: typesMedia[6],

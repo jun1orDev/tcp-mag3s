@@ -9,7 +9,7 @@
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-3">
 				<!-- Banner Principal -->
-				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true"
+				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="hImageDValid"
 					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
 					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
 					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
@@ -35,7 +35,7 @@
 					:description="app.banner_text_card_description_three" />
 
 				<!-- Banners Duplos -->
-				<div class="grid grid-cols-2 gap-4 md:gap-5 lg:row-start-1 lg:row-span-2">
+				<div v-if="!app.config_will_have_raffle" class="grid grid-cols-2 gap-4 md:gap-5 lg:row-start-1 lg:row-span-2">
 					<!-- Lado Esquerdo -->
 					<AppBannersCard4 :linkSource="storeIncentive.lastDrawHeldLink" :background="app.banner_background_card_three"
 						:title="app.banner_text_card_title_three" :callToAction="app.banner_text_card_label_button_one"
@@ -53,7 +53,7 @@
 			</div>
 
 			<!-- Menu Behaviour -->
-			<AppLayoutOverlay :showing="store.isOpenMenuBehaviour"/>
+			<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
 			<div v-if="app.config_will_have_hotsite">
 				<AppLayoutMenuBehaviour />
 				<div class="mt-16 md:mt-32"></div>
@@ -83,6 +83,11 @@ const hasHeader = computed(() => {
 	return {
 		'pt-14 lg:pt-20': app.config_will_have_hotsite
 	}
+});
+
+const hImageDValid = computed(() => {
+	// mostrar imagem do banner destacado apenas em aplicações embedadas
+	return !app.config_will_have_raffle && !app.config_will_have_hotsite
 });
 
 // Menu Habilitado
