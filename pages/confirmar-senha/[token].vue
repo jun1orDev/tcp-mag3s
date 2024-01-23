@@ -44,6 +44,8 @@
 					id="resetUser"
 					class="space-y-4"
 					@submit="storeIncentive.confirmResetPassword(useToast)"
+					:state="storeIncentive.resetUser"
+					:schema="schema"
 				>
 					<UFormGroup label="seu e-mail cadastrado" name="email">
 						<UInput
@@ -122,12 +124,19 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
+import { object, string } from 'yup'
 
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 const toast = useToast();
+
+
+const schema = object({
+	email: string().email('E-mail inválido').required('Campo obrigatório'),
+	password: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório')
+})
 
 const disabledButton = computed(() => {
 	return !storeIncentive.resetUser.email || !storeIncentive.resetUser.password || !storeIncentive.resetUser.confirmPassword

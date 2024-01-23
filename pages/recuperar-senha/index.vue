@@ -49,6 +49,8 @@
 					id="resetUser"
 					class="space-y-4"
 					@submit="storeIncentive.userReset(useToast)"
+					:state="storeIncentive.resetUser"
+					:schema="schema"
 				>
 					<UFormGroup label="Seu e-mail cadastrado" name="email">
 						<UInput
@@ -84,10 +86,16 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
+import { string, object } from 'yup'
 
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
+
+
+const schema = object ({
+	email: string().email('E-mail inválido').required('Campo obrigatório')
+})
 
 const buttonDisabled = computed(() => {
   return !storeIncentive.resetUser.email
