@@ -81,7 +81,7 @@
 						</UInput>
 					</UFormGroup>
 
-					<UFormGroup label="confirme sua nova senha" name="password">
+					<UFormGroup label="confirme sua nova senha" name="confirmPassword">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.resetUser.confirmPassword"
@@ -135,7 +135,8 @@ const toast = useToast();
 
 const schema = object({
 	email: string().email('E-mail inválido').required('Campo obrigatório'),
-	password: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório')
+	password: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório'),
+	confirmPassword: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório')
 })
 
 const disabledButton = computed(() => {
