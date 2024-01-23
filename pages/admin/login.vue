@@ -11,12 +11,12 @@
 				/>
 			</div>
 			<div>
-				<UForm class="md:w-80" :state="store.login" :schema="schema">
+				<UForm class="md:w-80" :state="store.login" :schema="schema" @submit="store.loggingIn(useToast)">
 					<h1 class="mb-4 text-xl">Bem-vindo, faça o login:</h1>
 
 					<!-- E-mail -->
 					<div class="flex flex-col mb-6">
-						<UFormGroup label="Email:" name="email" size="lg">
+						<UFormGroup label="E-mail:" name="email" size="lg" :ui="configGroupInput">
 							<UInput id="email" name="email" type="email" placeholder="Digite seu e-mail" v-model="store.login.email"
 								:ui="configInput" icon="i-material-symbols-account-circle-outline" />
 						</UFormGroup>
@@ -24,7 +24,7 @@
 
 					<!-- Password -->
 					<div class="flex flex-col">
-						<UFormGroup label="Senha: " name="password" size="lg">
+						<UFormGroup label="Senha:" name="password" size="lg" :ui="configGroupInput">
 							<UInput id="password" name="password" placeholder="Digite sua senha" :type="passView"
 								v-model="store.login.password" :ui="configInput" icon="i-material-symbols-password-rounded">
 								<template #trailing>
@@ -42,12 +42,11 @@
 							color="black"
 							variant="solid"
 							size="lg"
+							type="submit"
 							:loading="store.loading"
 							:trailing="false"
-							:disabled="!store.login.email || !store.login.password"
 							class="mt-8 md:mt-4"
 							:block="false"
-							@click="store.loggingIn(useToast)"
 							icon="i-material-symbols-login-rounded"
 						/>
 					</div>
@@ -106,6 +105,13 @@ const configInput = ref({
 	variant: {
 		outline: 'bg-white'
 	}
+});
+
+const configGroupInput = ref({
+	label: {
+		base: 'text-white'
+	},
+	error: 'text-red-600'
 });
 
 onMounted(() => {
