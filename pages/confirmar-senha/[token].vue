@@ -129,6 +129,10 @@ const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 const toast = useToast();
 
+const disabledButton = computed(() => {
+	return !storeIncentive.resetUser.email || !storeIncentive.resetUser.password || !storeIncentive.resetUser.confirmPassword
+});
+
 const passView = reactive({
   password: 'password',
   confirmPassword: 'password',
