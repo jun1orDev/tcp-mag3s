@@ -284,6 +284,14 @@ export const useStoreApp = defineStore('storeApp', {
 		influencerFirst: (state) => {
 			return state.influencerList.list[0];
 		},
+
+		hasHotSiteOrRaffle: (state) => {
+			// mostrar algo caso a aplicação tenha hotsite e rifas ou apenas hostsite
+			return (
+				(state.contentApp.config_will_have_raffle && state.contentApp.config_will_have_hotsite) ||
+				state.contentApp.config_will_have_hotsite
+			);
+		},
 	},
 
 	actions: {

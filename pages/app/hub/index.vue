@@ -9,7 +9,7 @@
 
 			<div class="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-3">
 				<!-- Banner Principal -->
-				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="hImageDValid"
+				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="!store.hasHotSiteOrRaffle"
 					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
 					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
 					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
@@ -83,11 +83,6 @@ const hasHeader = computed(() => {
 	return {
 		'pt-14 lg:pt-20': app.config_will_have_hotsite
 	}
-});
-
-const hImageDValid = computed(() => {
-	// mostrar imagem do banner destacado apenas em aplicações embedadas
-	return !app.config_will_have_raffle && !app.config_will_have_hotsite
 });
 
 // Menu Habilitado
