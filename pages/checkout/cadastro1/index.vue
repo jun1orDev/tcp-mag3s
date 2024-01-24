@@ -55,17 +55,18 @@
 					:type="passView.password"
 					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
 					icon="i-material-symbols-passkey-outline-rounded"
-				/>
-				<template #trailing>
-					<UButton
-						v-show="storeCheckout.resetUser.password !== ''"
-						color="gray"
-						variant="link"
-						:icon="passIcon.password"
-						:padded="false"
-						@click="togglePassView('password')"
-					/>
-				</template>
+				>
+					<template #trailing>
+						<UButton
+							v-show="storeCheckout.formRegister.password !== ''"
+							color="gray"
+							variant="link"
+							:icon="passIcon.password"
+							:padded="false"
+							@click="togglePassView('password')"
+						/>
+					</template>
+				</UInput>
 			</UFormGroup>
 
 			<UFormGroup label="Confirme a senha:" name="confirmPassword">
@@ -76,17 +77,18 @@
 					:type="passView.confirmPassword"
 					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
 					icon="i-material-symbols-passkey-outline-rounded"
-				/>
-				<template #trailing>
-					<UButton
-						v-show="storeCheckout.formRegister.confirmPassword !== ''"
-						color="gray"
-						variant="link"
-						:icon="passIcon.confirmPassword"
-						:padded="false"
-						@click="togglePassView('confirmPassword')"
-					/>
-				</template>
+				>
+					<template #trailing>
+						<UButton
+							v-show="storeCheckout.formRegister.confirmPassword !== ''"
+							color="gray"
+							variant="link"
+							:icon="passIcon.confirmPassword"
+							:padded="false"
+							@click="togglePassView('confirmPassword')"
+						/>
+					</template>
+				</UInput>
 			</UFormGroup>
 
 			<UCheckbox
@@ -124,6 +126,7 @@ const store = useStoreApp();
 const app = store.contentApp;
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
+const toast = useToast();
 
 definePageMeta({
 	layout: 'checkout-default',
