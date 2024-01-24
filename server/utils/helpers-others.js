@@ -404,6 +404,20 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'loading_border_colors_one',
+		description: 'Cor de fundo utilizado no loading principal do app',
+		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'loading_border_colors_two',
+		description: 'Cor de complemento utilizado no loading principal do app',
+		value: '#E6E6E6',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'sessions_image_one',
 		description:
 			'Imagem que representa o tipo de prêmio na seção de meus prêmios (Sorteio)',
@@ -721,6 +735,14 @@ export const listSchemaDataMedia = [
 	{
 		name: 'colors_text_one',
 		description: 'Cor do texto padrão utilizado na aplicação.',
+		value: '#FFFFFF',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'colors_text_banner_cards',
+		description:
+			'Cor do texto padrão utilizado nos banners cards da aplicação.',
 		value: '#FFFFFF',
 		tag: 'app',
 		type: typesMedia[2],
