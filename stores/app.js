@@ -31,7 +31,7 @@ export const useStoreApp = defineStore('storeApp', {
 					path: '/app/hub',
 					badge: false,
 					enable: false,
-					hidden: true,
+					showing: true,
 					submenu: false,
 				},
 				{
@@ -41,7 +41,7 @@ export const useStoreApp = defineStore('storeApp', {
 					path: '/app/gamification',
 					badge: 0,
 					enable: false,
-					hidden: true,
+					showing: true,
 					submenu: false,
 				},
 				{
@@ -51,7 +51,7 @@ export const useStoreApp = defineStore('storeApp', {
 					path: '/checkout/pacotes',
 					badge: false,
 					enable: false,
-					hidden: true,
+					showing: true,
 					submenu: false,
 				},
 				{
@@ -61,7 +61,7 @@ export const useStoreApp = defineStore('storeApp', {
 					path: '/app/revelar-premio',
 					badge: false,
 					enable: false,
-					hidden: true,
+					showing: true,
 					submenu: false,
 				},
 				{
@@ -71,7 +71,7 @@ export const useStoreApp = defineStore('storeApp', {
 					path: false,
 					badge: false,
 					enable: false,
-					hidden: true,
+					showing: true,
 					submenu: [
 						{
 							id: 1,
@@ -80,7 +80,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/app/perfil',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -90,7 +90,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/app/meus-premios',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -100,7 +100,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/app/meu-cartao',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -110,7 +110,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/termos',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -120,7 +120,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/termos',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -130,7 +130,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/faq',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 						{
@@ -140,7 +140,7 @@ export const useStoreApp = defineStore('storeApp', {
 							path: '/contato',
 							badge: false,
 							enable: false,
-							hidden: true,
+							showing: true,
 							submenu: false,
 						},
 					],
@@ -283,6 +283,14 @@ export const useStoreApp = defineStore('storeApp', {
 
 		influencerFirst: (state) => {
 			return state.influencerList.list[0];
+		},
+
+		hasHotSiteOrRaffle: (state) => {
+			// mostrar algo caso a aplicação tenha hotsite e rifas ou apenas hostsite
+			return (
+				(state.contentApp.config_will_have_raffle && state.contentApp.config_will_have_hotsite) ||
+				state.contentApp.config_will_have_hotsite
+			);
 		},
 	},
 

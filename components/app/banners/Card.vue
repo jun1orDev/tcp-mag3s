@@ -1,5 +1,5 @@
 <template>
-	<NuxtLink :to="props.linkSource"
+	<NuxtLink id="cardOne" :to="props.linkSource"
 		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8">
 		<!-- Background -->
 		<div :style="background"
@@ -15,19 +15,18 @@
 			</div>
 
 			<!-- Conteúdo de texto -->
-			<div v-show="props.loading" :style="`color: ${store.contentApp.colors_text_one}`" class="flex flex-col h-full"
+			<div v-show="props.loading" :style="textColor" class="flex flex-col h-full"
 				:class="hasDescription ? 'justify-between py-6' : 'justify-center py-6 sm:py-12 md:py-14'">
 
 				<div class="text-start">
 					<!-- Título -->
 					<h1
-						class="fm3 text-[12px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown">
-						{{ props.title }}
+						class="fm3 text-[12px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown"
+						v-html="props.title">
 					</h1>
 					<!-- Subtítulo -->
-					<p
-						class="fm1 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp">
-						{{ props.subtitle }}
+					<p class="fm2 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp"
+						v-html="props.subtitle">
 					</p>
 
 					<!-- Contagem Regressiva -->
@@ -52,8 +51,9 @@
 			</div>
 
 			<div v-if="!props.loading" class="space-y-2 opacity-30">
-				<USkeleton class="h-2 sm:h-3 md:h-4 w-[80px] sm:w-[180px] md:w-[150px] xl:w-[200px]" />
-				<USkeleton class="h-2 sm:h-3 md:h-4 w-[70%]" />
+				<USkeleton class="h-2 sm:h-3 md:h-4 w-[80px] sm:w-[180px] md:w-[150px] xl:w-[200px] bg-skeleton"
+					:ui="configSkeleton" />
+				<USkeleton class="h-2 sm:h-3 md:h-4 w-[70%] bg-skeleton" :ui="configSkeleton" />
 			</div>
 		</div>
 
@@ -71,11 +71,16 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
+const app = store.contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
 const { $countdown, $checkDatePassed } = useNuxtApp();
 
 const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
+
+const textColor = computed(() => {
+	return `color: ${store.contentApp.colors_text_banner_cards}`;
+});
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_one}'), url('/imgs/card_sorteio_atual_mobile.png')`;
@@ -84,6 +89,14 @@ const background = computed(() => {
 const imageDT = computed(() => {
 	return `${pathAssets}${props.imageDetach}`;
 });
+
+const bgSkeleton = computed(() => {
+	return `${app.loading_border_colors_one}`
+});
+
+const configSkeleton = ref({
+	background: "bg-skeleton"
+})
 
 let countDW = ref(null);
 
@@ -102,8 +115,12 @@ const intervalCountDown = setInterval(() => {
 
 </script>
 
-<style scoped>
-.arrow {
+<style>
+#cardOne .arrow {
 	background-color: v-bind(colorBgButton);
+}
+
+#cardOne .bg-skeleton {
+	background-color: v-bind(bgSkeleton);
 }
 </style>
