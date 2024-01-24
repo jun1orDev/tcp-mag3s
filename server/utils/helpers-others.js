@@ -50,6 +50,14 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
+		name: 'config_will_have_scratch_card',
+		description:
+			'Utilizado para exibir elementos que só fazem parte da raspadinha.',
+		value: '1',
+		tag: 'config',
+		type: typesMedia[6],
+	},
+	{
 		name: 'config_will_have_image_brand_session_hotsite',
 		description:
 			'Utilizado para exibir ou não a imagem da marca no conteúdo das telas da aplicação',

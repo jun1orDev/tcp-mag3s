@@ -19,7 +19,7 @@
 				<div class="h-1 md:h-2 lg:hidden"></div>
 
 				<!-- Banner Secundário -->
-				<AppBannersCard2 :linkSource="store.linkCardScratchQtd"
+				<AppBannersCard2 v-if="app.config_will_have_scratch_card" :linkSource="store.linkCardScratchQtd"
 					:hasQtdDescriptionFigure="storeIncentive.hasScratchCardQtd"
 					:qtdDescriptionFigure="storeIncentive.gamification.qtdScratchCard" :title="store.titleCardScratchQtd"
 					:subtitle="store.subtitleCardScratchQtd" :imageDetach="app.banner_image_card_two"
@@ -87,6 +87,8 @@ const hasHeader = computed(() => {
 
 // Menu Habilitado
 store.selectMenuBehaviour(1, 'enable', true);
+// Exibir ou não a raspadinha
+store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card);
 
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);

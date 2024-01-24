@@ -9,7 +9,7 @@
 
 		<!-- Menu -->
 		<ul class="grid gap-4 lg:gap-14 grid-flow-col max-w-[420px] lg:max-w-[500px] m-auto">
-			<li v-for="item in store.menuBehaviour" :key="item.id" v-show="item.hidden"
+			<li v-for="item in store.menuBehaviour" :key="item.id" v-show="item.showing"
 				class="relative flex justify-center items-start">
 				<NuxtLink :to="item.path" class="cursor-pointer py-2" :class="item.name ? 'group' : ''"
 					@click="store.openMenuBehaviour(item.submenu)">
