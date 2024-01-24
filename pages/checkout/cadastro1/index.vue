@@ -95,7 +95,6 @@
 				label="Termos de uso"
 				help="Li e aceito os regulamentos e concordo com a política de privacidade e termos de uso."
 				v-model="storeCheckout.formRegister.terms"
-				:ui="configCheckbox"
 				required
 			/>
 
@@ -119,7 +118,7 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreCheckout } from '~/stores/checkout';
-import { object, string } from 'yup';
+import { object, string, mixed } from 'yup';
 import * as Yup from 'yup';
 
 const store = useStoreApp();
@@ -173,6 +172,7 @@ const schema = object({
 	confirmPassword: string()
 		.oneOf([Yup.ref('password')], 'As senhas não coincidem')
 		.required('Campo obrigatório'),
+		terms: mixed().oneOf([true], 'Você deve aceitar os termos de uso para continuar.').required('Campo obrigatório'),
 });
 
 const textColor = computed(() => {
@@ -218,10 +218,6 @@ const configButton = ref({
 	},
 });
 
-const configCheckbox = ref({
-	label: 'text-terms fm3',
-	help: 'text-sm text-terms fm2',
-});
 </script>
 
 <style>
