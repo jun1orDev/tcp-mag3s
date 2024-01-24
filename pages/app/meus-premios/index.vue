@@ -7,7 +7,7 @@
 		<UContainer class="pt-12 py-24" :class="hasHeader">
 			<div class="max-w-[700px] m-auto flex flex-col justify-center">
 				<!-- Banner Principal -->
-				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="true"
+				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="!store.hasHotSiteOrRaffle"
 					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
 					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
 					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"

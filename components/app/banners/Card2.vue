@@ -14,7 +14,7 @@
 
 		<!-- Lado Direito -->
 		<div class="flex flex-col items-end justify-center sm:justify-between sm:py-7 lg:py-4 h-full"
-			:style="`color: ${store.contentApp.colors_text_one}`">
+			:style="textColor">
 
 			<!-- Quantidade de raspadinhas -->
 			<div class="flex justify-end w-full me-3 sm:me-5 animate__animated animate__fadeIn">
@@ -38,14 +38,12 @@
 				<div class="text-start me-4 sm:me-0 lg:me-3">
 					<!-- Título -->
 					<h1
-						class="fm3 text-[10px] sm:text-[18px] md:text-xl lg:text-[16px] uppercase animate__animated animate__fadeInDown">
-						{{ props.title }}
+						class="fm3 text-[10px] sm:text-[18px] md:text-xl lg:text-[16px] uppercase animate__animated animate__fadeInDown" v-html="props.title">
 					</h1>
 
 					<!-- Subtítulo -->
 					<p
-						class="fm1 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 animate__animated animate__fadeInUp">
-						{{ props.subtitle }}
+						class="fm2 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 animate__animated animate__fadeInUp" v-html="props.subtitle">
 					</p>
 				</div>
 			</div>
@@ -65,6 +63,10 @@ const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
 const props = defineProps(['linkSource', 'title', 'subtitle', 'hasQtdDescriptionFigure', 'qtdDescriptionFigure', 'callToAction', 'imageDetach']);
+
+const textColor = computed(() => {
+	return `color: ${store.contentApp.colors_text_banner_cards}`;
+});
 
 const background = computed(() => {
 	return `background-image:url('${pathAssets}${store.contentApp.banner_background_card_two}'), url('/imgs/fundo_card_2.png')`;
