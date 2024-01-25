@@ -15,7 +15,7 @@
 
 			<UFormGroup label="Telefone:" name="phone">
 				<UInput size="xl" type="tel" color="white" :ui="configInput" v-maska:[optionsMaskPhone]
-					data-maska="(##) #####-####" icon="i-material-symbols-add-call-outline-rounded" />
+					data-maska="['(##) #####-####', '(##) ####-####']" icon="i-material-symbols-add-call-outline-rounded" />
 			</UFormGroup>
 
 			<UFormGroup label="CPF:" name="cpf">

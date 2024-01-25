@@ -4,112 +4,65 @@
 			<h1 v-html="titleText" class="fm3 text-xl lg:text-2xl mb-1"></h1>
 			<p class="fm2 text-lg">
 				{{ descriptionText }}
-				<ULink
-					type="link"
-					:to="{
-						path: '/checkout/login',
-						query: {
-							idPkg: storeCheckout.packageChosen.id,
-							idOB: storeCheckout.packageChosenOB.id,
-						},
-					}"
-					class="fm3"
-					>Clique aqui</ULink
-				>
+				<ULink type="link" :to="{
+					path: '/checkout/login',
+					query: {
+						idPkg: storeCheckout.packageChosen.id,
+						idOB: storeCheckout.packageChosenOB.id,
+					},
+				}" class="fm3">Clique aqui</ULink>
 				.
 			</p>
 		</div>
 
 		<!-- Primeira parte do Cadastro -->
-		<UForm
-			id="formRegisterOne"
-			:state="storeCheckout.formRegister"
-			:schema="schema"
-			class="space-y-4 mt-6"
-			@submit="
-				storeCheckout.registerEmail(
-					useToast,
-					storeCheckout.packageChosen.id,
-					storeCheckout.packageChosenOB.id,
-					'/checkout/cadastro2'
-				)
-			"
-		>
+		<UForm id="formRegisterOne" :state="storeCheckout.formRegister" :schema="schema" class="space-y-4 mt-6" @submit="
+			storeCheckout.registerEmail(
+				useToast,
+				storeCheckout.packageChosen.id,
+				storeCheckout.packageChosenOB.id,
+				'/checkout/cadastro2'
+			)
+			">
+
+			<!-- Email -->
 			<UFormGroup label="E-mail:" name="email">
-				<UInput
-					size="xl"
-					v-model="storeCheckout.formRegister.email"
-					type="email"
-					color="white"
-					variant="outline"
-					:ui="configInput"
-					icon="i-material-symbols-stacked-email-outline"
-				/>
+				<UInput size="xl" v-model="storeCheckout.formRegister.email" type="email" color="white" variant="outline"
+					:ui="configInput" icon="i-material-symbols-stacked-email-outline" />
 			</UFormGroup>
 
+			<!-- Senha -->
 			<UFormGroup label="Senha:" name="password">
-				<UInput
-					size="xl"
-					v-model="storeCheckout.formRegister.password"
-					color="white"
-					:type="passView.password"
-					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
-					icon="i-material-symbols-passkey-outline-rounded"
-				>
+				<UInput size="xl" v-model="storeCheckout.formRegister.password" color="white" :type="passView.password"
+					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }" icon="i-material-symbols-passkey-outline-rounded">
 					<template #trailing>
-						<UButton
-							v-show="storeCheckout.formRegister.password !== ''"
-							color="gray"
-							variant="link"
-							:icon="passIcon.password"
-							:padded="false"
-							@click="togglePassView('password')"
-						/>
+						<UButton v-show="storeCheckout.formRegister.password !== ''" color="gray" variant="link"
+							:icon="passIcon.password" :padded="false" @click="togglePassView('password')" />
 					</template>
 				</UInput>
 			</UFormGroup>
 
+			<!-- Confirmação de senha -->
 			<UFormGroup label="Confirme a senha:" name="confirmPassword">
-				<UInput
-					size="xl"
-					v-model="storeCheckout.formRegister.confirmPassword"
-					color="white"
-					:type="passView.confirmPassword"
-					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
-					icon="i-material-symbols-passkey-outline-rounded"
-				>
+				<UInput size="xl" v-model="storeCheckout.formRegister.confirmPassword" color="white"
+					:type="passView.confirmPassword" :ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
+					icon="i-material-symbols-passkey-outline-rounded">
 					<template #trailing>
-						<UButton
-							v-show="storeCheckout.formRegister.confirmPassword !== ''"
-							color="gray"
-							variant="link"
-							:icon="passIcon.confirmPassword"
-							:padded="false"
-							@click="togglePassView('confirmPassword')"
-						/>
+						<UButton v-show="storeCheckout.formRegister.confirmPassword !== ''" color="gray" variant="link"
+							:icon="passIcon.confirmPassword" :padded="false" @click="togglePassView('confirmPassword')" />
 					</template>
 				</UInput>
 			</UFormGroup>
 
-			<UCheckbox
-				label="Termos de uso"
+			<!-- termos de uso -->
+			<UCheckbox label="Termos de uso"
 				help="Li e aceito os regulamentos e concordo com a política de privacidade e termos de uso."
-				v-model="storeCheckout.formRegister.terms"
-				:ui="configCheckbox"
-				required
-			/>
+				v-model="storeCheckout.formRegister.terms" :ui="configCheckbox" required />
 
+			<!-- Botão continuar cadastro -->
 			<div class="flex justify-center">
-				<UButton
-					size="xl"
-					label="continuar"
-					type="submit"
-					:ui="configButton"
-					:style="[colorBgButton, colorTextButton]"
-					class="fm3"
-					:loading="storeCheckout.formRegister.loading"
-					trailing
-				/>
+				<UButton size="xl" label="continuar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
+					class="fm3" :loading="storeCheckout.formRegister.loading" trailing />
 			</div>
 		</UForm>
 	</div>
