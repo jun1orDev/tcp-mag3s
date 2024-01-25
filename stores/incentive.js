@@ -347,8 +347,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Confirmação de senha
-
 		async confirmResetPassword(useToast) {
+			this.loading = false;
 			const toast = useToast();
 			const route = useRoute();
 

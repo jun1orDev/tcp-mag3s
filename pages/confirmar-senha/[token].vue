@@ -111,8 +111,8 @@
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
+							:loading="!storeIncentive.loading"
 							trailing
-							:disabled="disabledButton"
 						/>
 					</div>
 				</UForm>
@@ -124,7 +124,8 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
-import { object, string } from 'yup'
+import { object, string } from 'yup';
+import * as Yup from 'yup';
 
 const store = useStoreApp();
 const app = store.contentApp;
@@ -132,38 +133,41 @@ const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 const toast = useToast();
 
-
 const schema = object({
 	email: string().email('E-mail inválido').required('Campo obrigatório'),
-	password: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório'),
-	confirmPassword: string().min(6, 'Mínimo de 6 caracteres').required('Campo obrigatório')
-})
-
-const disabledButton = computed(() => {
-	return !storeIncentive.resetUser.email || !storeIncentive.resetUser.password || !storeIncentive.resetUser.confirmPassword
+	password: string()
+		.min(8, 'Mínimo de 8 caracteres')
+		.matches(
+			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/,
+			'A senha deve conter pelo menos um número, uma letra maiúscula e uma letra minúscula'
+		)
+		.required('Campo obrigatório'),
+	confirmPassword: string()
+    .oneOf([Yup.ref('password')], 'As senhas não coincidem')
+    .required('Campo obrigatório'),
 });
 
 const passView = reactive({
-  password: 'password',
-  confirmPassword: 'password',
+	password: 'password',
+	confirmPassword: 'password',
 });
 
 const passIcon = reactive({
-  password: 'i-material-symbols-visibility-rounded',
-  confirmPassword: 'i-material-symbols-visibility-rounded',
+	password: 'i-material-symbols-visibility-rounded',
+	confirmPassword: 'i-material-symbols-visibility-rounded',
 });
 
 function togglePassView(view) {
-  switch (passView[view]) {
-    case 'password':
-      passView[view] = 'text';
-      passIcon[view] = 'i-material-symbols-visibility-off-rounded';
-      break;
-    default:
-      passView[view] = 'password';
-      passIcon[view] = 'i-material-symbols-visibility-rounded';
-      break;
-  }
+	switch (passView[view]) {
+		case 'password':
+			passView[view] = 'text';
+			passIcon[view] = 'i-material-symbols-visibility-off-rounded';
+			break;
+		default:
+			passView[view] = 'password';
+			passIcon[view] = 'i-material-symbols-visibility-rounded';
+			break;
+	}
 }
 
 definePageMeta({
