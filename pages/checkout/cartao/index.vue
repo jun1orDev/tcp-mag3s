@@ -10,12 +10,13 @@
 				@click="storeCheckout.formRegister.isOpenModalCreditCardRemove = true" icon="i-material-symbols-delete-rounded" />
 		</div>
 
-		<UForm id="formCreditCard" :validate="validate" :state="state" class="space-y-4" :class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6'"
+		<UForm id="formCreditCard" :validate="validate" :state="state" class="space-y-4"
+			:class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6'"
 			@submit="storeCheckout.paymentCreditCard(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, '/checkout/feedback')">
 			<UFormGroup label="Número do cartão:" name="numberCard">
 				<UInput size="xl" v-model="storeCheckout.formRegister.creditCard.number" type="text" color="white"
-					variant="outline" :ui="configInput" icon="i-ic-baseline-credit-card"
-					:disabled="storeCheckout.hasCardCreditRegister" />
+					variant="outline" :ui="configInput" v-maska data-maska="#### #### #### ####" data-maska-tokens="#:[0-9*]"
+					icon="i-ic-baseline-credit-card" :disabled="storeCheckout.hasCardCreditRegister" />
 			</UFormGroup>
 
 			<UFormGroup label="Nome (como consta no cartão):" name="name">
@@ -26,12 +27,14 @@
 			<div class="grid grid-cols-2 gap-4">
 				<UFormGroup label="Validade:" name="validity">
 					<UInput size="xl" v-model="storeCheckout.formRegister.creditCard.validity" type="text" color="white"
-						:ui="configInput" icon="i-material-symbols-calendar-month" :disabled="storeCheckout.hasCardCreditRegister" />
+						:ui="configInput" v-maska data-maska="##/####" data-maska-eager icon="i-material-symbols-calendar-month"
+						:disabled="storeCheckout.hasCardCreditRegister" />
 				</UFormGroup>
 
 				<UFormGroup label="CVV:" name="cvv">
 					<UInput size="xl" v-model="storeCheckout.formRegister.creditCard.cvv" type="text" color="white"
-						:ui="configInput" icon="i-material-symbols-123-rounded" :disabled="storeCheckout.hasCardCreditRegister" />
+						:ui="configInput" v-maska data-maska="###" icon="i-material-symbols-123-rounded"
+						:disabled="storeCheckout.hasCardCreditRegister" />
 				</UFormGroup>
 			</div>
 
