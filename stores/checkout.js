@@ -432,6 +432,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				});
 
 				// Obtendo os dados do usuário
+				storeIncentive.userAcountData.loading = false;
 				await storeIncentive.userAccount(useToast);
 			} catch (error) {
 				console.log(error);

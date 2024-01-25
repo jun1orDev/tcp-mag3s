@@ -85,14 +85,14 @@ const hasHeader = computed(() => {
 	}
 });
 
-// Menu Habilitado
-store.selectMenuBehaviour(1, 'enable', true);
-// Exibir ou não a raspadinha
-store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card);
-
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
+
+	// Menu Habilitado
+	store.selectMenuBehaviour(1, 'enable', true);
+	// Exibir ou não a raspadinha
+	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
 });
 </script>
 

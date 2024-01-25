@@ -21,6 +21,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					validity: null,
 					cvv: null,
 				},
+				loading: false,
 			},
 			inventory: {
 				loading: false,
@@ -422,7 +423,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Dados do usuário
 		async userAccount(useToast) {
-			if (this.inventory.loading) return;
+			if (this.userAcountData.loading) return;
 			console.log('buscando dados do usuário');
 
 			const toast = useToast();
@@ -466,6 +467,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						cvv: null,
 					};
 				}
+
+				this.userAcountData.loading = true;
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',

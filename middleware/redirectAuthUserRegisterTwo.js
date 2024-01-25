@@ -8,6 +8,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	const storeIncentive = useStoreIncentive(app.$pinia);
 	const storeCheckout = useStoreCheckout(app.$pinia);
 
+	storeIncentive.userAcountData.loading = false;
 	await storeIncentive.userAccount(useToast);
 
 	if (storeIncentive.userAcountData.name) {
@@ -30,7 +31,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		return navigateTo({
 			path: '/checkout/pagamento',
 			query: {
-				idPkg: to.query.idPkg,				
+				idPkg: to.query.idPkg,
 				idOB: to.query.idOB,
 			},
 		});
@@ -40,7 +41,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		return navigateTo({
 			path: '/checkout/cadastro1',
 			query: {
-				idPkg: to.query.idPkg,				
+				idPkg: to.query.idPkg,
 				idOB: to.query.idOB,
 			},
 		});
