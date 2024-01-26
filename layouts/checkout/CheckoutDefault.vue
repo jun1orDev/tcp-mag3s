@@ -45,7 +45,7 @@
 			<NuxtPage />
 
 			<div class="flex justify-center">
-				<CheckoutPackage :package="storeCheckout.packageChosen" :isCallToAction="false"
+				<CheckoutPackage :package="storeCheckout.packageChosen" :isCallToAction="false" :simplePurchase="true"
 					class="mt-6 lg:rotate-12 lg:-translate-x-10" />
 			</div>
 		</div>

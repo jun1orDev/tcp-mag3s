@@ -281,6 +281,27 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'purchase_tables_colors_text_simple_package',
+		description: 'Cor de texto para aquisição simples de pacote',
+		value: '#FFFFFF',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_colors_input_simple_package',
+		description: 'Cor de estilo do input para aquisição simples de pacote',
+		value: '#00F919',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
+		name: 'purchase_tables_colors_background_input_simple_package',
+		description: 'Cor de estilo do input para aquisição simples de pacote',
+		value: '#001736',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'login_user_text_title',
 		description: 'Título da tela de login no checkout/login',
 		value: 'Bem-vindo de volta!',
