@@ -11,6 +11,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				isPopularProduct: false,
 				image: '',
 				price: '',
+				qtd: null,
 				items: [],
 			},
 			packageChosenOB: {
@@ -116,6 +117,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				currencyDisplay: 'symbol',
 			});
 		},
+
+		// Value package with multiple amount
+		pricePackageMultipleAmout: (state) => {
+			const price = state.packageChosen.price * state.packageChosen.qtd;
+
+			return price.toLocaleString('pt-br', {
+				style: 'currency',
+				currency: 'BRL',
+				currencyDisplay: 'symbol',
+			});
+		},
 	},
 
 	actions: {
@@ -148,12 +160,19 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						image: app.purchase_tables_images_list.list[index]
 							? app.purchase_tables_images_list.list[index].one
 							: '',
+						qtd: 1,
 						price: item.price,
 						items: item.baseContent.subContents.map((content) => {
 							return { qtd: content.amount, description: content.description };
 						}),
 					});
 				});
+
+				// Caso a aplicação seja uma rifa, escolher o único pacote
+				if (app.config_will_have_raffle) {
+					this.chosenPackage(this.packages[0].id);
+					this.packageChosen.qtd = +app.purchase_tables_images_list.list[0].two;
+				}
 			} catch (error) {
 				toast.add({
 					id: 'error_client_token',
@@ -356,6 +375,28 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			}
 		},
 
+		// Adicioando quantidade em um pacote (Compra Simplificada)
+		addQtdPackageChosen(typeOperation, qtdAdd, clear) {
+			if (clear) this.packageChosen.qtd = 0;
+
+			switch (typeOperation) {
+				case 'sub':
+					if (+this.packageChosen.qtd > 5) {
+						this.packageChosen.qtd = +this.packageChosen.qtd - qtdAdd;
+						return;
+					}
+					this.packageChosen.qtd = qtdAdd;
+					break;
+				case 'add':
+					if (+this.packageChosen.qtd < 95) {
+						this.packageChosen.qtd = +this.packageChosen.qtd + qtdAdd;
+						return;
+					}
+					this.packageChosen.qtd = qtdAdd;
+					break;
+			}
+		},
+
 		// Pagamento via Pix
 		async paymentPix(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
@@ -370,7 +411,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					{
 						method: 'post',
 						body: {
-							amount: 1,
+							amount: +this.packageChosen.qtd,
 							paymentType: 501,
 						},
 						headers: {
@@ -536,7 +577,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					{
 						method: 'post',
 						body: {
-							amount: 1,
+							amount: +this.packageChosen.qtd,
 							paymentMethodType: 'CreditCard',
 							userPaymentMethodId:
 								storeIncentive.userAcountData.paymentMethods.id,
@@ -575,9 +616,18 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 		// Finalizar compra
 		finishPurchase() {
+			const app = useStoreApp().contentApp;
+
 			setTimeout(() => {
 				this.formRegister.feedbackPayment = null;
 			}, 5000);
+
+			setTimeout(() => {
+				// Caso a aplicação seja uma rifa, finalizar a compra voltando para a quantidade de pacotes inicial
+				if (app.config_will_have_raffle) {
+					this.packageChosen.qtd = +app.purchase_tables_images_list.list[0].two;
+				}
+			}, 500);
 
 			navigateTo('/app/hub');
 		},

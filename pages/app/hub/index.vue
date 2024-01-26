@@ -7,7 +7,7 @@
 
 		<UContainer class="pt-12" :class="hasHeader">
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-3">
+			<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-2 lg:gap-3" :class="hasRafflesSimplePurchase">
 				<!-- Banner Principal -->
 				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="!store.hasHotSiteOrRaffle"
 					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
@@ -15,8 +15,8 @@
 					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
 					:imageAward="storeIncentive.nextDrawFull.image" />
 
-				<!-- Separador -->
-				<div class="h-1 md:h-2 lg:hidden"></div>
+				<!-- Compra simplificada de pacote -->
+				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" class="row-span-2" />
 
 				<!-- Banner Secundário -->
 				<AppBannersCard2 v-if="app.config_will_have_scratch_card" :linkSource="store.linkCardScratchQtd"
@@ -29,7 +29,8 @@
 			<!-- Separador -->
 			<div class="h-1 md:h-2"></div>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 items-start lg:items-center gap-1 lg:gap-3">
+			<div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 items-start lg:items-center gap-1 lg:gap-3"
+				:class="hasRafflesSimplePurchaseTwo">
 				<!-- Banner Destacado -->
 				<AppBannersCard3 class="" linkSource="/app/meus-premios" :imageDetach="app.banner_image_card_three"
 					:description="app.banner_text_card_description_three" />
@@ -76,12 +77,24 @@ import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
-	middleware: ['auth-user']
+	middleware: ['auth-user', 'auth-client', 'purchase-list-packages']
 });
 
 const hasHeader = computed(() => {
 	return {
 		'pt-14 lg:pt-20': app.config_will_have_hotsite
+	}
+});
+
+const hasRafflesSimplePurchase = computed(() => {
+	return {
+		'lg:gap-6': app.config_will_have_raffle,
+	}
+});
+
+const hasRafflesSimplePurchaseTwo = computed(() => {
+	return {
+		'lg:grid-rows-1': app.config_will_have_raffle,
 	}
 });
 
@@ -93,6 +106,8 @@ onMounted(async () => {
 	store.selectMenuBehaviour(1, 'enable', true);
 	// Exibir ou não a raspadinha
 	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
+	// Não exibir a opção comprar no Menu quando for app de Rifas
+	store.selectMenuBehaviour(3, 'showing', !app.config_will_have_raffle);
 });
 </script>
 

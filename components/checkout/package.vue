@@ -19,7 +19,8 @@
 						:class="props.package.isPopularProduct ? 'animate__animated animate__tada animate__delay-2s animate__repeat-2' : ''"
 						alt="">
 				</div>
-				<p><strong class="text-4xl fm3">{{ price }}</strong></p>
+				<p v-if="props.simplePurchase"><strong class="text-4xl fm3">{{ storeCheckout.pricePackageMultipleAmout }}</strong></p>
+				<p v-else><strong class="text-4xl fm3">{{ price }}</strong></p>
 			</div>
 
 			<!-- Conteúdo do Produto -->
@@ -60,7 +61,7 @@ const storeIncentive = useStoreIncentive();
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['package', 'packageOB', 'isCallToAction']);
+const props = defineProps(['package', 'packageOB', 'isCallToAction', 'simplePurchase']);
 
 const packageOBId = computed(() => {
 	if (props.packageOB) return props.packageOB.id;
