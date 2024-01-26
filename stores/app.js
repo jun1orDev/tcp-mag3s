@@ -37,7 +37,7 @@ export const useStoreApp = defineStore('storeApp', {
 				{
 					id: 2,
 					icon: 'i-mdi-checkerboard',
-					name: 'Raspadinha',
+					name: 'Rabiscadinha',
 					path: '/app/gamification',
 					badge: 0,
 					enable: false,
@@ -117,7 +117,7 @@ export const useStoreApp = defineStore('storeApp', {
 							id: 5,
 							icon: 'i-mdi-file-document-outline',
 							name: 'Regulamento',
-							path: '/termos',
+							path: '/regulamento',
 							badge: false,
 							enable: false,
 							showing: true,
