@@ -24,19 +24,14 @@
 					:qtdDescriptionFigure="storeIncentive.gamification.qtdScratchCard" :title="store.titleCardScratchQtd"
 					:subtitle="store.subtitleCardScratchQtd" :imageDetach="app.banner_image_card_two"
 					:callToAction="store.callToActionCardScratchQtd" />
-			</div>
 
-			<!-- Separador -->
-			<div class="h-1 md:h-2"></div>
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 items-start lg:items-center gap-1 lg:gap-3"
-				:class="hasRafflesSimplePurchaseTwo">
 				<!-- Banner Destacado -->
-				<AppBannersCard3 class="" linkSource="/app/meus-premios" :imageDetach="app.banner_image_card_three"
+				<AppBannersCard3 class="lg:order-2" linkSource="/app/meus-premios" :imageDetach="app.banner_image_card_three"
 					:description="app.banner_text_card_description_three" />
 
 				<!-- Banners Duplos -->
-				<div v-if="!app.config_will_have_raffle" class="grid grid-cols-2 gap-4 md:gap-5 lg:row-start-1 lg:row-span-2">
+				<div v-if="!app.config_will_have_raffle" class="grid grid-cols-2 gap-4 md:gap-5 lg:row-span-2 lg:order-1">
 					<!-- Lado Esquerdo -->
 					<AppBannersCard4 :linkSource="storeIncentive.lastDrawHeldLink" :background="app.banner_background_card_three"
 						:title="app.banner_text_card_title_three" :callToAction="app.banner_text_card_label_button_one"
@@ -49,7 +44,7 @@
 				</div>
 
 				<!-- Banner Blog -->
-				<AppBannersCard5 class="" :linkSource="app.banner_link_external_card_one"
+				<AppBannersCard5 class="lg:order-3" :linkSource="app.banner_link_external_card_one"
 					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
 			</div>
 
@@ -89,12 +84,6 @@ const hasHeader = computed(() => {
 const hasRafflesSimplePurchase = computed(() => {
 	return {
 		'lg:gap-6': app.config_will_have_raffle,
-	}
-});
-
-const hasRafflesSimplePurchaseTwo = computed(() => {
-	return {
-		'lg:grid-rows-1': app.config_will_have_raffle,
 	}
 });
 
