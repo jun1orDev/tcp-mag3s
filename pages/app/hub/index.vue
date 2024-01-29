@@ -7,7 +7,7 @@
 
 		<UContainer class="pt-12" :class="hasHeader">
 
-			<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-2 lg:gap-3" :class="hasRafflesSimplePurchase">
+			<div class="grid grid-cols-1 lg:grid-cols-2 items-center gap-2 lg:gap-3 auto-rows-auto" :class="hasRafflesSimplePurchase">
 				<!-- Banner Principal -->
 				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="!store.hasHotSiteOrRaffle"
 					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
@@ -16,7 +16,7 @@
 					:imageAward="storeIncentive.nextDrawFull.image" />
 
 				<!-- Compra simplificada de pacote -->
-				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" class="row-span-2" />
+				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :class="app.config_will_have_scratch_card ? 'row-span-2' : 'row-span-3'" />
 
 				<!-- Banner Secundário -->
 				<AppBannersCard2 v-if="app.config_will_have_scratch_card" :linkSource="store.linkCardScratchQtd"
@@ -27,8 +27,8 @@
 
 
 				<!-- Banner Destacado -->
-				<AppBannersCard3 class="lg:order-2" linkSource="/app/meus-premios" :imageDetach="app.banner_image_card_three"
-					:description="app.banner_text_card_description_three" />
+				<AppBannersCard3 class="lg:order-2 row-span-1" :linkSource="app.banner_detach_link_card_description_hub" :imageDetach="app.banner_detach_image_card_hub" :positionLeftImageDetach="app.banner_detach_position_image_left_hub"
+					:description="app.banner_detach_text_card_description_hub" />
 
 				<!-- Banners Duplos -->
 				<div v-if="!app.config_will_have_raffle" class="grid grid-cols-2 gap-4 md:gap-5 lg:row-span-2 lg:order-1">
@@ -43,8 +43,8 @@
 						:awards="storeIncentive.listDrawsUpcomingLimited(5)" :carouselAutoPlay="5000" />
 				</div>
 
-				<!-- Banner Blog -->
-				<AppBannersCard5 class="lg:order-3" :linkSource="app.banner_link_external_card_one"
+				<!-- Banner final -->
+				<AppBannersCard5 class="lg:order-3 row-span-1" :linkSource="app.banner_link_external_card_one"
 					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
 			</div>
 
@@ -83,7 +83,7 @@ const hasHeader = computed(() => {
 
 const hasRafflesSimplePurchase = computed(() => {
 	return {
-		'lg:gap-6': app.config_will_have_raffle,
+		'lg:gap-6 grid-row': app.config_will_have_raffle,
 	}
 });
 

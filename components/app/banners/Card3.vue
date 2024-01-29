@@ -1,30 +1,37 @@
 <template>
 	<NuxtLink :to="props.linkSource"
-		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8">
+		class="w-full relative grid grid-flow-col auto-cols-auto justify-between gap-4 px-2 sm:px-4 md:px-6"
+		:target="positionLeftImageDetach ? '_blank' : '_self'">
 		<!-- Background -->
 		<div :style="backgroundColor"
-			class="absolute opacity-70 -translate-y-[50%] top-[50%] right-0 left-0 min-h-[45px] sm:h-[60px] md:h-[70px] rounded-lg md:rounded-2xl -z-10 animate__animated animate__zoomIn">
+			class="absolute  -translate-y-[50%] top-[50%] right-0 left-0 min-h-[45px] sm:h-[60px] md:h-[70px] rounded-lg md:rounded-2xl -z-10 animate__animated animate__zoomIn"
+			:class="positionLeftImageDetach ? 'opacity-100' : 'opacity-70'">
 		</div>
 
-		<!-- Lado Esquerdo -->
-		<div class="justify-start items-center col-span-2 me-4">
+		<!-- Conteúdo de texto -->
+		<div class="items-center col-span-2"
+			:class="positionLeftImageDetach ? 'flex justify-end order-2' : 'order-1 me-4 justify-start'">
 
-			<!-- Conteúdo de texto -->
-			<div :style="`color: ${store.contentApp.colors_text_one}`" class="py-6 sm:py-12 md:py-14 lg:py-9">
+			<div :style="`color: ${store.contentApp.banner_detach_colors_text_hub}`"
+				class="py-6 sm:py-12 md:py-14 lg:py-9 h-fit">
 
-				<div class="text-start max-w-[250px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-max">
+				<div class=""
+					:class="positionLeftImageDetach ? 'flex items-center justify-end' : 'text-start max-w-[250px] sm:max-w-[300px] md:max-w-[400px] lg:max-w-max'">
 					<!-- Description -->
 					<div class="animate__animated animate__fadeIn">
-						<p class="fm1 text-[11px] leading-3 sm:text-[14px] lg:text-base sm:leading-4 lg:leading-normal text-start" v-html="props.description">
+						<p class="fm2 text-[11px] leading-3 sm:text-[14px] lg:text-base sm:leading-4 lg:leading-normal text-start"
+							v-html="props.description">
 						</p>
 					</div>
+
+					<!-- Seta de Link -->
+					<UIcon v-if="positionLeftImageDetach" class="text-2xl ms-3" name="i-material-symbols-arrow-forward-ios" />
 				</div>
 			</div>
 		</div>
 
-		<!-- Lado Direito -->
-		<div class="flex items-center col-span-1">
-			<!-- Imagem de destaque -->
+		<!-- Imagem de destaque -->
+		<div class="flex items-center col-span-1" :class="positionLeftImageDetach ? 'order-1' : 'order-2'">
 			<div class="w-[80px] sm:w-[120px] md:w-[140px] animate__animated animate__tada">
 				<img :src="imageDT" onerror="this.src='/imgs/thumb_premios1.png'" />
 			</div>
@@ -37,10 +44,10 @@ import { useStoreApp } from '~/stores/app';
 const store = useStoreApp();
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['linkSource', 'description', 'imageDetach']);
+const props = defineProps(['linkSource', 'description', 'imageDetach', 'positionLeftImageDetach']);
 
 const backgroundColor = computed(() => {
-	return `background-color: ${store.contentApp.colors_background_two}`;
+	return `background-color: ${store.contentApp.banner_detach_colors_background_hub}`;
 });
 
 const imageDT = computed(() => {
@@ -48,4 +55,5 @@ const imageDT = computed(() => {
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

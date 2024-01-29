@@ -602,11 +602,47 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
-		name: 'banner_image_card_three',
+		name: 'banner_detach_image_card_hub',
 		description: 'Imagem presente dentro do Banner destacado',
 		placeholder: '/imgs/thumb_premios1.png',
 		tag: 'app',
 		type: typesMedia[3],
+	},
+	{
+		name: 'banner_detach_link_card_description_hub',
+		description: 'Link do Banner Destacado',
+		value: '/app/meus-premios',
+		tag: 'app',
+		type: typesMedia[1],
+	},
+	{
+		name: 'banner_detach_text_card_description_hub',
+		description: 'Texto dentro do Banner Destacado',
+		value:
+			'Toque aqui pra visualizar os prêmios que você já ganhou no seu Fiel da Sorte.',
+		tag: 'app',
+		type: typesMedia[0],
+	},
+	{
+		name: 'banner_detach_colors_text_hub',
+		description: 'Cor de texto do Banner Destacado do Hub',
+		value: '#FFFFFF',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'banner_detach_colors_background_hub',
+		description: 'Cor de fundo do Banner Destacado do Hub',
+		value: '#847248',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'banner_detach_position_image_left_hub',
+		description: 'Habilitar Imagem do Banner Destacado no lado esquerdo',
+		value: '0',
+		tag: 'app',
+		type: typesMedia[6],
 	},
 	{
 		name: 'banner_image_card_four',
@@ -734,14 +770,6 @@ export const listSchemaDataMedia = [
 		description:
 			'Texto descritivo da data de expiração dentro do Banner Principal que revela o prêmio',
 		value: 'Números válidos até',
-		tag: 'app',
-		type: typesMedia[0],
-	},
-	{
-		name: 'banner_text_card_description_three',
-		description: 'Texto dentro do Banner Destacado',
-		value:
-			'Toque aqui pra visualizar os prêmios que você já ganhou no seu Fiel da Sorte.',
 		tag: 'app',
 		type: typesMedia[0],
 	},
