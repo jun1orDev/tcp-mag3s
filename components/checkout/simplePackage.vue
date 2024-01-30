@@ -1,5 +1,5 @@
 <template>
-	<div @click="storeCheckout.addQtdPackageChosen('add', +props.package.two, true)" class="cursor-pointer hover:scale-105 transition-all">
+	<div @click="storeCheckout.setQtdPackageChosen('add', +props.package.two, false)" class="cursor-pointer hover:scale-105 transition-all">
 		<!-- Bedge de destaque -->
 		<div class="fm1 text-[0.60rem] md:text-base lg:text-md w-full flex justify-center items-center uppercase"
 			:class="props.isPopular ? 'rounded-t-xl h-7' : 'bg-transparent md:h-7'"
