@@ -806,7 +806,7 @@ export const listSchemaDataMedia = [
 	{
 		name: 'banner_final_colors_background_card_hub',
 		description: 'Cor do fundo padrão utilizado no banner final do Hub.',
-		value: '#C5ED00',
+		value: '#000006',
 		tag: 'app',
 		type: typesMedia[2],
 	},
