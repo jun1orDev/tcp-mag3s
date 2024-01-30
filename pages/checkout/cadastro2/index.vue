@@ -68,7 +68,6 @@
 					class="fm3 mt-6"
 					:loading="storeCheckout.formRegister.loading"
 					trailing
-					:disabled="!storeCheckout.enableButtonNextTwo"
 				/>
 			</div>
 		</UForm>
