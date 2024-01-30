@@ -3,7 +3,7 @@
 		class="w-full relative grid grid-cols-[165px_1fr] sm:grid-cols-[285px_1fr] lg:grid-cols-[260px_1fr] lg:max-h-[200px] justify-start items-end">
 		<!-- Background -->
 		<div :style="background"
-			class="absolute bottom-0 right-0 left-0 min-h-[120px] sm:h-[200px] lg:h-[180px] bg-no-repeat bg-right md:bg-center bg-cover rounded-lg md:rounded-3xl -z-10 animate__animated animate__fadeIn">
+			class="absolute bottom-0 right-0 left-0 min-h-[120px] sm:h-[200px] md:h-[230px] lg:h-[180px] bg-no-repeat bg-right md:bg-center bg-cover rounded-lg md:rounded-3xl -z-10 animate__animated animate__fadeIn">
 		</div>
 
 		<!-- Lado Esquerdo -->
@@ -27,7 +27,7 @@
 					</div>
 					<div>
 						<p class="fm1 rabiscadinha uppercase text-[7px] sm:text-[10px] md:text-[12px] lg:text-[9px]">{{
-							store.contentApp.banner_text_card_scrathcard_two }}</p>
+							store.contentApp.banner_text_card_scratchcard_two }}</p>
 					</div>
 				</div>
 			</div>
@@ -77,7 +77,7 @@ const imageDT = computed(() => {
 });
 
 const imageSC = computed(() => {
-	return `${pathAssets}${store.contentApp.banner_image_card_scrathcard_two}`;
+	return `${pathAssets}${store.contentApp.banner_image_card_scratchcard_two}`;
 });
 
 const colorBgButton = computed(() => {
