@@ -4,7 +4,7 @@
 			ganhar!</h2>
 
 		<!-- Quantidades disponíveis -->
-		<div class="grid grid-cols-3 items-end gap-6">
+		<div class="grid grid-cols-3 items-end gap-2 md:gap-4 lg:gap-6">
 			<CheckoutSimplePackage v-for="(pkg, index) in app.purchase_tables_images_list.list" :package="pkg"
 				:isPopular="index === 1" :key="index" />
 		</div>
@@ -84,7 +84,7 @@ const colorBgInput = computed(() => {
 const configInput = ref({
 	base: "fm3 text-center placeholder-center text-color [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
 	size: {
-		xl: 'text-3xl'
+		xl: 'text-2xl md:text-3xl'
 	}
 });
 

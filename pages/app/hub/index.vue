@@ -44,8 +44,8 @@
 				</div>
 
 				<!-- Banner final -->
-				<AppBannersCard5 class="lg:order-3 row-span-1" :linkSource="app.banner_link_external_card_one"
-					:imageDetach="app.banner_image_card_four" :description="app.banner_text_card_description_four" />
+				<AppBannersCard5 class="lg:order-3 row-span-1" :linkSource="app.banner_final_link_card_hub"
+					:imageDetach="app.banner_final_image_card_hub" :description="app.banner_final_text_description_card_hub" :isPositionElementsOther="app.banner_final_is_position_el_card_hub" />
 			</div>
 
 			<!-- Menu Behaviour -->
