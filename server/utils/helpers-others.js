@@ -645,7 +645,7 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
-		name: 'banner_image_card_scrathcard_two',
+		name: 'banner_image_card_scratchcard_two',
 		description:
 			'Imagem dentro no Banner secundário, localizada ao lado da quantidade de raspadinhas restantes.',
 		placeholder: '/imgs/image_rasp.png',
@@ -726,7 +726,7 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
-		name: 'banner_text_card_scrathcard_two',
+		name: 'banner_text_card_scratchcard_two',
 		description:
 			'Texto abaixo da imagem referente a quantidade de raspadinhas.',
 		value: 'Rabiscadinhas',
