@@ -645,14 +645,6 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
-		name: 'banner_image_card_four',
-		description:
-			'Imagem localizada dentro do Banner Blog (último Banner da página Hub).',
-		placeholder: '/imgs/selo_fiel.png',
-		tag: 'app',
-		type: typesMedia[3],
-	},
-	{
 		name: 'banner_image_card_scrathcard_two',
 		description:
 			'Imagem dentro no Banner secundário, localizada ao lado da quantidade de raspadinhas restantes.',
@@ -774,20 +766,49 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
-		name: 'banner_text_card_description_four',
+		name: 'banner_final_is_position_el_card_hub',
+		description: 'Habilitar outro layout para o banner final do Hub',
+		value: '0',
+		tag: 'app',
+		type: typesMedia[6],
+	},
+	{
+		name: 'banner_final_text_description_card_hub',
 		description:
-			'Texto localizado dentro do Banner Blog, fixado ao final do Hub.',
+			'Texto localizado dentro do Banner Final do Hub.',
 		value: 'Ganhadores do Fiel da Sorte: conheça suas histórias tocando aqui.',
 		tag: 'app',
 		type: typesMedia[0],
 	},
 	{
-		name: 'banner_link_external_card_one',
+		name: 'banner_final_link_card_hub',
 		description:
-			'Insira um link de redirecionamento, ficará fixado dentro do Banner Blog.',
+			'Insira um link de redirecionamento, ficará fixado dentro do Banner Final do hub.',
 		value: 'https://blog.fieldasorte.com.br/',
 		tag: 'app',
 		type: typesMedia[1],
+	},
+	{
+		name: 'banner_final_image_card_hub',
+		description:
+			'Imagem localizada dentro do Banner Final do Hub.',
+		placeholder: '/imgs/selo_fiel.png',
+		tag: 'app',
+		type: typesMedia[3],
+	},
+	{
+		name: 'banner_final_colors_text_card_hub',
+		description: 'Cor do texto padrão utilizado no banner final do Hub.',
+		value: '#FFFFFF',
+		tag: 'app',
+		type: typesMedia[2],
+	},
+	{
+		name: 'banner_final_colors_background_card_hub',
+		description: 'Cor do fundo padrão utilizado no banner final do Hub.',
+		value: '#C5ED00',
+		tag: 'app',
+		type: typesMedia[2],
 	},
 	{
 		name: 'colors_text_one',
