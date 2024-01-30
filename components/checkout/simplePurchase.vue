@@ -16,18 +16,18 @@
 					<!-- + -->
 					<div
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.addQtdPackageChosen('sub', 5, false)">
+						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('sub', 5, false)">
 						<Icon name="i-ic-round-remove" class="w-8 h-8 md:w-10 md:h-10" />
 					</div>
 					<!-- Input de mais ou menos  -->
 					<div>
-						<UInput type="number" name="qtd" variant="none" size="xl" placeholder="+00" :ui="configInput"
-							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="##" />
+						<UInput type="number" name="qtd" variant="none" size="xl" placeholder="+000" :ui="configInput"
+							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" />
 					</div>
 					<!-- - -->
 					<div
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.addQtdPackageChosen('add', 5, false)">
+						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('add', 5, false)">
 						<Icon name="i-ic-round-add" class="w-8 h-8 md:w-10 md:h-10" />
 					</div>
 				</div>

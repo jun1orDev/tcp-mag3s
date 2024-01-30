@@ -376,7 +376,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Adicioando quantidade em um pacote (Compra Simplificada)
-		addQtdPackageChosen(typeOperation, qtdAdd, clear) {
+		setQtdPackageChosen(typeOperation, qtdAdd, clear) {
 			if (clear) this.packageChosen.qtd = 0;
 
 			switch (typeOperation) {
@@ -388,7 +388,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					this.packageChosen.qtd = qtdAdd;
 					break;
 				case 'add':
-					if (+this.packageChosen.qtd < 95) {
+					if (+this.packageChosen.qtd < 995) {
 						this.packageChosen.qtd = +this.packageChosen.qtd + qtdAdd;
 						return;
 					}
