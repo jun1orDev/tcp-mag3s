@@ -288,6 +288,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'purchase_tables_colors_text_simple_package_dark',
+		description: 'Cor de texto para aquisição simples de pacote para fundos claros',
+		value: '#061049',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'purchase_tables_colors_input_simple_package',
 		description: 'Cor de estilo do input para aquisição simples de pacote',
 		value: '#00F919',

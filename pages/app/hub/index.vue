@@ -16,7 +16,7 @@
 					:imageAward="storeIncentive.nextDrawFull.image" />
 
 				<!-- Compra simplificada de pacote -->
-				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :class="app.config_will_have_scratch_card ? 'row-span-2' : 'row-span-3'" />
+				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :isDark="false" pathRedirect="/checkout/pagamento" :class="app.config_will_have_scratch_card ? 'row-span-2' : 'row-span-3'" />
 
 				<!-- Banner Secundário -->
 				<AppBannersCard2 v-if="app.config_will_have_scratch_card" :linkSource="store.linkCardScratchQtd"

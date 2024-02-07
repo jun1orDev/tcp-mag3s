@@ -1,6 +1,6 @@
 <template>
 	<div class="animate__animated animate__fadeIn">
-		<h2 class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">Adquira chances de
+		<h2 v-if="!props.isDark" class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">Adquira chances de
 			ganhar!</h2>
 
 		<!-- Quantidades disponíveis -->
@@ -10,9 +10,9 @@
 		</div>
 
 		<UForm :state="storeCheckout.packageChosen" :schema="schema"
-			@submit="storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', '/checkout/pagamento')">
+			@submit="storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect)">
 			<UFormGroup name="qtd" class="text-center">
-				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color">
+				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color" :style="props.isDark ? colorBgInput : ''">
 					<!-- + -->
 					<div
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
@@ -54,12 +54,17 @@ import { object, number } from 'yup';
 const app = useStoreApp().contentApp;
 const storeCheckout = useStoreCheckout();
 
+const props = defineProps(['isDark', 'pathRedirect']);
+
 const schema = object({
 	qtd: number().truncate().min(1, 'Quantidade Mínima é de 1')
 		.required('Campo obrigatório')
 });
 
 const colorText = computed(() => {
+	if(props.isDark) {
+		return `color: ${app.purchase_tables_colors_text_simple_package_dark}`;
+	}
 	return `color: ${app.purchase_tables_colors_text_simple_package}`;
 });
 
