@@ -301,7 +301,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`, {
 					method: 'post',
 					body: {
-						phoneNumber: this.formRegister.phone,
+						phoneNumber: this.formRegister.phone.replace(/\D/g, ""),
 						phoneType: 'Mobile',
 						countryCode: 55,
 					},
