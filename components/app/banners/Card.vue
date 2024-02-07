@@ -1,6 +1,6 @@
 <template>
 	<NuxtLink id="cardOne" :to="props.linkSource"
-		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8">
+		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8" :target="app.config_will_have_raffle ? '_blank' : '_self'">
 		<!-- Background -->
 		<div :style="background"
 			class="absolute -translate-y-[50%] top-[50%] right-0 left-0 min-h-[110px] sm:h-[200px] md:h-[215px] lg:h-[180px] bg-no-repeat bg-right md:bg-center bg-cover rounded-lg md:rounded-3xl -z-10 animate__animated animate__fadeIn">
@@ -22,7 +22,7 @@
 					<!-- Título -->
 					<h1
 						class="fm3 text-[12px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown"
-						v-html="props.title">
+						v-html="props.title" :style="textColorDetach">
 					</h1>
 					<!-- Subtítulo -->
 					<p class="fm2 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp"
@@ -70,13 +70,24 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
 const app = store.contentApp;
+const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 
 const { $countdown, $checkDatePassed } = useNuxtApp();
 
 const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
+
+const textColorDetach = computed(() => {
+	if(app.config_will_have_raffle && storeIncentive.nextDrawDateIsBefore) {
+		return `color: ${store.contentApp.colors_detach_one}`;
+	}
+
+	return '';
+});
 
 const textColor = computed(() => {
 	return `color: ${store.contentApp.colors_text_banner_cards}`;
