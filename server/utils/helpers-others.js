@@ -794,6 +794,14 @@ export const listSchemaDataMedia = [
 		value: 'https://blog.fieldasorte.com.br/',
 		tag: 'app',
 		type: typesMedia[1],
+	},		
+	{
+		name: 'banner_link_before_prize_draw_card_hub',
+		description:
+			'Link de redirecionamento do banner responsável por exibir o final do sorteio no hub.',
+		value: 'https://blog.fieldasorte.com.br/',
+		tag: 'app',
+		type: typesMedia[1],
 	},
 	{
 		name: 'banner_final_image_card_hub',

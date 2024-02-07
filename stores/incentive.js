@@ -99,9 +99,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Próximos sorteios
 		NextDrawLink: (state) => {
+			const app = useStoreApp().contentApp;
+
 			if (state.gamification.lotteryDraws.nextDraw.loading) {
-				if (state.nextDrawDateIsBefore)
+				if (state.nextDrawDateIsBefore) {
+					if (app.config_will_have_raffle)
+						return app.banner_link_before_prize_draw_card_hub;
+
 					return `/app/revelar-premio/${state.gamification.lotteryDraws.nextDraw.id}`;
+				}
 
 				return false;
 			}
@@ -283,12 +289,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -337,9 +341,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -390,9 +393,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
