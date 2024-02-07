@@ -262,6 +262,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.formLogin.user = '';
 					this.formLogin.password = '';
 
+					// Reset store checkout
+
 					if (isCheckout) {
 						navigateTo({
 							path: '/checkout/cadastro2',
@@ -278,6 +280,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				}
 
 				this.loading = false;
+				this.formLogin.user = '';
+				this.formLogin.password = '';
 				return data;
 			} catch (error) {
 				this.loading = true;
