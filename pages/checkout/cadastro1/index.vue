@@ -24,14 +24,11 @@
 				'/checkout/cadastro2'
 			)
 			">
-
-			<!-- Email -->
 			<UFormGroup label="E-mail:" name="email">
 				<UInput size="xl" v-model="storeCheckout.formRegister.email" type="email" color="white" variant="outline"
 					:ui="configInput" icon="i-material-symbols-stacked-email-outline" />
 			</UFormGroup>
 
-			<!-- Senha -->
 			<UFormGroup label="Senha:" name="password">
 				<UInput size="xl" v-model="storeCheckout.formRegister.password" color="white" :type="passView.password"
 					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }" icon="i-material-symbols-passkey-outline-rounded">
@@ -42,7 +39,6 @@
 				</UInput>
 			</UFormGroup>
 
-			<!-- Confirmação de senha -->
 			<UFormGroup label="Confirme a senha:" name="confirmPassword">
 				<UInput size="xl" v-model="storeCheckout.formRegister.confirmPassword" color="white"
 					:type="passView.confirmPassword" :ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
@@ -54,12 +50,12 @@
 				</UInput>
 			</UFormGroup>
 
-			<!-- termos de uso -->
-			<UCheckbox label="Termos de uso"
-				help="Li e aceito os regulamentos e concordo com a política de privacidade e termos de uso."
-				v-model="storeCheckout.formRegister.terms" :ui="configCheckbox" required />
+			<UFormGroup name="terms">
+				<UCheckbox label="Termos de uso"
+					help="Li e aceito os regulamentos e concordo com a política de privacidade e termos de uso."
+					v-model="storeCheckout.formRegister.terms" :ui="configCheckbox" />
+			</UFormGroup>
 
-			<!-- Botão continuar cadastro -->
 			<div class="flex justify-center">
 				<UButton size="xl" label="continuar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
 					class="fm3" :loading="storeCheckout.formRegister.loading" trailing />

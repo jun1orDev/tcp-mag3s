@@ -22,12 +22,23 @@
 			<UFormGroup label="Sua senha" name="password">
 				<UInput
 					size="xl"
-					icon="i-material-symbols-passkey-outline-rounded"
 					v-model="storeIncentive.formLogin.password"
-					type="password"
 					color="white"
-					:ui="configInput"
-				/>
+					:type="passView.password"
+					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
+					icon="i-material-symbols-passkey-outline-rounded"
+				>
+					<template #trailing>
+						<UButton
+							v-show="storeIncentive.formLogin.password !== ''"
+							color="gray"
+							variant="link"
+							:icon="passIcon.password"
+							:padded="false"
+							@click="togglePassView('password')"
+						/>
+					</template>
+				</UInput>
 			</UFormGroup>
 
 			<p class="text-center mt-4">
@@ -65,9 +76,30 @@ const { pathAssets } = useRuntimeConfig().public;
 
 const props = defineProps(['isCheckout']);
 
+const passView = reactive({
+	password: 'password',
+});
+
+const passIcon = reactive({
+	password: 'i-material-symbols-visibility-rounded',
+});
+
+function togglePassView(view) {
+	switch (passView[view]) {
+		case 'password':
+			passView[view] = 'text';
+			passIcon[view] = 'i-material-symbols-visibility-off-rounded';
+			break;
+		default:
+			passView[view] = 'password';
+			passIcon[view] = 'i-material-symbols-visibility-rounded';
+			break;
+	}
+}
+
 const schema = object({
 	user: string().email('E-mail inválido').required('Campo obrigatório'),
-	password: string().required('Campo obrigatório')
+	password: string().required('Campo obrigatório'),
 });
 
 const colorBgButton = computed(() => {

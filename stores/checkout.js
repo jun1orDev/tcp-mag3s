@@ -77,22 +77,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	},
 
 	getters: {
-		// Form register
-		enableButtonNextOne: (state) => {
-			return (
-				state.formRegister.email &&
-				state.formRegister.password &&
-				state.formRegister.confirmPassword &&
-				state.formRegister.terms
-			);
-		},
-		enableButtonNextTwo: (state) => {
-			return (
-				state.formRegister.name &&
-				state.formRegister.phone &&
-				state.formRegister.cpf
-			);
-		},
 
 		// Form CreditCard
 		hasCardCreditRegister: (state) => {
@@ -317,7 +301,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`, {
 					method: 'post',
 					body: {
-						phoneNumber: this.formRegister.phone,
+						phoneNumber: this.formRegister.phone.replace(/\D/g, ""),
 						phoneType: 'Mobile',
 						countryCode: 55,
 					},
