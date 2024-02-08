@@ -82,14 +82,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		hasCardCreditRegister: (state) => {
 			return state.formRegister.creditCard.status;
 		},
-		enableButtonPurchaseCreditCard: (state) => {
-			return (
-				state.formRegister.creditCard.number &&
-				state.formRegister.creditCard.name &&
-				state.formRegister.creditCard.validity &&
-				state.formRegister.creditCard.cvv
-			);
-		},
 
 		// Value Order Bump Price
 		diferencePriceOrderBump: (state) => {
@@ -258,6 +250,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				cookieAuth.value = data.access_token;
 
 				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+
+				// Reset store form reguster
+
+				this.formRegister.email='';
+				this.formRegister.password='';
+				this.formRegister.confirmPassword='';
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
