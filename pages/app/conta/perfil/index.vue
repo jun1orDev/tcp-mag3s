@@ -27,11 +27,11 @@
 				<!-- Dados Cadastrais -->
 
 				<UForm
-				  id="changeProfileData"
-				  class="space-y-4"
+					id="changeProfileData"
+					class="space-y-4"
 					:validate="validade"
-					@submit="storeIncentive.editProfile(useToast)" >
-
+					@submit="storeIncentive.editProfile(useToast)"
+				>
 					<UFormGroup label="Seu nome completo" name="name">
 						<UInput
 							size="xl"
@@ -50,6 +50,8 @@
 							v-model="storeIncentive.userAcountData.cpf"
 							icon="i-material-symbols-123"
 							type="CPF"
+							v-maska
+							data-maska="###.###.###-##"
 							color="white"
 							:ui="configInput"
 						/>
@@ -72,7 +74,9 @@
 							size="xl"
 							icon="i-material-symbols-call"
 							v-model="storeIncentive.userAcountData.phone"
-							type="number"
+							type="tel"
+							v-maska
+							data-maska="['(##) #####-####', '(##) ####-####']"
 							color="white"
 							:ui="configInput"
 						/>
