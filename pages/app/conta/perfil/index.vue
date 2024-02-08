@@ -30,7 +30,7 @@
 				  id="changeProfileData"
 				  class="space-y-4"
 					:validate="validade"
-					@submit="storeIncentive.userAcountData(useToast)" >
+					@submit="storeIncentive.editProfile(useToast)" >
 
 					<UFormGroup label="Seu nome completo" name="name">
 						<UInput
