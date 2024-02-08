@@ -77,7 +77,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	},
 
 	getters: {
-
 		// Form CreditCard
 		hasCardCreditRegister: (state) => {
 			return state.formRegister.creditCard.status;
@@ -251,12 +250,11 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
 
-				// Reset store form reguster
-
-				this.formRegister.email='';
-				this.formRegister.password='';
-				this.formRegister.confirmPassword='';
-				this.formRegister.terms=false;
+				// Resetando dados do formulário assim que o cadastro for feito.
+				this.formRegister.email = '';
+				this.formRegister.password = '';
+				this.formRegister.confirmPassword = '';
+				this.formRegister.terms = false;
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
@@ -300,7 +298,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`, {
 					method: 'post',
 					body: {
-						phoneNumber: this.formRegister.phone.replace(/\D/g, ""),
+						phoneNumber: this.formRegister.phone.replace(/\D/g, ''),
 						phoneType: 'Mobile',
 						countryCode: 55,
 					},
