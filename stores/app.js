@@ -77,7 +77,7 @@ export const useStoreApp = defineStore('storeApp', {
 							id: 1,
 							icon: 'i-mdi-account-edit',
 							name: 'Perfil',
-							path: '/app/perfil',
+							path: '/app/conta/perfil',
 							badge: false,
 							enable: false,
 							showing: true,
