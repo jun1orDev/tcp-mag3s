@@ -408,10 +408,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 
 		//alterar dados
-
-		editProfile(useToast){
-
-		},
+		editProfile() {},
 
 		// Saindo da aplicação
 		userLogout(useToast) {
