@@ -25,8 +25,11 @@
 				<!-- Descrição -->
 				<p class="fm2 text-base mb-4" v-html="descriptionText"></p>
 
+				<!-- Compra simplificada de pacote -->
+				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :isDark="true" pathRedirect="/checkout/cadastro1" />
+
 				<!-- Tabela de Preços -->
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
+				<div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
 					<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]" :isCallToAction="true"
 						v-for="(packageProduct, index) in storeCheckout.packages" />
 				</div>

@@ -288,6 +288,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[2],
 	},
 	{
+		name: 'purchase_tables_colors_text_simple_package_dark',
+		description: 'Cor de texto para aquisição simples de pacote para fundos claros',
+		value: '#061049',
+		tag: 'login/checkout',
+		type: typesMedia[2],
+	},
+	{
 		name: 'purchase_tables_colors_input_simple_package',
 		description: 'Cor de estilo do input para aquisição simples de pacote',
 		value: '#00F919',
@@ -784,6 +791,14 @@ export const listSchemaDataMedia = [
 		name: 'banner_final_link_card_hub',
 		description:
 			'Insira um link de redirecionamento, ficará fixado dentro do Banner Final do hub.',
+		value: 'https://blog.fieldasorte.com.br/',
+		tag: 'app',
+		type: typesMedia[1],
+	},		
+	{
+		name: 'banner_link_before_prize_draw_card_hub',
+		description:
+			'Link de redirecionamento do banner responsável por exibir o final do sorteio no hub.',
 		value: 'https://blog.fieldasorte.com.br/',
 		tag: 'app',
 		type: typesMedia[1],
