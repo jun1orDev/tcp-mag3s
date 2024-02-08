@@ -1,22 +1,11 @@
 <template>
-	<LpBgDefault
-		:image="bgImage"
-		:imageMobile="bgImageMobile"
-		placeholderImage="/imgs/lp/cover_banner_3.png"
-		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png"
-		:bgColor="app.layout_background_colors_app_two"
-		position="fixed"
-	/>
+	<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" placeholderImage="/imgs/lp/cover_banner_3.png"
+		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two"
+		position="fixed" />
 
-	<UContainer
-		class="flex justify-center min-h-screen pt-14 lg:pt-0"
-		:class="isItemsCenter"
-		:style="textColor"
-	>
-		<div
-			class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
-			:class="isGridLayout"
-		>
+	<UContainer class="flex justify-center min-h-screen pt-14 lg:pt-0" :class="isItemsCenter" :style="textColor">
+		<div class="grid-cols-1 lg:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
+			:class="isGridLayout">
 			<!-- brand -->
 			<AppOthersImageBrandSession />
 
@@ -26,75 +15,39 @@
 
 				<!-- Dados Cadastrais -->
 
-				<UForm
-				  id="changeProfileData"
-				  class="space-y-4"
-					:validate="validade"
-					@submit="storeIncentive.editProfile(useToast)" >
+				<UForm id="changeProfileData" class="space-y-4" :validate="validade"
+					@submit="storeIncentive.editProfile(useToast)">
 
 					<UFormGroup label="Seu nome completo" name="name">
-						<UInput
-							size="xl"
-							v-model="storeIncentive.userAcountData.name"
-							icon="i-material-symbols-account-circle-full"
-							type="text"
-							color="white"
-							variant="outline"
-							:ui="configInput"
-						/>
+						<UInput size="xl" v-model="storeIncentive.userAcountData.name" icon="i-material-symbols-account-circle-full"
+							type="text" color="white" variant="outline" :ui="configInput" />
 					</UFormGroup>
 
 					<UFormGroup label="Seu CPF" name="cpf">
-						<UInput
-							size="xl"
-							v-model="storeIncentive.userAcountData.cpf"
-							icon="i-material-symbols-123"
-							type="CPF"
-							color="white"
-							:ui="configInput"
-						/>
+						<UInput size="xl" v-model="storeIncentive.userAcountData.cpf" icon="i-material-symbols-123" type="CPF"
+							color="white" :ui="configInput" />
 					</UFormGroup>
 
 					<UFormGroup label="seu e-mail" name="email">
-						<UInput
-							size="xl"
-							v-model="storeIncentive.userAcountData.email"
-							icon="i-material-symbols-stacked-email-outline"
-							type="text"
-							color="white"
-							variant="outline"
-							:ui="configInput"
-						/>
+						<UInput size="xl" v-model="storeIncentive.userAcountData.email"
+							icon="i-material-symbols-stacked-email-outline" type="text" color="white" variant="outline"
+							:ui="configInput" />
 					</UFormGroup>
 
 					<UFormGroup label="seu telefone" name="phone">
-						<UInput
-							size="xl"
-							icon="i-material-symbols-call"
-							v-model="storeIncentive.userAcountData.phone"
-							type="number"
-							color="white"
-							:ui="configInput"
-						/>
+						<UInput size="xl" icon="i-material-symbols-call" v-model="storeIncentive.userAcountData.phone" type="number"
+							color="white" :ui="configInput" />
 					</UFormGroup>
 
 					<p class="text-center mt-4">
 						Que alterar sua senha?
 						<NuxtLink to="/esqueceu-senha" class="fm3 decoration-solid">
-							Clique aqui</NuxtLink
-						>
+							Clique aqui</NuxtLink>
 					</p>
 
 					<div class="flex justify-center">
-						<UButton
-							size="xl"
-							label="salvar"
-							type="submit"
-							:ui="configButton"
-							:style="[colorBgButton, colorTextButton]"
-							class="fm3"
-							trailing
-						/>
+						<UButton size="xl" label="salvar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
+							class="fm3" trailing />
 					</div>
 				</UForm>
 			</div>
