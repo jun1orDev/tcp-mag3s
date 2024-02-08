@@ -58,6 +58,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				user: '',
 				password: '',
 			},
+			changeData: {
+				name: '',
+				cpf: '',
+				email: '',
+				number: '',
+			},
 			resetUser: {
 				email: '',
 				callbackURL: '',
