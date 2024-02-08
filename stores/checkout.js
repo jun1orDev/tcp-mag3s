@@ -256,6 +256,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				this.formRegister.email='';
 				this.formRegister.password='';
 				this.formRegister.confirmPassword='';
+				this.formRegister.terms=false;
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
