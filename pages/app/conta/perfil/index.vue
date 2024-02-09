@@ -32,7 +32,7 @@
 					:validate="validade"
 					:state="storeIncentive.userAcountData"
 					:schema="schema"
-					@submit="storeIncentive.editProfile()"
+					@submit="storeIncentive.saveEditProfile()"
 				>
 					<UFormGroup label="Seu nome completo" name="name">
 						<UInput

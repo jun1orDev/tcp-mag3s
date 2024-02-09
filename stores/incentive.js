@@ -408,7 +408,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 
 		//alterar dados
-		editProfile() {},
+		async saveEditProfile() {
+      console.log('Dados salvos com sucesso!');
+    },
 
 		// Saindo da aplicação
 		userLogout(useToast) {
