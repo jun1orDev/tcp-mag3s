@@ -126,7 +126,7 @@ const { pathAssets } = useRuntimeConfig().public;
 const schema = object({
 	name: string()
     .matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
-    .matches(/^[^\d]+$/, 'O nome não pode conter números.')
+    .matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
     .required('Campo nome é obrigatório.'),
 	phone: string()
 		.min(14 || 15, 'Insira o telefone corretamente')
