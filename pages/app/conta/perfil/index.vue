@@ -85,7 +85,7 @@
 					<p class="text-center mt-4">
 						Para alterar sua senha
 						<NuxtLink to="/recuperar-senha" class="fm3 decoration-solid">
-							Clique aqui</NuxtLink
+							clique aqui</NuxtLink
 						>
 					</p>
 
