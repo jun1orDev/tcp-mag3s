@@ -34,7 +34,7 @@
 					:schema="schema"
 					@submit="storeIncentive.saveEditProfile()"
 				>
-					<UFormGroup label="Seu nome completo" name="name">
+					<UFormGroup label="Nome completo:" name="name">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.name"
@@ -43,10 +43,11 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
+							placeholder="Digite aqui seu nome..."
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Seu CPF" name="cpf">
+					<UFormGroup label="CPF:" name="cpf">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.cpf"
@@ -56,10 +57,11 @@
 							data-maska="###.###.###-##"
 							color="white"
 							:ui="configInput"
+							placeholder="###.###.###-##"
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Seu e-mail" name="email">
+					<UFormGroup label="E-mail:" name="email">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.email"
@@ -68,10 +70,11 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
+							placeholder="digite aqui seu e-mail..."
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Seu telefone" name="phone">
+					<UFormGroup label="Telefone:" name="phone">
 						<UInput
 							size="xl"
 							icon="i-material-symbols-add-call-outline-rounded"
@@ -81,6 +84,7 @@
 							data-maska="['(##) #####-####', '(##) ####-####']"
 							color="white"
 							:ui="configInput"
+							placeholder="(##) #####-####"
 						/>
 					</UFormGroup>
 
@@ -120,7 +124,7 @@ const { pathAssets } = useRuntimeConfig().public;
 
 const schema = object({
 	name: string()
-		.matches(/^(\S+\s){2,}\S+$/,'Por favor, insira seu nome completo.').required('Campo nome é obrigatório.'),
+		.matches(/^(\S+\s){1,}\S+$/,'Por favor, insira seu nome completo.').required('Campo nome é obrigatório.'),
 	phone: string()
 		.min(14 || 15, 'Insira o telefone corretamente')
 		.required('O campo telefone é obrigatório'),
