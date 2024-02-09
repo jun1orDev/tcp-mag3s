@@ -58,6 +58,7 @@
 							color="white"
 							:ui="configInput"
 							placeholder="###.###.###-##"
+							:disabled="storeIncentive.userAcountData.cpf !== ''"
 						/>
 					</UFormGroup>
 
@@ -71,6 +72,7 @@
 							variant="outline"
 							:ui="configInput"
 							placeholder="digite aqui seu e-mail..."
+							:disabled="storeIncentive.userAcountData.email !== ''"
 						/>
 					</UFormGroup>
 
