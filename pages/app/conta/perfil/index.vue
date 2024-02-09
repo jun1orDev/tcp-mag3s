@@ -117,6 +117,7 @@ import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
 import { object, string } from 'yup';
 
+
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
@@ -124,7 +125,9 @@ const { pathAssets } = useRuntimeConfig().public;
 
 const schema = object({
 	name: string()
-		.matches(/^(\S+\s){1,}\S+$/,'Por favor, insira seu nome completo.').required('Campo nome é obrigatório.'),
+    .matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
+    .matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
+    .required('Campo nome é obrigatório.'),
 	phone: string()
 		.min(14 || 15, 'Insira o telefone corretamente')
 		.required('O campo telefone é obrigatório'),
@@ -164,6 +167,9 @@ const isGridLayout = computed(() => {
 
 const configInput = ref({
 	rounded: 'rounded-full',
+	variant: {
+		outline: 'bg-white',
+	},
 });
 
 const configButton = ref({
