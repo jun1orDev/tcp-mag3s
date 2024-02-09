@@ -36,7 +36,7 @@
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.name"
-							icon="i-material-symbols-account-circle-full"
+							icon="i-material-symbols-person-outline"
 							type="text"
 							color="white"
 							variant="outline"
@@ -48,7 +48,7 @@
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.cpf"
-							icon="i-material-symbols-123"
+							icon="i-material-symbols-wallet"
 							type="CPF"
 							v-maska
 							data-maska="###.###.###-##"
@@ -72,7 +72,7 @@
 					<UFormGroup label="seu telefone" name="phone">
 						<UInput
 							size="xl"
-							icon="i-material-symbols-call"
+							icon="i-material-symbols-add-call-outline-rounded"
 							v-model="storeIncentive.userAcountData.phone"
 							type="tel"
 							v-maska
