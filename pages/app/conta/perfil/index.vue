@@ -43,7 +43,7 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
-							placeholder="Digite aqui seu nome..."
+							placeholder="digite aqui o seu nome completo..."
 						/>
 					</UFormGroup>
 
@@ -70,7 +70,7 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
-							placeholder="digite aqui seu e-mail..."
+							placeholder="digite aqui o seu e-mail..."
 						/>
 					</UFormGroup>
 
