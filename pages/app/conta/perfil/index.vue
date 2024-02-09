@@ -30,6 +30,8 @@
 					id="changeProfileData"
 					class="space-y-4"
 					:validate="validade"
+					:state="storeIncentive.userAcountData"
+					:schema="schema"
 					@submit="storeIncentive.editProfile()"
 				>
 					<UFormGroup label="Seu nome completo" name="name">
@@ -109,11 +111,23 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
+import { object, string } from 'yup';
 
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
+
+const schema = object({
+	name: string().required('O campo nome é obrigatório'),
+	phone: string()
+		.min(14 || 15, 'Insira o telefone corretamente')
+		.required('O campo telefone é obrigatório'),
+	cpf: string()
+		.min(14, 'Campo CPF é obrigatório')
+		.required('O campo CPF é obrigatório'),
+	email: string().email('E-mail inválido').required('Campo obrigatório'),
+});
 
 const bgImage = computed(() => {
 	return `${pathAssets}${app.layout_background_app_two}`;
