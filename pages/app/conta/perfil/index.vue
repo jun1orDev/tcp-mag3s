@@ -9,7 +9,7 @@
 	/>
 
 	<UContainer
-		class="flex justify-center min-h-screen pt-14 lg:pt-0"
+		class="flex justify-center min-h-screen py-14 lg:pt-0"
 		:class="isItemsCenter"
 		:style="textColor"
 	>
