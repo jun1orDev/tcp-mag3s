@@ -123,6 +123,10 @@ const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 
+definePageMeta({
+	middleware: ['auth-user']
+});
+
 const schema = object({
 	name: string()
     .matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
