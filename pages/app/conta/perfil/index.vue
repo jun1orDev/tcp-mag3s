@@ -83,7 +83,7 @@
 					</UFormGroup>
 
 					<p class="text-center mt-4">
-						Que alterar sua senha?
+						Para alterar sua senha
 						<NuxtLink to="/recuperar-senha" class="fm3 decoration-solid">
 							Clique aqui</NuxtLink
 						>
