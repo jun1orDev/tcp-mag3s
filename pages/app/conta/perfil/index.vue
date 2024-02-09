@@ -9,7 +9,7 @@
 	/>
 
 	<UContainer
-		class="flex justify-center min-h-screen pt-14 lg:pt-0"
+		class="flex justify-center min-h-screen py-14 lg:pt-0"
 		:class="isItemsCenter"
 		:style="textColor"
 	>
@@ -30,34 +30,38 @@
 					id="changeProfileData"
 					class="space-y-4"
 					:validate="validade"
-					@submit="storeIncentive.editProfile()"
+					:state="storeIncentive.userAcountData"
+					:schema="schema"
+					@submit="storeIncentive.saveEditProfile()"
 				>
-					<UFormGroup label="Seu nome completo" name="name">
+					<UFormGroup label="Nome completo:" name="name">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.name"
-							icon="i-material-symbols-account-circle-full"
+							icon="i-material-symbols-person-outline"
 							type="text"
 							color="white"
 							variant="outline"
 							:ui="configInput"
+							placeholder="Digite aqui seu nome..."
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Seu CPF" name="cpf">
+					<UFormGroup label="CPF:" name="cpf">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.cpf"
-							icon="i-material-symbols-123"
+							icon="i-material-symbols-wallet"
 							type="CPF"
 							v-maska
 							data-maska="###.###.###-##"
 							color="white"
 							:ui="configInput"
+							placeholder="###.###.###-##"
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="seu e-mail" name="email">
+					<UFormGroup label="E-mail:" name="email">
 						<UInput
 							size="xl"
 							v-model="storeIncentive.userAcountData.email"
@@ -66,19 +70,21 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
+							placeholder="digite aqui seu e-mail..."
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="seu telefone" name="phone">
+					<UFormGroup label="Telefone:" name="phone">
 						<UInput
 							size="xl"
-							icon="i-material-symbols-call"
+							icon="i-material-symbols-add-call-outline-rounded"
 							v-model="storeIncentive.userAcountData.phone"
 							type="tel"
 							v-maska
 							data-maska="['(##) #####-####', '(##) ####-####']"
 							color="white"
 							:ui="configInput"
+							placeholder="(##) #####-####"
 						/>
 					</UFormGroup>
 
@@ -109,11 +115,26 @@
 <script setup>
 import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
+import { object, string } from 'yup';
 
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
+
+const schema = object({
+	name: string()
+		.matches(/^(\S+\s){1,}\S+$/,'Por favor, insira seu nome completo.').required('Campo nome é obrigatório.'),
+	phone: string()
+		.min(14 || 15, 'Insira o telefone corretamente')
+		.required('O campo telefone é obrigatório'),
+	cpf: string()
+		.min(14, 'Insira o CPF corretamente')
+		.required('O campo CPF é obrigatório'),
+	email: string()
+		.email('E-mail inválido')
+		.required('Insira o email corretamente.'),
+});
 
 const bgImage = computed(() => {
 	return `${pathAssets}${app.layout_background_app_two}`;
