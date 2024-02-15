@@ -11,9 +11,9 @@
 	<AppLayoutHeader
 		v-if="app.config_will_have_hotsite"
 		:hasLogout="false"
-		:bgColor="app.header_colors_background_app"
+		:bgColor="app.header_colors_background_app_two"
 		:textColor="app.header_colors_text_app"
-		:isLogoDark="false"
+		:isLogoDark="true"
 	/>
 
 	<UContainer
