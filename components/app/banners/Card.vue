@@ -1,6 +1,7 @@
 <template>
 	<NuxtLink id="cardOne" :to="props.linkSource"
-		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8" :target="app.config_will_have_raffle ? '_blank' : '_self'">
+		class="w-full relative grid grid-flow-col auto-cols-auto justify-between px-4 sm:px-6 md:px-8"
+		:target="app.config_will_have_raffle ? '_blank' : '_self'">
 		<!-- Background -->
 		<div :style="background"
 			class="absolute -translate-y-[50%] top-[50%] right-0 left-0 min-h-[110px] sm:h-[200px] md:h-[215px] lg:h-[180px] bg-no-repeat bg-right md:bg-center bg-cover rounded-lg md:rounded-3xl -z-10 animate__animated animate__fadeIn">
@@ -82,7 +83,7 @@ const { $countdown, $checkDatePassed } = useNuxtApp();
 const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
 
 const textColorDetach = computed(() => {
-	if(app.config_will_have_raffle && storeIncentive.nextDrawDateIsBefore) {
+	if (app.config_will_have_raffle && storeIncentive.nextDrawDateIsBefore) {
 		return `color: ${store.contentApp.colors_detach_one}`;
 	}
 
@@ -115,14 +116,18 @@ const colorBgButton = computed(() => {
 	return store.contentApp.colors_background_button;
 });
 
-const intervalCountDown = setInterval(() => {
-	countDW.value = $countdown(props.countdown);
+let intervalCountDown;
 
-	// Se a data atual estiver no passado, interromper a contagem regressiva
-	if ($checkDatePassed(props.countdown)) {
-		clearInterval(intervalCountDown);
-	}
-}, 1000);
+onMounted(() => {
+	setInterval(() => {
+		countDW.value = $countdown(props.countdown);
+
+		// Se a data atual estiver no passado, interromper a contagem regressiva
+		if ($checkDatePassed(props.countdown)) {
+			clearInterval(intervalCountDown);
+		}
+	}, 1000);
+});
 
 </script>
 
