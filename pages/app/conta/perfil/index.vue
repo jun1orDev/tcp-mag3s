@@ -8,6 +8,14 @@
 		position="fixed"
 	/>
 
+	<AppLayoutHeader
+		v-if="app.config_will_have_hotsite"
+		:hasLogout="false"
+		:bgColor="app.header_colors_background_app"
+		:textColor="app.header_colors_text_app"
+		:isLogoDark="false"
+	/>
+
 	<UContainer
 		class="flex justify-center min-h-screen py-14 lg:pt-0"
 		:class="isItemsCenter"
@@ -20,7 +28,7 @@
 			<!-- brand -->
 			<AppOthersImageBrandSession />
 
-			<div class="w-full pb-8 sm:pb-0">
+			<div class="w-full pb-8 sm:pb-0 pt-24">
 				<!-- Titulo -->
 				<p class="fm3 text-base lg:text-lg mb-4">Seus dados pessoais.</p>
 
@@ -43,7 +51,7 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
-							placeholder="digite aqui o seu nome completo..."
+							placeholder="Digite aqui seu nome..."
 						/>
 					</UFormGroup>
 
@@ -58,7 +66,7 @@
 							color="white"
 							:ui="configInput"
 							placeholder="###.###.###-##"
-							:disabled="storeIncentive.userAcountData.cpf !== ''"
+							:disabled="checkCpf"
 						/>
 					</UFormGroup>
 
@@ -71,8 +79,8 @@
 							color="white"
 							variant="outline"
 							:ui="configInput"
-							placeholder="digite aqui seu e-mail..."
-							:disabled="storeIncentive.userAcountData.email !== ''"
+							placeholder="Digite aqui seu e-mail..."
+							disabled
 						/>
 					</UFormGroup>
 
@@ -119,21 +127,20 @@ import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
 import { object, string } from 'yup';
 
-
 const store = useStoreApp();
 const app = store.contentApp;
 const storeIncentive = useStoreIncentive();
 const { pathAssets } = useRuntimeConfig().public;
 
 definePageMeta({
-	middleware: ['auth-user']
+	middleware: ['auth-user'],
 });
 
 const schema = object({
 	name: string()
-    .matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
-    .matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
-    .required('Campo nome é obrigatório.'),
+		.matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
+		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
+		.required('Campo nome é obrigatório.'),
 	phone: string()
 		.min(14 || 15, 'Insira o telefone corretamente')
 		.required('O campo telefone é obrigatório'),
@@ -143,6 +150,12 @@ const schema = object({
 	email: string()
 		.email('E-mail inválido')
 		.required('Insira o email corretamente.'),
+});
+
+let checkCpf = null;
+
+onMounted(() => {
+	checkCpf = storeIncentive.userAcountData.cpf !== null;
 });
 
 const bgImage = computed(() => {
