@@ -293,10 +293,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -345,8 +347,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -397,8 +400,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -406,11 +410,31 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			}
 		},
 
-
 		//alterar dados
 		async saveEditProfile() {
-      console.log('Dados salvos com sucesso!');
-    },
+			this.loading = false;
+			const toast = useToast();
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/details`,
+					{
+						method: 'put',
+						body: {
+							name: this.userAcountData.name,
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					}
+				);
+
+				this.loading = true;
+			} catch (error) {
+				this.loading = true;
+			}
+		},
 
 		// Saindo da aplicação
 		userLogout(useToast) {
