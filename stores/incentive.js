@@ -434,20 +434,18 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				// Telefone
-
-				console.log('Número de telefone:', this.userAcountData.phone.number
-);
-				const id = this.userAcountData.phone.id;
-
-				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone/${id}`, {
-					method: 'put',
-					body: {
-						phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
-					},
-					headers: {
-						Authorization: `Bearer ${getCookie('tokenUser')}`,
-					},
-				});
+				await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
+					{
+						method: 'put',
+						body: {
+							phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					}
+				);
 			} catch (error) {
 				this.loading = true;
 			}
