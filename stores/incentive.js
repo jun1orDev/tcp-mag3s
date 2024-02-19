@@ -420,7 +420,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
-				const data = await $fetch(`${ApiIncentiveSystemIdentity}account/user/details`,
+				const data = await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/details`,
 					{
 						method: 'put',
 						body: {
@@ -433,8 +434,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				// Telefone
-				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`,
-				{
+
+				console.log('Número de telefone:', this.userAcountData.phone.number
+);
+				const id = this.userAcountData.phone.id;
+
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone/${id}`, {
 					method: 'put',
 					body: {
 						phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
@@ -443,8 +448,6 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						Authorization: `Bearer ${getCookie('tokenUser')}`,
 					},
 				});
-
-
 			} catch (error) {
 				this.loading = true;
 			}
