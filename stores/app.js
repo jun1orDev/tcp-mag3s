@@ -58,7 +58,7 @@ export const useStoreApp = defineStore('storeApp', {
 					id: 4,
 					icon: 'i-mdi-clover',
 					name: 'Sorte',
-					path: '/app/revelar-premio',
+					path: '',
 					badge: false,
 					enable: false,
 					showing: true,
