@@ -415,7 +415,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		//alterar dados
 		async saveEditProfile() {
-			this.loading = false;
+			this.loading = true;
 			const toast = useToast();
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
@@ -433,6 +433,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					}
 				);
 
+				this.loading = false;
+
 				// Telefone
 				await $fetch(
 					`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
@@ -446,6 +448,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						},
 					}
 				);
+
 			} catch (error) {
 				this.loading = true;
 			}
