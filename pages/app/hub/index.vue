@@ -97,6 +97,8 @@ onMounted(async () => {
 	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
 	// Não exibir a opção comprar no Menu quando for app de Rifas
 	store.selectMenuBehaviour(3, 'showing', !app.config_will_have_raffle);
+// Inserindo o link para a opção dos números da sorte no Menu
+	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
 });
 </script>
 
