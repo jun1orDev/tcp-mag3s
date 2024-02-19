@@ -430,12 +430,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						headers: {
 							Authorization: `Bearer ${getCookie('tokenUser')}`,
 						},
-					}
-				);
+					});
 
-				this.loading = false;
-
-				// Telefone
+					// Telefone
 				await $fetch(
 					`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
 					{
@@ -446,11 +443,22 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						headers: {
 							Authorization: `Bearer ${getCookie('tokenUser')}`,
 						},
-					}
-				);
+					});
+
+					// CPF
+					await $fetch(`${ApiIncentiveSystemIdentity}account/user/document`, {
+						method: 'post',
+						body: {
+							documentType: 102,
+							documentNumber: this.userAcountData.cpf,
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					});
 
 			} catch (error) {
-				this.loading = true;
+				this.loading = false;
 			}
 		},
 
