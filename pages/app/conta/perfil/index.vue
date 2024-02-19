@@ -84,11 +84,11 @@
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Telefone:" name="phone">
+					<UFormGroup label="Telefone:" name="phone.number">
 						<UInput
 							size="xl"
 							icon="i-material-symbols-add-call-outline-rounded"
-							v-model="storeIncentive.userAcountData.phone"
+							v-model="storeIncentive.userAcountData.phone.number"
 							type="tel"
 							v-maska
 							data-maska="['(##) #####-####', '(##) ####-####']"
@@ -141,9 +141,11 @@ const schema = object({
 		.matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
 		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
 		.required('Campo nome é obrigatório.'),
-	phone: string()
-		.min(14 || 15, 'Insira o telefone corretamente')
-		.required('O campo telefone é obrigatório'),
+	phone: object({
+		number: string()
+			.required('O campo telefone é obrigatório')
+			.min(14 || 15, 'Insira o telefone corretamente'),
+	}),
 	cpf: string()
 		.min(14, 'Insira o CPF corretamente')
 		.required('O campo CPF é obrigatório'),

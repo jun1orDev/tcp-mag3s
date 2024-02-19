@@ -11,7 +11,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				email: '',
 				status: null,
 				cpf: null,
-				phone: null,
+				phone: {
+					number: null,
+					id: null,
+				},
 				addresses: null,
 				paymentMethods: {
 					status: null,
@@ -434,7 +437,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				{
 					method: 'put',
 					body: {
-						phoneNumber: this.userAcountData.phone.replace(/\D/g, ''),
+						phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
 					},
 					headers: {
 						Authorization: `Bearer ${getCookie('tokenUser')}`,
@@ -491,7 +494,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.userAcountData.cpf = data.documents[0].documentNumber;
 				}
 				if (data.phones.length) {
-					this.userAcountData.phone = `${data.phones[0].cityCode}${data.phones[0].phoneNumber}`;
+					this.userAcountData.phone.number = `${data.phones[0].cityCode}${data.phones[0].phoneNumber}`;
+					this.userAcountData.phone.id = data.phones[0].id;
 				}
 				this.userAcountData.addresses = data.addresses;
 
