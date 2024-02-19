@@ -76,6 +76,7 @@ const hasHeader = computed(() => {
 });
 
 onMounted(() => {
+if(!app.config_will_have_hotsite) {
 	switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
 		case true:
 			store.openModalPrizeResult(
@@ -103,6 +104,7 @@ onMounted(() => {
 			}, 1000);
 			break;
 	}
+}
 });
 </script>
 
