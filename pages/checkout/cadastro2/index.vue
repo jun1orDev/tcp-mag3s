@@ -61,8 +61,8 @@ definePageMeta({
 
 const schema = object({
 	name: string().required('O campo nome é obrigatório'),
-	phone: string().min(14 || 15, 'Insira o telefone corretamente').required('O campo telefone é obrigatório'),
-	cpf: string().min(14, 'Insira o CPF corretamente').required('O campo CPF é obrigatório'),
+	phone: string().required('O campo telefone é obrigatório').min(14 || 15, 'Insira o telefone corretamente'),
+	cpf: string().required('O campo CPF é obrigatório').min(14, 'Insira o CPF corretamente'),
 });
 
 const titleText = computed(() => {

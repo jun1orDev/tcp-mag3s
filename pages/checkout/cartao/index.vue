@@ -172,6 +172,7 @@ definePageMeta({
 	layout: 'checkout-default',
 	middleware: [
 		'auth-client',
+		'verify-accout-user-data',
 		'purchase-list-packages',
 		'purchase-chosen-package',
 		'redirect-auth-user-payment-creditcard',

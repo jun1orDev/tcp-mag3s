@@ -51,7 +51,7 @@ const route = useRoute();
 
 definePageMeta({
 	layout: 'checkout-default',
-	middleware: ['auth-client', 'purchase-list-packages', 'purchase-chosen-package', 'redirect-auth-user-payments']
+	middleware: ['auth-client', 'verify-accout-user-data', 'purchase-list-packages', 'purchase-chosen-package', 'redirect-auth-user-payments']
 });
 
 const hasIdPkgOB = computed(() => {
