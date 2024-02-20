@@ -40,7 +40,7 @@
 					:validate="validade"
 					:state="storeIncentive.userAcountData"
 					:schema="schema"
-					@submit="storeIncentive.saveEditProfile()"
+					@submit="storeIncentive.saveEditProfile(useToast)"
 				>
 					<UFormGroup label="Nome completo:" name="name">
 						<UInput
@@ -197,6 +197,7 @@ const configButton = ref({
 
 onNuxtReady(() => {
 	storeIncentive.disabledInputs.cpf = storeIncentive.userAcountData.cpf != null;
+	storeIncentive.disabledInputs.phone = storeIncentive.userAcountData.phone.number != null;
 });
 </script>
 

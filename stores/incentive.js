@@ -69,6 +69,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			},
 			disabledInputs: {
 				cpf: false,
+				phone: false,
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -299,12 +300,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -353,9 +352,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -406,9 +404,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -417,13 +414,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		//alterar dados
-		async saveEditProfile() {
+		async saveEditProfile(useToast) {
 			this.loading = true;
 			const toast = useToast();
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
+			// Nome
 			try {
-				const data = await $fetch(
+				await $fetch(
 					`${ApiIncentiveSystemIdentity}account/user/details`,
 					{
 						method: 'put',
@@ -435,20 +433,28 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						},
 					});
 
-					// Telefone
-				await $fetch(
-					`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
-					{
-						method: 'put',
-						body: {
-							phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
-						},
-						headers: {
-							Authorization: `Bearer ${getCookie('tokenUser')}`,
-						},
-					});
+				toast.add({
+					id: 'show_status_nome',
+					color: `green`,
+					title: `Parabéns`,
+					description: `Nome completo atualizado com sucesso!`,
+					icon: `i-material-symbols-person-check-outline-rounded`,
+					timeout: 3500,
+				});
+			} catch (error) {
+				toast.add({
+					id: 'error_dataProfileName',
+					title: `${enumsResponseServer().title}`,
+					description: `${enumsResponseServer().message} ${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
 
-					// CPF
+			// CPF
+			if (!this.disabledInputs.cpf) {
+				try {
 					await $fetch(`${ApiIncentiveSystemIdentity}account/user/document`, {
 						method: 'post',
 						body: {
@@ -460,9 +466,97 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						},
 					});
 
-			} catch (error) {
-				this.loading = false;
+					// colocando disabled no input de CPF
+					this.disabledInputs.cpf = true;
+
+					toast.add({
+						id: 'show_status_CPF',
+						color: `green`,
+						title: `Parabéns`,
+						description: `CPF cadastrado com sucesso!`,
+						icon: `i-material-symbols-person-check-outline-rounded`,
+						timeout: 3500,
+					});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfileCPF',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
 			}
+
+			// Telefone
+			if (this.disabledInputs.phone) {
+				try {
+					await $fetch(
+						`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
+						{
+							method: 'put',
+							body: {
+								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+							},
+							headers: {
+								Authorization: `Bearer ${getCookie('tokenUser')}`,
+							},
+						});
+
+					toast.add({
+						id: 'show_status_phone',
+						color: `green`,
+						title: `Parabéns`,
+						description: `Telefone atualizado com sucesso!`,
+						icon: `i-material-symbols-person-check-outline-rounded`,
+						timeout: 3500,
+					});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfilePhone',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+			} else {
+				try {
+					await $fetch(
+						`${ApiIncentiveSystemIdentity}account/user/phone`,
+						{
+							method: 'post',
+							body: {
+								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+							},
+							headers: {
+								Authorization: `Bearer ${getCookie('tokenUser')}`,
+							},
+						});
+
+						toast.add({
+							id: 'show_status_phone',
+							color: `green`,
+							title: `Parabéns`,
+							description: `Telefone cadastrado com sucesso!`,
+							icon: `i-material-symbols-person-check-outline-rounded`,
+							timeout: 3500,
+						});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfilePhone',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+			}
+
+			this.loading = false;
 		},
 
 		// Saindo da aplicação
