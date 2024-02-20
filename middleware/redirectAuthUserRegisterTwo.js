@@ -15,8 +15,9 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		storeCheckout.formRegister.name = storeIncentive.userAcountData.name;
 	}
 
-	if (storeIncentive.userAcountData.phone) {
-		storeCheckout.formRegister.phone = storeIncentive.userAcountData.phone;
+	if (storeIncentive.userAcountData.phone.number) {
+		storeCheckout.formRegister.phone.id = storeIncentive.userAcountData.phone.id;
+		storeCheckout.formRegister.phone.number = storeIncentive.userAcountData.phone.number;
 	}
 
 	if (storeIncentive.userAcountData.cpf) {
@@ -25,7 +26,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
 	if (
 		storeIncentive.userAcountData.name &&
-		storeIncentive.userAcountData.phone &&
+		storeIncentive.userAcountData.number &&
 		storeIncentive.userAcountData.cpf
 	) {
 		return navigateTo({

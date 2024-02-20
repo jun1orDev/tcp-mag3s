@@ -40,7 +40,7 @@
 					:validate="validade"
 					:state="storeIncentive.userAcountData"
 					:schema="schema"
-					@submit="storeIncentive.saveEditProfile()"
+					@submit="storeIncentive.saveEditProfile(useToast)"
 				>
 					<UFormGroup label="Nome completo:" name="name">
 						<UInput
@@ -66,7 +66,7 @@
 							color="white"
 							:ui="configInput"
 							placeholder="###.###.###-##"
-							:disabled="checkCpf"
+							:disabled="storeIncentive.disabledInputs.cpf"
 						/>
 					</UFormGroup>
 
@@ -84,11 +84,11 @@
 						/>
 					</UFormGroup>
 
-					<UFormGroup label="Telefone:" name="phone">
+					<UFormGroup label="Telefone:" name="phone.number">
 						<UInput
 							size="xl"
 							icon="i-material-symbols-add-call-outline-rounded"
-							v-model="storeIncentive.userAcountData.phone"
+							v-model="storeIncentive.userAcountData.phone.number"
 							type="tel"
 							v-maska
 							data-maska="['(##) #####-####', '(##) ####-####']"
@@ -113,6 +113,7 @@
 							:ui="configButton"
 							:style="[colorBgButton, colorTextButton]"
 							class="fm3"
+							:loading="storeIncentive.loading"
 							trailing
 						/>
 					</div>
@@ -141,21 +142,17 @@ const schema = object({
 		.matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
 		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
 		.required('Campo nome é obrigatório.'),
-	phone: string()
-		.min(14 || 15, 'Insira o telefone corretamente')
-		.required('O campo telefone é obrigatório'),
+	phone: object({
+		number: string()
+			.required('O campo telefone é obrigatório')
+			.min(14 || 15, 'Insira o telefone corretamente'),
+	}),
 	cpf: string()
 		.min(14, 'Insira o CPF corretamente')
 		.required('O campo CPF é obrigatório'),
 	email: string()
 		.email('E-mail inválido')
 		.required('Insira o email corretamente.'),
-});
-
-let checkCpf = null;
-
-onMounted(() => {
-	checkCpf = storeIncentive.userAcountData.cpf !== null;
 });
 
 const bgImage = computed(() => {
@@ -196,6 +193,11 @@ const configButton = ref({
 	padding: {
 		xl: 'px-16 py-2.5',
 	},
+});
+
+onNuxtReady(() => {
+	storeIncentive.disabledInputs.cpf = storeIncentive.userAcountData.cpf != null;
+	storeIncentive.disabledInputs.phone = storeIncentive.userAcountData.phone.number != null;
 });
 </script>
 

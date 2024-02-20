@@ -11,7 +11,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				email: '',
 				status: null,
 				cpf: null,
-				phone: null,
+				phone: {
+					number: null,
+					id: null,
+				},
 				addresses: null,
 				paymentMethods: {
 					status: null,
@@ -63,6 +66,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				callbackURL: '',
 				password: '',
 				confirmPassword: '',
+			},
+			disabledInputs: {
+				cpf: false,
+				phone: false,
 			},
 			userLoggedIn: null,
 			filterPrizes: 2,
@@ -406,11 +413,151 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			}
 		},
 
-
 		//alterar dados
-		async saveEditProfile() {
-      console.log('Dados salvos com sucesso!');
-    },
+		async saveEditProfile(useToast) {
+			this.loading = true;
+			const toast = useToast();
+			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
+
+			// Nome
+			try {
+				await $fetch(
+					`${ApiIncentiveSystemIdentity}account/user/details`,
+					{
+						method: 'put',
+						body: {
+							name: this.userAcountData.name,
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					});
+
+				toast.add({
+					id: 'show_status_nome',
+					color: `green`,
+					title: `Atualização`,
+					description: `Nome completo atualizado com sucesso!`,
+					icon: `i-material-symbols-person-outline`,
+					timeout: 3500,
+				});
+			} catch (error) {
+				toast.add({
+					id: 'error_dataProfileName',
+					title: `${enumsResponseServer().title}`,
+					description: `${enumsResponseServer().message} ${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			// CPF
+			if (!this.disabledInputs.cpf) {
+				try {
+					await $fetch(`${ApiIncentiveSystemIdentity}account/user/document`, {
+						method: 'post',
+						body: {
+							documentType: 102,
+							documentNumber: this.userAcountData.cpf,
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					});
+
+					// colocando disabled no input de CPF
+					this.disabledInputs.cpf = true;
+
+					toast.add({
+						id: 'show_status_CPF',
+						color: `green`,
+						title: `Cadastro`,
+						description: `CPF cadastrado com sucesso!`,
+						icon: `i-material-symbols-wallet`,
+						timeout: 3500,
+					});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfileCPF',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+			}
+
+			// Telefone
+			if (this.disabledInputs.phone) {
+				try {
+					await $fetch(
+						`${ApiIncentiveSystemIdentity}account/user/phone/${this.userAcountData.phone.id}`,
+						{
+							method: 'put',
+							body: {
+								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+							},
+							headers: {
+								Authorization: `Bearer ${getCookie('tokenUser')}`,
+							},
+						});
+
+					toast.add({
+						id: 'show_status_phone',
+						color: `green`,
+						title: `Atualização`,
+						description: `Telefone atualizado com sucesso!`,
+						icon: `i-material-symbols-add-call-outline-rounded`,
+						timeout: 3500,
+					});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfilePhone',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+			} else {
+				try {
+					await $fetch(
+						`${ApiIncentiveSystemIdentity}account/user/phone`,
+						{
+							method: 'post',
+							body: {
+								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+							},
+							headers: {
+								Authorization: `Bearer ${getCookie('tokenUser')}`,
+							},
+						});
+
+						toast.add({
+							id: 'show_status_phone',
+							color: `green`,
+							title: `Cadastro`,
+							description: `Telefone cadastrado com sucesso!`,
+							icon: `i-material-symbols-add-call-outline-rounded`,
+							timeout: 3500,
+						});
+				} catch (error) {
+					toast.add({
+						id: 'error_dataProfilePhone',
+						title: `${enumsResponseServer(error.response._data.request.code).title}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+			}
+
+			this.loading = false;
+		},
 
 		// Saindo da aplicação
 		userLogout(useToast) {
@@ -456,7 +603,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.userAcountData.cpf = data.documents[0].documentNumber;
 				}
 				if (data.phones.length) {
-					this.userAcountData.phone = `${data.phones[0].cityCode}${data.phones[0].phoneNumber}`;
+					this.userAcountData.phone.number = `${data.phones[0].cityCode}${data.phones[0].phoneNumber}`;
+					this.userAcountData.phone.id = data.phones[0].id;
 				}
 				this.userAcountData.addresses = data.addresses;
 
