@@ -67,6 +67,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				password: '',
 				confirmPassword: '',
 			},
+			disabledInputs: {
+				cpf: false,
+			},
 			userLoggedIn: null,
 			filterPrizes: 2,
 			loading: true,

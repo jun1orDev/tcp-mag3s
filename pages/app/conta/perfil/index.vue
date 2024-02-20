@@ -66,7 +66,7 @@
 							color="white"
 							:ui="configInput"
 							placeholder="###.###.###-##"
-							:disabled="checkCpf"
+							:disabled="storeIncentive.disabledInputs.cpf"
 						/>
 					</UFormGroup>
 
@@ -155,12 +155,6 @@ const schema = object({
 		.required('Insira o email corretamente.'),
 });
 
-let checkCpf = null;
-
-onMounted(() => {
-	checkCpf = storeIncentive.userAcountData.cpf !== null;
-});
-
 const bgImage = computed(() => {
 	return `${pathAssets}${app.layout_background_app_two}`;
 });
@@ -199,6 +193,10 @@ const configButton = ref({
 	padding: {
 		xl: 'px-16 py-2.5',
 	},
+});
+
+onNuxtReady(() => {
+	storeIncentive.disabledInputs.cpf = storeIncentive.userAcountData.cpf != null;
 });
 </script>
 
