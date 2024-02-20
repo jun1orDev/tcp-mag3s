@@ -436,9 +436,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'show_status_nome',
 					color: `green`,
-					title: `Parabéns`,
+					title: `Atualização`,
 					description: `Nome completo atualizado com sucesso!`,
-					icon: `i-material-symbols-person-check-outline-rounded`,
+					icon: `i-material-symbols-person-outline`,
 					timeout: 3500,
 				});
 			} catch (error) {
@@ -472,9 +472,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					toast.add({
 						id: 'show_status_CPF',
 						color: `green`,
-						title: `Parabéns`,
+						title: `Cadastro`,
 						description: `CPF cadastrado com sucesso!`,
-						icon: `i-material-symbols-person-check-outline-rounded`,
+						icon: `i-material-symbols-wallet`,
 						timeout: 3500,
 					});
 				} catch (error) {
@@ -507,9 +507,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					toast.add({
 						id: 'show_status_phone',
 						color: `green`,
-						title: `Parabéns`,
+						title: `Atualização`,
 						description: `Telefone atualizado com sucesso!`,
-						icon: `i-material-symbols-person-check-outline-rounded`,
+						icon: `i-material-symbols-add-call-outline-rounded`,
 						timeout: 3500,
 					});
 				} catch (error) {
@@ -539,9 +539,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						toast.add({
 							id: 'show_status_phone',
 							color: `green`,
-							title: `Parabéns`,
+							title: `Cadastro`,
 							description: `Telefone cadastrado com sucesso!`,
-							icon: `i-material-symbols-person-check-outline-rounded`,
+							icon: `i-material-symbols-add-call-outline-rounded`,
 							timeout: 3500,
 						});
 				} catch (error) {
