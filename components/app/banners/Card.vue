@@ -16,7 +16,7 @@
 			</div>
 
 			<!-- Conteúdo de texto -->
-			<div v-show="props.loading" :style="textColor" class="flex flex-col h-full"
+			<div v-if="props.loading" :style="textColor" class="flex flex-col h-full"
 				:class="hasDescription ? 'justify-between py-6' : 'justify-center py-6 sm:py-12 md:py-14'">
 
 				<div class="text-start">
