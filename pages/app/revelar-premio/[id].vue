@@ -2,7 +2,8 @@
 	<AppLayoutBgDefault />
 	<div v-show="!storeIncentive.loading" class="" :style="`color: ${store.contentApp.colors_text_one}`">
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app"
+			:textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal -->
@@ -31,7 +32,8 @@
 			</div>
 
 			<!-- Números da sorte do usuário -->
-			<ul class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
+			<ul v-if="storeIncentive.hasLuckyNumbersUser"
+				class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
 				ref="animateNumbersUser">
 				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser" :key="dozensOfNumbers.id">
 					<ul
@@ -41,6 +43,12 @@
 					</ul>
 				</li>
 			</ul>
+
+			<!-- Feedback caso o usuário não possui números da sorte -->
+			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
+				<Icon name="i-ic-baseline-warning" class="me-4 w-8 h-8"/>
+				<h2>Não há números da sorte no momento!</h2>
+			</div>
 
 		</UContainer>
 
@@ -76,35 +84,35 @@ const hasHeader = computed(() => {
 });
 
 onMounted(() => {
-if(!app.config_will_have_hotsite) {
-	switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
-		case true:
-			store.openModalPrizeResult(
-				store.contentApp.modal_text_prize_title_three,
-				store.contentApp.modal_text_prize_subtitle_three,
-				store.contentApp.modal_text_prize_label_three,
-				'details');
-			break;
-
-		case false:
-			store.openModalPrizeResult(
-				store.contentApp.modal_text_prize_title_two,
-				store.contentApp.modal_text_prize_subtitle_two,
-				store.contentApp.modal_text_prize_label_two,
-				'back');
-			break;
-
-		case null:
-			setTimeout(() => {
+	if(!app.config_will_have_hotsite) {
+		switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
+			case true:
 				store.openModalPrizeResult(
-					store.contentApp.modal_text_prize_title_one,
-					store.contentApp.modal_text_prize_subtitle_one,
-					store.contentApp.modal_text_prize_label_one,
-					'reveal');
-			}, 1000);
-			break;
+					store.contentApp.modal_text_prize_title_three,
+					store.contentApp.modal_text_prize_subtitle_three,
+					store.contentApp.modal_text_prize_label_three,
+					'details');
+				break;
+
+			case false:
+				store.openModalPrizeResult(
+					store.contentApp.modal_text_prize_title_two,
+					store.contentApp.modal_text_prize_subtitle_two,
+					store.contentApp.modal_text_prize_label_two,
+					'back');
+				break;
+
+			case null:
+				setTimeout(() => {
+					store.openModalPrizeResult(
+						store.contentApp.modal_text_prize_title_one,
+						store.contentApp.modal_text_prize_subtitle_one,
+						store.contentApp.modal_text_prize_label_one,
+						'reveal');
+				}, 1000);
+				break;
+		}
 	}
-}
 });
 </script>
 

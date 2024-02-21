@@ -178,6 +178,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			if (state.inventory) return state.inventory.luckyNumbers;
 			return [];
 		},
+		hasLuckyNumbersUser: (state) => {
+			if (state.inventory) return state.inventory.luckyNumbers.length > 0;
+			return [];
+		},
 		lotteryPrizesWonFilter: (state) => {
 			if (state.inventory.loading) {
 				return state.inventory.lotteryPrizesWonFilter;
@@ -536,14 +540,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 							},
 						});
 
-						toast.add({
-							id: 'show_status_phone',
-							color: `green`,
-							title: `Cadastro`,
-							description: `Telefone cadastrado com sucesso!`,
-							icon: `i-material-symbols-add-call-outline-rounded`,
-							timeout: 3500,
-						});
+					toast.add({
+						id: 'show_status_phone',
+						color: `green`,
+						title: `Cadastro`,
+						description: `Telefone cadastrado com sucesso!`,
+						icon: `i-material-symbols-add-call-outline-rounded`,
+						timeout: 3500,
+					});
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
@@ -727,7 +731,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Sorteios
 		async lotteryDraws(useToast) {
-			// Caso exista sorteiios no state não buscar informações
+			// Caso exista sorteios no state não buscar informações
 			if (this.gamification.lotteryDraws.lastDrawHeld.loading) return;
 			console.log('buscando dados dos sorteios');
 
