@@ -5,7 +5,7 @@
 		</div>
 
 		<!-- Escolha da forma de pagamento -->
-		<UForm id="formChoicePayment" :validate="validate" :state="state" class="space-y-4 mt-6"
+		<UForm id="formChoicePayment" :state="state" class="space-y-4 mt-6"
 			@submit="storeCheckout.paymentMethod(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, storeCheckout.formRegister.configPayment.choicePathTo)">
 
 			<URadio v-model="storeCheckout.formRegister.selectedPayment"

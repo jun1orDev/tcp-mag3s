@@ -37,7 +37,6 @@
 				<UForm
 					id="changeProfileData"
 					class="space-y-4"
-					:validate="validade"
 					:state="storeIncentive.userAcountData"
 					:schema="schema"
 					@submit="storeIncentive.saveEditProfile(useToast)"
@@ -178,6 +177,12 @@ const colorTextButton = computed(() => {
 const isGridLayout = computed(() => {
 	return {
 		grid: app.config_will_have_image_brand_session_hotsite,
+	};
+});
+
+const isItemsCenter = computed(() => {
+	return {
+		'items-center': !app.config_will_have_image_brand_session_hotsite,
 	};
 });
 

@@ -6,7 +6,7 @@
 		</div>
 
 		<!-- Segunda parte do Cadastro -->
-		<UForm id="formRegisterTwo" :validate="validate" :state="storeCheckout.formRegister" :schema="schema"
+		<UForm id="formRegisterTwo" :state="storeCheckout.formRegister" :schema="schema"
 			class="space-y-4 mt-6" @submit="
 				storeCheckout.registerOthersDatas(
 					useToast,

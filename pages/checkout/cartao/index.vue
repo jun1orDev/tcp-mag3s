@@ -19,8 +19,7 @@
 
 		<UForm
 			id="formCreditCard"
-			:validate="validate"
-			:state="storeCheckout.creditCard"
+			:state="storeCheckout.formRegister.creditCard"
 			:schema="schema"
 			class="space-y-4"
 			:class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6'"
