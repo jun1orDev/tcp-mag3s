@@ -15,6 +15,13 @@
 					:imageAward="storeIncentive.revealChosenDrawFull.image" />
 			</div>
 
+			<!-- Pesquisa dos números da sorte -->
+			<UContainer v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" >
+				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
+					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
+				</div>
+			</UContainer>
+
 			<!-- Separador -->
 			<div class="h-6"></div>
 
@@ -35,7 +42,7 @@
 			<ul v-if="storeIncentive.hasLuckyNumbersUser"
 				class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
 				ref="animateNumbersUser">
-				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser" :key="dozensOfNumbers.id">
+				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser(store.searchingValue)" :key="dozensOfNumbers.id">
 					<ul
 						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 						<AppGameNumberDraw v-for="(dozensNumbers, index) in dozensOfNumbers.dozens" :numberDraw="dozensNumbers.number"

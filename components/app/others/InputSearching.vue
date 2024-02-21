@@ -9,7 +9,7 @@
 				colorBorderSearch,
 				'outline: none;',
 				backgroundColor,
-			]" :placeholder="inputPlaceholder" />
+			]" :placeholder="props.inputPlaceholder" />
 	</div>
 </template>
 
