@@ -72,7 +72,7 @@ const isGridLayout = computed(() => {
 
 const isItemsCenter = computed(() => {
 	return {
-		'items-center': app.config_will_have_image_brand_session_hotsite,
+		'items-center': !app.config_will_have_image_brand_session_hotsite,
 	};
 });
 </script>
