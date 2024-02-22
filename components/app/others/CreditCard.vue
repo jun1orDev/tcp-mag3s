@@ -23,16 +23,9 @@
 				:state="storeCheckout.formRegister.creditCard"
 				:schema="schema"
 				class="space-y-4"
-        filled-form
+				filled-form
 				:class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6, '"
-				@submit="
-					storeCheckout.paymentCreditCard(
-						useToast,
-						storeCheckout.packageChosen.id,
-						storeCheckout.packageChosenOB.id,
-						'/checkout/feedback'
-					)
-				"
+				@submit="storeCheckout.registerCreditCard(useToast)"
 			>
 				<UFormGroup label="Número do cartão:" name="number">
 					<UInput
@@ -46,7 +39,6 @@
 						data-maska="#### #### #### ####"
 						data-maska-tokens="#:[0-9*]"
 						icon="i-ic-baseline-credit-card"
-            filled-form
 						:disabled="storeCheckout.hasCardCreditRegister"
 					/>
 				</UFormGroup>
