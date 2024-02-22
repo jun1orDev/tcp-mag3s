@@ -49,6 +49,7 @@
 				<AppOthersInputSearching
 					:inputPlaceholder="app.faq_text_placeholder_input_search"
 					@input="store.filteredFaq(store.searchingValue)"
+					:hasMaskInput="false"
 				/>
 
 				<!-- Faq -->

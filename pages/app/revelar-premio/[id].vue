@@ -18,7 +18,7 @@
 			<!-- Pesquisa dos números da sorte -->
 			<UContainer v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" >
 				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
-					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
+					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" :hasMaskInput="true" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
 				</div>
 			</UContainer>
 
@@ -57,8 +57,8 @@
 			</div>
 
 			<!-- Feedback caso o usuário não possui números da sorte -->
-			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
-				<Icon name="i-ic-baseline-warning" class="me-4 w-8 h-8"/>
+			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-1xl lg:text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
+				<Icon name="i-ic-baseline-warning" class="me-4 w-5 lg:w-8 h-5 lg:h-8"/>
 				<h2>Não há números da sorte no momento!</h2>
 			</div>
 
