@@ -175,8 +175,17 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			return state.inventory.loading;
 		},
 		luckyNumbersUser: (state) => {
-			if (state.inventory) return state.inventory.luckyNumbers;
-			return [];
+			if (state.inventory) {
+				return (payload = null) => {
+					if (!payload) {
+						return state.inventory.luckyNumbers;
+					}
+	
+					return state.inventory.luckyNumbers.filter((item) => item.dozens.some(dozen => Object.values(dozen).includes(payload)));
+				};
+			} else {
+				return [];
+			}
 		},
 		hasLuckyNumbersUser: (state) => {
 			if (state.inventory) return state.inventory.luckyNumbers.length > 0;
@@ -482,6 +491,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						timeout: 3500,
 					});
 				} catch (error) {
+					this.userAcountData.cpf = null;
+					
 					toast.add({
 						id: 'error_dataProfileCPF',
 						title: `${enumsResponseServer(error.response._data.request.code).title}`,
@@ -881,7 +892,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			for (const [index, drawToday] of this.drawnNumbersToday.entries()) {
 				await new Promise((resolve) =>
 					setTimeout(() => {
-						this.luckyNumbersUser.forEach((element) => {
+						this.luckyNumbersUser().forEach((element) => {
 							foundNumberDrawn = false;
 							element.dozens.find((dozens, i, arr) => {
 								if (foundNumberDrawn) return;
@@ -893,7 +904,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 									foundNumberDrawn = true;
 
 									// Ordernar a lista assim que os números
-									this.luckyNumbersUser.sort((a, b) => {
+									this.luckyNumbersUser().sort((a, b) => {
 										// Função que conta quantos elementos têm status 'neiland' em uma subarray
 										const contarNeiland = (arr) =>
 											arr.filter((item) => item.status === 'nailed').length;
@@ -922,7 +933,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				});
 			}
 
-			this.luckyNumbersUser.forEach((element) => {
+			this.luckyNumbersUser().forEach((element) => {
 				if (breakLoop) return;
 
 				wasTenDrawn = element.dozens.every(
