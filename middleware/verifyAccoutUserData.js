@@ -8,8 +8,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	await storeIncentive.userAccount(useToast);
 
   if (
-    !storeIncentive.userAcountData.name &&
-    !storeIncentive.userAcountData.phone.number &&
+    !storeIncentive.userAcountData.name ||
+    !storeIncentive.userAcountData.phone.number ||
     !storeIncentive.userAcountData.cpf
   ) {
     return navigateTo({

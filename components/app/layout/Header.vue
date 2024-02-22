@@ -6,7 +6,9 @@
 					<NuxtLink v-if="isLogoDark" to="/">
 						<LpImageBrandDark class="max-w-[110px] lg:max-w-[130px]" />
 					</NuxtLink>
-					<LpImageBrand v-else class="max-w-[110px] lg:max-w-[130px]" />
+					<NuxtLink v-else to="/app/hub">
+						<LpImageBrand class="max-w-[110px] lg:max-w-[130px]" />
+					</NuxtLink>
 				</div>
 				<div class="flex items-center">
 					<p v-if="hasLogout" class="fm1 me-4 text-base">Olá, {{ storeIncentive.firstUserName }} </p>

@@ -6,6 +6,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	const storeApp = useStoreApp(app.$pinia);
 	const storeIncentive = useStoreIncentive(app.$pinia);
 
+	if (process.server) return
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
 	storeIncentive.revealChosenDraw(to.params.id);
