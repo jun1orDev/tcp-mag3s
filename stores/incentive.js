@@ -491,6 +491,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						timeout: 3500,
 					});
 				} catch (error) {
+					this.userAcountData.cpf = null;
+					
 					toast.add({
 						id: 'error_dataProfileCPF',
 						title: `${enumsResponseServer(error.response._data.request.code).title}`,
