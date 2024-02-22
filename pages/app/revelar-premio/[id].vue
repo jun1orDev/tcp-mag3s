@@ -51,6 +51,11 @@
 				</li>
 			</ul>
 
+			<!-- Feedback de pesquisa caso não possuir o número da sorte -->
+			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length" class="text-1xl text-center animate__animated animate__fadeIn">				
+				<h2>Você não possui esse número da sorte!</h2>
+			</div>
+
 			<!-- Feedback caso o usuário não possui números da sorte -->
 			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
 				<Icon name="i-ic-baseline-warning" class="me-4 w-8 h-8"/>
