@@ -17,20 +17,18 @@
 		:isLogoDark="true"
 	/>
 
-	<UContainer>  
-	<!-- brand -->
+	<UContainer>
+		<!-- brand -->
 
-	<div class="flex flex-col md:flex-row py-10 lg:grid-cols-[500px_1fr]">
-		<div class="order-1 md:order-1 md:w-1/2">
-			<AppOthersImageBrandSession />
+		<div class="flex flex-col justify-center md:flex-row py-12 pb-12">
+			<div class="order-1 md:order-1 md:w-1/2">
+				<AppOthersImageBrandSession />
+			</div>
+			<div class="order-2 md:order-1 md:w-1/2">
+				<AppOthersCreditCard />
+			</div>
 		</div>
-		<div class="order-2 md:order-1 md:w-1/2">
-			<AppOthersCreditCard class="py-16" />
-		</div>
-	</div>
-
 	</UContainer>
-
 
 	<!-- brand -->
 </template>
