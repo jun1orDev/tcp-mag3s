@@ -148,7 +148,7 @@ export const useStoreApp = defineStore('storeApp', {
 			],
 			isOpenMenuBehaviour: false,
 			influencerChosen: null,
-			searchingValue: null,
+			searchingValue: '',
 			loading: false,
 		};
 	},

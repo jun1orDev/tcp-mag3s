@@ -18,7 +18,7 @@
 			<!-- Pesquisa dos números da sorte -->
 			<UContainer v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" >
 				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
-					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" :hasMaskInput="true" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
+					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" hasMaskInput="['##']" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
 				</div>
 			</UContainer>
 
@@ -38,8 +38,13 @@
 				<hr class="my-5 w-full sm:w-1/3 xl:w-1/4 m-auto borderSep">
 			</div>
 
+			<!-- Feedback de pesquisa caso não possuir o número da sorte -->
+			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length" class="text-1xl text-center animate__animated animate__fadeIn">
+				<h2>Você não possui esse número da sorte!</h2>
+			</div>
+
 			<!-- Números da sorte do usuário -->
-			<ul v-if="storeIncentive.hasLuckyNumbersUser"
+			<ul v-show="storeIncentive.hasLuckyNumbersUser"
 				class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
 				ref="animateNumbersUser">
 				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser(store.searchingValue)" :key="dozensOfNumbers.id">
@@ -50,11 +55,6 @@
 					</ul>
 				</li>
 			</ul>
-
-			<!-- Feedback de pesquisa caso não possuir o número da sorte -->
-			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length" class="text-1xl text-center animate__animated animate__fadeIn">				
-				<h2>Você não possui esse número da sorte!</h2>
-			</div>
 
 			<!-- Feedback caso o usuário não possui números da sorte -->
 			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-1xl lg:text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
