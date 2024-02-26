@@ -180,8 +180,18 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					if (!payload) {
 						return state.inventory.luckyNumbers;
 					}
-	
-					return state.inventory.luckyNumbers.filter((item) => item.dozens.some(dozen => Object.values(dozen).includes(payload)));
+
+					return state.inventory.luckyNumbers.filter((item) =>
+						item.dozens.some((dozen) => {
+							if (dozen.number === payload) {
+								dozen.status = 'nailed';
+							} else {
+								dozen.status = '';
+							}
+
+							return Object.values(dozen).includes(payload);
+						})
+					);
 				};
 			} else {
 				return [];
@@ -313,10 +323,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -365,8 +377,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -417,8 +430,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -434,17 +448,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 			// Nome
 			try {
-				await $fetch(
-					`${ApiIncentiveSystemIdentity}account/user/details`,
-					{
-						method: 'put',
-						body: {
-							name: this.userAcountData.name,
-						},
-						headers: {
-							Authorization: `Bearer ${getCookie('tokenUser')}`,
-						},
-					});
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/details`, {
+					method: 'put',
+					body: {
+						name: this.userAcountData.name,
+					},
+					headers: {
+						Authorization: `Bearer ${getCookie('tokenUser')}`,
+					},
+				});
 
 				toast.add({
 					id: 'show_status_nome',
@@ -492,11 +504,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					});
 				} catch (error) {
 					this.userAcountData.cpf = null;
-					
+
 					toast.add({
 						id: 'error_dataProfileCPF',
-						title: `${enumsResponseServer(error.response._data.request.code).title}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -512,12 +528,16 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						{
 							method: 'put',
 							body: {
-								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+								phoneNumber: this.userAcountData.phone.number.replace(
+									/\D/g,
+									''
+								),
 							},
 							headers: {
 								Authorization: `Bearer ${getCookie('tokenUser')}`,
 							},
-						});
+						}
+					);
 
 					toast.add({
 						id: 'show_status_phone',
@@ -530,8 +550,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${enumsResponseServer(error.response._data.request.code).title}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -539,17 +563,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				}
 			} else {
 				try {
-					await $fetch(
-						`${ApiIncentiveSystemIdentity}account/user/phone`,
-						{
-							method: 'post',
-							body: {
-								phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
-							},
-							headers: {
-								Authorization: `Bearer ${getCookie('tokenUser')}`,
-							},
-						});
+					await $fetch(`${ApiIncentiveSystemIdentity}account/user/phone`, {
+						method: 'post',
+						body: {
+							phoneNumber: this.userAcountData.phone.number.replace(/\D/g, ''),
+						},
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenUser')}`,
+						},
+					});
 
 					toast.add({
 						id: 'show_status_phone',
@@ -562,8 +584,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${enumsResponseServer(error.response._data.request.code).title}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -905,14 +931,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 									// Ordernar a lista assim que os números
 									this.luckyNumbersUser().sort((a, b) => {
-										// Função que conta quantos elementos têm status 'neiland' em uma subarray
+										// Função que conta quantos elementos têm status 'nailed' em uma subarray
 										const contarNeiland = (arr) =>
 											arr.filter((item) => item.status === 'nailed').length;
 
 										const contagemA = contarNeiland(a.dozens);
 										const contagemB = contarNeiland(b.dozens);
 
-										// Ordene de forma decrescente com base no número de elementos com status 'neiland'
+										// Ordene de forma decrescente com base no número de elementos com status 'nailed'
 										return contagemB - contagemA;
 									});
 								}
