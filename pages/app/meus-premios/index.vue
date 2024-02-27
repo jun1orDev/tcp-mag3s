@@ -2,7 +2,8 @@
 	<div v-show="!storeIncentive.loading" :style="textColor">
 		<AppLayoutBgDefault />
 
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app"
+			:textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="pt-12 py-24" :class="hasHeader">
 			<div class="max-w-[700px] m-auto flex flex-col justify-center">
@@ -17,7 +18,8 @@
 				<div v-if="storeIncentive.loadingInventory">
 
 					<!-- Filtro dos prêmios -->
-					<div v-if="storeIncentive.hasLotteryPrizesWon" class="fm1 flex items-center animate__animated animate__zoomInDown">
+					<div v-if="storeIncentive.hasLotteryPrizesWon"
+						class="fm1 flex items-center animate__animated animate__zoomInDown">
 						<div
 							:style="[textColorButton, borderColor, storeIncentive.filterPrizes === 0 ? backgroundColorActive : backgroundColor]"
 							class="flex justify-center items-center border mt-6 w-full h-8 rounded-s-lg border-e-0 text-[10px] md:text-sm cursor-pointer"
@@ -50,7 +52,11 @@
 						</div>
 					</div>
 
-					<h1 v-else class="mt-16 text-center text-xl animate__animated animate__fadeIn">Não há prêmios no momento!</h1>
+					<div v-else
+						class="text-1xl md:text-2xl lg:text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
+						<Icon name="i-ic-baseline-warning" class="me-4 w-5 lg:w-8 h-5 lg:h-8" />
+						<h2>Você ainda não ganhou prêmios!</h2>
+					</div>
 				</div>
 				<div v-else class="mt-16 w-[100px] sm:w-[120px] md:w-[140px] h-full flex justify-center items-center m-auto">
 					<AppOthersSpin />
