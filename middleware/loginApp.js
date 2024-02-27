@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	// Caso o usuário já esteja autenticado, redirecionar para a tela de hub
 	if (storeApp.contentApp.config_will_have_hotsite) {
 		if (useCookie('tokenUser').value) {
-			storeIncentive.loading = true;
+			storeIncentive.loading = false;
 			return navigateTo({ path: '/app/hub' });
 		}
 	}
