@@ -90,6 +90,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			return +state.gamification.qtdScratchCard > 0;
 		},
 
+		// Todos os Sorteios
+		listDraws: (state) => {
+			if (state.gamification.lotteryDraws.listDraws.loading) {
+				return state.gamification.lotteryDraws.listDraws
+			}
+			
+			return [];
+		},
+
 		// Sorteios realizados
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)
