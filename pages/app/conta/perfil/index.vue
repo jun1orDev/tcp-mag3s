@@ -28,7 +28,7 @@
 			<!-- brand -->
 			<AppOthersImageBrandSession />
 
-			<div class="w-full pb-8 sm:pb-0 pt-24">
+			<div class="w-full pb-8 sm:pb-0">
 				<!-- Titulo -->
 				<p class="fm3 text-base lg:text-lg mb-4">Seus dados pessoais.</p>
 
