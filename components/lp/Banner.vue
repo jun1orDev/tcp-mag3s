@@ -1,5 +1,5 @@
 <template>
-	<div class="h-screen flex items-center" :style="colorText">
+	<div class="h-screen flex items-center relative" :style="colorText">
 		<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" placeholderImage="/imgs/lp/cover_banner.png"
 			placeholderImageMobile="/imgs/lp/cover_banner_mobile.png" :bgColor="app.layout_background_colors_hotsite" position="absolute" />
 		<UContainer class="grid lg:grid-cols-2">
