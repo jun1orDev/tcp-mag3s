@@ -90,6 +90,15 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			return +state.gamification.qtdScratchCard > 0;
 		},
 
+		// Todos os Sorteios
+		listDraws: (state) => {
+			if (state.gamification.lotteryDraws.listDraws.loading) {
+				return state.gamification.lotteryDraws.listDraws.slice(-3);
+			}
+
+			return [];
+		},
+
 		// Sorteios realizados
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)
@@ -106,41 +115,66 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Próximos sorteios
 		NextDrawLink: (state) => {
-			const app = useStoreApp().contentApp;
+			return (payload = null) => {
+				const app = useStoreApp().contentApp;
 
-			if (state.gamification.lotteryDraws.nextDraw.loading) {
-				if (state.nextDrawDateIsBefore) {
-					if (app.config_will_have_raffle)
-						return app.banner_link_before_prize_draw_card_hub;
+				if (state.gamification.lotteryDraws.nextDraw.loading) {
+					if(!payload) {
+						if (state.nextDrawDateIsBefore()) {
+							if (app.config_will_have_raffle)
+								return app.banner_link_before_prize_draw_card_hub;
+	
+							return `/app/revelar-premio/${state.gamification.lotteryDraws.nextDraw.id}`;
+						}
+					} else {
+						if (state.nextDrawDateIsBefore(payload.date)) {
+							if (app.config_will_have_raffle && !app.config_will_have_carousel_banner_main)
+								return app.banner_link_before_prize_draw_card_hub;
+	
+							return `/app/revelar-premio/${payload.id}`;
+						}
+					}
 
-					return `/app/revelar-premio/${state.gamification.lotteryDraws.nextDraw.id}`;
+					return false;
 				}
 
-				return false;
+				return '';
 			}
-
-			return '';
 		},
 		nextDrawFull: (state) => {
 			return state.gamification.lotteryDraws.nextDraw;
 		},
 		nextDrawDate: (state) => {
 			if (state.gamification.lotteryDraws.nextDraw.loading) {
-				if (state.nextDrawDateIsBefore) return false;
+				if (state.nextDrawDateIsBefore()) return false;
 				return state.gamification.lotteryDraws.nextDraw.date;
 			}
 			return null;
 		},
 		nextDrawDateIsBefore: (state) => {
-			const { $checkDatePassed } = useNuxtApp();
+			return (payload = null) => {
+				const { $checkDatePassed } = useNuxtApp();
 
-			if (state.gamification.lotteryDraws.nextDraw.loading)
-				return $checkDatePassed(state.gamification.lotteryDraws.nextDraw.date);
+				if (state.gamification.lotteryDraws.nextDraw.loading) {
+					if(!payload) {
+						return $checkDatePassed(state.gamification.lotteryDraws.nextDraw.date);
+					} else {
+						return $checkDatePassed(payload);
+					}
+				}
 
-			return false;
+				return false;
+			}
 		},
 		nextDrawLoading: (state) => {
-			return state.gamification.lotteryDraws.nextDraw.loading;
+			return (payload) => {
+				if(!payload) {
+					return state.gamification.lotteryDraws.nextDraw.loading;
+				} else {
+					return payload;					
+				}
+
+			}
 		},
 		listDrawsUpcomingLimited: (state) => {
 			return (payload) =>
@@ -323,12 +357,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -377,9 +409,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -430,9 +461,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -507,12 +537,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 					toast.add({
 						id: 'error_dataProfileCPF',
-						title: `${
-							enumsResponseServer(error.response._data.request.code).title
-						}`,
-						description: `${
-							enumsResponseServer(error.response._data.request.code).message
-						}`,
+						title: `${enumsResponseServer(error.response._data.request.code).title
+							}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message
+							}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -550,12 +578,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${
-							enumsResponseServer(error.response._data.request.code).title
-						}`,
-						description: `${
-							enumsResponseServer(error.response._data.request.code).message
-						}`,
+						title: `${enumsResponseServer(error.response._data.request.code).title
+							}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message
+							}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -584,12 +610,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${
-							enumsResponseServer(error.response._data.request.code).title
-						}`,
-						description: `${
-							enumsResponseServer(error.response._data.request.code).message
-						}`,
+						title: `${enumsResponseServer(error.response._data.request.code).title
+							}`,
+						description: `${enumsResponseServer(error.response._data.request.code).message
+							}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,

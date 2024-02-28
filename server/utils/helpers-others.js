@@ -383,7 +383,7 @@ export const listSchemaDataMedia = [
 		name: 'checkout_feedback_pix_text_list_description',
 		description: 'Feedback de pagamento via Pix',
 		value:
-			'{"list":[{"one": "Importante:", "two": "seu pagamento via Pix pode levar até 5 minutos pra ser processado, aí você pode aproveitar seus conteúdos, suas raspadinhas digitais pra concorrer a prêmios na hora e seus números da sorte pro grande sorteio!", "type": "text"}, {"one": "Lembre-se:", "two": "Você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar. 😉", "type": "text"}]}',
+			'{"list":[{"one": "Importante:", "two": "seu pagamento via Pix pode levar até 5 minutos pra ser processado, aí você pode aproveitar seus conteúdos, suas raspadinhas digitais pra concorrer a prêmios na hora e seus números da sorte pro grande sorteio!", "type": "text"}, {"one": "Lembre-se:", "two": "Você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar.", "type": "text"}]}',
 		tag: 'login/checkout',
 		type: typesMedia[7],
 	},
@@ -391,7 +391,7 @@ export const listSchemaDataMedia = [
 		name: 'checkout_feedback_card_credit_text_list_description',
 		description: 'Feedback de pagamento via Pix',
 		value:
-			'{"list":[{"one": "Lembre-se:", "two": "você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar. 👏", "type": "text"}]}',
+			'{"list":[{"one": "Lembre-se:", "two": "você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar.", "type": "text"}]}',
 		tag: 'login/checkout',
 		type: typesMedia[7],
 	},
@@ -1205,6 +1205,13 @@ export const listSchemaDataMedia = [
 		description: 'Habilitar ou não o efeito do banner principal',
 		value: '0',
 		tag: 'hotsite',
+		type: typesMedia[6],
+	},
+	{
+		name: 'config_will_have_carousel_banner_main',
+		description: 'Habilitar ou não a possibilidade do banner principal do hub se transformar em um carousel',
+		value: '0',
+		tag: 'app',
 		type: typesMedia[6],
 	},
 	{
