@@ -191,31 +191,37 @@ export const useStoreApp = defineStore('storeApp', {
 
 		// Próximo Sorteio
 		titleCardNextDraw: (state) => {
-			const storeIncentive = useStoreIncentive();
-			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+			return (payload) => {
+				const storeIncentive = useStoreIncentive();
+				const nextDrawDateIsBefore = state.contentApp.config_will_have_carousel_banner_main ? storeIncentive.nextDrawDateIsBefore(payload) : storeIncentive.nextDrawDateIsBefore();
 
-			if (nextDrawDateIsBefore)
-				return state.contentApp.banner_text_card_title_six;
+				if (nextDrawDateIsBefore)
+					return state.contentApp.banner_text_card_title_six;
 
-			return state.contentApp.banner_text_card_title_one;
+				return state.contentApp.banner_text_card_title_one;
+			}
 		},
 		subtitleCardNextDraw: (state) => {
-			const storeIncentive = useStoreIncentive();
-			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+			return (payload) => {
+				const storeIncentive = useStoreIncentive();
+				const nextDrawDateIsBefore = state.contentApp.config_will_have_carousel_banner_main ? storeIncentive.nextDrawDateIsBefore(payload) : storeIncentive.nextDrawDateIsBefore();
 
-			if (nextDrawDateIsBefore)
-				return state.contentApp.banner_text_card_subtitle_four;
+				if (nextDrawDateIsBefore)
+					return state.contentApp.banner_text_card_subtitle_four;
 
-			return state.contentApp.banner_text_card_subtitle_one;
+				return state.contentApp.banner_text_card_subtitle_one;
+			}
 		},
 		labelButtonCardNextDraw: (state) => {
-			const storeIncentive = useStoreIncentive();
-			const nextDrawDateIsBefore = storeIncentive.nextDrawDateIsBefore;
+			return (payload) => {
+				const storeIncentive = useStoreIncentive();
+				const nextDrawDateIsBefore = state.contentApp.config_will_have_carousel_banner_main ? storeIncentive.nextDrawDateIsBefore(payload) : storeIncentive.nextDrawDateIsBefore();
 
-			if (nextDrawDateIsBefore)
-				return state.contentApp.banner_text_card_label_button_three;
+				if (nextDrawDateIsBefore)
+					return state.contentApp.banner_text_card_label_button_three;
 
-			return false;
+				return false;
+			}
 		},
 
 		// Revelar Prêmio
@@ -380,9 +386,9 @@ export const useStoreApp = defineStore('storeApp', {
 			if (!influencer) {
 				this.influencerChosen =
 					this.contentApp.influencer_race_hotsite_list.list[
-						generateRandomNumber(
-							this.contentApp.influencer_race_hotsite_list.list.length - 1
-						)
+					generateRandomNumber(
+						this.contentApp.influencer_race_hotsite_list.list.length - 1
+					)
 					];
 			}
 		},

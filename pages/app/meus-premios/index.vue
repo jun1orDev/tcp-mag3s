@@ -8,17 +8,32 @@
 		<UContainer class="pt-12 py-24" :class="hasHeader">
 			<div class="max-w-[700px] m-auto flex flex-col justify-center">
 				<!-- Banner Principal -->
-				<AppBannersCard :linkSource="storeIncentive.NextDrawLink" :hasImageDetach="!store.hasHotSiteOrRaffle"
-					:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading"
-					:title="store.titleCardNextDraw" :subtitle="store.subtitleCardNextDraw" :countdown="storeIncentive.nextDrawDate"
-					:callToAction="store.labelButtonCardNextDraw" :hasDescription="false" :description="false"
-					:imageAward="storeIncentive.nextDrawFull.image" />
+				<div>
+					<!-- Caso seja um banner com carousel -->
+					<Carousel v-if="app.config_will_have_carousel_banner_main" id="carousel-card-main"
+						class="w-full flex flex-col justify-between" autoplay="6500" :wrap-around="true"
+						:pause-autoplay-on-hover="true">
+						<Slide v-for="slide in storeIncentive.listDraws" :key="slide" class="flex flex-col">
+							<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)" :hasImageDetach="!store.hasHotSiteOrRaffle"
+								:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading(true)"
+								:title="store.titleCardNextDraw(slide.date)" :subtitle="store.subtitleCardNextDraw(slide.date)"
+								:countdown="slide.date" :callToAction="store.labelButtonCardNextDraw(slide.date)" :hasDescription="false"
+								:description="false" :imageAward="slide.image" />
+						</Slide>
+					</Carousel>
+
+					<AppBannersCard v-else :linkSource="storeIncentive.NextDrawLink()" :hasImageDetach="!store.hasHotSiteOrRaffle"
+						:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading()"
+						:title="store.titleCardNextDraw()" :subtitle="store.subtitleCardNextDraw()"
+						:countdown="storeIncentive.nextDrawDate" :callToAction="store.labelButtonCardNextDraw()"
+						:hasDescription="false" :description="false" :imageAward="storeIncentive.nextDrawFull.image" />
+				</div>
 
 				<!-- Conteúdo -->
 				<div v-if="storeIncentive.loadingInventory">
 
 					<!-- Filtro dos prêmios -->
-					<div v-if="storeIncentive.hasLotteryPrizesWon"
+					<div v-if="storeIncentive.hasLotteryPrizesWon && app.config_will_have_scratch_card"
 						class="fm1 flex items-center animate__animated animate__zoomInDown">
 						<div
 							:style="[textColorButton, borderColor, storeIncentive.filterPrizes === 0 ? backgroundColorActive : backgroundColor]"

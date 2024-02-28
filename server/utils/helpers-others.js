@@ -1208,6 +1208,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
+		name: 'config_will_have_carousel_banner_main',
+		description: 'Habilitar ou não a possibilidade do banner principal do hub se transformar em um carousel',
+		value: '0',
+		tag: 'app',
+		type: typesMedia[6],
+	},
+	{
 		name: 'session_influencer_effect_colors_hotsite',
 		description: 'cor de fundo do efeito do banner principal',
 		value: '#FFBE00',
