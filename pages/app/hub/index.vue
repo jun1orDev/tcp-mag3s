@@ -16,13 +16,22 @@
 					<Carousel v-if="app.config_will_have_carousel_banner_main" id="carousel-card-main"
 						class="w-full flex flex-col justify-between" autoplay="6500" :wrap-around="true"
 						:pause-autoplay-on-hover="true">
-						<Slide v-for="slide in storeIncentive.listDraws" :key="slide" class="flex flex-col">
-							<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)" :hasImageDetach="!store.hasHotSiteOrRaffle"
-								:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading(true)"
-								:title="store.titleCardNextDraw(slide.date)" :subtitle="store.subtitleCardNextDraw(slide.date)"
-								:countdown="slide.date" :callToAction="store.labelButtonCardNextDraw(slide.date)" :hasDescription="false"
-								:description="false" :imageAward="slide.image" />
-						</Slide>
+						<template #slides>
+							<Slide v-for="slide in storeIncentive.listDraws" :key="slide" class="flex flex-col">
+								<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)"
+									:hasImageDetach="!store.hasHotSiteOrRaffle" :imageDetach="app.banner_image_card_one"
+									:loading="storeIncentive.nextDrawLoading(true)" :title="store.titleCardNextDraw(slide.date)"
+									:subtitle="store.subtitleCardNextDraw(slide.date)" :countdown="slide.date"
+									:callToAction="store.labelButtonCardNextDraw(slide.date)" :hasDescription="false" :description="false"
+									:imageAward="slide.image" />
+							</Slide>
+						</template>
+						<template #addons>
+							<div class="carousel__navegation hidden lg:block">
+								<Navigation/>
+							</div>
+							<Pagination />
+						</template>
 					</Carousel>
 
 					<AppBannersCard v-else :linkSource="storeIncentive.NextDrawLink()" :hasImageDetach="!store.hasHotSiteOrRaffle"
@@ -108,6 +117,14 @@ const hasRafflesSimplePurchase = computed(() => {
 	}
 });
 
+const bgCarouselPagination = computed(() => {
+	return app.colors_carousel_pagination_background;
+})
+
+const bgCarouselPaginationActive = computed(() => {
+	return app.colors_emphasis_active_and_hover;
+})
+
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
@@ -123,4 +140,45 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped></style>
+<style>
+#carousel-card-main .carousel__navegation .carousel__prev {
+	/* Your custom styles here */
+	left: -10px;
+	transform: translateY(-20px);
+}
+
+#carousel-card-main .carousel__navegation .carousel__next {
+	/* Your custom styles here */
+	right: -10px;
+	transform: translateY(-20px);
+}
+
+#carousel-card-main .carousel__navegation .carousel__prev svg,
+#carousel-card-main .carousel__navegation .carousel__next svg {
+	/* Your custom styles here */
+	color: v-bind(bgCarouselPaginationActive);
+	width: 120px;
+	height: 120px;
+	transform: scale(1.3);
+}
+
+#carousel-card-main .carousel__pagination {
+	/* Your custom styles here */
+	margin: 0;
+}
+
+#carousel-card-main .carousel__pagination-button::after {
+	/* Your custom styles here */
+	width: 25px;
+	border-radius: 15px;
+	height: 6px;
+	background-color: v-bind(bgCarouselPagination);
+	opacity: .3;
+}
+
+#carousel-card-main .carousel__pagination-button--active::after {
+	/* Your custom styles here */
+	background-color: v-bind(bgCarouselPaginationActive);
+	opacity: 1;
+}
+</style>
