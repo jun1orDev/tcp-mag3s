@@ -22,11 +22,11 @@
 				<div class="text-start">
 					<!-- Título -->
 					<h1
-						class="fm3 text-[12px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown"
+						class="fm3 text-[13px] sm:text-[18px] md:text-[22px] lg:text-[19px] uppercase animate__animated animate__fadeInDown"
 						v-html="props.title" :style="textColorDetach">
 					</h1>
 					<!-- Subtítulo -->
-					<p class="fm2 text-[9px] sm:text-[16px] md:text-lg lg:text-base leading-[0.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp"
+					<p class="fm2 text-[10px] sm:text-[16px] md:text-lg lg:text-base leading-[.8rem] sm:leading-5 lg:leading-tight animate__animated animate__fadeInUp"
 						v-html="props.subtitle">
 					</p>
 
@@ -38,9 +38,9 @@
 
 				<!-- Call to action -->
 				<div v-if="props.callToAction"
-					class="fm3 flex items-center mt-4 text-[10px] sm:text-[12px] md:text-[14px] uppercase tracking-wider animate__animated animate__fadeInDown">
+					class="fm3 flex items-center mt-4 text-[12px] sm:text-[12px] md:text-[14px] uppercase tracking-wider animate__animated animate__fadeInDown">
 					<p> {{ props.callToAction }} </p>
-					<UIcon v-if="props.callToAction" class="arrow ms-1 text-2xl" name="i-material-symbols-arrow-forward-ios" />
+					<UIcon v-if="props.callToAction" class="arrow ms-1 text-lg md:text-2xl" name="i-material-symbols-arrow-forward-ios" />
 				</div>
 
 				<!-- Description -->
