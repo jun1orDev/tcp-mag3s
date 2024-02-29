@@ -83,7 +83,7 @@ const { $countdown, $checkDatePassed } = useNuxtApp();
 const props = defineProps(['linkSource', 'loading', 'title', 'subtitle', 'countdown', 'callToAction', 'hasDescription', 'description', 'imageAward', 'imageDetach', 'hasImageDetach']);
 
 const textColorDetach = computed(() => {
-	if (app.config_will_have_raffle && storeIncentive.nextDrawDateIsBefore()) {
+	if (app.config_will_have_raffle && storeIncentive.nextDrawDateIsBefore(props.countdown)) {
 		return `color: ${store.contentApp.colors_detach_one}`;
 	}
 
