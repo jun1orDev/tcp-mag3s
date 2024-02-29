@@ -1215,6 +1215,13 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
+		name: 'carousel_banner_main_qtd_items',
+		description: 'Quantidade de itens que serão exibidos no carousel do banner principal do hub',
+		value: '3',
+		tag: 'app',
+		type: typesMedia[0],
+	},
+	{
 		name: 'session_influencer_effect_colors_hotsite',
 		description: 'cor de fundo do efeito do banner principal',
 		value: '#FFBE00',

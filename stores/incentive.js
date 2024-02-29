@@ -92,8 +92,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Todos os Sorteios
 		listDraws: (state) => {
+			const storeApp = useStoreApp().contentApp;
+			
 			if (state.gamification.lotteryDraws.listDraws.loading) {
-				return state.gamification.lotteryDraws.listDraws.slice(-3);
+				return state.gamification.lotteryDraws.listDraws.slice(-Number(storeApp.carousel_banner_main_qtd_items));
 			}
 
 			return [];
