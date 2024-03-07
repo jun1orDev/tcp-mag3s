@@ -24,13 +24,15 @@
 			</div>
 
 			<!-- Conteúdo do Produto -->
-			<div class="w-full flex flex-col justify-start items-start">
-				<div v-for="(item, index) in props.package.items" class="w-full">
+			<div class="w-full h-[110px] flex flex-col justify-start items-start">
+				<div v-for="(item, index) in props.package.items" class="w-full h-full flex flex-col justify-between text-xs md:text-sm">
+
+					<h1 class="fm3 font-bold uppercase text-center">{{item.name}}</h1>
 					<!-- Divisor -->
-					<hr class="w-full border-t-slate-300" :class="index > 0 ? 'my-3' : 'mb-3'">
+					<hr class="w-full border-t-slate-300">
 
 					<!-- Descrição -->
-					<p><strong class="hidden">{{ item.qtd }}</strong> {{ item.description }}</p>
+					<p class="fm2"><strong class="hidden">{{ item.qtd }}</strong> {{ item.description }}</p>
 				</div>
 			</div>
 
