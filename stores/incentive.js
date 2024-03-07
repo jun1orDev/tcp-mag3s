@@ -43,10 +43,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						id: null,
 						loading: false,
 					},
-					listDraws: {
-						id: null,
-						loading: false,
-					},
+					listDraws: [],
 					listDrawsUpcoming: [],
 					listDrawsLatest: [],
 					revealChosenDraw: {
@@ -54,6 +51,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						showDrawnNumbersToday: false,
 					},
 					LuckyNumbersWereDrawn: null,
+					loading: false,
 				},
 				qtdScratchCard: 0,
 			},
@@ -92,13 +90,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Todos os Sorteios
 		listDraws: (state) => {
-			const storeApp = useStoreApp().contentApp;
-			
-			if (state.gamification.lotteryDraws.listDraws.loading) {
-				return state.gamification.lotteryDraws.listDraws.slice(0, -Number(storeApp.carousel_banner_main_qtd_items));
-			}
-
-			return [];
+			const storeApp = useStoreApp().contentApp;			
+			return state.gamification.lotteryDraws.listDraws.slice(0, -Number(storeApp.carousel_banner_main_qtd_items));
 		},
 
 		// Sorteios realizados
@@ -185,7 +178,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Sorteio Escolhido
 		loadingChosenDrawFull: (state) => {
-			return state.gamification.lotteryDraws.listDraws.loading;
+			return state.gamification.lotteryDraws.revealChosenDraw.loading;
 		},
 		revealChosenDrawFull: (state) => {
 			return state.gamification.lotteryDraws.revealChosenDraw;
@@ -843,10 +836,13 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					(item) => item.divulgationDate
 				);
 				const mostRecentDate = $mostRecentDate(datesDraws, 'max');
-				this.gamification.lotteryDraws.lastDrawHeld =
-					this.gamification.lotteryDraws.listDrawsLatest.find(
-						(item) => item.fullDate === $formatDayMonthYearFull(mostRecentDate)
-					);
+
+				if(this.gamification.lotteryDraws.lastDrawHeld.length) {
+					this.gamification.lotteryDraws.lastDrawHeld =
+						this.gamification.lotteryDraws.listDrawsLatest.find(
+							(item) => item.fullDate === $formatDayMonthYearFull(mostRecentDate)
+						);
+				}
 
 				this.gamification.lotteryDraws.lastDrawHeld.loading = true;
 			} catch (error) {
@@ -923,7 +919,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					this.gamification.lotteryDraws.listDrawsUpcoming
 				);
 
-			this.gamification.lotteryDraws.listDraws.loading = true;
+			this.gamification.lotteryDraws.loading = true;
 		},
 		// $resetLotteryDraws() {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
