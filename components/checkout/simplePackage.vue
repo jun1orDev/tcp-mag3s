@@ -15,9 +15,9 @@
 				<!-- Imagem representativa -->
 				<div class="flex justify-center mb-2">
 					<img :src="`${pathAssets}${props.package.one}`" onerror="this.src='/imgs/checkout/package_image_1.png'"
-							:class="props.isPopular ? 'animate__animated animate__tada animate__delay-2s animate__repeat-2' : ''" alt="">
+							:class="props.isPopular ? 'animate__animated animate__tada animate__delay-2s animate__repeat-2' : ''" class="w-1/2 md:w-auto" alt="">
 				</div>
-				<p class="fm3 text-3xl flex items-center justify-center">+<strong class="text-3xl md:text-5xl lg:text-6xl">{{
+				<p class="fm3 text-3xl flex items-center justify-center">+<strong class="text-5xl sm:text-3xl md:text-5xl lg:text-6xl">{{
 					props.package.two }}</strong></p>
 			</div>
 		</div>
