@@ -97,7 +97,7 @@ export const useStoreApp = defineStore('storeApp', {
 							id: 3,
 							icon: 'i-mdi-credit-card-edit-outline',
 							name: 'Meu Cartão',
-							path: '/app/meu-cartao',
+							path: '/app/conta/cartao',
 							badge: false,
 							enable: false,
 							showing: true,
