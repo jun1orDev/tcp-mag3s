@@ -95,7 +95,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			const storeApp = useStoreApp().contentApp;
 			
 			if (state.gamification.lotteryDraws.listDraws.loading) {
-				return state.gamification.lotteryDraws.listDraws.slice(-Number(storeApp.carousel_banner_main_qtd_items));
+				return state.gamification.lotteryDraws.listDraws.slice(0, -Number(storeApp.carousel_banner_main_qtd_items));
 			}
 
 			return [];

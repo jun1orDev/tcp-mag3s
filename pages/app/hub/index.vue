@@ -14,7 +14,7 @@
 				<div>
 					<!-- Caso seja um banner com carousel -->
 					<Carousel v-if="app.config_will_have_carousel_banner_main" id="carousel-card-main"
-						class="w-full flex flex-col justify-between" autoplay="6500" :wrap-around="true"
+						class="w-full flex flex-col justify-between" autoplay="0" :wrap-around="false"
 						:pause-autoplay-on-hover="true">
 						<template #slides>
 							<Slide v-for="slide in storeIncentive.listDraws" :key="slide" class="flex flex-col">
