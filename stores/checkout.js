@@ -137,7 +137,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							: '',
 						qtd: 1,
 						price: item.price,
-						items: [{ 
+						items: [{
 							qtd: item.baseContent.amount,
 							name: item.baseContent.name,
 							description: item.baseContent.description
@@ -590,6 +590,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		// Finalizar compra
 		finishPurchase() {
 			const app = useStoreApp().contentApp;
+			const incentive = useStoreIncentive();
+
+			// Resetando o loading do inventário para solicitar novamente os dados atualizados			
+			incentive.inventory.loading = false;
 
 			setTimeout(() => {
 				this.formRegister.feedbackPayment = null;

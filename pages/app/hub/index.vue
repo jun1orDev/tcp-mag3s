@@ -17,7 +17,7 @@
 						class="w-full flex flex-col justify-between" autoplay="0" :wrap-around="false"
 						:pause-autoplay-on-hover="true">
 						<template #slides>
-							<Slide v-for="slide in storeIncentive.listDraws" :key="slide" class="flex flex-col">
+							<Slide v-for="slide in storeIncentive.listDrawsUpcomingLimited(-Number(app.carousel_banner_main_qtd_items))" :key="slide" class="flex flex-col">
 								<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)"
 									:hasImageDetach="!store.hasHotSiteOrRaffle" :imageDetach="app.banner_image_card_one"
 									:loading="storeIncentive.nextDrawLoading(true)" :title="store.titleCardNextDraw(slide.date)"
