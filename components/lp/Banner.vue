@@ -1,13 +1,16 @@
 <template>
 	<div class="h-screen flex items-center relative" :style="colorText">
 		<LpBgDefault :image="bgImage" :imageMobile="bgImageMobile" placeholderImage="/imgs/lp/cover_banner.png"
-			placeholderImageMobile="/imgs/lp/cover_banner_mobile.png" :bgColor="app.layout_background_colors_hotsite" position="absolute" />
-		<UContainer class="grid lg:grid-cols-2">
+			placeholderImageMobile="/imgs/lp/cover_banner_mobile.png" :bgColor="app.layout_background_colors_hotsite"
+			position="absolute" />
+		<UContainer
+			class="grid content-center lg:grid-cols-[minmax(500px,600px)_1fr] 2xl:lg:grid-cols-[minmax(400px,500px)_1fr] lg:px-10 h-full">
 
 			<!-- Brand Principal -->
-			<div class="flex flex-col justify-start mb-12 lg:mb-0 lg:mt-12 xl:mt-6">
+			<div class="flex flex-col justify-start mb-10 lg:mt-12 xl:mt-6 2xl:ps-12">
 				<LpImageBrand />
-				<p class="fm1 animate__animated animate__fadeInUp" v-html="app.brand_text_hotsite"></p>
+				<p class="fm1 text-base sm:text-lg lg:text-2xl leading-normal animate__animated animate__fadeInUp"
+					v-html="app.brand_text_hotsite"></p>
 			</div>
 
 			<!--  Efeito de quebra de seção -->
@@ -36,10 +39,11 @@
 			</UContainer>
 
 			<!-- Imagem de destaque (Brand secundário) -->
-			<div class="w-[90%] xl:w-[95%] m-auto animate__animated animate__zoomIn">
+			<div class="m-auto animate__animated animate__zoomIn">
 				<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true">
 					<Slide v-for="slide in 1" :key="slide">
-						<img class="max-w-[90%]" :src="brandMain" onerror="this.src='/imgs/lp/landing_cover_image.png'" alt="">
+						<img class="md:max-w-[90%] lg:w-[150%]" :src="brandMain"
+							onerror="this.src='/imgs/lp/landing_cover_image.png'" alt="">
 					</Slide>
 				</Carousel>
 			</div>

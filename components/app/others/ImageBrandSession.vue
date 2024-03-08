@@ -3,7 +3,7 @@
 		<!-- brand -->
 		<div class="flex justify-center" v-if="app.config_will_have_image_brand_session_hotsite">
 				<img
-					class="max-w-[300px] md:max-w-full md:w-[280px] lg:w-auto"
+					class="max-w-[300px] md:max-w-full md:w-[480px] lg:w-auto"
 					:src="imgBrand"
 					onerror="this.src='/imgs/lp/landing_cover_image.png'"
 				/>
