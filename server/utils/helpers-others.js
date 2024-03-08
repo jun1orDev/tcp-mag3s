@@ -289,7 +289,8 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'purchase_tables_colors_text_simple_package_dark',
-		description: 'Cor de texto para aquisição simples de pacote para fundos claros',
+		description:
+			'Cor de texto para aquisição simples de pacote para fundos claros',
 		value: '#061049',
 		tag: 'login/checkout',
 		type: typesMedia[2],
@@ -652,6 +653,14 @@ export const listSchemaDataMedia = [
 		type: typesMedia[6],
 	},
 	{
+		name: 'config_will_have_image_detach_banner_main',
+		description:
+			'Habilitar ou não a imagem de destaque do banner principal do hub',
+		value: '1',
+		tag: 'app',
+		type: typesMedia[6],
+	},
+	{
 		name: 'banner_image_card_scratchcard_two',
 		description:
 			'Imagem dentro no Banner secundário, localizada ao lado da quantidade de raspadinhas restantes.',
@@ -781,8 +790,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'banner_final_text_description_card_hub',
-		description:
-			'Texto localizado dentro do Banner Final do Hub.',
+		description: 'Texto localizado dentro do Banner Final do Hub.',
 		value: 'Ganhadores do Fiel da Sorte: conheça suas histórias tocando aqui.',
 		tag: 'app',
 		type: typesMedia[0],
@@ -794,7 +802,7 @@ export const listSchemaDataMedia = [
 		value: 'https://blog.fieldasorte.com.br/',
 		tag: 'app',
 		type: typesMedia[1],
-	},		
+	},
 	{
 		name: 'banner_link_before_prize_draw_card_hub',
 		description:
@@ -805,8 +813,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'banner_final_image_card_hub',
-		description:
-			'Imagem localizada dentro do Banner Final do Hub.',
+		description: 'Imagem localizada dentro do Banner Final do Hub.',
 		placeholder: '/imgs/selo_fiel.png',
 		tag: 'app',
 		type: typesMedia[3],
@@ -1209,14 +1216,16 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'config_will_have_carousel_banner_main',
-		description: 'Habilitar ou não a possibilidade do banner principal do hub se transformar em um carousel',
+		description:
+			'Habilitar ou não a possibilidade do banner principal do hub se transformar em um carousel',
 		value: '0',
 		tag: 'app',
 		type: typesMedia[6],
 	},
 	{
 		name: 'carousel_banner_main_qtd_items',
-		description: 'Quantidade de itens que serão exibidos no carousel do banner principal do hub',
+		description:
+			'Quantidade de itens que serão exibidos no carousel do banner principal do hub',
 		value: '3',
 		tag: 'app',
 		type: typesMedia[0],
