@@ -18,7 +18,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
           server: 35.198.0.121
-          username: leveoseutoba.com.br_2b0orqmong7
+          username: promoseutoba.mag3s.com_github
           password: ${{ secrets.PASS_FTP_PROMOSEUTOBA }}
           local-dir: ./
           server-dir: /
