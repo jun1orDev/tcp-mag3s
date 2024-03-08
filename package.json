@@ -5,9 +5,10 @@
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev --dotenv .env.development",
-		"fieldasorte": "npx nuxi dev --dotenv .env.fieldasorte --host",
 		"pgi": "npx nuxi dev --dotenv .env.pginfluencer --host",
 		"raffles": "npx nuxi dev --dotenv .env.raffles --host",
+		"fieldasorte": "npx nuxi dev --dotenv .env.fieldasorte --host",
+		"seutoba": "npx nuxi dev --dotenv .env.seutoba --host",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare"
