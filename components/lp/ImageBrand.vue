@@ -1,7 +1,7 @@
 <template>
   <div>
     <img :src="logoMain" onerror="this.src='/imgs/lp/logo_main.png'" alt=""
-      class="w-[200px] sm:w-[230px] md:w-[250px] lg:w-[280px] xl:w-[300px] animate__animated animate__fadeInDown">
+      class="w-[250px] md:w-[265px] lg:w-[280px] xl:w-[300px] animate__animated animate__fadeInDown">
   </div>
 </template>
 
