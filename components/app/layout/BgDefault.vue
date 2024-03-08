@@ -1,6 +1,6 @@
 <template>
 	<div :style="background"
-		class="overflow-hidden bg-cover fixed top-0 right-0 left-0 bottom-0 bg-no-repeat bg-center -z-10">
+		class="overflow-hidden bg-cover bg-scroll lg:bg-fixed fixed top-0 right-0 left-0 bottom-0 bg-no-repeat bg-top -z-10">
 	</div>
 </template>
 
@@ -13,7 +13,7 @@ const { pathAssets } = useRuntimeConfig().public;
 
 let widthWindow = ref(null);
 
-const background = computed(() => {	
+const background = computed(() => {
 	if (widthWindow.value != null && widthWindow.value <= 912) {
 		return `background-image: url('${pathAssets}${app.layout_background_app_mobile}'), url('/imgs/bg_default_mobile.png'); background-color: ${app.colors_background_one}`;
 	}
