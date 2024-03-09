@@ -17,15 +17,22 @@
 		:isLogoDark="true"
 	/>
 
-	<UContainer>
-		<!-- brand -->
-
-		<div class="flex flex-col justify-center md:flex-row py-12 pb-12">
-			<div class="order-1 md:order-1 md:w-1/2">
+	<UContainer
+		class="flex justify-center items-center min-h-screen py-14 lg:pt-0"
+	>
+		<div
+			class="grid grid-cols-1 lg:grid-cols-[500px,1fr] gap-8 lg:gap-16 justify-center items-center w-full max-w-screen-xl mx-auto"
+		>
+			<!-- Brand -->
+			<div class="order-1 lg:order-1">
 				<AppOthersImageBrandSession />
 			</div>
-			<div class="order-2 md:order-1 md:w-1/2">
-				<AppOthersCreditCard />
+
+			<!-- Formulário Credit Card -->
+			<div class="order-2 lg:order-2">
+				<div class="w-full pb-8 sm:pb-0">
+					<AppOthersCreditCard />
+				</div>
 			</div>
 		</div>
 	</UContainer>
@@ -35,6 +42,7 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+
 
 const store = useStoreApp();
 const app = store.contentApp;

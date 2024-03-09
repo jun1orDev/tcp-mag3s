@@ -2,7 +2,7 @@
 	<UContainer>
 		<div class="max-w-[600px] m-auto lg:w-full lg:m-0">
 			<div>
-				<h1 class="fm3 text-xl lg:text-2xl mb-1">Dados do cartão</h1>
+				<h1 class="fm3 text-base lg:text-lg mb-4">Dados do cartão</h1>
 			</div>
 
 			<!-- Dados do cartão de crédito -->
