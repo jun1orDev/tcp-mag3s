@@ -36,17 +36,20 @@
 			</div>
 		</div>
 	</UContainer>
-
-	<!-- brand -->
 </template>
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
-
+import { useStoreCheckout } from '~/stores/checkout';
 
 const store = useStoreApp();
+const storeCheckout = useStoreCheckout();
 const app = store.contentApp;
 const { pathAssets } = useRuntimeConfig().public;
+
+definePageMeta({
+	middleware: ['auth-client', 'verify-accout-user-data'],
+});
 
 const bgImage = computed(() => {
 	return `${pathAssets}${app.layout_background_app_two}`;

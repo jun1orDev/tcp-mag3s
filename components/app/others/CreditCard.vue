@@ -163,17 +163,6 @@ const app = store.contentApp;
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
-definePageMeta({
-	layout: 'checkout-default',
-	middleware: [
-		'auth-client',
-		'verify-accout-user-data',
-		'purchase-list-packages',
-		'purchase-chosen-package',
-		'redirect-auth-user-payment-creditcard',
-	],
-});
-
 const schema = object({
 	number: string().required('Campo obrigatório.'),
 	name: string().required('Campo obrigatório.'),
@@ -189,19 +178,7 @@ const titleText = computed(() => {
 	return `${app.checkout_card_text_title}`;
 });
 
-onMounted(() => {
-	storeCheckout.progressPurchase(
-		[
-			{ step: 1, complete: true },
-			{ step: 2, complete: true },
-			{ step: 3, complete: false },
-		],
-		65,
-		true
-	);
-
-	storeCheckout.formRegister.configPayment.labelButton = `Salvar dados`;
-});
+storeCheckout.formRegister.configPayment.labelButton = `Teste`;
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
