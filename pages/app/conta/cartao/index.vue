@@ -48,7 +48,7 @@ const app = store.contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
 definePageMeta({
-	middleware: ['auth-client', 'verify-accout-user-data'],
+	middleware: ['auth-client', 'verify-accout-user-data', 'redirect-auth-user-payment-creditcard'],
 });
 
 const bgImage = computed(() => {
