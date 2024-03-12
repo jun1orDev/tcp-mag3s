@@ -76,7 +76,14 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 		'vue3-carousel-nuxt',
 		'@formkit/auto-animate/nuxt',
+		'nuxt3-meta-pixel',
 	],
+
+	facebook: {
+		/* module options */
+		autoPageView: true,
+		disabled: true,
+	},
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
 
