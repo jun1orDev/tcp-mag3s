@@ -398,13 +398,25 @@ export const useStoreApp = defineStore('storeApp', {
 			this.menuBehaviour.find((item) => item.id === id)[propety] = value;
 		},
 
-		// Open Menu
-		openMenuBehaviour(hasSubmenu) {
-			if (!hasSubmenu) return;
-			this.isOpenMenuBehaviour = !this.isOpenMenuBehaviour;
+		// Icon subMenu
+		setIconSubMenu() {
 			this.isOpenMenuBehaviour
 				? this.selectMenuBehaviour(5, 'icon', 'i-mdi-window-close')
 				: this.selectMenuBehaviour(5, 'icon', 'i-mdi-menu');
+		},
+
+		// Open Menu
+		openMenuBehaviour(hasSubmenu) {
+			if (!hasSubmenu) {
+				if (this.isOpenMenuBehaviour) {
+					this.isOpenMenuBehaviour = false;
+					this.setIconSubMenu();
+				}
+				return;
+			}
+
+			this.isOpenMenuBehaviour = !this.isOpenMenuBehaviour;
+			this.setIconSubMenu();
 		},
 	},
 });
