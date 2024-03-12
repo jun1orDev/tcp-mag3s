@@ -81,8 +81,10 @@ export default defineNuxtConfig({
 
 	facebook: {
 		/* module options */
+		track: 'PageView',
+		pixelId: '2620787371431783',
 		autoPageView: true,
-		disabled: true,
+		disabled: false,
 	},
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
