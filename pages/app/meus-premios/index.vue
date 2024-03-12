@@ -76,7 +76,15 @@
 				<div v-else class="mt-16 w-[100px] sm:w-[120px] md:w-[140px] h-full flex justify-center items-center m-auto">
 					<AppOthersSpin />
 				</div>
+			</div>
 
+			<!-- Menu Behaviour -->
+			<div v-if="storeIncentive.userLoggedIn">
+				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
+				<div v-if="app.config_will_have_hotsite">
+					<div :class="!storeIncentive.hasLotteryPrizesWonFilter ? 'mt-16 md:mt-64' : 'mt-12 md:mt-32'"></div>
+					<AppLayoutMenuBehaviour />
+				</div>
 			</div>
 		</UContainer>
 	</div>
@@ -86,10 +94,10 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-
-import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
@@ -132,9 +140,16 @@ const hasHeader = computed(() => {
 	}
 });
 
-onMounted(async () => {
+onNuxtReady(async () => {
 	await storeIncentive.userInventory(useToast);
 	await storeIncentive.lotteryDraws(useToast);
+
+	// Menu Habilitado
+	store.selectMenuBehaviour(0, 'enable', true, true);
+	// Exibir ou não a raspadinha
+	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
+	// Inserindo o link para a opção dos números da sorte no Menu
+	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
 });
 </script>
 

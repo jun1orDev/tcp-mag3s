@@ -394,7 +394,19 @@ export const useStoreApp = defineStore('storeApp', {
 		},
 
 		// Select Menu
-		selectMenuBehaviour(id, propety, value) {
+		selectMenuBehaviour(id, propety, value, reset = false) {
+			// Reset configs
+			if (reset) {
+				this.menuBehaviour.forEach((item) => {
+					if (item.enable) {
+						item.enable = false;
+					}
+				})
+			}
+
+			// Caso não tem menu para habilitar
+			if(!id) return;
+
 			this.menuBehaviour.find((item) => item.id === id)[propety] = value;
 		},
 

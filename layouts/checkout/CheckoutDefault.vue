@@ -8,8 +8,8 @@
 		<AppLayoutBgDefault v-else />
 	</div>
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two"
-		:textColor="app.header_colors_text_app" :isLogoDark="true" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
+		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer id="checkout" class="min-h-screen py-20 lg:py-24" :style="textColor">
 
@@ -19,7 +19,8 @@
 
 				<!-- Etapas -->
 				<div v-for="item in storeCheckout.steps" class="flex flex-col justify-center items-center text-xl">
-					<div :style="[colorBgButton, colorTextButton]" class="w-10 h-10 rounded-full flex justify-center items-center">
+					<div :style="[colorBgButton, colorTextButton]"
+						class="w-10 h-10 rounded-full flex justify-center items-center">
 						<template v-if="storeCheckout.showingSteps">
 							<UIcon v-if="item.complete" class="w-9 h-9 text-white" name="i-material-symbols-check-small-rounded" />
 							<span v-else class="fm3">{{ item.step }}</span>
@@ -49,6 +50,14 @@
 					class="mt-6 lg:rotate-12 lg:-translate-x-10" />
 			</div>
 		</div>
+
+		<!-- Menu Behaviour -->
+		<div v-if="storeIncentive.userLoggedIn">
+			<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
+			<div v-if="app.config_will_have_hotsite">
+				<AppLayoutMenuBehaviour />
+			</div>
+		</div>
 	</UContainer>
 
 	<UNotifications />
@@ -56,10 +65,12 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
 import { useStoreCheckout } from '~/stores/checkout';
 
 const store = useStoreApp();
 const app = store.contentApp;
+const storeIncentive = useStoreIncentive();
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
@@ -89,6 +100,20 @@ const configProgress = ref({
 		// "track": '[&::-webkit-progress-bar]:bg-progress',
 	}
 });
+
+onNuxtReady(async () => {
+	// Buscando informações de sorteio caso o usuário estiver logado
+	if (storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);
+	}
+
+	// Menu Habilitado
+	store.selectMenuBehaviour(3, 'enable', true, true);
+	// Exibir ou não a raspadinha
+	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
+	// Inserindo o link para a opção dos números da sorte no Menu
+	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
+})
 </script>
 
 <style>
@@ -100,4 +125,3 @@ const configProgress = ref({
 	background-color: v-bind(bgColorProgressBar) !important;
 }
 </style>
-
