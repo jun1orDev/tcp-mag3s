@@ -12,7 +12,7 @@
 		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : '']">
-		<div class="flex flex-col justify-start min-h-screen " :class="isItemsCenter">
+		<div class="flex flex-col min-h-screen" :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'justify-start' : 'justify-center']">
 			<div class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center w-full"
 				:class="isGridLayout">
 				
