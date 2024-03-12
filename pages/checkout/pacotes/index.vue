@@ -8,40 +8,51 @@
 		<AppLayoutBgDefault v-else />
 	</div>
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two"
-		:textColor="app.header_colors_text_app" :isLogoDark="true" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
+		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
-	<UContainer class="flex justify-center min-h-screen pt-14 lg:py-16" :class="isItemsCenter" :style="textColor">
-		<div
-			class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[400px_1fr] gap-8 lg:gap-16 justify-center items-center w-screen"
-			:class="isGridLayout">
-			<!-- brand -->
-			<AppOthersImageBrandSession />
+	<UContainer class="pt-14 pb-24 lg:pt-0 lg:pb-14" :class="isItemsCenter" :style="textColor">
+		<div class="flex flex-col justify-center min-h-screen">
+			<div
+				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[550px_1fr] gap-8 lg:gap-16 justify-center items-center w-full"
+				:class="isGridLayout">
+				<!-- brand -->
+				<AppOthersImageBrandSession />
 
-			<div class="w-full pb-8 sm:pb-0">
-				<!-- Titulo -->
-				<p class="fm3 text-xl mb-2" v-html="titleText"></p>
+				<div class="w-full pb-8 sm:pb-0">
+					<!-- Titulo -->
+					<p class="fm3 text-xl mb-2" v-html="titleText"></p>
 
-				<!-- Descrição -->
-				<p class="fm2 text-base mb-4" v-html="descriptionText"></p>
+					<!-- Descrição -->
+					<p class="fm2 text-base mb-4" v-html="descriptionText"></p>
 
-				<!-- Compra simplificada de pacote -->
-				<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :isDark="true" pathRedirect="/checkout/cadastro1" />
+					<!-- Compra simplificada de pacote -->
+					<CheckoutSimplePurchase v-if="app.config_will_have_raffle" :isDark="true"
+						pathRedirect="/checkout/cadastro1" />
 
-				<!-- Tabela de Preços -->
-				<div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-					<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]" :isCallToAction="true"
-						v-for="(packageProduct, index) in storeCheckout.packages" />
+					<!-- Tabela de Preços -->
+					<div v-else class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
+						<CheckoutPackage :package="packageProduct" :packageOB="storeCheckout.packages[index + 1]"
+							:isCallToAction="true" v-for="(packageProduct, index) in storeCheckout.packages" />
+					</div>
+
+					<!-- Novo Cadastro -->
+					<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se
+						<strong>
+							<NuxtLink to="/login" class="fm3 decoration">
+								aqui</NuxtLink>
+						</strong> e receba um número da sorte grátis. ;)
+					</p>
+
 				</div>
+			</div>
 
-				<!-- Novo Cadastro -->
-				<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se
-					<strong>
-						<NuxtLink to="/login" class="fm3 decoration">
-							aqui</NuxtLink>
-					</strong> e receba um número da sorte grátis. ;)
-				</p>
-
+			<!-- Menu Behaviour -->
+			<div v-if="storeIncentive.userLoggedIn">
+				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
+				<div v-if="app.config_will_have_hotsite">
+					<AppLayoutMenuBehaviour />
+				</div>
 			</div>
 		</div>
 	</UContainer>
@@ -94,8 +105,20 @@ const isItemsCenter = computed(() => {
 	};
 });
 
-onMounted(() => {
+onNuxtReady(async () => {
+	// Buscando informações de sorteio caso o usuário estiver logado
+	if(storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);		
+	}
+
 	storeCheckout.selectedOB = null;
+
+	// Menu Habilitado
+	store.selectMenuBehaviour(3, 'enable', true, true);
+	// Exibir ou não a raspadinha
+	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
+	// Inserindo o link para a opção dos números da sorte no Menu
+	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
 });
 </script>
 

@@ -16,9 +16,11 @@
 			</div>
 
 			<!-- Pesquisa dos números da sorte -->
-			<UContainer v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" >
+			<UContainer
+				v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull">
 				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
-					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" hasMaskInput="['##']" @input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"/>
+					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" hasMaskInput="['##']"
+						@input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3" />
 				</div>
 			</UContainer>
 
@@ -28,7 +30,7 @@
 			<!-- Números do Sorteio Atual -->
 			<div v-if="storeIncentive.showDrawnNumbersToday">
 				<h1 class="mb-2 lg:mb-5 fm3 text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] lg:text-center">{{
-					store.contentApp.sessions_title_one }}</h1>
+		store.contentApp.sessions_title_one }}</h1>
 				<div
 					class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 					<AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
@@ -39,7 +41,8 @@
 			</div>
 
 			<!-- Feedback de pesquisa caso não possuir o número da sorte -->
-			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length" class="text-1xl text-center animate__animated animate__fadeIn">
+			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length"
+				class="text-1xl text-center animate__animated animate__fadeIn">
 				<h2>Você não possui esse número da sorte!</h2>
 			</div>
 
@@ -50,16 +53,26 @@
 				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser(store.searchingValue)" :key="dozensOfNumbers.id">
 					<ul
 						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
-						<AppGameNumberDraw v-for="(dozensNumbers, index) in dozensOfNumbers.dozens" :numberDraw="dozensNumbers.number"
-							:status="dozensNumbers.status" :key="index" />
+						<AppGameNumberDraw v-for="(dozensNumbers, index) in dozensOfNumbers.dozens"
+							:numberDraw="dozensNumbers.number" :status="dozensNumbers.status" :key="index" />
 					</ul>
 				</li>
 			</ul>
 
 			<!-- Feedback caso o usuário não possui números da sorte -->
-			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull" class="text-1xl md:text-2xl lg:text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
-				<Icon name="i-ic-baseline-warning" class="me-4 w-5 lg:w-8 h-5 lg:h-8"/>
+			<div v-if="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull"
+				class="text-1xl md:text-2xl lg:text-3xl flex justify-center items-center mt-6 animate__animated animate__fadeInDown">
+				<Icon name="i-ic-baseline-warning" class="me-4 w-5 lg:w-8 h-5 lg:h-8" />
 				<h2>Você não possui números da sorte no momento!</h2>
+			</div>
+
+			<!-- Menu Behaviour -->
+			<div v-if="storeIncentive.userLoggedIn" class="lg:mt-24">
+				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
+				<div v-if="app.config_will_have_hotsite">
+					<AppLayoutMenuBehaviour />
+					<div class="mt-16 md:mt-32"></div>
+				</div>
 			</div>
 
 		</UContainer>
@@ -73,10 +86,10 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-
-import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
@@ -95,8 +108,9 @@ const hasHeader = computed(() => {
 	}
 });
 
-onMounted(() => {
-	if(!app.config_will_have_hotsite) {
+onNuxtReady(async () => {
+	// Modal de revelar prêmio
+	if (!app.config_will_have_hotsite) {
 		switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
 			case true:
 				store.openModalPrizeResult(
@@ -125,6 +139,18 @@ onMounted(() => {
 				break;
 		}
 	}
+	
+	// Buscando informações de sorteio caso o usuário estiver logado
+	if(storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);		
+	}
+
+	// Menu Habilitado
+	store.selectMenuBehaviour(4, 'enable', true, true);
+	// Exibir ou não a raspadinha
+	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
+	// Inserindo o link para a opção dos números da sorte no Menu
+	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
 });
 </script>
 

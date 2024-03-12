@@ -394,17 +394,41 @@ export const useStoreApp = defineStore('storeApp', {
 		},
 
 		// Select Menu
-		selectMenuBehaviour(id, propety, value) {
+		selectMenuBehaviour(id, propety, value, reset = false) {
+			// Reset configs
+			if (reset) {
+				this.menuBehaviour.forEach((item) => {
+					if (item.enable) {
+						item.enable = false;
+					}
+				})
+			}
+
+			// Caso não tem menu para habilitar
+			if(!id) return;
+
 			this.menuBehaviour.find((item) => item.id === id)[propety] = value;
+		},
+
+		// Icon subMenu
+		setIconSubMenu() {
+			this.isOpenMenuBehaviour
+				? this.selectMenuBehaviour(5, 'icon', 'i-mdi-window-close')
+				: this.selectMenuBehaviour(5, 'icon', 'i-mdi-menu');
 		},
 
 		// Open Menu
 		openMenuBehaviour(hasSubmenu) {
-			if (!hasSubmenu) return;
+			if (!hasSubmenu) {
+				if (this.isOpenMenuBehaviour) {
+					this.isOpenMenuBehaviour = false;
+					this.setIconSubMenu();
+				}
+				return;
+			}
+
 			this.isOpenMenuBehaviour = !this.isOpenMenuBehaviour;
-			this.isOpenMenuBehaviour
-				? this.selectMenuBehaviour(5, 'icon', 'i-mdi-window-close')
-				: this.selectMenuBehaviour(5, 'icon', 'i-mdi-menu');
+			this.setIconSubMenu();
 		},
 	},
 });

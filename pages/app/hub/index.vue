@@ -79,10 +79,13 @@
 			</div>
 
 			<!-- Menu Behaviour -->
-			<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
-			<div v-if="app.config_will_have_hotsite">
-				<AppLayoutMenuBehaviour />
-				<div class="mt-16 md:mt-32"></div>
+			<div v-if="storeIncentive.userLoggedIn">			
+				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
+				<div v-if="app.config_will_have_hotsite">
+					<div class="md:mt-14"></div>
+					<AppLayoutMenuBehaviour />
+					<div class="mt-16 md:mt-24"></div>
+				</div>
 			</div>
 		</UContainer>
 
@@ -95,10 +98,10 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+import { useStoreIncentive } from '~/stores/incentive';
+
 const store = useStoreApp();
 const app = useStoreApp().contentApp;
-
-import { useStoreIncentive } from '~/stores/incentive';
 const storeIncentive = useStoreIncentive();
 
 definePageMeta({
@@ -130,11 +133,9 @@ onMounted(async () => {
 	await storeIncentive.lotteryDraws(useToast);
 
 	// Menu Habilitado
-	store.selectMenuBehaviour(1, 'enable', true);
+	store.selectMenuBehaviour(1, 'enable', true, true);
 	// Exibir ou não a raspadinha
 	store.selectMenuBehaviour(2, 'showing', app.config_will_have_scratch_card && storeIncentive.hasScratchCardQtd);
-	// Não exibir a opção comprar no Menu quando for app de Rifas
-	store.selectMenuBehaviour(3, 'showing', !app.config_will_have_raffle);
 	// Inserindo o link para a opção dos números da sorte no Menu
 	store.selectMenuBehaviour(4, 'path', `/app/revelar-premio/${storeIncentive.gamification.lotteryDraws.nextDraw.id}`);
 });

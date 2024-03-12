@@ -3,10 +3,10 @@
 		<div class="bg-transparent py-2 lg:py-6">
 			<UContainer class="flex justify-between items-center">
 				<div>
-					<NuxtLink v-if="isLogoDark" to="/">
+					<NuxtLink v-if="storeIncentive.userLoggedIn" to="/app/hub">
 						<LpImageBrandDark class="max-w-[110px] lg:max-w-[130px]" />
 					</NuxtLink>
-					<NuxtLink v-else to="/app/hub">
+					<NuxtLink v-else to="/">
 						<LpImageBrand class="max-w-[110px] lg:max-w-[130px]" />
 					</NuxtLink>
 				</div>
@@ -79,9 +79,7 @@ const emphasis = computed(() => {
 
 const back = () => {
 	const router = useRouter();
-
 	router.go(-1);
-
 }
 
 onMounted(() => {

@@ -14,16 +14,16 @@
 				<NuxtLink :to="item.path" class="cursor-pointer py-2" :class="item.name ? 'group' : ''"
 					@click="store.openMenuBehaviour(item.submenu)">
 					<div
-						class="group-hover:-translate-y-7 group-hover:md:-translate-y-9 group-hover:lg:-translate-y-10 transition-all">
+						class="transition-all" :class="!item.enable ? 'group-hover:-translate-y-7 group-hover:md:-translate-y-9 group-hover:lg:-translate-y-10' : ''">
 						<UChip :text="item.badge" size="2xl" :show="item.badge" inset>
 							<Icon :name="item.icon"
 								class="w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 transition-all h-icon-i group-hover:border-4 group-hover:rounded-full group-hover:p-1 group-hover:lg:p-2"
-								:class="item.enable ? 'h-icon-i-enable border-4 rounded-full p-1 lg:p-2' : '' || !item.name ? `h-icon-i-hamburger` : ''"
+								:class="item.enable ? 'h-icon-i-enable border-4 rounded-full p-1 lg:p-2 -translate-y-7 md:-translate-y-9 lg:-translate-y-10' : '' || !item.name ? `h-icon-i-hamburger` : ''"
 								:color="iconColor" auto-animate />
 						</UChip>
 						<p v-if="item.name"
-							class="fm3 group-hover:block transition-all hidden absolute -translate-x-[50%] left-[50%] -bottom-6"
-							:style="textColor">{{
+							class="fm3 transition-all"
+							:style="textColor" :class="item.enable ? 'block absolute -translate-x-[50%] left-[50%] bottom-3 md:bottom-6' : 'group-hover:block hidden absolute -translate-x-[50%] left-[50%] -bottom-6'">{{
 								item.name }}</p>
 					</div>
 
@@ -53,6 +53,7 @@
 
 <script setup>
 import { useStoreApp } from '~/stores/app';
+
 const store = useStoreApp();
 const app = store.contentApp;
 
