@@ -36,8 +36,9 @@
 							:isCallToAction="true" v-for="(packageProduct, index) in storeCheckout.packages" />
 					</div>
 
-					<!-- Novo Cadastro -->
-					<p v-if="!storeIncentive.userLoggedIn" class="fm2 mt-4"><strong>Ainda não se decidiu?</strong> Cadastre-se
+					<!-- Novo Cadastro Freemium -->
+					<p v-if="!storeIncentive.userLoggedIn && app.config_will_have_freemium_purchase" class="fm2 mt-4">
+						<strong>Ainda não se decidiu?</strong> Cadastre-se
 						<strong>
 							<NuxtLink to="/login" class="fm3 decoration">
 								aqui</NuxtLink>
@@ -107,8 +108,8 @@ const isItemsCenter = computed(() => {
 
 onNuxtReady(async () => {
 	// Buscando informações de sorteio caso o usuário estiver logado
-	if(storeIncentive.userLoggedIn) {
-		await storeIncentive.lotteryDraws(useToast);		
+	if (storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);
 	}
 
 	storeCheckout.selectedOB = null;
