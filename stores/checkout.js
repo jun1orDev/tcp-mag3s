@@ -360,7 +360,18 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			// Caso o método seja cartão
 			if (this.formRegister.selectedPayment === 301) {
 				this.formRegister.selectedPayment = null;
-				return this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+
+				// Caso o usuário já possui cartão cadastrado, finalizar a compra direto
+				if (this.hasCardCreditRegister) {
+					return this.paymentCreditCard(
+						useToast,
+						IDpkgChosen,
+						IDpkgOB,
+						'/checkout/feedback'
+					);
+				} else {
+					return this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+				}
 			}
 
 			// Caso o método seja Pix
