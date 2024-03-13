@@ -3,8 +3,8 @@
 		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two"
 		position="fixed" />
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
-		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two"
+		:textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer class="pt-14 pb-24 lg:pt-0 lg:pb-14" :class="isItemsCenter" :style="textColor">
 		<div class="flex flex-col justify-center min-h-screen">
@@ -52,8 +52,8 @@
 						</p>
 
 						<div class="flex justify-center">
-							<UButton size="xl" label="salvar" type="submit" :ui="configButton"
-								:style="[colorBgButton, colorTextButton]" class="fm3" :loading="storeIncentive.loading" trailing />
+							<UButton size="xl" label="salvar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
+								class="fm3" :loading="storeIncentive.loading" trailing />
 						</div>
 					</UForm>
 				</div>
@@ -85,10 +85,8 @@ definePageMeta({
 });
 
 const schema = object({
-	name: string()
-		.matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
-		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.')
-		.required('Campo nome é obrigatório.'),
+	name: string().trim().matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
+		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.').required('Campo nome é obrigatório.'),
 	phone: object({
 		number: string()
 			.required('O campo telefone é obrigatório')
@@ -150,13 +148,13 @@ const configButton = ref({
 
 onNuxtReady(async () => {
 	// Buscando informações de sorteio caso o usuário estiver logado
-	if(storeIncentive.userLoggedIn) {
-		await storeIncentive.lotteryDraws(useToast);		
+	if (storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);
 	}
 
 	storeIncentive.disabledInputs.cpf = storeIncentive.userAcountData.cpf != null;
 	storeIncentive.disabledInputs.phone = storeIncentive.userAcountData.phone.number != null;
-	
+
 	// Menu Habilitado
 	store.selectMenuBehaviour(0, 'enable', true, true);
 	// Exibir ou não a raspadinha
