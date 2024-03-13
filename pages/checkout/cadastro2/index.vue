@@ -60,7 +60,8 @@ definePageMeta({
 });
 
 const schema = object({
-	name: string().required('O campo nome é obrigatório'),
+	name: string().trim().matches(/^(\S+\s){1,}\S+$/, 'Por favor, insira seu nome completo.')
+		.matches(/^[^\d]+$/, 'O nome completo não pode conter números.').required('Campo nome é obrigatório.'),
 	phone: string().required('O campo telefone é obrigatório').min(14 || 15, 'Insira o telefone corretamente'),
 	cpf: string().required('O campo CPF é obrigatório').min(14, 'Insira o CPF corretamente'),
 });

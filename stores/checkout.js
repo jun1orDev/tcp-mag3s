@@ -103,6 +103,15 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				currencyDisplay: 'symbol',
 			});
 		},
+
+		// Qtd Tickets purchese simple
+		qtdTicketsSimplePurchase: (state) => {
+			if (state.packageChosen.qtd === 1) {
+				return `${state.packageChosen.qtd} Ticket`;
+			} else {
+				return `${state.packageChosen.qtd} Tickets`;
+			}
+		},
 	},
 
 	actions: {
@@ -137,11 +146,13 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							: '',
 						qtd: 1,
 						price: item.price,
-						items: [{
-							qtd: item.baseContent.amount,
-							name: item.baseContent.name,
-							description: item.baseContent.description
-						}]
+						items: [
+							{
+								qtd: item.baseContent.amount,
+								name: item.baseContent.name,
+								description: item.baseContent.description,
+							},
+						],
 					});
 				});
 
@@ -195,12 +206,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.packageChosenOB = id
 				? this.packages.find((item) => item.id === id)
 				: {
-					id: null,
-					isPopularProduct: false,
-					image: '',
-					price: '',
-					items: [],
-				};
+						id: null,
+						isPopularProduct: false,
+						image: '',
+						price: '',
+						items: [],
+				  };
 		},
 
 		// Progresso da compra
@@ -260,10 +271,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -323,10 +336,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -409,10 +424,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -456,10 +473,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Register_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -512,10 +531,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -568,8 +589,9 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				toast.add({
 					id: 'error_PaymentCardCredit',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -592,7 +614,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const app = useStoreApp().contentApp;
 			const incentive = useStoreIncentive();
 
-			// Resetando o loading do inventário para solicitar novamente os dados atualizados			
+			// Resetando o loading do inventário para solicitar novamente os dados atualizados
 			incentive.inventory.loading = false;
 
 			setTimeout(() => {
