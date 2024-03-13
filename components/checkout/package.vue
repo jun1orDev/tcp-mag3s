@@ -19,15 +19,19 @@
 						:class="props.package.isPopularProduct ? 'animate__animated animate__tada animate__delay-2s animate__repeat-2' : ''"
 						alt="">
 				</div>
-				<p v-if="props.simplePurchase"><strong class="text-4xl fm3">{{ storeCheckout.pricePackageMultipleAmout }}</strong></p>
+				<div v-if="props.simplePurchase" class="text-center">
+					<p class="text-md lg:text-base"><strong>{{ storeCheckout.qtdTicketsSimplePurchase }}</strong> por apenas:</p>
+					<p><strong class="text-4xl fm3">{{ storeCheckout.pricePackageMultipleAmout }}</strong></p>
+				</div>
 				<p v-else><strong class="text-4xl fm3">{{ price }}</strong></p>
 			</div>
 
 			<!-- Conteúdo do Produto -->
-			<div class="w-full h-[110px] flex flex-col justify-start items-start">
-				<div v-for="(item, index) in props.package.items" class="w-full h-full flex flex-col justify-between text-xs md:text-sm">
+			<div class="w-full h-[110px] flex flex-col justify-start items-start text-center">
+				<div v-for="(item, index) in props.package.items"
+					class="w-full h-full flex flex-col justify-between text-xs md:text-sm">
 
-					<h1 class="fm3 font-bold uppercase text-center">{{item.name}}</h1>
+					<h1 class="fm3 font-bold uppercase">{{ item.name }}</h1>
 					<!-- Divisor -->
 					<hr class="w-full border-t-slate-300">
 
