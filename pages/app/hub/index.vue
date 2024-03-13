@@ -14,10 +14,11 @@
 				<div>
 					<!-- Caso seja um banner com carousel -->
 					<Carousel v-if="app.config_will_have_carousel_banner_main" id="carousel-card-main"
-						class="w-full flex flex-col justify-between" autoplay="0" :wrap-around="false"
+						class="w-full flex flex-col justify-between" autoplay="6500" :wrap-around="true" snap-align="center-odd"
 						:pause-autoplay-on-hover="true">
 						<template #slides>
-							<Slide v-for="slide in storeIncentive.listDrawsUpcomingLimited(-Number(app.carousel_banner_main_qtd_items))" :key="slide" class="flex flex-col">
+							<Slide v-for="slide in storeIncentive.listDrawsUpcomingLimited(-Number(app.carousel_banner_main_qtd_items))"
+								:key="slide" class="flex flex-col">
 								<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)"
 									:hasImageDetach="app.config_will_have_image_detach_banner_main" :imageDetach="app.banner_image_card_one"
 									:loading="storeIncentive.nextDrawLoading(true)" :title="store.titleCardNextDraw(slide.date)"
@@ -28,17 +29,18 @@
 						</template>
 						<template #addons>
 							<div class="carousel__navegation hidden lg:block">
-								<Navigation/>
+								<Navigation />
 							</div>
 							<Pagination />
 						</template>
 					</Carousel>
 
-					<AppBannersCard v-else :linkSource="storeIncentive.NextDrawLink()" :hasImageDetach="app.config_will_have_image_detach_banner_main"
-						:imageDetach="app.banner_image_card_one" :loading="storeIncentive.nextDrawLoading()"
-						:title="store.titleCardNextDraw()" :subtitle="store.subtitleCardNextDraw()"
-						:countdown="storeIncentive.nextDrawDate" :callToAction="store.labelButtonCardNextDraw()"
-						:hasDescription="false" :description="false" :imageAward="storeIncentive.nextDrawFull.image" />
+					<AppBannersCard v-else :linkSource="storeIncentive.NextDrawLink()"
+						:hasImageDetach="app.config_will_have_image_detach_banner_main" :imageDetach="app.banner_image_card_one"
+						:loading="storeIncentive.nextDrawLoading()" :title="store.titleCardNextDraw()"
+						:subtitle="store.subtitleCardNextDraw()" :countdown="storeIncentive.nextDrawDate"
+						:callToAction="store.labelButtonCardNextDraw()" :hasDescription="false" :description="false"
+						:imageAward="storeIncentive.nextDrawFull.image" />
 				</div>
 
 				<!-- Compra simplificada de pacote -->
@@ -79,7 +81,7 @@
 			</div>
 
 			<!-- Menu Behaviour -->
-			<div v-if="storeIncentive.userLoggedIn">			
+			<div v-if="storeIncentive.userLoggedIn">
 				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
 				<div v-if="app.config_will_have_hotsite">
 					<div class="md:mt-14"></div>
