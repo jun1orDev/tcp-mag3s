@@ -1,7 +1,8 @@
 <template>
 	<AppLayoutBgDefault />
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app"
+		:textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 	<div class="min-h-screen flex items-center pt-12" :class="hasHeader" v-show="!storeIncentive.loading"
 		:style="textColor">
@@ -54,7 +55,7 @@
 						<p>{{ store.contentApp.sessions_subtitle_four }}</p>
 					</div>
 					<div class="flex items-center justify-center mt-4">
-						<img :src="ImgWhatsApp" onerror="this.src='/imgs/whats.png'" class="w-[32px] md:w-[48px] me-3" />
+						<UIcon name="i-mdi-whatsapp" class="text-3xl md:text-4xl lg:text-5xl" />
 						<p class="fm3 text-[20px] md:text-[24px]">
 							{{ store.contentApp.config_text_phone_contact }}
 						</p>
@@ -92,10 +93,6 @@ const textColor = computed(() => {
 
 const imgScratchCard = computed(() => {
 	return `${pathAssets}${store.contentApp.sessions_image_two}`;
-});
-
-const ImgWhatsApp = computed(() => {
-	return `${pathAssets}${store.contentApp.config_image_whatsapp}`;
 });
 
 const hasHeader = computed(() => {
