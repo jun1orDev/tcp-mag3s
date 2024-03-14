@@ -11,41 +11,62 @@
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
 		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
-	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : '']">
+	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : 'pt-12 lg:pt-14']">
 		<div class="flex flex-col lg:justify-center min-h-screen">
 			<div
 				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-start w-full"
 				:class="isGridLayout">
-				
+
 				<!-- brand -->
 				<div class="flex justify-center">
 					<AppOthersImageBrandSession />
 				</div>
-	
-				<!-- Informações de contato -->
+
 				<div class="w-full">
 					<div v-if="app.config_will_have_hotsite" class="pb-5">
-						<p class=" fm3 text-[22px] md:text-[26px] sm:text-[16px]">Perguntas frequentes.</p>
-						<p class="fm2 md:text-[24px] ">Nosso whatsapp:</p>
-						<div class="flex items-center text-[22px]">
-							<img src="public/imgs/whatsapp.png" alt="" class="md:w-12" />
-							<p class="fm3 px-2 md:text-[28px]">(11) 91221 3445</p>
+						<p class=" fm3 text-[22px] md:text-[26px] sm:text-[16px]">Perguntas frequentes:</p>
+
+						<!-- Informações de contato -->
+						<!-- WhatsApp -->
+						<div v-if="app.config_will_phone_contact" class="mt-2 mb-4">
+							<p class="fm2 md:text-[24px] ">Nosso whatsapp:</p>
+
+							<NuxtLink target="_blank"
+								:to="`https://wa.me/55${phone}?text=Ol%C3%A1%2C+preciso+de+ajuda+no+site+da+promo%C3%A7%C3%A3o%21`"
+								class="flex items-center">
+								<UIcon name="i-mdi-whatsapp" class="text-3xl md:text-4xl lg:text-5xl" />
+								<p class="fm3 px-2 text-base md:text-[22px] lg:text-[24px]" :style="colorText">
+									<span>{{ app.config_text_phone_contact }}</span>
+								</p>
+							</NuxtLink>
+						</div>
+
+						<!-- E-mail -->
+						<div v-if="app.config_will_email_contact" class="mt-2">
+							<p class="fm2 md:text-[24px] ">Nosso e-mail:</p>
+
+							<NuxtLink target="_self" :to="`mailto:${app.config_text_email_contact}`" class="flex items-center">
+								<UIcon name="i-mdi-email-arrow-right-outline" class="text-3xl md:text-4xl lg:text-5xl" />
+								<p class="fm3 px-2 text-base md:text-[22px] lg:text-[24px]" :style="colorText">
+									<span>{{ app.config_text_email_contact }}</span>
+								</p>
+							</NuxtLink>
 						</div>
 					</div>
-	
+
 					<!-- Campo de pesquisa  -->
 					<AppOthersInputSearching :inputPlaceholder="app.faq_text_placeholder_input_search"
 						@input="store.filteredFaq(store.searchingValue)" :hasMaskInput="null" />
-	
+
 					<!-- Faq -->
 					<UAccordion v-if="store.filteredFaq(store.searchingValue).length"
 						:items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="py-2">
 						<template #default="{ item, index, open }">
 							<UButton color="transparent" variant="ghost" :class="!open &&
-				index + 1 < store.filteredFaq(store.searchingValue).length
-				? 'border-b-2'
-				: null
-				" :ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
+			index + 1 < store.filteredFaq(store.searchingValue).length
+			? 'border-b-2'
+			: null
+			" :ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
 								:style="[colorText, open && colorTextButton, colorBorder]">
 								<span class="fm3 lg:text-lg">{{ item.one }}</span>
 								<template #trailing>
@@ -55,18 +76,18 @@
 								</template>
 							</UButton>
 						</template>
-	
+
 						<template #item="{ item, index }">
 							<p class="fm1 text-md md:text-base lg:text-lg" :style="colorText">
 								{{ item.two }}
 							</p>
 							<div class="mt-5" :class="index + 1 < store.filteredFaq(store.searchingValue).length
-				? 'border-b-2'
-				: null
-				" :style="[colorBorder]"></div>
+			? 'border-b-2'
+			: null
+			" :style="[colorBorder]"></div>
 						</template>
 					</UAccordion>
-	
+
 					<!-- Sem FAQ -->
 					<div v-else :style="colorText" class="flex flex-col justify-center items-center mt-20">
 						<UIcon name="i-material-symbols-deployed-code-alert-outline-sharp" class="w-20 h-20" />
@@ -74,7 +95,7 @@
 					</div>
 				</div>
 			</div>
-	
+
 			<!-- Menu Behaviour -->
 			<div v-if="storeIncentive.userLoggedIn">
 				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
@@ -95,17 +116,22 @@
 				</div>
 
 				<div class="flex items-center justify-center">
-					<div>
-						<img :src="ImgWhatsApp" onerror="this.src='/imgs/whats.png'" class="w-[30px]" />
-					</div>
-					<p class="fm3 ml-2 text-[20px] lg:text-[24px]">
-						{{ app.config_text_phone_contact }}
-					</p>
+					<NuxtLink target="_blank"
+						:to="`https://wa.me/55${phone}?text=Ol%C3%A1%2C+preciso+de+ajuda+no+site+da+promo%C3%A7%C3%A3o%21`"
+						class="flex items-center py-7">
+						<UIcon name="i-mdi-whatsapp" class="text-3xl md:text-4xl lg:text-5xl" />
+						<p class="fm3 px-2 text-[22px] md:text-[32px]" :style="colorText">
+							<span>{{ app.config_text_phone_contact }}</span>
+						</p>
+					</NuxtLink>
 				</div>
 
-				<p class="fm3 text-center text-[14px] md:text-[20px] mt-1">
-					{{ app.config_text_email_contact }}
-				</p>
+				<NuxtLink target="_self" :to="`mailto:${app.config_text_email_contact}`" class="flex items-center">
+					<UIcon name="i-mdi-email-arrow-right-outline" class="text-3xl md:text-4xl lg:text-5xl" />
+					<p class="fm3 text-center text-[14px] md:text-[20px] mt-1" :style="colorText">
+						{{ app.config_text_email_contact }}
+					</p>
+				</NuxtLink>
 			</div>
 		</div>
 	</UContainer>
@@ -121,10 +147,6 @@ const app = useStoreApp().contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
 // Personalização da tela
-const ImgWhatsApp = computed(() => {
-	return `${pathAssets}${app.config_image_whatsapp}`;
-});
-
 const colorText = computed(() => {
 	if (app.config_will_have_hotsite) {
 		return `color: ${app.colors_text_one_dark}`;

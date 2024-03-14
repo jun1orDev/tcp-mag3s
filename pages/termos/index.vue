@@ -11,8 +11,8 @@
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
 		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
-	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : '']">
-		<div class="flex flex-col min-h-screen" :class="[storeIncentive.userLoggedIn ? 'justify-start' : 'justify-center']">
+	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : 'pt-12 lg:pt-14']">
+		<div class="flex flex-col lg:justify-center min-h-screen">
 			<div
 				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-full"
 				:class="isGridLayout">
