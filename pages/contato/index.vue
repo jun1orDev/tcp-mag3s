@@ -11,14 +11,14 @@
 	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
 		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
-	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : '']">
-		<div class="flex flex-col justify-center min-h-screen">
+	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : 'pt-12 lg:pt-0']">
+		<div class="flex flex-col lg:justify-center min-h-screen">
 			<div
 				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-12 lg:gap-24 items-center justify-center w-full"
 				:class="isGridLayout">
 
 				<!-- Imagem do Brand -->
-				<AppOthersImageBrandSession class="" />
+				<AppOthersImageBrandSession />
 
 				<div class="flex flex-col justify-center">
 					<div>
@@ -29,18 +29,36 @@
 
 					<div class="fm2">
 						<p class="text-base md:text-[20px]" :style="colorText">
-							Nossa serviço de atendimento está pronto pra te atender e tirar qualquer dúvida.
+							Nosso serviço de atendimento está pronto pra te atender e tirar qualquer dúvida.
 						</p>
 					</div>
 
-					<NuxtLink target="_blank"
-						:to="`https://wa.me/55${phone}?text=Ol%C3%A1%2C+preciso+de+ajuda+no+site+da+promo%C3%A7%C3%A3o%21`"
-						class="flex items-center py-7">
-						<img src="/imgs/whats.png">
-						<p class="fm3 px-2 text-[22px] md:text-[32px]" :style="colorText">
-							<span>{{ app.config_text_phone_contact }}</span>
-						</p>
-					</NuxtLink>
+					<!-- WhatsApp -->
+					<div v-if="app.config_will_phone_contact" class="mt-2 mb-4">
+						<p class="fm2 md:text-[24px] ">Nosso whatsapp:</p>
+
+						<NuxtLink target="_blank"
+							:to="`https://wa.me/55${phone}?text=Ol%C3%A1%2C+preciso+de+ajuda+no+site+da+promo%C3%A7%C3%A3o%21`"
+							class="flex items-center">
+							<UIcon name="i-mdi-whatsapp" class="text-3xl md:text-4xl lg:text-5xl" />
+							<p class="fm3 px-2 text-base md:text-[22px] lg:text-[24px]" :style="colorText">
+								<span>{{ app.config_text_phone_contact }}</span>
+							</p>
+						</NuxtLink>
+					</div>
+
+					<!-- E-mail -->
+					<div v-if="app.config_will_email_contact" class="mt-2">
+						<p class="fm2 md:text-[24px] ">Nosso e-mail:</p>
+
+						<NuxtLink target="_self" :to="`mailto:${app.config_text_email_contact}`" class="flex items-center">
+							<UIcon name="i-mdi-email-arrow-right-outline" class="text-3xl md:text-4xl lg:text-5xl" />
+							<p class="fm3 px-2 text-base md:text-[22px] lg:text-[24px]" :style="colorText">
+								<span>{{ app.config_text_email_contact }}</span>
+							</p>
+						</NuxtLink>
+					</div>
+
 				</div>
 			</div>
 
@@ -63,6 +81,7 @@ import { useStoreIncentive } from '~/stores/incentive';
 const store = useStoreApp();
 const storeIncentive = useStoreIncentive();
 const app = useStoreApp().contentApp;
+const { pathAssets } = useRuntimeConfig().public;
 
 const isGridLayout = computed(() => {
 	return {
