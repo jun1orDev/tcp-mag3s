@@ -446,7 +446,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Cadastrar Cartão de Crédito
-		async registerCreditCard(useToast, save = false) {
+		async registerCreditCard(useToast) {
 			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
 			this.formRegister.configPayment.labelButton = `Cadastrando cartão, aguarde`;
@@ -455,26 +455,23 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
-				if (!save) {
-					// Se não estiver apenas salvando, então efetua o cadastro normalmente
-					await $fetch(`${ApiIncentiveSystemIdentity}account/user/payment`, {
-						method: 'post',
-						body: {
-							brand: 'Visa',
-							number: this.formRegister.creditCard.number,
-							holder: this.formRegister.creditCard.name,
-							expDate: this.formRegister.creditCard.validity,
-							code: this.formRegister.creditCard.cvv,
-							paymentOperator: 'brazil_nix',
-							paymentType: '301',
-						},
-						headers: {
-							Authorization: `Bearer ${useCookie('tokenUser').value}`,
-						},
-					});
-				}
+				await $fetch(`${ApiIncentiveSystemIdentity}account/user/payment`, {
+					method: 'post',
+					body: {
+						brand: 'Visa',
+						number: this.formRegister.creditCard.number,
+						holder: this.formRegister.creditCard.name,
+						expDate: this.formRegister.creditCard.validity,
+						code: this.formRegister.creditCard.cvv,
+						paymentOperator: 'brazil_nix',
+						paymentType: '301',
+					},
+					headers: {
+						Authorization: `Bearer ${useCookie('tokenUser').value}`,
+					},
+				});
 
-				// Se estiver apenas salvando ou após efetuar o cadastro, obter os dados do usuário
+				// Obter os dados do usuário
 				storeIncentive.userAcountData.loading = false;
 				await storeIncentive.userAccount(useToast);
 			} catch (error) {
@@ -553,9 +550,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo) {
-			const storeIncentive = useStoreIncentive();
+		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, save = false) {
+			const storeIncentive = useStoreIncentive();[]
 			const toast = useToast();
+
 
 			// Caso não tenha cartão cadastrado, cadastrar um novo
 			if (!storeIncentive.userAcountData.paymentMethods.status) {
@@ -564,6 +562,21 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				} catch (error) {
 					return error;
 				}
+			}
+
+			if (!save) {
+				return;
+			} else {
+				this.formRegister.configPayment.labelButton = `Alterar cartão`;
+
+				toast.add({
+					id: 'error_PaymentCardCredit',
+					title: `Erro ao alterar cartão`,
+					description: `Remova o cartão atual para adicionar um novo`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
 			}
 
 			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;

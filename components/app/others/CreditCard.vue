@@ -25,7 +25,7 @@
 				class="space-y-4"
 				filled-form
 				:class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6, '"
-				@submit="storeCheckout.registerCreditCard(useToast)"
+				@submit="storeCheckout.paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, props.save)"
 			>
 				<UFormGroup label="Número do cartão:" name="number">
 					<UInput
@@ -163,12 +163,15 @@ const app = store.contentApp;
 const storeCheckout = useStoreCheckout();
 const { pathAssets } = useRuntimeConfig().public;
 
+
 const schema = object({
 	number: string().required('Campo obrigatório.'),
 	name: string().required('Campo obrigatório.'),
 	validity: string().required('Campo obrigatório.'),
 	cvv: string().required('Campo obrigatório.'),
 });
+
+const props = defineProps (['save']);
 
 const textColor = computed(() => {
 	return `color: ${app.layout_text_colors_login_and_checkout}`;
