@@ -1,14 +1,14 @@
 <template>
-	<div class="pt-12 pb-32 lg:pb-32 fm1" :style="[bgColor, colorText]">
+	<div class="pt-12 pb-32 lg:pb-32 fm1 leading-none" :style="[bgColor, colorText]">
 		<UContainer class="">
 			<!-- Botão voltar ao topo -->
-			<div class="flex flex-col items-center">
+			<div class="grid grid-flow-row gap-y-2 flex-col justify-center justify-items-center">
 				<div class="w-8 h-8 flex justify-center items-center rounded-full cursor-pointer"
 					:style="[colorButton, colorTextButton]">
 					<UIcon name="i-material-symbols-keyboard-arrow-up-rounded" class="w-8 h-8" @click.prevent="scrollToTop" />
 				</div>
 				<div class="cursor-pointer" @click.prevent="scrollToTop">
-					<p>voltar ao topo</p>
+					<p class="leading-none">voltar ao topo</p>
 				</div>
 			</div>
 
@@ -18,7 +18,7 @@
 				<ul
 					class="flex flex-col lg:flex-row items-center md:items-start justify-center lg:w-full lg:justify-between lg:py-12">
 					<NuxtLink :to="item.route" v-for="(item, index) in menu"
-						:class="`${index + 1 >= menu.length ? 'mb-0' : 'mb-4'}`">
+						:class="[`${index + 1 >= menu.length ? 'mb-0' : 'mb-8 last:mb-0 lg:mb-4'}`]">
 						<li>{{ item.name }}</li>
 					</NuxtLink>
 				</ul>
