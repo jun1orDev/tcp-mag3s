@@ -206,12 +206,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.packageChosenOB = id
 				? this.packages.find((item) => item.id === id)
 				: {
-						id: null,
-						isPopularProduct: false,
-						image: '',
-						price: '',
-						items: [],
-				  };
+					id: null,
+					isPopularProduct: false,
+					image: '',
+					price: '',
+					items: [],
+				};
 		},
 
 		// Progresso da compra
@@ -271,12 +271,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -336,12 +334,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -435,12 +431,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -452,7 +446,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Cadastrar Cartão de Crédito
-		async registerCreditCard(useToast) {
+		async registerCreditCard(useToast, save = false) {
 			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
 			this.formRegister.configPayment.labelButton = `Cadastrando cartão, aguarde`;
@@ -461,35 +455,36 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const { ApiIncentiveSystemIdentity } = useRuntimeConfig().public;
 
 			try {
-				await $fetch(`${ApiIncentiveSystemIdentity}account/user/payment`, {
-					method: 'post',
-					body: {
-						brand: 'Visa',
-						number: this.formRegister.creditCard.number,
-						holder: this.formRegister.creditCard.name,
-						expDate: this.formRegister.creditCard.validity,
-						code: this.formRegister.creditCard.cvv,
-						paymentOperator: 'brazil_nix',
-						paymentType: '301',
-					},
-					headers: {
-						Authorization: `Bearer ${useCookie('tokenUser').value}`,
-					},
-				});
+				if (!save) {
+					// Se não estiver apenas salvando, então efetua o cadastro normalmente
+					await $fetch(`${ApiIncentiveSystemIdentity}account/user/payment`, {
+						method: 'post',
+						body: {
+							brand: 'Visa',
+							number: this.formRegister.creditCard.number,
+							holder: this.formRegister.creditCard.name,
+							expDate: this.formRegister.creditCard.validity,
+							code: this.formRegister.creditCard.cvv,
+							paymentOperator: 'brazil_nix',
+							paymentType: '301',
+						},
+						headers: {
+							Authorization: `Bearer ${useCookie('tokenUser').value}`,
+						},
+					});
+				}
 
-				// Obtendo os dados do usuário
+				// Se estiver apenas salvando ou após efetuar o cadastro, obter os dados do usuário
 				storeIncentive.userAcountData.loading = false;
 				await storeIncentive.userAccount(useToast);
 			} catch (error) {
 				console.log(error);
 				toast.add({
 					id: 'error_Register_CreditCard',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -498,6 +493,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 			this.formRegister.loading = false;
 		},
+
 
 		// Deletar Cartão de Crédito cadastrado
 		async deleteCreditCard(useToast) {
@@ -542,12 +538,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -600,9 +594,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				toast.add({
 					id: 'error_PaymentCardCredit',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
+					description: `${enumsResponseServer(error.response._data.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,

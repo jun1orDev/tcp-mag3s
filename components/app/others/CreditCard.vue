@@ -178,7 +178,7 @@ const titleText = computed(() => {
 	return `${app.checkout_card_text_title}`;
 });
 
-storeCheckout.formRegister.configPayment.labelButton = `Teste`;
+storeCheckout.formRegister.configPayment.labelButton = `Alterar cartão`;
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
