@@ -30,7 +30,7 @@
 			<!-- Números do Sorteio Atual -->
 			<div v-if="storeIncentive.showDrawnNumbersToday">
 				<h1 class="mb-2 lg:mb-5 fm3 text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] lg:text-center">{{
-		store.contentApp.sessions_title_one }}</h1>
+					store.contentApp.sessions_title_one }}</h1>
 				<div
 					class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 					<AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
@@ -42,17 +42,18 @@
 
 			<!-- Feedback de pesquisa caso não possuir o número da sorte -->
 			<div v-if="storeIncentive.hasLuckyNumbersUser && !storeIncentive.luckyNumbersUser(store.searchingValue).length"
-				class="text-1xl text-center animate__animated animate__fadeIn">
+				class="text-1xl md:text-2xl lg:text-3xl flex justify-center items-center text-center animate__animated animate__fadeIn">
+				<Icon name="i-ic-baseline-warning" class="me-4 w-5 lg:w-8 h-5 lg:h-8" />
 				<h2>Você não possui esse número da sorte!</h2>
 			</div>
 
 			<!-- Números da sorte do usuário -->
 			<ul v-show="storeIncentive.hasLuckyNumbersUser"
-				class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate__animated animate__fadeInLeft"
+				class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-5 md:gap-x-8 md:gap-y-6 lg:gap-x-20 animate__animated animate__fadeInLeft"
 				ref="animateNumbersUser">
 				<li v-for="dozensOfNumbers in storeIncentive.luckyNumbersUser(store.searchingValue)" :key="dozensOfNumbers.id">
 					<ul
-						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
+						class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 md:gap-2 justify-center animate__animated animate__fadeIn">
 						<AppGameNumberDraw v-for="(dozensNumbers, index) in dozensOfNumbers.dozens"
 							:numberDraw="dozensNumbers.number" :status="dozensNumbers.status" :key="index" />
 					</ul>
@@ -70,6 +71,9 @@
 			<div v-if="storeIncentive.userLoggedIn" class="lg:mt-24">
 				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
 				<div v-if="app.config_will_have_hotsite">
+					<div
+						:class="!storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull ? 'mt-16 md:mt-36' : 'mt-12 md:mt-64'">
+					</div>
 					<AppLayoutMenuBehaviour />
 					<div class="mt-16 md:mt-32"></div>
 				</div>
@@ -139,10 +143,10 @@ onNuxtReady(async () => {
 				break;
 		}
 	}
-	
+
 	// Buscando informações de sorteio caso o usuário estiver logado
-	if(storeIncentive.userLoggedIn) {
-		await storeIncentive.lotteryDraws(useToast);		
+	if (storeIncentive.userLoggedIn) {
+		await storeIncentive.lotteryDraws(useToast);
 	}
 
 	// Menu Habilitado

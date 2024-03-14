@@ -75,10 +75,18 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'config_text_email_contact',
-		description: 'E-mail de contato.',
+		description: 'E-mail de contato e suporte.',
 		value: 'falae@campanhapromocional.com.br',
 		tag: 'config',
 		type: typesMedia[0],
+	},
+	{
+		name: 'config_will_email_contact',
+		description:
+			'Utilizado para exibir ou não o e-mail de contato e suporte',
+		value: '1',
+		tag: 'config',
+		type: typesMedia[6],
 	},
 	{
 		name: 'config_text_phone_contact',
@@ -88,11 +96,12 @@ export const listSchemaDataMedia = [
 		type: typesMedia[0],
 	},
 	{
-		name: 'config_image_whatsapp',
-		description: 'Imagem do logo do WhatsApp.',
-		placeholder: '/imgs/whats.png',
+		name: 'config_will_phone_contact',
+		description:
+			'Utilizado para exibir ou não o número de telefone de contato do WhatsApp',
+		value: '1',
 		tag: 'config',
-		type: typesMedia[3],
+		type: typesMedia[6],
 	},
 
 	// Brand
