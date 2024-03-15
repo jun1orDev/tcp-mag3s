@@ -18,6 +18,10 @@ export default defineNuxtPlugin((nuxt) => {
 			// nuxt.$fb.enable();
 			// console.log();
 
+
+			// Exibir ou não a edição de cartão de crédito no Menu Behaviour
+			store.selectMenuBehaviour(5, 'showing', store.contentApp.config_will_have_credit_card_payments, false, 3);
+
 			// Caso já exista conteúdo do admin carregado na aplicação, não chamar novamente
 			if (store.contentHasBeenLoaded) return;
 

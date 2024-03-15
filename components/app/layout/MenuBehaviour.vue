@@ -13,24 +13,25 @@
 				class="relative flex justify-center items-start">
 				<NuxtLink :to="item.path" class="cursor-pointer py-2" :class="item.name ? 'group' : ''"
 					@click="store.openMenuBehaviour(item.submenu)">
-					<div
-						class="transition-all" :class="!item.enable ? 'group-hover:-translate-y-7 group-hover:md:-translate-y-9 group-hover:lg:-translate-y-10' : ''">
+					<div class="transition-all"
+						:class="!item.enable ? 'group-hover:-translate-y-7 group-hover:md:-translate-y-9 group-hover:lg:-translate-y-10' : ''">
 						<UChip :text="item.badge" size="2xl" :show="item.badge" inset>
 							<Icon :name="item.icon"
 								class="w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 transition-all h-icon-i group-hover:border-4 group-hover:rounded-full group-hover:p-1 group-hover:lg:p-2"
 								:class="item.enable ? 'h-icon-i-enable border-4 rounded-full p-1 lg:p-2 -translate-y-7 md:-translate-y-9 lg:-translate-y-10' : '' || !item.name ? `h-icon-i-hamburger` : ''"
 								:color="iconColor" auto-animate />
 						</UChip>
-						<p v-if="item.name"
-							class="fm3 transition-all"
-							:style="textColor" :class="item.enable ? 'block absolute -translate-x-[50%] left-[50%] bottom-3 md:bottom-6' : 'group-hover:block hidden absolute -translate-x-[50%] left-[50%] -bottom-6'">{{
-								item.name }}</p>
+						<p v-if="item.name" class="fm3 transition-all" :style="textColor"
+							:class="item.enable ? 'block absolute -translate-x-[50%] left-[50%] bottom-3 md:bottom-6' : 'group-hover:block hidden absolute -translate-x-[50%] left-[50%] -bottom-6'">
+							{{
+							item.name }}</p>
 					</div>
 
 					<!-- SubMenu -->
 					<ul v-show="item.submenu && store.isOpenMenuBehaviour"
 						class="fixed bottom-24 right-2 lg:right-0 flex flex-col justify-between max-w-[420px] lg:max-w-[500px] py-0 px-2 lg:py-0 lg:px-10 cursor-not-allowed">
-						<li v-for="submenu in item.submenu" :key="submenu.id" class="mb-4 lg:mb-2 xl:mb-1 last:mb-0">
+						<li v-for="submenu in item.submenu" :key="submenu.id" v-show="submenu.showing"
+							class="mb-4 lg:mb-2 xl:mb-1 last:mb-0">
 							<transition enter-active-class="animate__animated animate__fadeInUp"
 								leave-active-class="animate__animated animate__fadeOutDown">
 								<NuxtLink v-show="store.isOpenMenuBehaviour" :to="submenu.path"
