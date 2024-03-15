@@ -1,7 +1,7 @@
 <template>
 	<div id="header-app" class="fixed w-full z-50 animate__animated" :style="textColor">
 		<div class="bg-transparent py-2 lg:py-6">
-			<UContainer class="flex justify-between items-center">
+			<UContainer class="grid grid-flow-col place-content-between justify-items-center">
 				<div>
 					<NuxtLink v-if="storeIncentive.userLoggedIn" to="/app/hub">
 						<LpImageBrandDark class="max-w-[110px] lg:max-w-[130px]" />
@@ -11,7 +11,9 @@
 					</NuxtLink>
 				</div>
 				<div class="flex items-center">
-					<p v-if="hasLogout" class="fm1 me-4 text-base">Olá, {{ storeIncentive.firstUserName }} </p>
+					<div>
+						<span v-if="hasLogout" class="fm1 me-4 text-base leading-none">Olá, {{ storeIncentive.firstUserName }} </span>
+					</div>
 					<UTooltip v-if="hasLogout" text="clique para sair"
 						:popper="{ arrow: true, placement: 'bottom-end', offsetDistance: 10 }">
 						<UIcon name="i-material-symbols-exit-to-app" class="w-6 h-6 cursor-pointer"
