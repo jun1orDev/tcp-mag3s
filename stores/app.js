@@ -227,11 +227,11 @@ export const useStoreApp = defineStore('storeApp', {
 		// Revelar Prêmio
 		descriptionRevealDrawPrize: (state) => {
 			const storeIncentive = useStoreIncentive();
-			const revealChosenDrawDateYearFull =
-				storeIncentive.revealChosenDrawDateYearFull;
+			const revealLatestDrawDateYearFull =
+				storeIncentive.revealLatestDrawDateYearFull;
 
-			if (revealChosenDrawDateYearFull) {
-				return `${state.contentApp.banner_text_card_description_two} ${revealChosenDrawDateYearFull}`;
+			if (revealLatestDrawDateYearFull) {
+				return `${state.contentApp.banner_text_card_description_two} ${revealLatestDrawDateYearFull}`;
 			}
 
 			return '';
