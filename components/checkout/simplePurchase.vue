@@ -51,9 +51,11 @@
 import { useStoreApp } from '~/stores/app';
 import { useStoreCheckout } from '~/stores/checkout';
 import { object, number } from 'yup';
+import { useStoreIncentive } from '~/stores/incentive';
 
 const app = useStoreApp().contentApp;
 const storeCheckout = useStoreCheckout();
+const storeIncentive = useStoreIncentive();
 
 const props = defineProps(['isDark', 'pathRedirect']);
 
@@ -98,7 +100,7 @@ const configInput = ref({
 // Função resonsárvel por realizar o próximo passo do pagamento
 async function purchaseOnlyPaymentMethod() {
 	// Caso tenha cartão de crédito habilitado no admin
-	if (app.config_will_have_credit_card_payments) {
+	if (app.config_will_have_credit_card_payments || !storeIncentive.userLoggedIn) {
 		storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect);
 		return;
 	}
