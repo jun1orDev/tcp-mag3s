@@ -35,6 +35,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			},
 			gamification: {
 				lotteryDraws: {
+					lastDraw: {
+						id: null,
+						loading: false,
+					},
 					lastDrawHeld: {
 						id: null,
 						loading: false,
@@ -90,8 +94,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 		// Todos os Sorteios
 		listDraws: (state) => {
-			const storeApp = useStoreApp().contentApp;			
-			return state.gamification.lotteryDraws.listDraws.slice(0, -Number(storeApp.carousel_banner_main_qtd_items));
+			const storeApp = useStoreApp().contentApp;
+			return state.gamification.lotteryDraws.listDraws.slice(
+				0,
+				-Number(storeApp.carousel_banner_main_qtd_items)
+			);
 		},
 
 		// Sorteios realizados
@@ -114,18 +121,21 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				const app = useStoreApp().contentApp;
 
 				if (state.gamification.lotteryDraws.nextDraw.loading) {
-					if(!payload) {
+					if (!payload) {
 						if (state.nextDrawDateIsBefore()) {
 							if (app.config_will_have_raffle)
 								return app.banner_link_before_prize_draw_card_hub;
-	
+
 							return `/app/revelar-premio/${state.gamification.lotteryDraws.nextDraw.id}`;
 						}
 					} else {
 						if (state.nextDrawDateIsBefore(payload.date)) {
-							if (app.config_will_have_raffle && !app.config_will_have_carousel_banner_main)
+							if (
+								app.config_will_have_raffle &&
+								!app.config_will_have_carousel_banner_main
+							)
 								return app.banner_link_before_prize_draw_card_hub;
-	
+
 							return `/app/revelar-premio/${payload.id}`;
 						}
 					}
@@ -134,7 +144,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				}
 
 				return '';
-			}
+			};
 		},
 		nextDrawFull: (state) => {
 			return state.gamification.lotteryDraws.nextDraw;
@@ -151,25 +161,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				const { $checkDatePassed } = useNuxtApp();
 
 				if (state.gamification.lotteryDraws.nextDraw.loading) {
-					if(!payload) {
-						return $checkDatePassed(state.gamification.lotteryDraws.nextDraw.date);
+					if (!payload) {
+						return $checkDatePassed(
+							state.gamification.lotteryDraws.nextDraw.date
+						);
 					} else {
 						return $checkDatePassed(payload);
 					}
 				}
 
 				return false;
-			}
+			};
 		},
 		nextDrawLoading: (state) => {
 			return (payload) => {
-				if(!payload) {
+				if (!payload) {
 					return state.gamification.lotteryDraws.nextDraw.loading;
 				} else {
-					return payload;					
+					return payload;
 				}
-
-			}
+			};
 		},
 		listDrawsUpcomingLimited: (state) => {
 			return (payload) =>
@@ -185,6 +196,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 		revealChosenDrawDateYearFull: (state) => {
 			return state.gamification.lotteryDraws.revealChosenDraw
+				.fullDateYearComplete;
+		},
+		revealLatestDrawDateYearFull: (state) => {
+			return state.gamification.lotteryDraws.lastDraw
 				.fullDateYearComplete;
 		},
 		showDrawnNumbersToday: (state) => {
@@ -302,6 +317,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				ApiIncentiveUserTest,
 				ApiIncentivePassTest,
 			} = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(`${ApiIncentiveSystemIdentity}login/user`, {
@@ -313,6 +329,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 						password: hasHostsite
 							? this.formLogin.password
 							: ApiIncentivePassTest,
+						referral: influencerCode,
 					},
 				});
 
@@ -352,10 +369,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.loading = true;
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -404,8 +423,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -456,8 +476,9 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				toast.add({
 					id: 'error_reset_password',
 					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
-						}`,
+					description: `${
+						enumsResponseServer(error.response._data.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -532,10 +553,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 
 					toast.add({
 						id: 'error_dataProfileCPF',
-						title: `${enumsResponseServer(error.response._data.request.code).title
-							}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message
-							}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -573,10 +596,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${enumsResponseServer(error.response._data.request.code).title
-							}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message
-							}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -605,10 +630,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				} catch (error) {
 					toast.add({
 						id: 'error_dataProfilePhone',
-						title: `${enumsResponseServer(error.response._data.request.code).title
-							}`,
-						description: `${enumsResponseServer(error.response._data.request.code).message
-							}`,
+						title: `${
+							enumsResponseServer(error.response._data.request.code).title
+						}`,
+						description: `${
+							enumsResponseServer(error.response._data.request.code).message
+						}`,
 						color: 'red',
 						icon: 'i-material-symbols-warning-outline-rounded',
 						timeout: 3500,
@@ -837,10 +864,11 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 				const mostRecentDate = $mostRecentDate(datesDraws, 'max');
 
-				if(this.gamification.lotteryDraws.lastDrawHeld.length) {
+				if (this.gamification.lotteryDraws.lastDrawHeld.length) {
 					this.gamification.lotteryDraws.lastDrawHeld =
 						this.gamification.lotteryDraws.listDrawsLatest.find(
-							(item) => item.fullDate === $formatDayMonthYearFull(mostRecentDate)
+							(item) =>
+								item.fullDate === $formatDayMonthYearFull(mostRecentDate)
 						);
 				}
 
@@ -918,6 +946,12 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				this.gamification.lotteryDraws.listDrawsLatest.concat(
 					this.gamification.lotteryDraws.listDrawsUpcoming
 				);
+
+			// Obtendo um Objeto contendo as informações do último sorteio
+			this.gamification.lotteryDraws.lastDraw = {
+				...this.gamification.lotteryDraws.listDrawsUpcoming.pop(),
+				loading: true,
+			};
 
 			this.gamification.lotteryDraws.loading = true;
 		},

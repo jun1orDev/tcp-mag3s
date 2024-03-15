@@ -236,6 +236,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				ApiIncentiveClientId,
 				ApiIncentiveClientSecret,
 			} = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -247,6 +248,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							clientSecret: ApiIncentiveClientSecret,
 							userInfo: this.formRegister.email,
 							password: this.formRegister.password,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenClient').value}`,
@@ -409,6 +411,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = true;
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -418,6 +421,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						body: {
 							amount: +this.packageChosen.qtd,
 							paymentType: 501,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenUser').value}`,
@@ -576,6 +580,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = true;
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -588,6 +593,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							userPaymentMethodId:
 								storeIncentive.userAcountData.paymentMethods.id,
 							paymentType: 301,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenUser').value}`,
