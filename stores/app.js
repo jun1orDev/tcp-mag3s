@@ -394,7 +394,7 @@ export const useStoreApp = defineStore('storeApp', {
 		},
 
 		// Select Menu
-		selectMenuBehaviour(id, propety, value, reset = false) {
+		selectMenuBehaviour(id, propety, value, reset = false, submenu = false) {
 			// Reset configs
 			if (reset) {
 				this.menuBehaviour.forEach((item) => {
@@ -406,6 +406,12 @@ export const useStoreApp = defineStore('storeApp', {
 
 			// Caso não tem menu para habilitar
 			if(!id) return;
+
+			// Caso seja uma configuração de submenu
+			if (submenu) {
+				this.menuBehaviour.find((item) => item.id === id).submenu.find((item) => item.id === submenu)[propety] = value;
+				return;
+			}
 
 			this.menuBehaviour.find((item) => item.id === id)[propety] = value;
 		},

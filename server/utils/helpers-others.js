@@ -82,8 +82,7 @@ export const listSchemaDataMedia = [
 	},
 	{
 		name: 'config_will_email_contact',
-		description:
-			'Utilizado para exibir ou não o e-mail de contato e suporte',
+		description: 'Utilizado para exibir ou não o e-mail de contato e suporte',
 		value: '1',
 		tag: 'config',
 		type: typesMedia[6],
@@ -412,6 +411,14 @@ export const listSchemaDataMedia = [
 			'{"list":[{"one": "Lembre-se:", "two": "você pode comprar pacotes quando quiser! Quanto mais números da sorte você tiver no dia do sorteio, mais chances vai ter de ganhar.", "type": "text"}]}',
 		tag: 'login/checkout',
 		type: typesMedia[7],
+	},
+	{
+		name: 'config_will_have_credit_card_payments',
+		description:
+			'Utilizado para exibir ou não a opção de pagamento via cartão de crédito',
+		value: '1',
+		tag: 'login/checkout',
+		type: typesMedia[6],
 	},
 
 	// App

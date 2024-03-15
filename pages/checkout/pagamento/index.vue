@@ -9,7 +9,7 @@
 			@submit="storeCheckout.paymentMethod(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, storeCheckout.formRegister.configPayment.choicePathTo)">
 
 			<URadio v-model="storeCheckout.formRegister.selectedPayment"
-				v-for="option of storeCheckout.formRegister.optionsPayment" :key="option.value" v-bind="option" :ui="configRadio"
+				v-for="option of storeCheckout.formRegister.optionsPayment" :key="option.value" v-show="option.showing" v-bind="option" :ui="configRadio"
 				@input="storeCheckout.changeMethodPayment(option)">
 				<template #label>
 					<div class="flex items-center">

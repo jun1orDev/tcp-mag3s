@@ -1,6 +1,7 @@
 <template>
 	<div class="animate__animated animate__fadeIn">
-		<h2 v-if="!props.isDark" class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">Adquira chances de
+		<h2 v-if="!props.isDark" class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">
+			Adquira chances de
 			ganhar!</h2>
 
 		<!-- Quantidades disponíveis -->
@@ -9,10 +10,10 @@
 				:isPopular="index === 1" :key="index" />
 		</div>
 
-		<UForm :state="storeCheckout.packageChosen" :schema="schema"
-			@submit="storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect)">
+		<UForm :state="storeCheckout.packageChosen" :schema="schema" @submit="purchaseOnlyPaymentMethod()">
 			<UFormGroup name="qtd" class="text-center">
-				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color" :style="props.isDark ? colorBgInput : ''">
+				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color"
+					:style="props.isDark ? colorBgInput : ''">
 					<!-- + -->
 					<div
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
@@ -39,7 +40,7 @@
 
 				<!-- Botão para continuar a compra -->
 				<UButton type="submit" :label="labelButton" :ui="{ rounded: 'rounded-full' }" size="xl"
-					:style="[colorBgButton, colorTextButton]" class="fm3 px-12 mt-5" />
+					:style="[colorBgButton, colorTextButton]" :loading="processPayment" trailing class="fm3 px-12 mt-5" />
 			</div>
 		</UForm>
 
@@ -62,13 +63,14 @@ const schema = object({
 });
 
 const colorText = computed(() => {
-	if(props.isDark) {
+	if (props.isDark) {
 		return `color: ${app.purchase_tables_colors_text_simple_package_dark}`;
 	}
 	return `color: ${app.purchase_tables_colors_text_simple_package}`;
 });
 
-const labelButton = ref('adquirir');
+let labelButton = ref('adquirir');
+let processPayment = ref(false);
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
@@ -92,6 +94,39 @@ const configInput = ref({
 		xl: 'text-2xl md:text-3xl'
 	}
 });
+
+// Função resonsárvel por realizar o próximo passo do pagamento
+async function purchaseOnlyPaymentMethod() {
+	// Caso tenha cartão de crédito habilitado no admin
+	if (app.config_will_have_credit_card_payments) {
+		storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect);
+		return;
+	}
+
+	processPayment = true;
+
+	try {
+		storeCheckout.formRegister.selectedPayment = 501;
+		labelButton.value = "Aguarde o processamento";
+		storeCheckout.changeMethodPayment(storeCheckout.formRegister.optionsPayment[0]);
+		await storeCheckout.paymentMethod(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, storeCheckout.formRegister.configPayment.choicePathTo);
+		processPayment = false;
+	} catch (error) {
+		const toast = useToast();
+
+		toast.add({
+			id: 'error_PaymentPixProcess',
+			title: `Atenção!`,
+			description: error,
+			color: 'red',
+			icon: 'i-material-symbols-warning-outline-rounded',
+			timeout: 3500,
+		});
+
+		labelButton.value = "adquirir";
+		processPayment = false;
+	}
+}
 
 </script>
 
