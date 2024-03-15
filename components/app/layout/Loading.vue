@@ -5,8 +5,7 @@
 
 		<!-- Brand Secundária -->
 		<div>
-			<img :src="brandThree" onerror="this.src='/imgs/img_loading.png'"
-				class="w-60 sm:w-[200px] md:w-[350px] lg:w-[300px]" />
+			<img :src="brandThree" class="w-60 sm:w-[200px] md:w-[350px] lg:w-[300px]" />
 		</div>
 
 		<!-- Loading infinito -->
@@ -19,7 +18,7 @@
 
 		<!-- Band Principal -->
 		<div>
-			<img :src="brandOne" class="w-[150px] md:w-[180px] lg:w-[200px]" onerror="this.src='/imgs/img_fiel_da_sorte.png'" />
+			<img :src="brandOne" class="w-[150px] md:w-[180px] lg:w-[200px]" />
 		</div>
 	</div>
 </template>
