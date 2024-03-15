@@ -31,8 +31,8 @@
 					</div>
 
 					<div class="fm2">
-						<p class="text-base md:text-[20px] text-justify" :style="colorText"
-							v-html="app.terms_and_condition_text_document"></p>
+						<div class="text-base md:text-[20px] text-justify" :style="colorText"
+							v-html="app.terms_and_condition_text_document"></div>
 					</div>
 				</div>
 			</div>
