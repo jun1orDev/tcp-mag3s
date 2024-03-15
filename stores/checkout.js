@@ -45,12 +45,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				// payment
 				optionsPayment: [
 					{
+						showing: true,
 						value: 501,
 						label: 'Pix',
 						icon: 'i-ic-round-pix',
 						path: '/checkout/pix',
 					},
 					{
+						showing: true,
 						value: 301,
 						label: 'Cartão de crédito',
 						icon: 'i-ic-baseline-credit-card',
@@ -359,8 +361,22 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.configPayment.choicePathTo = method.path;
 		},
 		async paymentMethod(useToast, IDpkgChosen, IDpkgOB, pathTo) {
-			// Caso o método seja cartão
+			// Caso a forma de pagamento não tenha sido selecionada
+			if (!this.formRegister.selectedPayment) {
+				const toast = useToast();
+				toast.add({
+					id: 'error_selectedPayment',
+					title: `Atenção`,
+					description: `Forma de pagamento não selecionada`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+				return;
+			}
+
 			if (this.formRegister.selectedPayment === 301) {
+				// Caso o método seja cartão
 				this.formRegister.selectedPayment = null;
 
 				// Caso o usuário já possui cartão cadastrado, finalizar a compra direto
@@ -449,6 +465,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
+
+				throw new Error(error);
 			}
 
 			this.formRegister.loading = false;
