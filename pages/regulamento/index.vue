@@ -28,9 +28,8 @@
 						</h1>
 					</div>
 					<div class="fm2 flex justify-center pb-8">
-						<p class="text-base md:text-[20px] text-justify" :style="colorText">
-							{{ store.contentApp.regulation_text_document }}
-						</p>
+						<p class="text-base md:text-[20px] text-justify" :style="colorText"
+							v-html="store.contentApp.regulation_text_document"></p>
 					</div>
 				</div>
 			</div>
