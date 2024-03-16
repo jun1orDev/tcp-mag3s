@@ -20,7 +20,8 @@
 				v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull">
 				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
 					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" hasMaskInput="['##']"
-						@input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3" />
+						@input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"
+						:inputModeOption="'numeric'" />
 				</div>
 			</UContainer>
 

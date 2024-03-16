@@ -2,7 +2,8 @@
 	<AppLayoutBgDefault />
 
 	<div v-show="!storeIncentive.loading">
-		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app" :textColor="app.header_colors_text_app" :isLogoDark="false" />
+		<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app"
+			:textColor="app.header_colors_text_app" :isLogoDark="false" />
 
 		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal com Carousel -->
@@ -19,7 +20,7 @@
 			</Carousel>
 
 			<!-- Pesquisar -->
-			<AppOthersInputSearching class="mt-6" />
+			<AppOthersInputSearching class="mt-6" :inputModeOption="'search'" />
 
 			<AppGameInfoCard v-for="card in cards" class="mt-8" :titulo="card.titulo" :subtitulo="card.subtitulo"
 				:customBackground="card.hasBg" :imagemSrc="card.img" :source="card.source" :date="card.date" />

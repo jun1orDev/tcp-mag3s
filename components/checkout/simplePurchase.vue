@@ -15,22 +15,22 @@
 				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color"
 					:style="props.isDark ? colorBgInput : ''">
 					<!-- + -->
-					<div
+					<button type="button"
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('sub', 5, false)">
+						:style="colorBgInput" @click.prevent="storeCheckout.setQtdPackageChosen('sub', 5, false)">
 						<Icon name="i-ic-round-remove" class="w-8 h-8 md:w-10 md:h-10" />
-					</div>
+					</button>
 					<!-- Input de mais ou menos  -->
 					<div>
 						<UInput type="number" name="qtd" variant="none" size="xl" placeholder="+000" :ui="configInput"
 							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" />
 					</div>
 					<!-- - -->
-					<div
+					<button type="button"
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('add', 5, false)">
+						:style="colorBgInput" @click.prevent="storeCheckout.setQtdPackageChosen('add', 5, false)">
 						<Icon name="i-ic-round-add" class="w-8 h-8 md:w-10 md:h-10" />
-					</div>
+					</button>
 				</div>
 			</UFormGroup>
 
