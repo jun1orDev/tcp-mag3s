@@ -23,7 +23,7 @@
 					<!-- Input de mais ou menos  -->
 					<div>
 						<UInput type="number" name="qtd" variant="none" size="xl" placeholder="+000" :ui="configInput"
-							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" />
+							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" inputmode="numeric" autofocus />
 					</div>
 					<!-- - -->
 					<button type="button"
