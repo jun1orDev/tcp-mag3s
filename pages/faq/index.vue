@@ -56,7 +56,7 @@
 
 					<!-- Campo de pesquisa  -->
 					<AppOthersInputSearching :inputPlaceholder="app.faq_text_placeholder_input_search"
-						@input="store.filteredFaq(store.searchingValue)" :hasMaskInput="null" />
+						@input="store.filteredFaq(store.searchingValue)" :hasMaskInput="null" :inputModeOption="'search'" />
 
 					<!-- Faq -->
 					<UAccordion v-if="store.filteredFaq(store.searchingValue).length"

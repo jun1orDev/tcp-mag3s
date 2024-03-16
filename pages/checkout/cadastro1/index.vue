@@ -26,12 +26,13 @@
 			">
 			<UFormGroup label="E-mail:" name="email">
 				<UInput size="xl" v-model="storeCheckout.formRegister.email" type="email" color="white" variant="outline"
-					:ui="configInput" icon="i-material-symbols-stacked-email-outline" />
+					:ui="configInput" icon="i-material-symbols-stacked-email-outline" inputmode="'email'" />
 			</UFormGroup>
 
 			<UFormGroup label="Senha:" name="password">
 				<UInput size="xl" v-model="storeCheckout.formRegister.password" color="white" :type="passView.password"
-					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }" icon="i-material-symbols-passkey-outline-rounded">
+					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
+					icon="i-material-symbols-passkey-outline-rounded">
 					<template #trailing>
 						<UButton v-show="storeCheckout.formRegister.password !== ''" color="gray" variant="link"
 							:icon="passIcon.password" :padded="false" @click="togglePassView('password')" />

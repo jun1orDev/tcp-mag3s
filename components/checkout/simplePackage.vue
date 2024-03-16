@@ -1,5 +1,5 @@
 <template>
-	<div @click="storeCheckout.setQtdPackageChosen('add', +props.package.two, false)"
+	<button type="button" @click.prevent="storeCheckout.setQtdPackageChosen('add', +props.package.two, false)"
 		class="cursor-pointer hover:scale-105 transition-all">
 		<!-- Bedge de destaque -->
 		<div
@@ -26,7 +26,7 @@
 		props.package.two }}</strong></p>
 			</div>
 		</div>
-	</div>
+	</button>
 </template>
 
 <script setup>

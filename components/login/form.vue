@@ -1,42 +1,19 @@
 <template>
 	<div>
-		<UForm
-			id="formLogin"
-			:state="storeIncentive.formLogin"
-			:schema="schema"
-			class="space-y-4"
-			@submit="storeIncentive.userLogin(useToast, true, props.isCheckout)"
-		>
+		<UForm id="formLogin" :state="storeIncentive.formLogin" :schema="schema" class="space-y-4"
+			@submit="storeIncentive.userLogin(useToast, true, props.isCheckout)">
 			<UFormGroup label="Seu e-mail" name="user">
-				<UInput
-					size="xl"
-					icon="i-material-symbols-person-check-outline-rounded"
-					v-model="storeIncentive.formLogin.user"
-					type="text"
-					color="white"
-					variant="outline"
-					:ui="configInput"
-				/>
+				<UInput size="xl" icon="i-material-symbols-person-check-outline-rounded" v-model="storeIncentive.formLogin.user"
+					type="text" color="white" variant="outline" :ui="configInput" inputmode="email" />
 			</UFormGroup>
 
 			<UFormGroup label="Sua senha" name="password">
-				<UInput
-					size="xl"
-					v-model="storeIncentive.formLogin.password"
-					color="white"
-					:type="passView.password"
+				<UInput size="xl" v-model="storeIncentive.formLogin.password" color="white" :type="passView.password"
 					:ui="{ ...configInput, icon: { trailing: { pointer: '' } } }"
-					icon="i-material-symbols-passkey-outline-rounded"
-				>
+					icon="i-material-symbols-passkey-outline-rounded">
 					<template #trailing>
-						<UButton
-							v-show="storeIncentive.formLogin.password !== ''"
-							color="gray"
-							variant="link"
-							:icon="passIcon.password"
-							:padded="false"
-							@click="togglePassView('password')"
-						/>
+						<UButton v-show="storeIncentive.formLogin.password !== ''" color="gray" variant="link"
+							:icon="passIcon.password" :padded="false" @click="togglePassView('password')" />
 					</template>
 				</UInput>
 			</UFormGroup>
@@ -44,21 +21,12 @@
 			<p class="text-center mt-4">
 				Esqueceu sua senha?
 				<NuxtLink to="/recuperar-senha" class="fm3 decoration-solid">
-					Clique aqui</NuxtLink
-				>
+					Clique aqui</NuxtLink>
 			</p>
 
 			<div class="flex justify-center">
-				<UButton
-					size="xl"
-					label="entrar"
-					type="submit"
-					:ui="configButton"
-					:style="[colorBgButton, colorTextButton]"
-					class="fm3"
-					:loading="!storeIncentive.loading"
-					trailing
-				/>
+				<UButton size="xl" label="entrar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
+					class="fm3" :loading="!storeIncentive.loading" trailing />
 			</div>
 		</UForm>
 	</div>
