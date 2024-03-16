@@ -24,7 +24,10 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 			storeIncentive.userAcountData.paymentMethods.status;
 	}
 
-	if (!useCookie('tokenUser').value) {
+	if (
+		!useCookie('tokenUser').value ||
+		!storeApp.contentApp.config_will_have_credit_card_payments
+	) {
 		return navigateTo({
 			path: '/checkout/pacotes',
 		});
