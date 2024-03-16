@@ -70,6 +70,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					cvv: '',
 					status: null,
 				},
+
+				// simple payment
+				configSimplePayment: {
+					labelButton: '',
+					processPayment: false,
+				},
 				selectedPayment: null,
 				paymentPix: null,
 				feedbackPayment: null,
@@ -228,6 +234,52 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.showingSteps = showStep;
 		},
 
+		// Função resonsárvel por realizar o próximo passo do pagamento simplificado apenas no pix
+		async purchaseOnlyPaymentMethod(IDpkgChosen, IDpkgOB, pathTo, newLabel) {
+			const app = useStoreApp().contentApp;
+			const storeIncentive = useStoreIncentive();
+
+			// Caso tenha cartão de crédito habilitado no admin
+			if (
+				app.config_will_have_credit_card_payments ||
+				!storeIncentive.userLoggedIn
+			) {
+				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+				return;
+			}
+
+			this.formRegister.configSimplePayment.processPayment = true;
+
+			try {
+				this.formRegister.selectedPayment = 501;
+				this.formRegister.configSimplePayment.labelButton =
+					'Aguarde o processamento';
+				this.changeMethodPayment(this.formRegister.optionsPayment[0]);
+				await this.paymentMethod(
+					useToast,
+					IDpkgChosen,
+					IDpkgOB,
+					this.formRegister.configPayment.choicePathTo
+				);
+				this.formRegister.configSimplePayment.labelButton = newLabel;
+				this.formRegister.configSimplePayment.processPayment = false;
+			} catch (error) {
+				const toast = useToast();
+
+				toast.add({
+					id: 'error_PaymentPixProcess',
+					title: `Atenção!`,
+					description: error,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+
+				this.formRegister.configSimplePayment.labelButton = newLabel;
+				this.formRegister.configSimplePayment.processPayment = false;
+			}
+		},
+
 		// Registro de Email
 		async registerEmail(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
@@ -290,7 +342,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = false;
 		},
 
-		// Registro de Email
+		// Registro de Nome, Telefone e CPF
 		async registerOthersDatas(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
 			this.formRegister.loading = true;
@@ -336,7 +388,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+				this.purchaseOnlyPaymentMethod(
+					IDpkgChosen,
+					IDpkgOB,
+					pathTo,
+					'continuar para pagamento'
+				);
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',

@@ -10,7 +10,8 @@
 				:isPopular="index === 1" :key="index" />
 		</div>
 
-		<UForm :state="storeCheckout.packageChosen" :schema="schema" @submit="purchaseOnlyPaymentMethod()">
+		<UForm :state="storeCheckout.packageChosen" :schema="schema"
+			@submit="storeCheckout.purchaseOnlyPaymentMethod(storeCheckout.packageChosen.id, '', props.pathRedirect, 'adquirir')">
 			<UFormGroup name="qtd" class="text-center">
 				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color"
 					:style="props.isDark ? colorBgInput : ''">
@@ -40,8 +41,10 @@
 				<p class="fm1 text-lg">{{ storeCheckout.pricePackageMultipleAmout }}</p>
 
 				<!-- Botão para continuar a compra -->
-				<UButton type="submit" :label="labelButton" :ui="{ rounded: 'rounded-full' }" size="xl"
-					:style="[colorBgButton, colorTextButton]" :loading="processPayment" trailing class="fm3 px-12 mt-5" />
+				<UButton type="submit" :label="storeCheckout.formRegister.configSimplePayment.labelButton"
+					:ui="{ rounded: 'rounded-full' }" size="xl" :style="[colorBgButton, colorTextButton]"
+					:loading="storeCheckout.formRegister.configSimplePayment.processPayment || !storeCheckout.formRegister.configSimplePayment.labelButton"
+					trailing class="fm3 px-12 mt-5" />
 			</div>
 		</UForm>
 
@@ -52,11 +55,9 @@
 import { useStoreApp } from '~/stores/app';
 import { useStoreCheckout } from '~/stores/checkout';
 import { object, number } from 'yup';
-import { useStoreIncentive } from '~/stores/incentive';
 
 const app = useStoreApp().contentApp;
 const storeCheckout = useStoreCheckout();
-const storeIncentive = useStoreIncentive();
 
 const props = defineProps(['isDark', 'pathRedirect']);
 
@@ -71,9 +72,6 @@ const colorText = computed(() => {
 	}
 	return `color: ${app.purchase_tables_colors_text_simple_package}`;
 });
-
-let labelButton = ref('adquirir');
-let processPayment = ref(false);
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
@@ -98,39 +96,9 @@ const configInput = ref({
 	}
 });
 
-// Função resonsárvel por realizar o próximo passo do pagamento
-async function purchaseOnlyPaymentMethod() {
-	// Caso tenha cartão de crédito habilitado no admin
-	if (app.config_will_have_credit_card_payments || !storeIncentive.userLoggedIn) {
-		storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect);
-		return;
-	}
-
-	processPayment = true;
-
-	try {
-		storeCheckout.formRegister.selectedPayment = 501;
-		labelButton.value = "Aguarde o processamento";
-		storeCheckout.changeMethodPayment(storeCheckout.formRegister.optionsPayment[0]);
-		await storeCheckout.paymentMethod(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, storeCheckout.formRegister.configPayment.choicePathTo);
-		processPayment = false;
-	} catch (error) {
-		const toast = useToast();
-
-		toast.add({
-			id: 'error_PaymentPixProcess',
-			title: `Atenção!`,
-			description: error,
-			color: 'red',
-			icon: 'i-material-symbols-warning-outline-rounded',
-			timeout: 3500,
-		});
-
-		labelButton.value = "adquirir";
-		processPayment = false;
-	}
-}
-
+onNuxtReady(() => {
+		storeCheckout.formRegister.configSimplePayment.labelButton = "adquirir";
+});
 </script>
 
 <style scoped>
