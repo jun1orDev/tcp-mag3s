@@ -68,7 +68,7 @@
 			: null
 			" :ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
 								:style="[colorText, open && colorTextButton, colorBorder]">
-								<span class="fm3 lg:text-lg">{{ item.one }}</span>
+								<span class="fm3 lg:text-lg text-start">{{ item.one }}</span>
 								<template #trailing>
 									<UIcon name="i-heroicons-chevron-down-20-solid"
 										class="w-7 h-7 lg:w-10 lg:h-10 ms-auto transform transition-transform duration-200"
