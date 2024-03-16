@@ -402,6 +402,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		setQtdPackageChosen(typeOperation, qtdAdd, clear) {
 			if (clear) this.packageChosen.qtd = 0;
 
+			this.changePackagePerQtd();
+
 			switch (typeOperation) {
 				case 'sub':
 					if (+this.packageChosen.qtd > 5) {
@@ -418,6 +420,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					this.packageChosen.qtd = qtdAdd;
 					break;
 			}
+		},
+
+		changePackagePerQtd() {
+			let packageOnly = this.packages[0];
+
+			// Se um usuário tiver mais que 200 números da sorte utilizar o id do produto mais barato
+			if (this.packageChosen.qtd >= 200) {
+				packageOnly = this.packages[1];
+			}
+
+			this.chosenPackage(packageOnly.id);
 		},
 
 		// Pagamento via Pix
