@@ -28,8 +28,8 @@
 						</h1>
 					</div>
 					<div class="fm2 flex justify-center pb-8">
-						<div class="text-base md:text-[20px] text-justify" :style="colorText"
-							v-html="store.contentApp.regulation_text_document"></div>
+						<div class="text-base md:text-[20px] text-justify" :class="!storeIncentive.userLoggedIn ? 'pb-36' : ''"
+							:style="colorText" v-html="store.contentApp.regulation_text_document"></div>
 					</div>
 				</div>
 			</div>
@@ -39,6 +39,7 @@
 				<AppLayoutOverlay :showing="store.isOpenMenuBehaviour" />
 				<div v-if="app.config_will_have_hotsite">
 					<AppLayoutMenuBehaviour />
+					<div class="mt-12 md:mt-32"></div>
 				</div>
 			</div>
 		</div>
