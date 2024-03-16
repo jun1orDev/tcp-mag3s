@@ -16,18 +16,18 @@
 				">
 			<UFormGroup label="Nome completo:" name="name">
 				<UInput size="xl" v-model="storeCheckout.formRegister.name" type="text" color="white" variant="outline"
-					:ui="configInput" icon="i-material-symbols-person-outline" inputmode="'text'" />
+					:ui="configInput" icon="i-material-symbols-person-outline" inputmode="text" />
 			</UFormGroup>
 
 			<UFormGroup label="Telefone:" name="phone">
 				<UInput size="xl" type="tel" color="white" :ui="configInput" v-model="storeCheckout.formRegister.phone" v-maska
 					data-maska="['(##) #####-####', '(##) ####-####']" icon="i-material-symbols-add-call-outline-rounded"
-					inputmode="'tel'" />
+					inputmode="tel" />
 			</UFormGroup>
 
 			<UFormGroup label="CPF:" name="cpf">
 				<UInput size="xl" v-model="storeCheckout.formRegister.cpf" type="text" color="white" :ui="configInput" v-maska
-					data-maska="###.###.###-##" icon="i-material-symbols-wallet" inputmode="'numeric'" />
+					data-maska="###.###.###-##" icon="i-material-symbols-wallet" inputmode="numeric" />
 			</UFormGroup>
 
 			<div class="flex justify-center">

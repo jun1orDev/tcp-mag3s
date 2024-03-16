@@ -60,7 +60,7 @@
 
 					<!-- Faq -->
 					<UAccordion v-if="store.filteredFaq(store.searchingValue).length"
-						:items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="py-2">
+						:items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="pt-2 pb-36 lg:pb-2">
 						<template #default="{ item, index, open }">
 							<UButton color="transparent" variant="ghost" :class="!open &&
 			index + 1 < store.filteredFaq(store.searchingValue).length

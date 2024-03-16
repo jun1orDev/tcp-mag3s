@@ -23,26 +23,26 @@
 						<UFormGroup label="Nome completo:" name="name">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.name" icon="i-material-symbols-person-outline"
 								type="text" color="white" variant="outline" :ui="configInput" placeholder="Digite aqui seu nome..."
-								inputmode="'text'" />
+								inputmode="text" />
 						</UFormGroup>
 
 						<UFormGroup label="CPF:" name="cpf">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.cpf" icon="i-material-symbols-wallet" type="CPF"
 								v-maska data-maska="###.###.###-##" color="white" :ui="configInput" placeholder="###.###.###-##"
-								:disabled="storeIncentive.disabledInputs.cpf" inputmode="'numeric'" />
+								:disabled="storeIncentive.disabledInputs.cpf" inputmode="numeric" />
 						</UFormGroup>
 
 						<UFormGroup label="E-mail:" name="email">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.email"
 								icon="i-material-symbols-stacked-email-outline" type="text" color="white" variant="outline"
-								:ui="configInput" placeholder="Digite aqui seu e-mail..." inputmode="'email'" disabled />
+								:ui="configInput" placeholder="Digite aqui seu e-mail..." inputmode="email" disabled />
 						</UFormGroup>
 
 						<UFormGroup label="Telefone:" name="phone.number">
 							<UInput size="xl" icon="i-material-symbols-add-call-outline-rounded"
 								v-model="storeIncentive.userAcountData.phone.number" type="tel" v-maska
 								data-maska="['(##) #####-####', '(##) ####-####']" color="white" :ui="configInput"
-								placeholder="(##) #####-####" inputmode="'tel'" />
+								placeholder="(##) #####-####" inputmode="tel" />
 						</UFormGroup>
 
 						<p class="text-center mt-4">
