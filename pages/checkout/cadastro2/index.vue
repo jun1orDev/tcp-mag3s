@@ -31,8 +31,9 @@
 			</UFormGroup>
 
 			<div class="flex justify-center">
-				<UButton size="xl" label="continuar para pagamento" type="submit" :ui="configButton"
-					:style="[colorBgButton, colorTextButton]" class="fm3 mt-6" :loading="storeCheckout.formRegister.loading"
+				<UButton size="xl" :label="storeCheckout.formRegister.configSimplePayment.labelButton" type="submit"
+					:ui="configButton" :style="[colorBgButton, colorTextButton]" class="fm3 mt-6"
+					:loading="storeCheckout.formRegister.loading || storeCheckout.formRegister.configSimplePayment.processPayment || !storeCheckout.formRegister.configSimplePayment.labelButton"
 					trailing />
 			</div>
 		</UForm>
@@ -103,6 +104,10 @@ const configButton = ref({
 	padding: {
 		xl: 'px-12 py-2',
 	},
+});
+
+onNuxtReady(() => {
+		storeCheckout.formRegister.configSimplePayment.labelButton = "continuar para pagamento";
 });
 </script>
 
