@@ -238,6 +238,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		async purchaseOnlyPaymentMethod(IDpkgChosen, IDpkgOB, pathTo, newLabel) {
 			const app = useStoreApp().contentApp;
 			const storeIncentive = useStoreIncentive();
+			const toast = useToast();
 
 			// Caso tenha cartão de crédito habilitado no admin
 			if (
@@ -261,10 +262,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					IDpkgOB,
 					this.formRegister.configPayment.choicePathTo
 				);
-				this.formRegister.configSimplePayment.labelButton = newLabel;
-				this.formRegister.configSimplePayment.processPayment = false;
 			} catch (error) {
-				const toast = useToast();
 
 				toast.add({
 					id: 'error_PaymentPixProcess',
@@ -274,10 +272,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
-
-				this.formRegister.configSimplePayment.labelButton = newLabel;
-				this.formRegister.configSimplePayment.processPayment = false;
 			}
+
+			this.formRegister.configSimplePayment.labelButton = newLabel;
+			this.formRegister.configSimplePayment.processPayment = false;
 		},
 
 		// Registro de Email
