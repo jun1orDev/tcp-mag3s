@@ -367,7 +367,8 @@ export const useStoreApp = defineStore('storeApp', {
 					router.go(-1);
 					break;
 				case 'details':
-					router.push('/app/detalhes-premio');
+					this.modalPrize.isOpenModalPrizeResult = false;
+					router.push('/app/hub');
 					break;
 
 				default:

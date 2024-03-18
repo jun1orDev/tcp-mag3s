@@ -124,11 +124,11 @@ const hasRafflesSimplePurchase = computed(() => {
 
 const bgCarouselPagination = computed(() => {
 	return app.colors_carousel_pagination_background;
-})
+});
 
 const bgCarouselPaginationActive = computed(() => {
 	return app.colors_emphasis_active_and_hover;
-})
+});
 
 onMounted(async () => {
 	await storeIncentive.userInventory(useToast);
