@@ -45,12 +45,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				// payment
 				optionsPayment: [
 					{
+						showing: true,
 						value: 501,
 						label: 'Pix',
 						icon: 'i-ic-round-pix',
 						path: '/checkout/pix',
 					},
 					{
+						showing: true,
 						value: 301,
 						label: 'Cartão de crédito',
 						icon: 'i-ic-baseline-credit-card',
@@ -67,6 +69,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					validity: '',
 					cvv: '',
 					status: null,
+				},
+
+				// simple payment
+				configSimplePayment: {
+					labelButton: '',
+					processPayment: false,
 				},
 				selectedPayment: null,
 				paymentPix: null,
@@ -226,6 +234,50 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.showingSteps = showStep;
 		},
 
+		// Função resonsárvel por realizar o próximo passo do pagamento simplificado apenas no pix
+		async purchaseOnlyPaymentMethod(IDpkgChosen, IDpkgOB, pathTo, newLabel) {
+			const app = useStoreApp().contentApp;
+			const storeIncentive = useStoreIncentive();
+			const toast = useToast();
+
+			// Caso tenha cartão de crédito habilitado no admin
+			if (
+				app.config_will_have_credit_card_payments ||
+				!storeIncentive.userLoggedIn
+			) {
+				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+				return;
+			}
+
+			this.formRegister.configSimplePayment.processPayment = true;
+
+			try {
+				this.formRegister.selectedPayment = 501;
+				this.formRegister.configSimplePayment.labelButton =
+					'Aguarde o processamento';
+				this.changeMethodPayment(this.formRegister.optionsPayment[0]);
+				await this.paymentMethod(
+					useToast,
+					IDpkgChosen,
+					IDpkgOB,
+					this.formRegister.configPayment.choicePathTo
+				);
+			} catch (error) {
+
+				toast.add({
+					id: 'error_PaymentPixProcess',
+					title: `Atenção!`,
+					description: error,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.formRegister.configSimplePayment.labelButton = newLabel;
+			this.formRegister.configSimplePayment.processPayment = false;
+		},
+
 		// Registro de Email
 		async registerEmail(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
@@ -236,6 +288,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				ApiIncentiveClientId,
 				ApiIncentiveClientSecret,
 			} = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -247,6 +300,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							clientSecret: ApiIncentiveClientSecret,
 							userInfo: this.formRegister.email,
 							password: this.formRegister.password,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenClient').value}`,
@@ -284,7 +338,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = false;
 		},
 
-		// Registro de Email
+		// Registro de Nome, Telefone e CPF
 		async registerOthersDatas(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
 			this.formRegister.loading = true;
@@ -330,7 +384,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
+				this.purchaseOnlyPaymentMethod(
+					IDpkgChosen,
+					IDpkgOB,
+					pathTo,
+					'continuar para pagamento'
+				);
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
@@ -353,8 +412,22 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.configPayment.choicePathTo = method.path;
 		},
 		async paymentMethod(useToast, IDpkgChosen, IDpkgOB, pathTo) {
-			// Caso o método seja cartão
+			// Caso a forma de pagamento não tenha sido selecionada
+			if (!this.formRegister.selectedPayment) {
+				const toast = useToast();
+				toast.add({
+					id: 'error_selectedPayment',
+					title: `Atenção`,
+					description: `Forma de pagamento não selecionada`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+				return;
+			}
+
 			if (this.formRegister.selectedPayment === 301) {
+				// Caso o método seja cartão
 				this.formRegister.selectedPayment = null;
 
 				// Caso o usuário já possui cartão cadastrado, finalizar a compra direto
@@ -380,6 +453,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		setQtdPackageChosen(typeOperation, qtdAdd, clear) {
 			if (clear) this.packageChosen.qtd = 0;
 
+			this.changePackagePerQtd();
+
 			switch (typeOperation) {
 				case 'sub':
 					if (+this.packageChosen.qtd > 5) {
@@ -398,6 +473,17 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			}
 		},
 
+		changePackagePerQtd() {
+			let packageOnly = this.packages[0];
+
+			// Se um usuário tiver mais que 200 números da sorte utilizar o id do produto mais barato
+			if (this.packageChosen.qtd >= 200) {
+				packageOnly = this.packages[1];
+			}
+
+			this.chosenPackage(packageOnly.id);
+		},
+
 		// Pagamento via Pix
 		async paymentPix(useToast, IDpkgChosen, IDpkgOB, pathTo) {
 			const toast = useToast();
@@ -405,6 +491,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = true;
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -414,6 +501,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						body: {
 							amount: +this.packageChosen.qtd,
 							paymentType: 501,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenUser').value}`,
@@ -439,6 +527,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
+
+				throw new Error(error);
 			}
 
 			this.formRegister.loading = false;
@@ -583,6 +673,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.formRegister.loading = true;
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+			const influencerCode = getCookie('influencerCode');
 
 			try {
 				const data = await $fetch(
@@ -595,6 +686,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 							userPaymentMethodId:
 								storeIncentive.userAcountData.paymentMethods.id,
 							paymentType: 301,
+							referral: influencerCode,
 						},
 						headers: {
 							Authorization: `Bearer ${useCookie('tokenUser').value}`,

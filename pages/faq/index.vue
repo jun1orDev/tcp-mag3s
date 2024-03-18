@@ -56,11 +56,11 @@
 
 					<!-- Campo de pesquisa  -->
 					<AppOthersInputSearching :inputPlaceholder="app.faq_text_placeholder_input_search"
-						@input="store.filteredFaq(store.searchingValue)" :hasMaskInput="null" />
+						@input="store.filteredFaq(store.searchingValue)" :hasMaskInput="null" :inputModeOption="'search'" />
 
 					<!-- Faq -->
 					<UAccordion v-if="store.filteredFaq(store.searchingValue).length"
-						:items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="py-2">
+						:items="store.filteredFaq(store.searchingValue)" :ui="{ wrapper: 'flex flex-col w-full' }" class="pt-2 pb-36 lg:pb-2">
 						<template #default="{ item, index, open }">
 							<UButton color="transparent" variant="ghost" :class="!open &&
 			index + 1 < store.filteredFaq(store.searchingValue).length
@@ -68,7 +68,7 @@
 			: null
 			" :ui="{ rounded: 'rounded-none', padding: { sm: 'py-3 px-0' } }"
 								:style="[colorText, open && colorTextButton, colorBorder]">
-								<span class="fm3 lg:text-lg">{{ item.one }}</span>
+								<span class="fm3 lg:text-lg text-start">{{ item.one }}</span>
 								<template #trailing>
 									<UIcon name="i-heroicons-chevron-down-20-solid"
 										class="w-7 h-7 lg:w-10 lg:h-10 ms-auto transform transition-transform duration-200"

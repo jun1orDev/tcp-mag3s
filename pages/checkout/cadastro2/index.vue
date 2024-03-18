@@ -6,8 +6,7 @@
 		</div>
 
 		<!-- Segunda parte do Cadastro -->
-		<UForm id="formRegisterTwo" :state="storeCheckout.formRegister" :schema="schema"
-			class="space-y-4 mt-6" @submit="
+		<UForm id="formRegisterTwo" :state="storeCheckout.formRegister" :schema="schema" class="space-y-4 mt-6" @submit="
 				storeCheckout.registerOthersDatas(
 					useToast,
 					storeCheckout.packageChosen.id,
@@ -17,22 +16,24 @@
 				">
 			<UFormGroup label="Nome completo:" name="name">
 				<UInput size="xl" v-model="storeCheckout.formRegister.name" type="text" color="white" variant="outline"
-					:ui="configInput" icon="i-material-symbols-person-outline" />
+					:ui="configInput" icon="i-material-symbols-person-outline" inputmode="text" />
 			</UFormGroup>
 
 			<UFormGroup label="Telefone:" name="phone">
 				<UInput size="xl" type="tel" color="white" :ui="configInput" v-model="storeCheckout.formRegister.phone" v-maska
-					data-maska="['(##) #####-####', '(##) ####-####']" icon="i-material-symbols-add-call-outline-rounded" />
+					data-maska="['(##) #####-####', '(##) ####-####']" icon="i-material-symbols-add-call-outline-rounded"
+					inputmode="tel" />
 			</UFormGroup>
 
 			<UFormGroup label="CPF:" name="cpf">
 				<UInput size="xl" v-model="storeCheckout.formRegister.cpf" type="text" color="white" :ui="configInput" v-maska
-					data-maska="###.###.###-##" icon="i-material-symbols-wallet" />
+					data-maska="###.###.###-##" icon="i-material-symbols-wallet" inputmode="numeric" />
 			</UFormGroup>
 
 			<div class="flex justify-center">
-				<UButton size="xl" label="continuar para pagamento" type="submit" :ui="configButton"
-					:style="[colorBgButton, colorTextButton]" class="fm3 mt-6" :loading="storeCheckout.formRegister.loading"
+				<UButton size="xl" :label="storeCheckout.formRegister.configSimplePayment.labelButton" type="submit"
+					:ui="configButton" :style="[colorBgButton, colorTextButton]" class="fm3 mt-6"
+					:loading="storeCheckout.formRegister.loading || storeCheckout.formRegister.configSimplePayment.processPayment || !storeCheckout.formRegister.configSimplePayment.labelButton"
 					trailing />
 			</div>
 		</UForm>
@@ -103,6 +104,10 @@ const configButton = ref({
 	padding: {
 		xl: 'px-12 py-2',
 	},
+});
+
+onNuxtReady(() => {
+		storeCheckout.formRegister.configSimplePayment.labelButton = "continuar para pagamento";
 });
 </script>
 

@@ -3,8 +3,8 @@
 		placeholderImageMobile="/imgs/lp/cover_banner_mobile_3.png" :bgColor="app.layout_background_colors_app_two"
 		position="fixed" />
 
-	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false" :bgColor="app.header_colors_background_app_two"
-		:textColor="app.header_colors_text_app" :isLogoDark="true" />
+	<AppLayoutHeader v-if="app.config_will_have_hotsite" :hasLogout="false"
+		:bgColor="app.header_colors_background_app_two" :textColor="app.header_colors_text_app" :isLogoDark="true" />
 
 	<UContainer class="pt-14 pb-24 lg:pt-0 lg:pb-14" :class="isItemsCenter" :style="textColor">
 		<div class="flex flex-col justify-center min-h-screen">
@@ -18,31 +18,31 @@
 					<p class="fm3 text-base lg:text-lg mb-4">Seus dados pessoais.</p>
 
 					<!-- Dados Cadastrais -->
-
 					<UForm id="changeProfileData" class="space-y-4" :state="storeIncentive.userAcountData" :schema="schema"
 						@submit="storeIncentive.saveEditProfile(useToast)">
 						<UFormGroup label="Nome completo:" name="name">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.name" icon="i-material-symbols-person-outline"
-								type="text" color="white" variant="outline" :ui="configInput" placeholder="Digite aqui seu nome..." />
+								type="text" color="white" variant="outline" :ui="configInput" placeholder="Digite aqui seu nome..."
+								inputmode="text" />
 						</UFormGroup>
 
 						<UFormGroup label="CPF:" name="cpf">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.cpf" icon="i-material-symbols-wallet" type="CPF"
 								v-maska data-maska="###.###.###-##" color="white" :ui="configInput" placeholder="###.###.###-##"
-								:disabled="storeIncentive.disabledInputs.cpf" />
+								:disabled="storeIncentive.disabledInputs.cpf" inputmode="numeric" />
 						</UFormGroup>
 
 						<UFormGroup label="E-mail:" name="email">
 							<UInput size="xl" v-model="storeIncentive.userAcountData.email"
 								icon="i-material-symbols-stacked-email-outline" type="text" color="white" variant="outline"
-								:ui="configInput" placeholder="Digite aqui seu e-mail..." disabled />
+								:ui="configInput" placeholder="Digite aqui seu e-mail..." inputmode="email" disabled />
 						</UFormGroup>
 
 						<UFormGroup label="Telefone:" name="phone.number">
 							<UInput size="xl" icon="i-material-symbols-add-call-outline-rounded"
 								v-model="storeIncentive.userAcountData.phone.number" type="tel" v-maska
 								data-maska="['(##) #####-####', '(##) ####-####']" color="white" :ui="configInput"
-								placeholder="(##) #####-####" />
+								placeholder="(##) #####-####" inputmode="tel" />
 						</UFormGroup>
 
 						<p class="text-center mt-4">
@@ -52,8 +52,8 @@
 						</p>
 
 						<div class="flex justify-center">
-							<UButton size="xl" label="salvar" type="submit" :ui="configButton" :style="[colorBgButton, colorTextButton]"
-								class="fm3" :loading="storeIncentive.loading" trailing />
+							<UButton size="xl" label="salvar" type="submit" :ui="configButton"
+								:style="[colorBgButton, colorTextButton]" class="fm3" :loading="storeIncentive.loading" trailing />
 						</div>
 					</UForm>
 				</div>

@@ -14,7 +14,7 @@
 	<UContainer :class="[isItemsCenter, storeIncentive.userLoggedIn ? 'pt-14 lg:pt-24' : 'pt-12 lg:pt-14']">
 		<div class="flex flex-col lg:justify-center min-h-screen">
 			<div
-				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-center w-full"
+				class="grid-cols-1 lg:grid-cols-[300px_1fr] xl:grid-cols-[500px_1fr] gap-8 lg:gap-16 justify-center items-start w-full"
 				:class="isGridLayout">
 
 				<!-- Imagem do Brand -->
@@ -31,8 +31,8 @@
 					</div>
 
 					<div class="fm2">
-						<p class="text-base md:text-[20px] text-justify" :style="colorText"
-							v-html="app.terms_and_condition_text_document"></p>
+						<div class="text-base md:text-[20px] text-justify" :class="!storeIncentive.userLoggedIn ? 'pb-36' : ''" :style="colorText"
+							v-html="app.terms_and_condition_text_document"></div>
 					</div>
 				</div>
 			</div>

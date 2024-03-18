@@ -17,7 +17,7 @@
 						class="w-full flex flex-col justify-between" autoplay="6500" :wrap-around="true" snap-align="center-odd"
 						:pause-autoplay-on-hover="true">
 						<template #slides>
-							<Slide v-for="slide in storeIncentive.listDrawsUpcomingLimited(-Number(app.carousel_banner_main_qtd_items))"
+							<Slide v-for="slide in storeIncentive.listDrawsUpcomingLimited(Number(app.carousel_banner_main_qtd_items))"
 								:key="slide" class="flex flex-col">
 								<AppBannersCard :linkSource="storeIncentive.NextDrawLink(slide)"
 									:hasImageDetach="app.config_will_have_image_detach_banner_main" :imageDetach="app.banner_image_card_one"

@@ -1,6 +1,7 @@
 <template>
 	<div class="animate__animated animate__fadeIn">
-		<h2 v-if="!props.isDark" class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">Adquira chances de
+		<h2 v-if="!props.isDark" class="fm3 text-center text-base sm:text-2xl lg:text-xl mb-3 lg:mb-5" :style="colorText">
+			Adquira chances de
 			ganhar!</h2>
 
 		<!-- Quantidades disponíveis -->
@@ -10,26 +11,28 @@
 		</div>
 
 		<UForm :state="storeCheckout.packageChosen" :schema="schema"
-			@submit="storeCheckout.purchasePackage(storeCheckout.packageChosen.id, '', props.pathRedirect)">
+			@submit="storeCheckout.purchaseOnlyPaymentMethod(storeCheckout.packageChosen.id, '', props.pathRedirect, 'adquirir')">
 			<UFormGroup name="qtd" class="text-center">
-				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color" :style="props.isDark ? colorBgInput : ''">
+				<div class="flex justify-between items-center mt-5 border border-color rounded-full p-1 px-3 mx-6 text-color"
+					:style="props.isDark ? colorBgInput : ''">
 					<!-- + -->
-					<div
+					<button type="button"
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('sub', 5, false)">
+						:style="colorBgInput" @click.prevent="storeCheckout.setQtdPackageChosen('sub', 5, false)">
 						<Icon name="i-ic-round-remove" class="w-8 h-8 md:w-10 md:h-10" />
-					</div>
+					</button>
 					<!-- Input de mais ou menos  -->
 					<div>
 						<UInput type="number" name="qtd" variant="none" size="xl" placeholder="+000" :ui="configInput"
-							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" />
+							v-model="storeCheckout.packageChosen.qtd" v-maska data-maska="###" inputmode="numeric"
+							@input="storeCheckout.changePackagePerQtd" />
 					</div>
 					<!-- - -->
-					<div
+					<button type="button"
 						class="cursor-pointer border border-color rounded-full h-max active:scale-90 shadow-xl active:transition-all select-none"
-						:style="colorBgInput" @click="storeCheckout.setQtdPackageChosen('add', 5, false)">
+						:style="colorBgInput" @click.prevent="storeCheckout.setQtdPackageChosen('add', 5, false)">
 						<Icon name="i-ic-round-add" class="w-8 h-8 md:w-10 md:h-10" />
-					</div>
+					</button>
 				</div>
 			</UFormGroup>
 
@@ -38,8 +41,10 @@
 				<p class="fm1 text-lg">{{ storeCheckout.pricePackageMultipleAmout }}</p>
 
 				<!-- Botão para continuar a compra -->
-				<UButton type="submit" :label="labelButton" :ui="{ rounded: 'rounded-full' }" size="xl"
-					:style="[colorBgButton, colorTextButton]" class="fm3 px-12 mt-5" />
+				<UButton type="submit" :label="storeCheckout.formRegister.configSimplePayment.labelButton"
+					:ui="{ rounded: 'rounded-full' }" size="xl" :style="[colorBgButton, colorTextButton]"
+					:loading="storeCheckout.formRegister.configSimplePayment.processPayment || !storeCheckout.formRegister.configSimplePayment.labelButton"
+					trailing class="fm3 px-12 mt-5" />
 			</div>
 		</UForm>
 
@@ -62,13 +67,11 @@ const schema = object({
 });
 
 const colorText = computed(() => {
-	if(props.isDark) {
+	if (props.isDark) {
 		return `color: ${app.purchase_tables_colors_text_simple_package_dark}`;
 	}
 	return `color: ${app.purchase_tables_colors_text_simple_package}`;
 });
-
-const labelButton = ref('adquirir');
 
 const colorBgButton = computed(() => {
 	return `background-color: ${app.colors_background_button_hotsite}`;
@@ -93,6 +96,9 @@ const configInput = ref({
 	}
 });
 
+onNuxtReady(() => {
+		storeCheckout.formRegister.configSimplePayment.labelButton = "adquirir";
+});
 </script>
 
 <style scoped>
