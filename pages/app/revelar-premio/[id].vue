@@ -7,17 +7,40 @@
 
 		<UContainer class="py-12" :class="hasHeader">
 			<!-- Banner Principal -->
-			<div class="max-w-[700px] m-auto flex justify-center">
+			<div v-if="storeIncentive.showDrawnNumbersToday" class="max-w-[700px] m-auto flex justify-center">
 				<AppBannersCard linkSource="" :hasImageDetach="false" imageDetach=""
 					:loading="storeIncentive.loadingChosenDrawFull" :title="storeIncentive.revealChosenDrawFull.fullDate"
 					:subtitle="storeIncentive.revealChosenDrawFull.description" :countdown="false" :callToAction="false"
 					:hasDescription="true" :description="store.descriptionRevealDrawPrize"
 					:imageAward="storeIncentive.revealChosenDrawFull.image" />
 			</div>
+			<div>
+				<div v-show="!storeIncentive.showDrawnNumbersToday" class="max-w-[700px] m-auto flex justify-center">
+					<Carousel id="carousel-card-reveal-draw" class="w-full flex flex-col justify-between" autoplay="6500"
+						:wrap-around="true" snap-align="center-odd" :pause-autoplay-on-hover="true">
+
+						<template #slides>
+							<Slide v-for="slide in storeIncentive.listDrawsLatest" :key="slide" class="flex flex-col">
+								<AppBannersCard :linkSource="`/app/revelar-premio/${slide.id}`" :hasImageDetach="false" imageDetach=""
+									:loading="storeIncentive.loadingChosenDrawFull" :title="slide.fullDate" :subtitle="slide.description"
+									:countdown="false" :callToAction="false" :hasDescription="true"
+									:description="store.descriptionRevealDrawPrize" :imageAward="slide.image" />
+							</Slide>
+						</template>
+
+						<template #addons>
+							<div class="carousel__navegation hidden lg:block">
+								<Navigation />
+							</div>
+							<Pagination />
+						</template>
+					</Carousel>
+				</div>
+			</div>
 
 			<!-- Pesquisa dos números da sorte -->
 			<UContainer
-				v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull">
+				v-if="app.config_will_have_raffle && storeIncentive.hasLuckyNumbersUser && storeIncentive.loadingChosenDrawFull && !storeIncentive.showDrawnNumbersToday">
 				<div class="mt-6 flex justify-center animate__animated animate__fadeIn">
 					<AppOthersInputSearching inputPlaceholder="Encontre aqui seu número da sorte" hasMaskInput="['##']"
 						@input="storeIncentive.luckyNumbersUser(store.searchingValue)" class="lg:w-1/3"
@@ -31,7 +54,7 @@
 			<!-- Números do Sorteio Atual -->
 			<div v-if="storeIncentive.showDrawnNumbersToday">
 				<h1 class="mb-2 lg:mb-5 fm3 text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] lg:text-center">{{
-					store.contentApp.sessions_title_one }}</h1>
+		store.contentApp.sessions_title_one }}</h1>
 				<div
 					class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 					<AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
@@ -113,9 +136,17 @@ const hasHeader = computed(() => {
 	}
 });
 
+const bgCarouselPagination = computed(() => {
+	return app.colors_carousel_pagination_background;
+});
+
+const bgCarouselPaginationActive = computed(() => {
+	return app.colors_emphasis_active_and_hover;
+});
+
 onNuxtReady(async () => {
 	// Modal de revelar prêmio
-	if (!app.config_will_have_hotsite) {
+	if (storeIncentive.showDrawnNumbersToday) {
 		switch (storeIncentive.gamification.lotteryDraws.LuckyNumbersWereDrawn) {
 			case true:
 				store.openModalPrizeResult(
@@ -159,8 +190,49 @@ onNuxtReady(async () => {
 });
 </script>
 
-<style scoped>
+<style>
 .borderSep {
 	border-color: v-bind(borderSept);
+}
+
+#carousel-card-reveal-draw .carousel__navegation .carousel__prev {
+	/* Your custom styles here */
+	left: -10px;
+	transform: translateY(-20px);
+}
+
+#carousel-card-reveal-draw .carousel__navegation .carousel__next {
+	/* Your custom styles here */
+	right: -10px;
+	transform: translateY(-20px);
+}
+
+#carousel-card-reveal-draw .carousel__navegation .carousel__prev svg,
+#carousel-card-reveal-draw .carousel__navegation .carousel__next svg {
+	/* Your custom styles here */
+	color: v-bind(bgCarouselPaginationActive);
+	width: 120px;
+	height: 120px;
+	transform: scale(1.3);
+}
+
+#carousel-card-reveal-draw .carousel__pagination {
+	/* Your custom styles here */
+	margin: 15px 0 0 0;
+}
+
+#carousel-card-reveal-draw .carousel__pagination-button::after {
+	/* Your custom styles here */
+	width: 25px;
+	border-radius: 15px;
+	height: 6px;
+	background-color: v-bind(bgCarouselPagination);
+	opacity: .3;
+}
+
+#carousel-card-reveal-draw .carousel__pagination-button--active::after {
+	/* Your custom styles here */
+	background-color: v-bind(bgCarouselPaginationActive);
+	opacity: 1;
 }
 </style>

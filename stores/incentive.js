@@ -102,6 +102,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Sorteios realizados
+		listDrawsLatest: (state) => {
+			return state.gamification.lotteryDraws.listDrawsLatest;
+		},
+
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)
 				return `/app/revelar-premio/${state.gamification.lotteryDraws.lastDrawHeld.id}`;
@@ -199,8 +203,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				.fullDateYearComplete;
 		},
 		revealLatestDrawDateYearFull: (state) => {
-			return state.gamification.lotteryDraws.lastDraw
-				.fullDateYearComplete;
+			return state.gamification.lotteryDraws.lastDraw.fullDateYearComplete;
 		},
 		showDrawnNumbersToday: (state) => {
 			return state.gamification.lotteryDraws.revealChosenDraw
@@ -959,42 +962,58 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
 		// },
 		revealChosenDraw(idDraw) {
-			this.gamification.lotteryDraws.revealChosenDraw =
-				this.gamification.lotteryDraws.listDraws.find(
-					(draw) => draw.id === idDraw
-				);
+			const { $checkDatePassed } = useNuxtApp();
+
+			// salvando o sorteio escolhido a ser revelado em uma variável
+			const drawFound = this.gamification.lotteryDraws.listDraws.find(
+				(draw) => draw.id === idDraw
+			);
+
+			// descontruindo o sorteio e adicionando validação para mostrar os números sorteados
+			this.gamification.lotteryDraws.revealChosenDraw = {
+				...drawFound,
+				loading: true,
+				showDrawnNumbersToday: $checkDatePassed(drawFound.date),
+			};
 		},
 		$resetRevealChosenDraw() {
 			this.gamification.lotteryDraws.revealChosenDraw.fullDate = null;
 		},
-		async revealDrawnNumber(timer) {
+		setLuckyNumberWD(arr) {
+			arr.forEach((dozens) => {
+				dozens.status = 'awarded';
+			});
+		},
+		async revealDrawnNumber(timer, statusDrawNumbersToday, statusNumbersUser) {
 			let foundNumberDrawn = false;
 
 			// Obtendo o resultado do sorteio
+			const luckyNumbersToUser = this.luckyNumbersUser();
 			for (const [index, drawToday] of this.drawnNumbersToday.entries()) {
 				await new Promise((resolve) =>
 					setTimeout(() => {
-						this.luckyNumbersUser().forEach((element) => {
+						luckyNumbersToUser.forEach((element) => {
 							foundNumberDrawn = false;
 							element.dozens.find((dozens, i, arr) => {
 								if (foundNumberDrawn) return;
 
-								this.drawnNumbersToday[index].status = 'awarded';
+								this.drawnNumbersToday[index].status = statusDrawNumbersToday;
 
 								if (arr[index].number === drawToday.number) {
-									arr[index].status = 'nailed';
+									arr[index].status = statusNumbersUser;
 									foundNumberDrawn = true;
 
 									// Ordernar a lista assim que os números
-									this.luckyNumbersUser().sort((a, b) => {
-										// Função que conta quantos elementos têm status 'nailed' em uma subarray
+									luckyNumbersToUser.sort((a, b) => {
+										// Função que conta quantos elementos têm status statusNumbersUser em uma subarray
 										const contarNeiland = (arr) =>
-											arr.filter((item) => item.status === 'nailed').length;
+											arr.filter((item) => item.status === statusNumbersUser)
+												.length;
 
 										const contagemA = contarNeiland(a.dozens);
 										const contagemB = contarNeiland(b.dozens);
 
-										// Ordene de forma decrescente com base no número de elementos com status 'nailed'
+										// Ordene de forma decrescente com base no número de elementos com status statusNumbersUser
 										return contagemB - contagemA;
 									});
 								}
@@ -1009,14 +1028,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			let wasTenDrawn = false;
 			let breakLoop = false;
 
-			function setLuckyNumberWD(arr) {
-				arr.forEach((dozens) => {
-					dozens.status = 'awarded';
-				});
-			}
-
-			this.luckyNumbersUser().forEach((element) => {
-				if (breakLoop) return;
+			for (const element of this.luckyNumbersUser()) {
+				if (breakLoop) break;
 
 				wasTenDrawn = element.dozens.every(
 					(dozens, index) =>
@@ -1024,33 +1037,39 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				if (wasTenDrawn) {
-					setLuckyNumberWD(element.numbers);
+					this.setLuckyNumberWD(element.dozens);
 					breakLoop = true;
 				}
-			});
-
-			const storeApp = useStoreApp();
-			if (wasTenDrawn) {
-				this.gamification.lotteryDraws.LuckyNumbersWereDrawn = true;
-				setTimeout(() => {
-					storeApp.openModalPrizeResult(
-						storeApp.contentApp.modal_text_prize_title_three,
-						storeApp.contentApp.modal_text_prize_subtitle_three,
-						storeApp.contentApp.modal_text_prize_label_three,
-						'details'
-					);
-				}, 1000);
-			} else {
-				this.gamification.lotteryDraws.LuckyNumbersWereDrawn = false;
-				setTimeout(() => {
-					storeApp.openModalPrizeResult(
-						storeApp.contentApp.modal_text_prize_title_two,
-						storeApp.contentApp.modal_text_prize_subtitle_two,
-						storeApp.contentApp.modal_text_prize_label_two,
-						'back'
-					);
-				}, 1000);
 			}
+
+			if (statusDrawNumbersToday && statusNumbersUser) {
+				const storeApp = useStoreApp();
+				if (wasTenDrawn) {
+					this.gamification.lotteryDraws.LuckyNumbersWereDrawn = true;
+					setTimeout(() => {
+						storeApp.openModalPrizeResult(
+							storeApp.contentApp.modal_text_prize_title_three,
+							storeApp.contentApp.modal_text_prize_subtitle_three,
+							storeApp.contentApp.modal_text_prize_label_three,
+							'details'
+						);
+					}, 1000);
+				} else {
+					this.gamification.lotteryDraws.LuckyNumbersWereDrawn = false;
+					setTimeout(() => {
+						storeApp.openModalPrizeResult(
+							storeApp.contentApp.modal_text_prize_title_two,
+							storeApp.contentApp.modal_text_prize_subtitle_two,
+							storeApp.contentApp.modal_text_prize_label_two,
+							'back'
+						);
+					}, 1000);
+				}
+			}
+		},
+		async $resetRevealDrawnNumber() {
+			await this.revealDrawnNumber(0, '', '');
+			this.gamification.lotteryDraws.LuckyNumbersWereDrawn = null;
 		},
 
 		// Funções auxiliares
