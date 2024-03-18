@@ -102,6 +102,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		},
 
 		// Sorteios realizados
+		listDrawsLatest: (state) => {
+			return state.gamification.lotteryDraws.listDrawsLatest;
+		},
+
 		lastDrawHeldLink: (state) => {
 			if (state.gamification.lotteryDraws.lastDrawHeld.loading)
 				return `/app/revelar-premio/${state.gamification.lotteryDraws.lastDrawHeld.id}`;
@@ -199,8 +203,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				.fullDateYearComplete;
 		},
 		revealLatestDrawDateYearFull: (state) => {
-			return state.gamification.lotteryDraws.lastDraw
-				.fullDateYearComplete;
+			return state.gamification.lotteryDraws.lastDraw.fullDateYearComplete;
 		},
 		showDrawnNumbersToday: (state) => {
 			return state.gamification.lotteryDraws.revealChosenDraw
@@ -959,10 +962,19 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		// 	this.gamification.lotteryDraws.lastDrawHeld = null;
 		// },
 		revealChosenDraw(idDraw) {
-			this.gamification.lotteryDraws.revealChosenDraw =
-				this.gamification.lotteryDraws.listDraws.find(
-					(draw) => draw.id === idDraw
-				);
+			const { $checkDatePassed } = useNuxtApp();
+
+			// salvando o sorteio escolhido a ser revelado em uma variável
+			const drawFound = this.gamification.lotteryDraws.listDraws.find(
+				(draw) => draw.id === idDraw
+			);
+
+			// descontruindo o sorteio e adicionando validação para mostrar os números sorteados
+			this.gamification.lotteryDraws.revealChosenDraw = {
+				...drawFound,
+				loading: true,
+				showDrawnNumbersToday: $checkDatePassed(drawFound.date),
+			};
 		},
 		$resetRevealChosenDraw() {
 			this.gamification.lotteryDraws.revealChosenDraw.fullDate = null;
@@ -1015,8 +1027,8 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				});
 			}
 
-			this.luckyNumbersUser().forEach((element) => {
-				if (breakLoop) return;
+			for (const element of this.luckyNumbersUser()) {
+				if (breakLoop) break;
 
 				wasTenDrawn = element.dozens.every(
 					(dozens, index) =>
@@ -1024,10 +1036,10 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				if (wasTenDrawn) {
-					setLuckyNumberWD(element.numbers);
+					setLuckyNumberWD(element.dozens);
 					breakLoop = true;
 				}
-			});
+			}
 
 			const storeApp = useStoreApp();
 			if (wasTenDrawn) {
