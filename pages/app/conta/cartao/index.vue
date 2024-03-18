@@ -31,7 +31,7 @@
 			<!-- Formulário Credit Card -->
 			<div class="order-2 lg:order-2">
 				<div class="w-full pb-8 sm:pb-0">
-					<AppOthersCreditCard :save="true"/>
+					<AppOthersCreditCard :willHavePurchese="false"/>
 				</div>
 			</div>
 		</div>

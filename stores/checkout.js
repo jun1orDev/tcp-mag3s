@@ -640,7 +640,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, save = false) {
+		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, willHavePurchese) {
 			const storeIncentive = useStoreIncentive();[]
 			const toast = useToast();
 
@@ -654,7 +654,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				}
 			}
 
-			if (!save) {
+			if (!willHavePurchese) {
 				return;
 			} else {
 				this.formRegister.configPayment.labelButton = `Alterar cartão`;

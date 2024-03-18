@@ -25,7 +25,8 @@
 				class="space-y-4"
 				filled-form
 				:class="storeCheckout.hasCardCreditRegister ? 'mt-0' : 'mt-6, '"
-				@submit="storeCheckout.paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, props.save)"
+				@submit="storeCheckout.paymentCreditCard(useToast, props.packageChosen,
+					props.packageChosenOB, props.willHavePurchese)"
 			>
 				<UFormGroup label="Número do cartão:" name="number">
 					<UInput
@@ -171,7 +172,7 @@ const schema = object({
 	cvv: string().required('Campo obrigatório.'),
 });
 
-const props = defineProps (['save']);
+const props = defineProps (['willHavePurchese', 'packageChosenOB', 'packageChosen' ]);
 
 const textColor = computed(() => {
 	return `color: ${app.layout_text_colors_login_and_checkout}`;
