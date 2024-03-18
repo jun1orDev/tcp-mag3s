@@ -31,7 +31,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 				if (dateEvent.isValid()) {
 					let now = moment().format();
 					let diffDuration = moment.duration(dateEvent.diff(now));
-					let days = diffDuration.days();
+					let days = diffDuration.asDays().toFixed() - 1;
 					let hours = diffDuration.hours();
 					let minutes = diffDuration.minutes();
 					let seconds = diffDuration.seconds();
