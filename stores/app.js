@@ -347,6 +347,15 @@ export const useStoreApp = defineStore('storeApp', {
 			this.modalPrize.isOpenModalPrizeResult = true;
 		},
 
+		$resetModalPrizeResult() {
+			this.modalPrize.typeAction = '';
+			this.modalPrize.title = '';
+			this.modalPrize.subtitle = '';
+			this.modalPrize.labelButton = '';
+
+			this.modalPrize.isOpenModalPrizeResult = false;
+		},
+
 		// Action Prize
 		async callToActionPrize() {
 			const storeIncentive = useStoreIncentive();
@@ -360,14 +369,17 @@ export const useStoreApp = defineStore('storeApp', {
 			switch (this.modalPrize.typeAction) {
 				case 'reveal':
 					revealChosenDraw.showDrawnNumbersToday = true;
-					await revealDrawnNumber(1000);
+					await revealDrawnNumber(1000, 'awarded', 'nailed');
 					console.log('chamar função que revela o prêmio');
 					break;
 				case 'back':
+					this.$resetModalPrizeResult();
+					storeIncentive.$resetRevealDrawnNumber();
 					router.go(-1);
 					break;
 				case 'details':
-					this.modalPrize.isOpenModalPrizeResult = false;
+					this.$resetModalPrizeResult();
+					storeIncentive.$resetRevealDrawnNumber();
 					router.push('/app/hub');
 					break;
 
