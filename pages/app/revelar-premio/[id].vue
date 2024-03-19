@@ -22,9 +22,10 @@
 						<template #slides>
 							<Slide v-for="slide in storeIncentive.listDrawsLatest" :key="slide" class="flex flex-col">
 								<AppBannersCard :linkSource="`/app/revelar-premio/${slide.id}`" :hasImageDetach="false" imageDetach=""
-									:loading="storeIncentive.loadingChosenDrawFull" :title="slide.fullDate" :subtitle="slide.description"
-									:countdown="false" :callToAction="false" :hasDescription="true"
-									:description="store.descriptionRevealDrawPrize" :imageAward="slide.image" />
+									:loading="storeIncentive.loadingChosenDrawFull" :title="store.titleCardNextDraw(slide.date)"
+									:subtitle="store.subtitleCardNextDraw(slide.date)" :countdown="false"
+									:callToAction="store.labelButtonCardNextDraw(slide.date)" :hasDescription="false"
+									:description="false" :imageAward="slide.image" />
 							</Slide>
 						</template>
 
@@ -54,7 +55,7 @@
 			<!-- Números do Sorteio Atual -->
 			<div v-if="storeIncentive.showDrawnNumbersToday">
 				<h1 class="mb-2 lg:mb-5 fm3 text-[10px] sm:text-[12px] md:text-[14px] lg:text-[16px] lg:text-center">{{
-		store.contentApp.sessions_title_one }}</h1>
+					store.contentApp.sessions_title_one }}</h1>
 				<div
 					class="grid grid-cols-[repeat(4,40px)] md:grid-cols-[repeat(4,50px)] lg:grid-cols-[repeat(4,60px)] min-h-[40px] md:min-h-[50px] lg:min-h-[60px] gap-1 justify-center animate__animated animate__fadeIn">
 					<AppGameNumberDraw v-for="drawToday in storeIncentive.drawnNumbersToday" :numberDraw="drawToday.number"
