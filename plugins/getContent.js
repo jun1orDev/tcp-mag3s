@@ -29,4 +29,25 @@ export default defineNuxtPlugin((nuxt) => {
 		},
 		{ global: true }
 	);
+
+	addRouteMiddleware('accept-cookies', (to, from) => {
+		const toast = useToast();
+		if (process.client) {
+			toast.add({
+				id: 'accept_cookies',
+				color: 'green',
+				title: 'Aviso de Cookies 🍪',
+				description: 'Este site utiliza cookies para garantir uma experiência melhor. Ao continuar navegando, você concorda com o uso de cookies de acordo com nossa Política de Privacidade. Você pode ajustar suas preferências de cookies a qualquer momento nas configurações do seu navegador.',
+				timeout: 0,
+				closeButton: false,
+				actions: [{
+					label: 'Aceitar',
+					color: 'amber',
+					click: () => {
+						// Lógica para aceitar os cookies
+					}
+				}]
+			});
+		}
+	});
 });

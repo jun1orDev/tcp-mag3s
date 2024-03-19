@@ -55,9 +55,8 @@ const bgImageSessionTwo = computed(() => {
 });
 
 definePageMeta({
-	middleware: ['chosen-influencer']
+	middleware: ['chosen-influencer', 'accept-cookies']
 });
-
 
 </script>
 
