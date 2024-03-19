@@ -9,8 +9,8 @@
 			@submit="storeCheckout.paymentMethod(useToast, storeCheckout.packageChosen.id, storeCheckout.packageChosenOB.id, storeCheckout.formRegister.configPayment.choicePathTo)">
 
 			<URadio v-model="storeCheckout.formRegister.selectedPayment"
-				v-for="option of storeCheckout.formRegister.optionsPayment" :key="option.value" v-show="option.showing" v-bind="option" :ui="configRadio"
-				@input="storeCheckout.changeMethodPayment(option)">
+				v-for="option of storeCheckout.formRegister.optionsPayment" :key="option.value" v-show="option.showing"
+				v-bind="option" :ui="configRadio" @input="storeCheckout.changeMethodPayment(option)">
 				<template #label>
 					<div class="flex items-center">
 						<UIcon :name="option.label === 'Pix' ? `i-ic-round-pix` : `i-ic-baseline-credit-card`" class="w-9 h-9 me-2"
@@ -29,8 +29,8 @@
 				<div>
 					<UButton size="xl" :label="storeCheckout.formRegister.configPayment.labelButton" type="submit"
 						:ui="configButton" :style="[colorBgButton, colorTextButton]" class="fm3 mt-6"
-						:loading="storeCheckout.formRegister.loading" trailing
-						:disabled="!storeCheckout.formRegister.selectedPayment" />
+						:loading="storeCheckout.formRegister.loading || !storeCheckout.formRegister.configPayment.labelButton"
+						trailing :disabled="!storeCheckout.formRegister.selectedPayment" />
 				</div>
 			</div>
 		</UForm>

@@ -129,6 +129,13 @@ export function enumsResponseServer(code) {
 					'Houve um problema para finalizar o pagamento, tente novamente mais tarde!',
 			};
 
+		case 'Exception':
+			return {
+				title: 'Erro no operador de pagamento!',
+				message:
+					'O método de pagamento ou operador não foram configurados, contate o Administrador do Sistema!',
+			};
+
 		default:
 			return {
 				title: 'Ops, algo deu errado!',

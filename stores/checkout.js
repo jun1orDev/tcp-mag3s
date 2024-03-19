@@ -87,7 +87,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	getters: {
 		// Form CreditCard
 		hasCardCreditRegister: (state) => {
-			return state.formRegister.creditCard.status;
+			const storeIncentive = useStoreIncentive();
+			return storeIncentive.userAcountData.paymentMethods.status;
 		},
 
 		// Value Order Bump Price
@@ -436,7 +437,9 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						useToast,
 						IDpkgChosen,
 						IDpkgOB,
-						'/checkout/feedback'
+						'/checkout/feedback',
+						true,
+						'escolha antes de continuar...'
 					);
 				} else {
 					return this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
@@ -561,22 +564,34 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				// Obter os dados do usuário
-				storeIncentive.userAcountData.loading = false;
-				await storeIncentive.userAccount(useToast);
+				toast.add({
+					id: 'credit_card_register_success',
+					color: `green`,
+					title: `Tudo certo!`,
+					description: `Cartão cadastrado com sucesso.`,
+					icon: 'i-ic-baseline-check',
+					timeout: 3500,
+				});
+
 			} catch (error) {
 				console.log(error);
 				toast.add({
 					id: 'error_Register_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
 				});
 			}
+
+			// Obter os dados do usuário
+			storeIncentive.userAcountData.loading = false;
+			await storeIncentive.userAccount(useToast);
 
 			this.formRegister.loading = false;
 		},
@@ -613,8 +628,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					id: 'credit_card_remove_success',
 					color: `green`,
 					title: `Tudo certo!`,
-					description: `cartão excluído com sucesso`,
-					icon: `i-material-symbols-credit-score-outline-rounded`,
+					description: `Cartão excluído com sucesso.`,
+					icon: 'i-ic-baseline-check',
 					timeout: 3500,
 				});
 
@@ -640,10 +655,9 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, willHavePurchese) {
-			const storeIncentive = useStoreIncentive();[]
+		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, willHavePurchese, newLabel) {
+			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
-
 
 			// Caso não tenha cartão cadastrado, cadastrar um novo
 			if (!storeIncentive.userAcountData.paymentMethods.status) {
@@ -654,61 +668,51 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				}
 			}
 
-			if (!willHavePurchese) {
-				return;
-			} else {
-				this.formRegister.configPayment.labelButton = `Alterar cartão`;
+			if (willHavePurchese) {
+				this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
+				this.formRegister.loading = true;
 
-				toast.add({
-					id: 'error_PaymentCardCredit',
-					title: `Erro ao alterar cartão`,
-					description: `Remova o cartão atual para adicionar um novo`,
-					color: 'red',
-					icon: 'i-material-symbols-warning-outline-rounded',
-					timeout: 3500,
-				});
-			}
+				const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+				const influencerCode = getCookie('influencerCode');
 
-			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
-			this.formRegister.loading = true;
+				try {
+					const data = await $fetch(
+						`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
+						{
+							method: 'post',
+							body: {
+								amount: +this.packageChosen.qtd,
+								paymentMethodType: 'CreditCard',
+								userPaymentMethodId:
+									storeIncentive.userAcountData.paymentMethods.id,
+								paymentType: 301,
+								referral: influencerCode,
+							},
+							headers: {
+								Authorization: `Bearer ${useCookie('tokenUser').value}`,
+							},
+						}
+					);
 
-			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
-			const influencerCode = getCookie('influencerCode');
-
-			try {
-				const data = await $fetch(
-					`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
-					{
-						method: 'post',
-						body: {
-							amount: +this.packageChosen.qtd,
-							paymentMethodType: 'CreditCard',
-							userPaymentMethodId:
-								storeIncentive.userAcountData.paymentMethods.id,
-							paymentType: 301,
-							referral: influencerCode,
-						},
-						headers: {
-							Authorization: `Bearer ${useCookie('tokenUser').value}`,
-						},
-					}
-				);
-
-				this.showFeedback(IDpkgChosen, IDpkgOB, pathTo, 'credit-card');
-			} catch (error) {
-				toast.add({
-					id: 'error_PaymentCardCredit',
-					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${enumsResponseServer(error.response._data.code).message
+					this.showFeedback(IDpkgChosen, IDpkgOB, pathTo, 'credit-card');
+				} catch (error) {
+					toast.add({
+						id: 'error_PaymentCardCredit',
+						title: `${enumsResponseServer(error.response._data.code).title}`,
+						description: `${
+							enumsResponseServer(error.response._data.code).message
 						}`,
-					color: 'red',
-					icon: 'i-material-symbols-warning-outline-rounded',
-					timeout: 3500,
-				});
-			}
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
 
-			this.formRegister.loading = false;
-			this.formRegister.configPayment.labelButton = `finalizar pagamento`;
+				this.formRegister.loading = false;
+				this.formRegister.configPayment.labelButton = newLabel;
+			} else {
+				this.formRegister.configPayment.labelButton = `salvar cartão`;
+			}
 		},
 
 		// Feedback de pagamento
