@@ -58,6 +58,7 @@ definePageMeta({
 	middleware: ['chosen-influencer']
 });
 
+
 </script>
 
 <style scoped></style>
