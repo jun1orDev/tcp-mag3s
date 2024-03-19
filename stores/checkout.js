@@ -87,7 +87,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	getters: {
 		// Form CreditCard
 		hasCardCreditRegister: (state) => {
-			return state.formRegister.creditCard.status;
+			const storeIncentive = useStoreIncentive();
+			return storeIncentive.userAcountData.paymentMethods.status;
 		},
 
 		// Value Order Bump Price
@@ -214,12 +215,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.packageChosenOB = id
 				? this.packages.find((item) => item.id === id)
 				: {
-						id: null,
-						isPopularProduct: false,
-						image: '',
-						price: '',
-						items: [],
-				  };
+					id: null,
+					isPopularProduct: false,
+					image: '',
+					price: '',
+					items: [],
+				};
 		},
 
 		// Progresso da compra
@@ -325,12 +326,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -395,12 +394,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -440,7 +437,9 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 						useToast,
 						IDpkgChosen,
 						IDpkgOB,
-						'/checkout/feedback'
+						'/checkout/feedback',
+						true,
+						'escolha antes de continuar...'
 					);
 				} else {
 					return this.purchasePackage(IDpkgChosen, IDpkgOB, pathTo);
@@ -523,12 +522,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -567,9 +564,15 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					},
 				});
 
-				// Obtendo os dados do usuário
-				storeIncentive.userAcountData.loading = false;
-				await storeIncentive.userAccount(useToast);
+				toast.add({
+					id: 'credit_card_register_success',
+					color: `green`,
+					title: `Tudo certo!`,
+					description: `Cartão cadastrado com sucesso.`,
+					icon: 'i-ic-baseline-check',
+					timeout: 3500,
+				});
+
 			} catch (error) {
 				console.log(error);
 				toast.add({
@@ -586,8 +589,13 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				});
 			}
 
+			// Obter os dados do usuário
+			storeIncentive.userAcountData.loading = false;
+			await storeIncentive.userAccount(useToast);
+
 			this.formRegister.loading = false;
 		},
+
 
 		// Deletar Cartão de Crédito cadastrado
 		async deleteCreditCard(useToast) {
@@ -620,8 +628,8 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					id: 'credit_card_remove_success',
 					color: `green`,
 					title: `Tudo certo!`,
-					description: `cartão excluído com sucesso`,
-					icon: `i-material-symbols-credit-score-outline-rounded`,
+					description: `Cartão excluído com sucesso.`,
+					icon: 'i-ic-baseline-check',
 					timeout: 3500,
 				});
 
@@ -632,12 +640,10 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${
-						enumsResponseServer(error.response._data.request.code).title
-					}`,
-					description: `${
-						enumsResponseServer(error.response._data.request.code).message
-					}`,
+					title: `${enumsResponseServer(error.response._data.request.code).title
+						}`,
+					description: `${enumsResponseServer(error.response._data.request.code).message
+						}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -649,7 +655,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo) {
+		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, willHavePurchese, newLabel) {
 			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
 
@@ -662,47 +668,51 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				}
 			}
 
-			this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
-			this.formRegister.loading = true;
+			if (willHavePurchese) {
+				this.formRegister.configPayment.labelButton = `Aguarde o processamento`;
+				this.formRegister.loading = true;
 
-			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
-			const influencerCode = getCookie('influencerCode');
+				const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+				const influencerCode = getCookie('influencerCode');
 
-			try {
-				const data = await $fetch(
-					`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
-					{
-						method: 'post',
-						body: {
-							amount: +this.packageChosen.qtd,
-							paymentMethodType: 'CreditCard',
-							userPaymentMethodId:
-								storeIncentive.userAcountData.paymentMethods.id,
-							paymentType: 301,
-							referral: influencerCode,
-						},
-						headers: {
-							Authorization: `Bearer ${useCookie('tokenUser').value}`,
-						},
-					}
-				);
+				try {
+					const data = await $fetch(
+						`${ApiIncentiveSystemContents}store/content/${this.packageChosen.id}`,
+						{
+							method: 'post',
+							body: {
+								amount: +this.packageChosen.qtd,
+								paymentMethodType: 'CreditCard',
+								userPaymentMethodId:
+									storeIncentive.userAcountData.paymentMethods.id,
+								paymentType: 301,
+								referral: influencerCode,
+							},
+							headers: {
+								Authorization: `Bearer ${useCookie('tokenUser').value}`,
+							},
+						}
+					);
 
-				this.showFeedback(IDpkgChosen, IDpkgOB, pathTo, 'credit-card');
-			} catch (error) {
-				toast.add({
-					id: 'error_PaymentCardCredit',
-					title: `${enumsResponseServer(error.response._data.code).title}`,
-					description: `${
-						enumsResponseServer(error.response._data.code).message
-					}`,
-					color: 'red',
-					icon: 'i-material-symbols-warning-outline-rounded',
-					timeout: 3500,
-				});
+					this.showFeedback(IDpkgChosen, IDpkgOB, pathTo, 'credit-card');
+				} catch (error) {
+					toast.add({
+						id: 'error_PaymentCardCredit',
+						title: `${enumsResponseServer(error.response._data.code).title}`,
+						description: `${
+							enumsResponseServer(error.response._data.code).message
+						}`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+
+				this.formRegister.loading = false;
+				this.formRegister.configPayment.labelButton = newLabel;
+			} else {
+				this.formRegister.configPayment.labelButton = `salvar cartão`;
 			}
-
-			this.formRegister.loading = false;
-			this.formRegister.configPayment.labelButton = `finalizar pagamento`;
 		},
 
 		// Feedback de pagamento
