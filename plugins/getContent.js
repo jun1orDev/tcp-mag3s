@@ -29,4 +29,22 @@ export default defineNuxtPlugin((nuxt) => {
 		},
 		{ global: true }
 	);
+
+	//  Método para exibir o toast de cookies
+	const toast = useToast();
+	onMounted(() => {
+		toast.add({
+			id: 'cookies',
+			title: 'Aviso de Cookies 🍪',
+			description: 'Este site utiliza cookies para garantir uma experiência melhor. Ao continuar navegando, você concorda com o uso de cookies de acordo com nossa Política de Privacidade. Você pode ajustar suas preferências de cookies a qualquer momento nas configurações do seu navegador.',
+			icon: 'i-material-symbols:cookie-outline-rounded',
+			timeout: 0,
+			actions: [{
+				label: 'Aceitar',
+				click: () => {
+				}
+			}]
+		})
+	});
+
 });
