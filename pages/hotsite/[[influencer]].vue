@@ -36,6 +36,10 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 const { pathAssets } = useRuntimeConfig().public;
 
+definePageMeta({
+	middleware: ['chosen-influencer']
+});
+
 // Seção 1
 const bgMobileImageSessionOne = computed(() => {
 	return `${pathAssets}${app.layout_background_hotsite_mobile_two}`;
@@ -53,12 +57,6 @@ const bgMobileImageSessionTwo = computed(() => {
 const bgImageSessionTwo = computed(() => {
 	return `${pathAssets}${app.layout_background_hotsite_two}`;
 });
-
-definePageMeta({
-	middleware: ['chosen-influencer']
-});
-
-
 </script>
 
 <style scoped></style>
