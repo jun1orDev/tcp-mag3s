@@ -1217,6 +1217,30 @@ export const listSchemaDataMedia = [
 		type: typesMedia[3],
 	},
 	{
+		name: 'influencer_race_hotsite_stats_title',
+		description: 'Título da página de estatísticas de cada influencer',
+		value:
+			'<br>Veja abaixo as estatísticas do seu <strong>influencer</strong> favorito:',
+		tag: 'hotsite',
+		type: typesMedia[0],
+	},
+	{
+		name: 'influencer_race_hotsite_colors_stats_numbers',
+		description: 'cor de destaque das informações referentes ao influencer',
+		value: '#00F919',
+		tag: 'hotsite',
+		type: typesMedia[2],
+	},
+	{
+		name: 'influencer_race_hotsite_stats_labels',
+		description:
+			'Label que identifica o título de cada estatística do influencer',
+		value:
+			'{"list":[{"one":"Perfil","two":"código do influencer buscado.","three":"profile","type":"text"},{"one":"Usuários Cadastrados","two":"Quantidade de usuário que se cadastraram pelo link patrocinado.","three":"createdUsers","type":"text"},{"one":"Vendas Realizadas","two":"Número de aquisições de tickets feitas pelos usuários (Quantidade de números da sorte).","three":"acquisitions","type":"text"},{"one":"Transações","two":"Transações realizadas dentro da plataforma.","three":"transactions","type":"text"},{"one":"Pontuação","two":"Pontuação atual do seu influencer favorito.","three":"score","type":"text"}]}',
+		tag: 'hotsite',
+		type: typesMedia[7],
+	},
+	{
 		name: 'influencer_race_hotsite_list',
 		description: 'Lista da corrida dos influencers',
 		value:
