@@ -41,8 +41,7 @@ export default defineNuxtPlugin((nuxt) => {
 				timeout: 0,
 				closeButton: false,
 				actions: [{
-					label: 'Aceitar',
-					color: 'amber',
+					label: 'aceitar',
 					click: () => {
 						// Lógica para aceitar os cookies
 					}
