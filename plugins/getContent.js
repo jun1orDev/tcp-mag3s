@@ -49,5 +49,7 @@ export default defineNuxtPlugin((nuxt) => {
 				}]
 			});
 		}
-	});
+	},
+		{ global: true }
+	);
 });
