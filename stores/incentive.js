@@ -59,6 +59,17 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				},
 				qtdScratchCard: 0,
 			},
+			influencerRace: {
+				influencer: {
+					profile: null,
+					createdUsers: 0,
+					acquisitions: 0,
+					transactions: 0,
+					score: 0,
+					loading: true,
+				},
+				loading: false,
+			},
 			formLogin: {
 				user: '',
 				password: '',
@@ -268,6 +279,14 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 		choosePrizeDetails: (state) => {
 			if (state.inventory.loading) return state.inventory.choosePrizeDetails;
 			return '';
+		},
+
+		// Corrida dos Influencers
+		findInfluencerStats: (state) => {
+			return (payload) => {
+				if (payload in state.influencerRace.influencer)
+					return state.influencerRace.influencer[payload];
+			};
 		},
 	},
 
@@ -1103,6 +1122,74 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			this.inventory.choosePrizeDetails = this.inventory.allPrizes.find(
 				(prize) => prize.id === id
 			);
+		},
+
+		// Corrida dos Influencers
+		async getDataInfluencerOnly(useToast, influencerCode) {
+			// Caso exista inventário no state não buscar informações
+			if (this.influencerRace.loading) return;
+			console.log('buscando dados do Inventário');
+
+			const storeApp = useStoreApp();
+			const app = storeApp.contentApp;
+			const toast = useToast();
+
+			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
+
+			this.influencerRace.influencer.loading = true;
+			try {
+				const data = await $fetch(
+					`${ApiIncentiveSystemContents}influencer/stats/${influencerCode}`,
+					{
+						method: 'get',
+						headers: {
+							Authorization: `Bearer ${getCookie('tokenClient')}`,
+						},
+					}
+				);
+
+				this.influencerRace.influencer = {
+					profile: data.profile,
+					createdUsers: data.createdUsers,
+					acquisitions: data.acquisitions,
+					transactions: data.transactions,
+					score: data.score,
+					loading: false,
+				};
+
+				if (this.influencerRace.influencer.profile) {
+					toast.add({
+						id: 'info_influencer_data',
+						title: `Maravilha!`,
+						description: `Dados do influencer carregados com sucesso.`,
+						color: 'green',
+						icon: 'i-material-symbols-person-check-outline-rounded',
+						timeout: 3500,
+					});
+				} else {
+					toast.add({
+						id: 'error_influencer_data_null',
+						title: `Atenção`,
+						description: `Este Influencer não possui estatísticas`,
+						color: 'red',
+						icon: 'i-material-symbols-warning-outline-rounded',
+						timeout: 3500,
+					});
+				}
+
+				this.influencerRace.loading = true;
+			} catch (error) {
+				toast.add({
+					id: 'error_getInfluencerData',
+					title: `Erro: ${error}`,
+					description: `${error}`,
+					color: 'red',
+					icon: 'i-material-symbols-warning-outline-rounded',
+					timeout: 3500,
+				});
+			}
+
+			this.influencerRace.influencer.loading = false;
 		},
 	},
 });

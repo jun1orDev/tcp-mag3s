@@ -396,6 +396,7 @@ export const useStoreApp = defineStore('storeApp', {
 					(item) => item.two === influencer
 				);
 
+			// Exibe um influencer aleatório caso o usuário não tenha informado um
 			if (!influencer) {
 				this.influencerChosen =
 					this.contentApp.influencer_race_hotsite_list.list[
