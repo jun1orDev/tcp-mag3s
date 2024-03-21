@@ -83,7 +83,7 @@ export default defineNuxtConfig({
 		/* module options */
 		track: 'PageView',
 		autoPageView: true,
-		debug: true,
+		debug: false,
 		disabled: true,
 	},
 

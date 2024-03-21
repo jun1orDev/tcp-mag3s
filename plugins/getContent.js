@@ -47,6 +47,7 @@ export default defineNuxtPlugin((nuxt) => {
 					label: 'Aceitar',
 					click: () => {
 						userCookies.value = true;
+						initMetaPixelCode(nuxt.$fb, store.contentApp.config_meta_pixel_code_id);
 					}
 				}]
 			});
