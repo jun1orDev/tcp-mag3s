@@ -31,7 +31,9 @@ export default defineNuxtPlugin((nuxt) => {
 
 	addRouteMiddleware('accept-cookies', (to, from) => {
 		const toast = useToast();
-		const userCookies = useCookie('userAcceptCookies');
+		const userCookies = useCookie('userAcceptCookies', {
+			maxAge: 31536000,
+		});
 
 		// Verificar se o cookie já foi aceito
 		if (process.client && !userCookies.value) {
