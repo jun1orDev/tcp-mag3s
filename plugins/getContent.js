@@ -31,7 +31,11 @@ export default defineNuxtPlugin((nuxt) => {
 
 	addRouteMiddleware('accept-cookies', (to, from) => {
 		const toast = useToast();
-		if (process.client) {
+		const userCookies = useCookie('userAcceptCookies');
+
+		// Verificar se o cookie já foi aceito
+		if (process.client && !userCookies.value) {
+			// Se o cookie não estiver presente, exibir a mensagem do Toast
 			toast.add({
 				id: 'accept_cookies',
 				color: 'green',
@@ -40,14 +44,12 @@ export default defineNuxtPlugin((nuxt) => {
 				timeout: 0,
 				closeButton: false,
 				actions: [{
-					label: 'aceitar',
+					label: 'Aceitar',
 					click: () => {
-						// Lógica para aceitar os cookies
+						userCookies.value = true;
 					}
 				}]
 			});
 		}
-	},
-		{ global: true }
-	);
+	}, { global: true });
 });
