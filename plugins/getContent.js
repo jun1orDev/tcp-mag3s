@@ -13,11 +13,9 @@ export default defineNuxtPlugin((nuxt) => {
 			else storeIncentive.userLoggedIn = false;
 
 			// Meta Pixel Code
-			// nuxt.$fb.setPixelId(2620787371431783);
-			// nuxt.$fb.options.pixelId = 2620787371431783;
-			// nuxt.$fb.enable();
-			// console.log();
-
+			if (process.client && useCookie('userAcceptCookies').value) {
+				initMetaPixelCode(nuxt.$fb, 2620787371431783);
+			}
 
 			// Exibir ou não a edição de cartão de crédito no Menu Behaviour
 			store.selectMenuBehaviour(5, 'showing', store.contentApp.config_will_have_credit_card_payments, false, 3);

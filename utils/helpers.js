@@ -176,3 +176,9 @@ export function searchValuePopular(numbers) {
 
 // Cookie User Token Access
 export const useTokenUser = () => useCookie('tokenUser', { /* shared options */ })
+
+// Config Meta Pixel Code
+export function initMetaPixelCode(instance, idCode) {
+	instance.setPixelId(idCode);
+	instance.enable();
+}
