@@ -14,7 +14,7 @@
 
 				<!-- Dados do Influencer -->
 				<div>
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4">
+					<div class="grid grid-cols-2 lg:grid-cols-3 gap-2 mt-4">
 						<div v-for="(influencerMedia, index) in app.influencer_race_hotsite_stats_labels.list" :key="index"
 							class="border border-dashed p-3 rounded-md lg:rounded-xl animate__animated animate__zoomInUp">
 							<div class="flex flex-col">
