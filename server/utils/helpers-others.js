@@ -102,6 +102,13 @@ export const listSchemaDataMedia = [
 		tag: 'config',
 		type: typesMedia[6],
 	},
+	{
+		name: 'config_meta_pixel_code_id',
+		description: 'ID utilizado na configuração e importação do Meta Pixel Code do Facebook.',
+		value: '',
+		tag: 'config',
+		type: typesMedia[0],
+	},
 
 	// Brand
 	{

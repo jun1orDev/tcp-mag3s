@@ -12,18 +12,19 @@ export default defineNuxtPlugin((nuxt) => {
 			if (useCookie('tokenUser').value) storeIncentive.userLoggedIn = true;
 			else storeIncentive.userLoggedIn = false;
 
-			// Meta Pixel Code
-			if (process.client && useCookie('userAcceptCookies').value) {
-				initMetaPixelCode(nuxt.$fb, 2620787371431783);
-			}
-
 			// Exibir ou não a edição de cartão de crédito no Menu Behaviour
 			store.selectMenuBehaviour(5, 'showing', store.contentApp.config_will_have_credit_card_payments, false, 3);
 
 			// Caso já exista conteúdo do admin carregado na aplicação, não chamar novamente
 			if (store.contentHasBeenLoaded) return;
 
+			// Obtendo os dados de assets do admin
 			await store.getContentApp(useToast);
+
+			// Meta Pixel Code
+			if (process.client && useCookie('userAcceptCookies').value) {
+				initMetaPixelCode(nuxt.$fb, store.contentApp.config_meta_pixel_code_id);
+			}
 		},
 		{ global: true }
 	);
