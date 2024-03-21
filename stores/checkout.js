@@ -6,6 +6,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 	state: () => {
 		return {
 			packages: [],
+			packageLoading: false,
 			packageChosen: {
 				id: null,
 				isPopularProduct: false,
@@ -131,6 +132,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			const toast = useToast();
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
 
+			this.packageLoading = true;
 			try {
 				const data = await $fetch(`${ApiIncentiveSystemContents}store`, {
 					method: 'get',
@@ -180,6 +182,7 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					timeout: 3500,
 				});
 			}
+			this.packageLoading = false;
 		},
 
 		// Compra do pacote escolhido
@@ -215,12 +218,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			this.packageChosenOB = id
 				? this.packages.find((item) => item.id === id)
 				: {
-					id: null,
-					isPopularProduct: false,
-					image: '',
-					price: '',
-					items: [],
-				};
+						id: null,
+						isPopularProduct: false,
+						image: '',
+						price: '',
+						items: [],
+				  };
 		},
 
 		// Progresso da compra
@@ -264,7 +267,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					this.formRegister.configPayment.choicePathTo
 				);
 			} catch (error) {
-
 				toast.add({
 					id: 'error_PaymentPixProcess',
 					title: `Atenção!`,
@@ -326,10 +328,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -394,10 +398,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 			} catch (error) {
 				toast.add({
 					id: 'error_getContentAppLoginUser',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -522,10 +528,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_PaymentPix',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -572,7 +580,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 					icon: 'i-ic-baseline-check',
 					timeout: 3500,
 				});
-
 			} catch (error) {
 				console.log(error);
 				toast.add({
@@ -595,7 +602,6 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 
 			this.formRegister.loading = false;
 		},
-
 
 		// Deletar Cartão de Crédito cadastrado
 		async deleteCreditCard(useToast) {
@@ -640,10 +646,12 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 				console.log(error);
 				toast.add({
 					id: 'error_Remove_CreditCard',
-					title: `${enumsResponseServer(error.response._data.request.code).title
-						}`,
-					description: `${enumsResponseServer(error.response._data.request.code).message
-						}`,
+					title: `${
+						enumsResponseServer(error.response._data.request.code).title
+					}`,
+					description: `${
+						enumsResponseServer(error.response._data.request.code).message
+					}`,
 					color: 'red',
 					icon: 'i-material-symbols-warning-outline-rounded',
 					timeout: 3500,
@@ -655,7 +663,14 @@ export const useStoreCheckout = defineStore('storeCheckout', {
 		},
 
 		// Pagamento via Cartão de Crédito
-		async paymentCreditCard(useToast, IDpkgChosen, IDpkgOB, pathTo, willHavePurchese, newLabel) {
+		async paymentCreditCard(
+			useToast,
+			IDpkgChosen,
+			IDpkgOB,
+			pathTo,
+			willHavePurchese,
+			newLabel
+		) {
 			const storeIncentive = useStoreIncentive();
 			const toast = useToast();
 
