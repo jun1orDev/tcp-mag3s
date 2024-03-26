@@ -77,6 +77,7 @@ export default defineNuxtConfig({
 		'vue3-carousel-nuxt',
 		'@formkit/auto-animate/nuxt',
 		'nuxt3-meta-pixel',
+		'@vite-pwa/nuxt',
 	],
 
 	facebook: {
@@ -85,6 +86,91 @@ export default defineNuxtConfig({
 		autoPageView: true,
 		debug: false,
 		disabled: true,
+	},
+
+	pwa: {
+		/* your pwa options */
+		// registerWebManifestInRouteRules: true,
+		mode: 'production',
+		scope: '/',
+		srcDir: './service-worker',
+		filename: 'sw.ts',
+		registerType: 'prompt',
+		manifest: {
+			name: 'TCP Mag3s',
+			short_name: 'TCP Mag3s',
+			description: 'Teste de PWA',
+			theme_color: '#edbe3a',
+			lang: 'pt-br',
+			icons: [
+				{
+					src: 'icons/maskable_icon_x48.png',
+					sizes: '48x48',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x72.png',
+					sizes: '72x72',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x96.png',
+					sizes: '96x96',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x128.png',
+					sizes: '128x128',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x144.png',
+					sizes: '144x144',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x192.png',
+					sizes: '192x192',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x384.png',
+					sizes: '384x384',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon_x512.png',
+					sizes: '512x512',
+					type: 'image/png',
+					purpose: 'any',
+				},
+				{
+					src: 'icons/maskable_icon.png',
+					sizes: '1024x1024',
+					type: 'image/png',
+					purpose: 'any',
+				},
+			],
+		},
+		workbox: {
+			navigateFallback: '/',
+			navigateFallbackAllowlist: [/^\/$/],
+		},
+		client: {
+			installPrompt: true,
+			periodicSyncForUpdates: 3600,
+		},
+		devOptions: {
+			enabled: true,
+			type: 'module',
+		},
 	},
 
 	components: [{ path: '~/components/admin', prefix: 'Adm' }, '~/components'],
