@@ -19,7 +19,7 @@
 							class="border border-dashed p-3 rounded-md lg:rounded-xl animate__animated animate__zoomInUp">
 							<div class="flex flex-col">
 								<div v-if="!storeIncentive.influencerRace.influencer.loading" :style="colorTextStatsNumers">
-									<h1 v-if="storeIncentive.influencerRace.influencer.profile" class="fm3 text-2xl lg:text-5xl">
+									<h1 v-if="storeIncentive.influencerRace.influencer.score" class="fm3 text-2xl lg:text-5xl">
 										{{ storeIncentive.findInfluencerStats(influencerMedia.three) }}</h1>
 
 									<p v-else class="fm3 text-base uppercase mb-4">Este influencer não possui estatísticas!</p>
