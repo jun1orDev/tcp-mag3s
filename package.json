@@ -10,7 +10,7 @@
 		"fieldasorte": "npx nuxi dev --dotenv .env.fieldasorte --host",
 		"seutoba": "npx nuxi dev --dotenv .env.seutoba --host",
 		"generate": "nuxt generate",
-		"preview": "nuxt preview --dotenv .env.seutoba",
+		"preview": "nuxt preview",
 		"postinstall": "nuxt prepare"
 	},
 	"overrides": {
@@ -30,7 +30,7 @@
 		"@types/bcrypt": "^5.0.0",
 		"@vite-pwa/nuxt": "^0.6.0",
 		"autoprefixer": "^10.4.15",
-		"nuxt": "^3.10.3",
+		"nuxt": "^3.11.1",
 		"nuxt-icon": "^0.5.0",
 		"postcss": "^8.4.31"
 	},

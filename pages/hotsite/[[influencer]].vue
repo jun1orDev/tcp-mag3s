@@ -26,6 +26,18 @@
 
 		<!-- Call to action -->
 		<LpCallToAction />
+
+		<ClientOnly v-if="false">
+			<UModal v-model="isOpen">
+				<div class="p-4">
+					<h1 class="mb-5">Instalar App: {{useNuxtApp().$pwa?.isPWAInstalled}}</h1>
+
+					<UButton size="xl" @click="startInstall()">
+						Install
+					</UButton>
+				</div>
+			</UModal>
+		</ClientOnly>
 	</div>
 </template>
 
@@ -39,6 +51,8 @@ const { pathAssets } = useRuntimeConfig().public;
 definePageMeta({
 	middleware: ['chosen-influencer']
 });
+
+const isOpen = ref(useNuxtApp().$pwa?.showInstallPrompt && !useNuxtApp().$pwa?.needRefresh);
 
 // Seção 1
 const bgMobileImageSessionOne = computed(() => {
@@ -57,6 +71,10 @@ const bgMobileImageSessionTwo = computed(() => {
 const bgImageSessionTwo = computed(() => {
 	return `${pathAssets}${app.layout_background_hotsite_two}`;
 });
+
+const startInstall = async () => {
+	await useNuxtApp().$pwa?.install()
+}
 </script>
 
 <style scoped></style>
