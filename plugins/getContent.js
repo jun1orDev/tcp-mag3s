@@ -25,6 +25,11 @@ export default defineNuxtPlugin((nuxt) => {
 			if (process.client && useCookie('userAcceptCookies').value) {
 				initMetaPixelCode(nuxt.$fb, store.contentApp.config_meta_pixel_code_id);
 			}
+
+			// Redirecionar usuário para tela de Manutenção quando habilitado
+			if (process.client && store.contentApp.config_maintenance_will_have_app) {
+				return navigateTo({ path: '/maintenance' });
+			}
 		},
 		{ global: true }
 	);
