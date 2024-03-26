@@ -1149,6 +1149,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 				);
 
 				this.influencerRace.influencer = {
+					code: influencerCode,
 					profile: data.profile,
 					createdUsers: data.createdUsers,
 					acquisitions: data.acquisitions,
