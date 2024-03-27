@@ -2,7 +2,7 @@ import { useStoreApp } from '~/stores/app';
 import { useStoreIncentive } from '~/stores/incentive';
 
 export default defineNuxtPlugin((nuxt) => {
-	const store = useStoreApp(nuxt.$pinia);
+	const storeApp = useStoreApp(nuxt.$pinia);
 	const storeIncentive = useStoreIncentive(nuxt.$pinia);
 
 	addRouteMiddleware(
@@ -13,22 +13,17 @@ export default defineNuxtPlugin((nuxt) => {
 			else storeIncentive.userLoggedIn = false;
 
 			// Exibir ou não a edição de cartão de crédito no Menu Behaviour
-			store.selectMenuBehaviour(5, 'showing', store.contentApp.config_will_have_credit_card_payments, false, 3);
+			storeApp.selectMenuBehaviour(5, 'showing', storeApp.contentApp.config_will_have_credit_card_payments, false, 3);
 
 			// Caso já exista conteúdo do admin carregado na aplicação, não chamar novamente
-			if (store.contentHasBeenLoaded) return;
+			if (storeApp.contentHasBeenLoaded) return;
 
 			// Obtendo os dados de assets do admin
-			await store.getContentApp(useToast);
+			await storeApp.getContentApp(useToast);
 
 			// Meta Pixel Code
 			if (process.client && useCookie('userAcceptCookies').value) {
-				initMetaPixelCode(nuxt.$fb, store.contentApp.config_meta_pixel_code_id);
-			}
-
-			// Redirecionar usuário para tela de Manutenção quando habilitado
-			if (process.client && store.contentApp.config_maintenance_will_have_app) {
-				return navigateTo({ path: '/maintenance' });
+				initMetaPixelCode(nuxt.$fb, storeApp.contentApp.config_meta_pixel_code_id);
 			}
 		},
 		{ global: true }
@@ -54,7 +49,7 @@ export default defineNuxtPlugin((nuxt) => {
 					label: 'Aceitar',
 					click: () => {
 						userCookies.value = true;
-						initMetaPixelCode(nuxt.$fb, store.contentApp.config_meta_pixel_code_id);
+						initMetaPixelCode(nuxt.$fb, storeApp.contentApp.config_meta_pixel_code_id);
 					}
 				}]
 			});
