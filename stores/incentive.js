@@ -1133,6 +1133,7 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 			const storeApp = useStoreApp();
 			const app = storeApp.contentApp;
 			const toast = useToast();
+			const route = useRoute();
 
 			const { ApiIncentiveSystemContents } = useRuntimeConfig().public;
 
@@ -1158,24 +1159,26 @@ export const useStoreIncentive = defineStore('storeIncentive', {
 					loading: false,
 				};
 
-				if (data.score) {
-					toast.add({
-						id: 'info_influencer_data',
-						title: `Tudo certo!`,
-						description: `Dados do influencer carregados com sucesso.`,
-						color: 'green',
-						icon: 'i-material-symbols-person-check-outline-rounded',
-						timeout: 3500,
-					});
-				} else {
-					toast.add({
-						id: 'error_influencer_data_null',
-						title: `Atenção`,
-						description: `Este Influencer não possui estatísticas`,
-						color: 'red',
-						icon: 'i-material-symbols-warning-outline-rounded',
-						timeout: 3500,
-					});
+				if(route.path.includes('/stats')) {
+					if (data.score) {
+						toast.add({
+							id: 'info_influencer_data',
+							title: `Tudo certo!`,
+							description: `Dados do influencer carregados com sucesso.`,
+							color: 'green',
+							icon: 'i-material-symbols-person-check-outline-rounded',
+							timeout: 3500,
+						});
+					} else {
+						toast.add({
+							id: 'error_influencer_data_null',
+							title: `Atenção`,
+							description: `Este Influencer não possui estatísticas`,
+							color: 'red',
+							icon: 'i-material-symbols-warning-outline-rounded',
+							timeout: 3500,
+						});
+					}
 				}
 
 				this.influencerRace.loading = true;
