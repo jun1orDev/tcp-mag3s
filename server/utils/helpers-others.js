@@ -109,6 +109,21 @@ export const listSchemaDataMedia = [
 		tag: 'config',
 		type: typesMedia[0],
 	},
+	{
+		name: 'config_maintenance_will_have_app',
+		description:
+			'Utilizado para exibir a página de manutenção do site.',
+		value: '0',
+		tag: 'config',
+		type: typesMedia[6],
+	},
+	{
+		name: 'config_maintenance_text_description',
+		description: 'Título/Descrição da página de manutanção da aplicação.',
+		value: '<br>Estamos temporariamente fora do ar para atualizações e melhorias. <br>Fique tranquilo, voltaremos em breve, melhor do que nunca!',
+		tag: 'config',
+		type: typesMedia[0],
+	},
 
 	// Brand
 	{
