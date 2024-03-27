@@ -146,7 +146,6 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 
 	actions: {
 		async loggingIn(useToast) {
-			const router = useRouter();
 			const toast = useToast();
 			this.loading = true;
 
@@ -160,7 +159,7 @@ export const useStoreAdmin = defineStore('storeAdmin', {
 					},
 				});
 
-				router.push({ path: '/admin/dashboard' });
+				navigateTo({ path: '/admin/dashboard' });
 
 				this.login.email = '';
 				this.login.password = '';
