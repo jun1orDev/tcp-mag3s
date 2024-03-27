@@ -1,9 +1,12 @@
 <template>
-	<div>
+	<div :class="isUserAdminLogIn ? 'mt-[30px] animate__animated animate__fadeIn' : ''">
 		<NuxtPwaManifest />
 		<NuxtPage :page-key="route => route.fullPath" />
+		<OthersIndicatorAdmin />
 	</div>
 	<UNotifications />
 </template>
 
-<script></script>
+<script setup>
+const isUserAdminLogIn = useCookie('idUser').value;
+</script>

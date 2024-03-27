@@ -9,9 +9,11 @@
 					<p class="text-xl lg:text-3xl lg:leading-10 uppercase" v-html="props.description"></p>
 				</div>
 				<div :class="['order-0', orderImage]">
-					<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true">
-						<Slide v-for="slide in 1" :key="slide">
-							<img class="" :src="imageSession" alt="">
+					<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true"
+					:mouse-drag="props.images.length > 1" :touch-drag="props.images.length > 1">
+						<Slide v-for="(image,index) in props.images" :key="index">
+							<img :src="`${pathAssets}${image}`"
+							onerror="this.src='/imgs/lp/session_placeholder.png'" alt="">
 						</Slide>
 					</Carousel>
 				</div>
@@ -27,11 +29,7 @@ const app = useStoreApp().contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
 
-const props = defineProps(['title', 'description', 'image', 'bgImage', 'bgImageMobile', 'positionText', 'positionImage']);
-
-const imageSession = computed(() => {
-	return props.image ? `${pathAssets}${props.image}` : '/imgs/lp/session_placeholder.png'
-});
+const props = defineProps(['title', 'description', 'images', 'bgImage', 'bgImageMobile', 'positionText', 'positionImage']);
 
 const orderText = computed(() => {
 	if (props.positionText === 'left') {

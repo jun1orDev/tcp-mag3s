@@ -11,11 +11,11 @@
 
 		<!-- Sesstions -->
 		<LpSession v-if="app.config_will_have_scratch_card" :title="app.session_text_title_hotsite_one"
-			:description="app.session_text_description_hotsite_one" :image="app.session_image_hotsite_one"
+			:description="app.session_text_description_hotsite_one" :images="app.session_image_hotsite_one"
 			:bgImage="bgImageSessionOne" :bgImageMobile="bgMobileImageSessionOne" positionText="left" positionImage="right" />
 
 		<LpSession :title="app.session_text_title_hotsite_two" :description="app.session_text_description_hotsite_two"
-			:image="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo"
+			:images="app.session_image_hotsite_two" :bgImage="bgImageSessionTwo" :bgImageMobile="bgMobileImageSessionTwo"
 			positionText="right" positionImage="left" />
 
 		<!-- Influencers Ranking -->
