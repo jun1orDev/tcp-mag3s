@@ -40,9 +40,10 @@
 
 			<!-- Imagem de destaque (Brand secundário) -->
 			<div class="m-auto animate__animated animate__zoomIn">
-				<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true">
-					<Slide v-for="slide in 1" :key="slide">
-						<img class="md:max-w-[90%] lg:w-[150%]" :src="brandMain"
+				<Carousel id="carousel-next-prizes" :autoplay="0" :wrap-around="false" :pause-autoplay-on-hover="true"
+					:mouse-drag="app.brand_image_session.length > 1" :touch-drag="app.brand_image_session.length > 1">
+					<Slide v-for="(image, index) in app.brand_image_session" :key="index">
+						<img class="md:max-w-[90%] lg:w-[150%]" :src="`${pathAssets}${image}`"
 							onerror="this.src='/imgs/lp/landing_cover_image.png'" alt="">
 					</Slide>
 				</Carousel>
@@ -57,10 +58,6 @@ const store = useStoreApp();
 const app = useStoreApp().contentApp;
 
 const { pathAssets } = useRuntimeConfig().public;
-
-const brandMain = computed(() => {
-	return `${pathAssets}${app.brand_image_session}`;
-});
 
 const influencerImage = computed(() => {
 	if (store.influencerChosen.one) {
