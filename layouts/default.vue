@@ -1,5 +1,5 @@
 <template>
-	<div :class="isUserAdminLogIn ? 'mt-[30px] animate__animated animate__fadeIn' : ''">
+	<div :class="isUserAdminLogIn ? 'lg:mt-[30px] animate__animated animate__fadeIn' : ''">
 		<NuxtPwaManifest />
 		<NuxtPage :page-key="route => route.fullPath" />
 		<OthersIndicatorAdmin />
