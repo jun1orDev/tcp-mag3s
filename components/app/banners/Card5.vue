@@ -23,7 +23,7 @@
 				<div class="text-start">
 					<!-- Description -->
 					<div class="animate__animated animate__fadeIn" :class="props.isPositionElementsOther ? 'flex justify-end items-center' : ''">
-						<p class="fm2 text-[9px] leading-3 lg:leading-5 sm:text-[10px] md:text-[14px] lg:text-base" :class="props.isPositionElementsOther ? 'text-end' : 'text-start'" v-html="props.description">
+						<p class="fm2 text-[11px] leading-3 sm:text-[14px] lg:text-base" :class="props.isPositionElementsOther ? 'text-end' : 'text-start'" v-html="props.description">
 						</p>
 						<UIcon v-if="props.isPositionElementsOther" class="text-2xl ms-3" name="i-material-symbols-arrow-forward-ios" />
 					</div>
