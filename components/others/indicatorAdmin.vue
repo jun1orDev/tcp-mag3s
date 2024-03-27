@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-const isUserAdminLogIn = useCookie('idUser').value;
+const isUserAdminLogIn = useCookie('idUser').value && !useRoute().path.includes('admin');
 </script>
 
 <style scoped></style>
