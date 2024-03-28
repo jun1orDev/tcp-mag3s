@@ -75,7 +75,7 @@ const descriptionText = computed(() => {
 	return `${app.create_user_text_description_two}`;
 });
 
-onMounted(() => {
+onNuxtReady(() => {
 	storeCheckout.progressPurchase(
 		[
 			{ step: 1, complete: false },

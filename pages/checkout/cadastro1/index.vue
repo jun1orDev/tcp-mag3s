@@ -139,7 +139,7 @@ const descriptionText = computed(() => {
 	return `${app.create_user_text_description_one}`;
 });
 
-onMounted(() => {
+onNuxtReady(() => {
 	storeCheckout.progressPurchase(
 		[
 			{ step: 1, complete: false },
