@@ -8,6 +8,9 @@ export default defineNuxtPlugin((nuxt) => {
 	addRouteMiddleware(
 		'get-content-app',
 		async (to, from) => {
+			// Ignorar o middleware em determinadas páginas
+			if (to.fullPath.includes('admin')) return;
+
 			// Validação de usuário logado
 			if (useCookie('tokenUser').value) storeIncentive.userLoggedIn = true;
 			else storeIncentive.userLoggedIn = false;
@@ -30,6 +33,9 @@ export default defineNuxtPlugin((nuxt) => {
 	);
 
 	addRouteMiddleware('accept-cookies', (to, from) => {
+		// Ignorar o middleware em determinadas páginas
+		if (to.fullPath.includes('admin')) return;
+
 		const toast = useToast();
 		const userCookies = useCookie('userAcceptCookies', {
 			maxAge: 31536000,
@@ -42,16 +48,22 @@ export default defineNuxtPlugin((nuxt) => {
 				id: 'accept_cookies',
 				color: 'green',
 				title: 'Aviso de Cookies 🍪',
-				description: 'Este site utiliza cookies para garantir uma experiência melhor. Ao continuar navegando, você concorda com o uso de cookies de acordo com nossa Política de Privacidade. Você pode ajustar suas preferências de cookies a qualquer momento nas configurações do seu navegador.',
+				description:
+					'Este site utiliza cookies para garantir uma experiência melhor. Ao continuar navegando, você concorda com o uso de cookies de acordo com nossa Política de Privacidade. Você pode ajustar suas preferências de cookies a qualquer momento nas configurações do seu navegador.',
 				timeout: 0,
 				closeButton: false,
-				actions: [{
-					label: 'Aceitar',
-					click: () => {
-						userCookies.value = true;
-						initMetaPixelCode(nuxt.$fb, storeApp.contentApp.config_meta_pixel_code_id);
-					}
-				}]
+				actions: [
+					{
+						label: 'Aceitar',
+						click: () => {
+							userCookies.value = true;
+							initMetaPixelCode(
+								nuxt.$fb,
+								storeApp.contentApp.config_meta_pixel_code_id
+							);
+						},
+					},
+				],
 			});
 		}
 	}, { global: true });

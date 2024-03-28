@@ -10,6 +10,9 @@ export default defineNuxtPlugin((nuxt) => {
 	addRouteMiddleware(
 		'reset-stores',
 		async (to, from) => {
+			// Ignorar o middleware em determinadas páginas
+			if (to.fullPath.includes('admin')) return;
+
 			// Validação de usuário se não estiver logado
 			if (!useCookie('tokenUser').value) {
 				// Incentive Store (User Acount)
