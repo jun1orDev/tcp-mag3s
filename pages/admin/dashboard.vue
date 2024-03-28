@@ -82,6 +82,7 @@ const doYouHaveMedia = computed(() => {
 })
 
 definePageMeta({
+	layout: 'admin-default',
 	middleware: ["auth"]
 })
 

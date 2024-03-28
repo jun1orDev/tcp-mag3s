@@ -8,7 +8,8 @@
 				<UForm :state="store.login" :schema="schema" @submit="store.loggingIn(useToast)">
 					<div class="mb-8">
 						<h1 class="fm3 text-2xl">Bem-vindo!</h1>
-						<span>Faça o login para administrar o <strong class="fm3">{{ useNuxtApp().$config.public.ApiIncentiveClientId }}</strong>:</span>
+						<span>Faça o login para administrar o <strong class="fm3">{{
+					useNuxtApp().$config.public.ApiIncentiveClientId }}</strong>:</span>
 					</div>
 
 					<!-- E-mail -->
@@ -48,6 +49,7 @@ import { useStoreAdmin } from '~/stores/admin';
 import { object, string } from 'yup';
 
 definePageMeta({
+	layout: 'admin-default',
 	middleware: ['login'],
 });
 
