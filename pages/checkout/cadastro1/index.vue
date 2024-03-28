@@ -161,6 +161,7 @@ const colorTextButton = computed(() => {
 
 const configInput = ref({
 	rounded: 'rounded-full',
+	variant: { outline: 'bg-white' }
 });
 
 const configButton = ref({
